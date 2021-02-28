@@ -1,0 +1,22 @@
+{
+  "name": "@kvlm/website",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && cp -r src dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kulturverein-lochmuehle/website.git"
+  },
+  "author": {
+    "email": "admin@kulturverein-lochmuehle.de",
+    "name": "David Enke"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kulturverein-lochmuehle/website/issues"
+  },
+  "homepage": "https://github.com/kulturverein-lochmuehle/website#readme"
+}
