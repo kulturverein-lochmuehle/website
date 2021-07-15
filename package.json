@@ -1,22 +1,30 @@
 {
   "name": "@kvlm/website",
+  "private": true,
   "version": "0.0.1",
-  "description": "",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "rm -rf dist && cp -r src dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kulturverein-lochmuehle/website.git"
-  },
-  "author": {
-    "email": "admin@kulturverein-lochmuehle.de",
-    "name": "David Enke"
-  },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kulturverein-lochmuehle/website/issues"
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/build/kvlm.esm.js",
+  "module": "dist/build/kvlm.esm.js",
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test:watch": "stencil test --spec --e2e --watchAll"
   },
-  "homepage": "https://github.com/kulturverein-lochmuehle/website#readme"
+  "dependencies": {
+    "@stencil/router": "2.0.0-2",
+    "three": "0.130.1",
+    "typeface-spartan": "1.1.13"
+  },
+  "devDependencies": {
+    "@stencil/core": "2.6.0",
+    "@stencil/postcss": "2.0.0",
+    "@stencil/sass": "1.4.1",
+    "@types/node": "14.17.5",
+    "@types/three": "0.130.0",
+    "autoprefixer": "10.3.1"
+  }
 }
