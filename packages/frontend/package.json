@@ -1,0 +1,39 @@
+{
+  "name": "@kvlm/website-frontend",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "author": {
+    "name": "David Enke",
+    "email": "david@enke.dev"
+  },
+  "scripts": {
+    "build": "ts-node-esm --transpileOnly --logError esbuild.config.ts",
+    "start:build": "npm run build -- --watch",
+    "start:serve:legacy": "browser-sync start --config browser-sync.config.js",
+    "start:serve": "web-dev-server --watch --node-resolve --port 3500 --root-dir dist --app-index index.html",
+    "start": "run-p start:*"
+  },
+  "dependencies": {
+    "lit": "2.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/postcss-preset-env": "7.7.0",
+    "@web/dev-server": "0.1.35",
+    "autoprefixer": "10.4.13",
+    "esbuild": "0.14.54",
+    "esbuild-plugin-clean": "0.9.0",
+    "esbuild-plugin-copy": "1.3.0",
+    "esbuild-plugin-minify-html-literals": "1.0.1",
+    "esbuild-sass-plugin": "2.4.0",
+    "npm-run-all": "4.1.5",
+    "postcss": "8.4.19",
+    "postcss-preset-env": "7.8.3",
+    "rimraf": "3.0.2",
+    "ts-node": "10.9.1",
+    "tslib": "2.4.1",
+    "typescript": "4.9.3"
+  }
+}
