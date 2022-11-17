@@ -1,28 +1,21 @@
-import {RichText} from '@alinea/ui'
-import {TextDoc} from 'alinea'
-import Link from 'next/link'
-import type {Author} from '../schema'
-import Avatar from './avatar'
-import CoverImage from './cover-image'
-import DateFormatter from './date-formatter'
+import { RichText } from '@alinea/ui';
+import { TextDoc } from 'alinea';
+import Link from 'next/link';
+import type { Author } from '../schema';
+import Avatar from './avatar';
+import CoverImage from './cover-image';
+import DateFormatter from './date-formatter';
 
 type Props = {
-  title: string
-  coverImage: string
-  date: string
-  excerpt: TextDoc
-  author: Author
-  slug: string
-}
+  title: string;
+  coverImage: string;
+  date: string;
+  excerpt: TextDoc;
+  author: Author;
+  slug: string;
+};
 
-const PostPreview = ({
-  title,
-  coverImage,
-  date,
-  excerpt,
-  author,
-  slug
-}: Props) => {
+const PostPreview = ({ title, coverImage, date, excerpt, author, slug }: Props) => {
   return (
     <div>
       <div className="mb-5">
@@ -36,13 +29,10 @@ const PostPreview = ({
       <div className="text-lg mb-4">
         <DateFormatter dateString={date} />
       </div>
-      <RichText
-        doc={excerpt}
-        p={<p className="text-lg leading-relaxed mb-4" />}
-      />
+      <RichText doc={excerpt} p={<p className="text-lg leading-relaxed mb-4" />} />
       <Avatar name={author.title} picture={author.picture} />
     </div>
-  )
-}
+  );
+};
 
-export default PostPreview
+export default PostPreview;

@@ -1,11 +1,11 @@
-import {BlogPost} from '../schema'
-import PostPreview from './post-preview'
+import { BlogPost } from '../schema';
+import PostPreview from './post-preview';
 
 type Props = {
-  posts: BlogPost[]
-}
+  posts: BlogPost[];
+};
 
-const MoreStories = ({posts}: Props) => {
+const MoreStories = ({ posts }: Props) => {
   return (
     <section>
       <h2 className="mb-8 text-5xl md:text-7xl font-bold tracking-tighter leading-tight">
@@ -26,7 +26,7 @@ const MoreStories = ({posts}: Props) => {
         ))}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default MoreStories
+export default MoreStories;

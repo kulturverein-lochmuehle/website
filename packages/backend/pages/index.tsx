@@ -1,20 +1,26 @@
-import {Page} from '@alinea/content'
-import Head from 'next/head'
-import Container from '../components/container'
-import HeroPost from '../components/hero-post'
-import Intro from '../components/intro'
-import Layout from '../components/layout'
-import MoreStories from '../components/more-stories'
-import {createApi} from '../lib/api'
+import { Page } from '@alinea/content';
+import { GetStaticPropsContext } from 'next';
+import Head from 'next/head';
+
+import { createApi } from '../lib/api';
+import Container from '../components/container';
+import HeroPost from '../components/hero-post';
+import Intro from '../components/intro';
+import Layout from '../components/layout';
+import MoreStories from '../components/more-stories';
+
+export type Params = {
+  slug: string;
+};
 
 type Props = {
-  home: Page.Home
-  allPosts: Page.BlogPost[]
-}
+  home: Page.HomePage;
+  allPosts: Page.BlogPost[];
+};
 
-export default function Index({home, allPosts}: Props) {
-  const heroPost = allPosts[0]
-  const morePosts = allPosts.slice(1)
+export default function Index({ home, allPosts }: Props) {
+  const heroPost = allPosts[0];
+  const morePosts = allPosts.slice(1);
   return (
     <>
       <Layout>
@@ -38,14 +44,14 @@ export default function Index({home, allPosts}: Props) {
         </Container>
       </Layout>
     </>
-  )
+  );
 }
 
-export const getStaticProps = async context => {
-  const api = createApi(context.previewData)
-  const home = await api.getHomePage()
-  const allPosts = await api.getAllPosts()
+export const getStaticProps = async (context: GetStaticPropsContext<Params>) => {
+  const api = createApi(context.previewData);
+  const home = await api.getHomePage();
+  const allPosts = await api.getAllPosts();
   return {
-    props: {home, allPosts}
-  }
-}
+    props: { home, allPosts }
+  };
+};
