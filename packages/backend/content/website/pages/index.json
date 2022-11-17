@@ -1,0 +1,53 @@
+{
+  "id": "AM8DDLKrNNjNrdbOPecPa",
+  "type": "Page",
+  "title": "Kulturverein Lochmühle",
+  "sections": [
+    {
+      "id": "2pyxk0_LZv41JYVBNfwQ8",
+      "index": "a0",
+      "type": "section",
+      "title": "Willkommen",
+      "text": [
+        {
+          "type": "heading",
+          "textAlign": "left",
+          "level": 1,
+          "content": [
+            {
+              "type": "text",
+              "text": "Du hast uns gerade noch gefehlt"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "textAlign": "left",
+          "content": [
+            {
+              "type": "text",
+              "text": "Jetzt Mitglied werden und ein Stück Kulturlandschaft im Dresdner Westen mitprägen."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0bEcmkQgvVojOZGLC_nqt",
+      "index": "a1",
+      "type": "section",
+      "title": "Neues",
+      "text": []
+    },
+    {
+      "id": "704P1JqydbiT3W3hoJGok",
+      "index": "a2",
+      "type": "history",
+      "title": "Verlauf"
+    }
+  ],
+  "alinea": {
+    "index": "a0",
+    "root": "pages"
+  }
+}
