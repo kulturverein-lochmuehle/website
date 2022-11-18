@@ -1,0 +1,7 @@
+@mixin wrapper($max-width: 1200px, $padding: 0 50px) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $padding;
+}

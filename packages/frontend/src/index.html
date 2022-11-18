@@ -10,7 +10,38 @@
     <link rel="stylesheet" href="/index.css" />
   </head>
   <body>
-    <kvlm-root></kvlm-root>
+    <kvlm-root>
+      <kvlm-navigation slot="header">
+        <kvlm-navigation-item href="/willkommen" title="Willkommen" />
+        <kvlm-navigation-item href="/neues" title="Neues" />
+        <kvlm-navigation-item href="/bisher" title="Bisher" />
+      </kvlm-navigation>
+
+      <kvlm-section
+        style="
+          --kvlm-section-background-from: #75f0de;
+          --kvlm-section-background-to: #6fbad9;
+        "
+      >
+        Du hast uns gerade noch gefehlt
+      </kvlm-section>
+      <kvlm-section
+        style="
+          --kvlm-section-background-from: #525252;
+          --kvlm-section-background-to: #101010;
+        "
+      >
+        Was bisher geschah
+      </kvlm-section>
+      <kvlm-section
+        style="
+          --kvlm-section-background-from: #525252;
+          --kvlm-section-background-to: #101010;
+        "
+      >
+        Was bisher geschah
+      </kvlm-section>
+    </kvlm-root>
     <script defer type="module" src="/index.js"></script>
   </body>
 </html>
