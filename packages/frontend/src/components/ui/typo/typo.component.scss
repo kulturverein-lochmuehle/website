@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use '../../../styles/utils.scss';
 
 // prettier-ignore
 h1, h2, h3, h4, h5, h6, p, ul {
@@ -12,7 +13,7 @@ a {
 
 .title {
   font-family: 'Super Grotesk', sans-serif;
-  font-size: 150px;
+  font-size: utils.relative-font-size(150);
   font-weight: 700;
   line-height: math.div(16, 15);
   text-transform: uppercase;
