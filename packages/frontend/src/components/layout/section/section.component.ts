@@ -13,10 +13,10 @@ export class Section extends LitElement {
 
   render() {
     return html`
+      <kvlm-brook></kvlm-brook>
       <section>
         <slot></slot>
       </section>
-      <kvlm-brook></kvlm-brook>
     `;
   }
 }

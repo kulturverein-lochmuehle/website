@@ -1,3 +1,6 @@
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import postcssPresetEnv from 'postcss-preset-env';
@@ -8,9 +11,10 @@ import { copy } from 'esbuild-plugin-copy';
 import { minifyHTMLLiteralsPlugin } from 'esbuild-plugin-minify-html-literals';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const sassPluginOptions: SassPluginOptions = {
-  cache: false,
-  verbose: true,
   async transform(source) {
     const plugins = [autoprefixer, postcssPresetEnv({ stage: 0 })];
     const { css } = await postcss(plugins).process(source, { from: source });
@@ -23,6 +27,7 @@ const isWatchMode = process.argv.includes('--watch');
 build({
   bundle: true,
   entryPoints: ['src/index.ts'],
+  external: ['*.ttf', '*.woff', '*.woff2'],
   format: 'esm',
   incremental: true,
   minify: !isWatchMode,
@@ -48,8 +53,9 @@ build({
           to: ['./dist/index.html']
         },
         {
-          from: ['./src/assets/*'],
-          to: ['./dist/assets']
+          from: ['./src/assets/**/*'],
+          to: ['./dist/assets'],
+          keepStructure: true
         }
       ]
     }),

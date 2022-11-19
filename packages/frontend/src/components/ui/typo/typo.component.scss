@@ -1,0 +1,19 @@
+@use 'sass:math';
+
+// prettier-ignore
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.title {
+  font-family: 'Super Grotesk', sans-serif;
+  font-size: 150px;
+  font-weight: 700;
+  line-height: math.div(16, 15);
+  text-transform: uppercase;
+}

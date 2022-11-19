@@ -1,4 +1,41 @@
+@use 'sass:string';
+@use 'styles/utils';
+
+$fonts: (
+  'Fundamental Brigade': (
+    600,
+    400
+  ),
+  'Super Grotesk': (
+    700
+  )
+);
+@each $family, $weights in $fonts {
+  $file-name: string.to-lower-case(utils.str-replace($family, ' ', '-'));
+  @each $weight in $weights {
+    @font-face {
+      font-family: $family;
+      src: url('/assets/fonts/#{$file-name}-#{$weight}.woff2') format('woff2'),
+        url('/assets/fonts/#{$file-name}-#{$weight}.woff') format('woff'),
+        url('/assets/fonts/#{$file-name}-#{$weight}.ttf') format('truetype');
+      font-weight: $weight;
+      font-style: normal;
+    }
+  }
+}
+
 html,
 body {
   margin: 0;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: 'Fundamental Brigade', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: #161615;
 }
