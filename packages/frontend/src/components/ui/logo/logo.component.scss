@@ -1,9 +1,17 @@
 :host {
-  ---kvlm-logo-brook-color: var(--kvlm-logo-brook-color, 0.3);
-  ---kvlm-logo-typo-color: var(--kvlm-logo-typo-color, 0.3);
+  ---kvlm-logo-brook-color: var(--kvlm-logo-brook-color, #fff);
+  ---kvlm-logo-typo-color: var(--kvlm-logo-typo-color, currentColor);
 }
 
 svg {
-  width: 100%;
-  height: auto;
+  height: 100%;
+  width: auto;
+}
+
+path {
+  fill: var(---kvlm-logo-typo-color);
+
+  &.brook {
+    fill: var(---kvlm-logo-brook-color);
+  }
 }
