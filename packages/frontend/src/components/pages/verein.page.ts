@@ -1,12 +1,13 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-@customElement('kvlm-page-demo')
-export class Page extends LitElement {
+@customElement('kvlm-page-verein')
+export class VereinPage extends LitElement {
   render() {
     return html`
       <kvlm-main scroll-observe-selector="kvlm-section">
         <kvlm-section
+          id="/verein/willkommen"
           style="
           --kvlm-section-background-from: #75f0de;
           --kvlm-section-background-to: #6fbad9;
@@ -18,6 +19,7 @@ export class Page extends LitElement {
           </kvlm-typo>
         </kvlm-section>
         <kvlm-section
+          id="/verein/neues"
           style="
           --kvlm-section-background-from: #525252;
           --kvlm-section-background-to: #101010;
@@ -29,6 +31,7 @@ export class Page extends LitElement {
           </kvlm-typo>
         </kvlm-section>
         <kvlm-section
+          id="/verein/bisher"
           style="
           --kvlm-section-background-from: #525252;
           --kvlm-section-background-to: #101010;
@@ -46,6 +49,6 @@ export class Page extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'kvlm-page-demo': Page;
+    'kvlm-page-verein': VereinPage;
   }
 }
