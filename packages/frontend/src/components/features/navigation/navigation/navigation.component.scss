@@ -1,0 +1,40 @@
+@use 'sass:math';
+@use '../../../../styles/utils';
+
+// prettier-ignore
+:host {
+  ---kvlm-navigation-color-typo: var(--kvlm-navigation-color-typo, var(--kvlm-color-typo-dark, #000));
+  ---kvlm-navigation-height: var(--kvlm-navigation-height, var(--kvlm-header-offset, 100px));
+  ---kvlm-navigation-scroll-distance: var(--kvlm-navigation-scroll-distance, 0);
+
+  ---kvlm-navigation-shadow-spread: calc(5rem * var(---kvlm-navigation-scroll-distance));
+  ---kvlm-navigation-shadow-opacity: calc(0.3 * var(---kvlm-navigation-scroll-distance));
+}
+
+:host {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 3;
+
+  display: flex;
+  height: var(---kvlm-navigation-height);
+  align-items: center;
+  flex-direction: row;
+
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 var(---kvlm-navigation-shadow-spread)
+    rgba(0, 0, 0, var(---kvlm-navigation-shadow-opacity));
+  color: var(---kvlm-navigation-color-typo);
+}
+
+nav {
+  @include utils.wrapper($padding: 0 5rem);
+}
+
+kvlm-logo {
+  display: block;
+  height: 4.6rem;
+  // offset the logo to align with the typo with the content
+  // the first letter is set to 7.8 in a container with 246.2 width
+  transform: translateX(#{math.div(7.8, 246.2) * 10 - 1%});
+}
