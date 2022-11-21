@@ -1,3 +1,4 @@
+import _debounce from 'lodash-es/debounce';
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { changeLocationInline, RoutingEvent } from '../../../../utils/event.utils';
@@ -12,7 +13,10 @@ export class NavigationItem extends LitElement {
     `
   ];
 
-  private readonly handleLocationChangedBound = this.handleLocationChanged.bind(this);
+  private readonly handleLocationChangedBound = _debounce(
+    this.handleLocationChanged.bind(this),
+    300
+  );
 
   @property({ reflect: true, type: Boolean })
   active = false;

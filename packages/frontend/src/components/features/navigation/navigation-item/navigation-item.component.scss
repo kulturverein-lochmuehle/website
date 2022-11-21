@@ -1,9 +1,42 @@
+:host {
+  ---kvlm-navigation-item-stroke-distance: var(--kvlm-navigation-item-stroke-distance, 0.175em);
+  ---kvlm-navigation-item-stroke-width: var(--kvlm-navigation-item-stroke-width, 0.15em);
+}
+
 a {
+  position: relative;
+
   color: inherit;
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  line-height: 1;
   text-decoration: none;
   text-transform: uppercase;
 
+  transition: 0.3s ease;
+  transition-property: color;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    inset: auto 0 var(---kvlm-navigation-item-stroke-distance);
+    opacity: 0;
+
+    display: block;
+    height: var(---kvlm-navigation-item-stroke-width);
+    background-color: currentColor;
+
+    transition: 0.3s ease;
+    transition-property: background-color, bottom, opacity;
+  }
+
   :host([active]) & {
-    text-decoration: underline;
+    font-weight: 600;
+
+    &::after {
+      bottom: calc(var(---kvlm-navigation-item-stroke-distance) * -1);
+      opacity: 1;
+    }
   }
 }

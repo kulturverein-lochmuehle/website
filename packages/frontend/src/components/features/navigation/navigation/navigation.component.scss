@@ -3,7 +3,9 @@
 
 // prettier-ignore
 :host {
-  ---kvlm-navigation-color-typo: var(--kvlm-navigation-color-typo, var(--kvlm-color-typo-dark, #000));
+  ---kvlm-navigation-background-from: var(--kvlm-navigation-background-from, var(--kvlm-color-turquoise, red));
+  ---kvlm-navigation-background-to: var(--kvlm-navigation-background-to, var(--kvlm-color-spray, blue));
+  ---kvlm-navigation-color-typo: var(--kvlm-navigation-color-typo, var(--kvlm-color-grey-dark, #000));
   ---kvlm-navigation-height: var(--kvlm-navigation-height, var(--kvlm-header-offset, 100px));
   ---kvlm-navigation-scroll-distance: var(--kvlm-navigation-scroll-distance, 0);
 
@@ -21,14 +23,30 @@
   align-items: center;
   flex-direction: row;
 
-  backdrop-filter: blur(20px);
   box-shadow: 0 0 var(---kvlm-navigation-shadow-spread)
     rgba(0, 0, 0, var(---kvlm-navigation-shadow-opacity));
   color: var(---kvlm-navigation-color-typo);
+
+  background: linear-gradient(
+      150deg,
+      var(---kvlm-navigation-background-from) 0%,
+      var(---kvlm-navigation-background-to) 100%
+    )
+    no-repeat top / 100vw 100vh;
+  transition: 0.3s ease;
+  transition-property: color;
 }
 
 nav {
   @include utils.wrapper($padding: 0 5rem);
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+a:first-child {
+  color: inherit;
+  margin-right: auto;
 }
 
 kvlm-logo {
@@ -37,4 +55,7 @@ kvlm-logo {
   // offset the logo to align with the typo with the content
   // the first letter is set to 7.8 in a container with 246.2 width
   transform: translateX(#{math.div(7.8, 246.2) * 10 - 1%});
+
+  color: inherit;
+  transition: color 0.3s ease;
 }
