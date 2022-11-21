@@ -29,7 +29,6 @@ build({
   splitting: true,
   treeShaking: true,
   watch: isWatchMode,
-  write: true,
 
   plugins: [
     clean({ patterns: ['./dist'] }),
@@ -61,4 +60,6 @@ build({
       type: 'css-text'
     })
   ]
-});
+})
+  .then(() => !isWatchMode && process.exit(0))
+  .catch(() => process.exit(1));
