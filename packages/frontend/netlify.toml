@@ -1,0 +1,14 @@
+# https://answers.netlify.com/t/using-pnpm-and-pnpm-workspaces/2759/17?u=davidenke
+[build.environment]
+  NPM_FLAGS = "--version"
+
+[build]
+  publish = "dist"
+  command = """
+    pnpm install --recursive &&
+    pnpm run --recursive --filter @kvlm/website-frontend... build
+  """
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
