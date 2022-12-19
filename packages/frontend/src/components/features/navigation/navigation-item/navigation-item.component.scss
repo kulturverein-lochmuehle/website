@@ -1,3 +1,5 @@
+@use '../../../../styles/utils';
+
 :host {
   ---kvlm-navigation-item-stroke-distance: var(--kvlm-navigation-item-stroke-distance, 0.175em);
   ---kvlm-navigation-item-stroke-width: var(--kvlm-navigation-item-stroke-width, 0.15em);
@@ -7,7 +9,6 @@ a {
   position: relative;
 
   color: inherit;
-  font-size: 2rem;
   letter-spacing: 0.1em;
   line-height: 1;
   text-decoration: none;
@@ -15,6 +16,14 @@ a {
 
   transition: 0.3s ease;
   transition-property: color;
+
+  @include utils.mobile() {
+    font-size: 4rem;
+  }
+
+  @include utils.desktop() {
+    font-size: 2rem;
+  }
 
   &::after {
     content: '';

@@ -1,6 +1,13 @@
 @use 'sass:math';
 @use '../../../../styles/utils';
 
+$background: linear-gradient(
+    150deg,
+    var(---kvlm-navigation-background-from) 0%,
+    var(---kvlm-navigation-background-to) 100%
+  )
+  no-repeat top / 100vw 100vh;
+
 // prettier-ignore
 :host {
   ---kvlm-navigation-background-from: var(--kvlm-navigation-background-from, var(--kvlm-color-turquoise, red));
@@ -8,6 +15,8 @@
   ---kvlm-navigation-color-typo: var(--kvlm-navigation-color-typo, var(--kvlm-color-grey-dark, #000));
   ---kvlm-navigation-height: var(--kvlm-navigation-height, var(--kvlm-header-offset, 100px));
   ---kvlm-navigation-scroll-distance: var(--kvlm-navigation-scroll-distance, 0);
+  ---kvlm-navigation-stroke-color: var(--kvlm-navigation-stroke-color, currentColor);
+  ---kvlm-navigation-stroke-width: var(--kvlm-navigation-stroke-width, 0.4rem);
 
   ---kvlm-navigation-shadow-spread: calc(5rem * var(---kvlm-navigation-scroll-distance));
   ---kvlm-navigation-shadow-opacity: calc(0.3 * var(---kvlm-navigation-scroll-distance));
@@ -19,43 +28,86 @@
   z-index: 3;
 
   display: flex;
-  height: var(---kvlm-navigation-height);
-  align-items: center;
   flex-direction: row;
 
   box-shadow: 0 0 var(---kvlm-navigation-shadow-spread)
     rgba(0, 0, 0, var(---kvlm-navigation-shadow-opacity));
   color: var(---kvlm-navigation-color-typo);
 
-  background: linear-gradient(
-      150deg,
-      var(---kvlm-navigation-background-from) 0%,
-      var(---kvlm-navigation-background-to) 100%
-    )
-    no-repeat top / 100vw 100vh;
+  background: $background;
   transition: 0.3s ease;
   transition-property: color;
+
+  @include utils.mobile() {
+    background: $background;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  @include utils.desktop() {
+    align-items: center;
+    height: var(---kvlm-navigation-height);
+  }
 }
 
 nav {
-  @include utils.wrapper($padding: 0 5rem);
   display: flex;
-  align-items: center;
-  gap: 5rem;
+
+  @include utils.mobile() {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 5rem;
+    width: 100vw;
+  }
+
+  @include utils.desktop() {
+    @include utils.wrapper($padding: 0 5rem);
+    align-items: center;
+    flex-direction: row;
+    gap: 5rem;
+  }
 }
 
 a:first-child {
   color: inherit;
-  margin-right: auto;
-}
 
-kvlm-logo {
-  display: block;
-  height: 4.6rem;
-  // offset the logo to align with the typo with the content
-  // the first letter is set to 7.8 in a container with 246.2 width
-  transform: translateX(#{math.div(7.8, 246.2) * 10 - 1%});
+  @include utils.mobile() {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
 
-  color: inherit;
-  transition: color 0.3s ease;
+  @include utils.desktop() {
+    margin-right: auto;
+  }
+
+  kvlm-logo {
+    display: block;
+    height: 4.6rem;
+    // offset the logo to align with the typo with the content
+    // the first letter is set to 7.8 in a container with 246.2 width
+    transform: translateX(#{math.div(7.8, 246.2) * 10 - 1%});
+
+    color: inherit;
+    transition: color 0.3s ease;
+
+    @include utils.mobile() {
+      margin-right: auto;
+    }
+  }
+
+  svg {
+    @include utils.mobile() {
+      height: 1.64rem;
+      fill: none;
+      stroke: var(---kvlm-navigation-stroke-color);
+      stroke-width: var(---kvlm-navigation-stroke-width);
+      vector-effect: non-scaling-stroke;
+    }
+
+    @include utils.desktop() {
+      display: none;
+    }
+  }
 }
