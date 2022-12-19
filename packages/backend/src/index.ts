@@ -6,4 +6,6 @@ import { app } from './app';
 config();
 
 const port = process.env.PORT;
-app.listen(port, () => console.log('Server started on port:', port));
+app
+  .listen(port, () => console.log('Server started on port:', port))
+  .addListener('error', error => {});

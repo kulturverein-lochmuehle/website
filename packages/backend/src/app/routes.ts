@@ -11,9 +11,3 @@ routes.use('/status', statusRoutes);
 routes.use(async (_request, _response, next) => {
   next(createError.NotFound('Route not Found'));
 });
-// routes.use((err, req, res, next) => {
-//   res.status(err.status || 500).json({
-//     status: false,
-//     message: err.message
-//   });
-// });
