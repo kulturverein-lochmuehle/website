@@ -40,13 +40,20 @@ $background: linear-gradient(
 
   @include utils.mobile() {
     background: $background;
-    height: 100vh;
+    height: 12.6rem;
     overflow: hidden;
+    transition: height 0.3s ease;
   }
 
   @include utils.desktop() {
     align-items: center;
     height: var(---kvlm-navigation-height);
+  }
+}
+
+@include utils.mobile() {
+  :host([opened]) {
+    height: 100vh;
   }
 }
 
@@ -56,7 +63,7 @@ nav {
   @include utils.mobile() {
     flex-direction: column;
     gap: 3rem;
-    padding: 5rem;
+    padding: 4rem;
     width: 100vw;
   }
 
@@ -98,16 +105,36 @@ a:first-child {
   }
 
   svg {
-    @include utils.mobile() {
-      height: 1.64rem;
-      fill: none;
-      stroke: var(---kvlm-navigation-stroke-color);
-      stroke-width: var(---kvlm-navigation-stroke-width);
-      vector-effect: non-scaling-stroke;
-    }
+    fill: none;
+    stroke: var(---kvlm-navigation-stroke-color);
+    stroke-width: var(---kvlm-navigation-stroke-width);
+
+    transition: height 0.3s ease;
+    overflow: visible;
 
     @include utils.desktop() {
       display: none;
+    }
+
+    :host(:not([opened])) & {
+      height: 1.64rem;
+    }
+
+    :host([opened]) & {
+      height: 3.4rem;
+
+      path:nth-child(2) {
+        d: path('M18.7 18.7 36 36');
+      }
+
+      path:nth-child(3) {
+        d: path('M18.7 18.7 1.4 36');
+      }
+    }
+
+    path {
+      transition: d 0.3s ease;
+      vector-effect: non-scaling-stroke;
     }
   }
 }

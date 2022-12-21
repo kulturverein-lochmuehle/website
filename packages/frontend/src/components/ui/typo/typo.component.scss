@@ -13,8 +13,20 @@ a {
 
 .title {
   font-family: 'Super Grotesk', sans-serif;
-  font-size: utils.relative-font-size(150);
+  font-size: utils.relative-font-size(150, $minimum: 5.5rem);
   font-weight: 700;
   line-height: math.div(16, 15);
   text-transform: uppercase;
+}
+
+.info {
+  font-family: 'Fundamental Brigade', sans-serif;
+  font-size: utils.relative-font-size(40, $minimum: 2.2rem);
+  line-height: 1.25;
+}
+
+.body {
+  font-family: 'Fundamental Brigade', sans-serif;
+  font-size: utils.relative-font-size(20, $minimum: 1.6rem);
+  line-height: 1.5;
 }

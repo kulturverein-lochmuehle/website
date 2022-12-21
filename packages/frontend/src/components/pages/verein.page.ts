@@ -16,8 +16,13 @@ export class VereinPage extends LitElement {
         >
           <kvlm-typo>
             <h1 class="title">Du hast uns gerade noch gefehlt</h1>
+            <p class="info">
+              <a href="">Jetzt Mitglied werden</a> und ein Stück Kulturlandschaft im Dresdner Westen
+              mitprägen.
+            </p>
           </kvlm-typo>
         </kvlm-section>
+
         <kvlm-section
           id="/verein/neues"
           style="
@@ -30,6 +35,7 @@ export class VereinPage extends LitElement {
             <h1 class="title">Jetzt bei uns</h1>
           </kvlm-typo>
         </kvlm-section>
+
         <kvlm-section
           id="/verein/bisher"
           style="

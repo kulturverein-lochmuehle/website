@@ -1,4 +1,4 @@
 /// Calculates a font size relative to the viewport
-@function relative-font-size($font-size: 16, $viewport: 1920) {
-  @return calc(#{$font-size} / #{$viewport} * 100vw);
+@function relative-font-size($font-size: 16, $viewport: 1920, $minimum: 0rem) {
+  @return max(#{calc(#{$font-size} / #{$viewport} * 100vw)}, #{$minimum});
 }
