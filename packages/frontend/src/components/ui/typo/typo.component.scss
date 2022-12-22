@@ -1,9 +1,25 @@
 @use 'sass:math';
 @use '../../../styles/utils.scss';
 
+* {
+  @include utils.mobile() {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
 // prettier-ignore
 h1, h2, h3, h4, h5, h6, p, ul {
   margin: 0;
+}
+
+// prettier-ignore
+h1, h2, h3, h4, h5, h6 {
+  ~ p, ~ ul {
+    margin-top: 1em;
+  }
 }
 
 a {
@@ -13,7 +29,7 @@ a {
 
 .title {
   font-family: 'Super Grotesk', sans-serif;
-  font-size: utils.relative-font-size(150, $minimum: 5.5rem, $maximum: 14rem);
+  font-size: utils.relative-font-size(150, $minimum: 3.2rem, $maximum: 12.5rem);
   font-weight: 700;
   line-height: math.div(16, 15);
   text-transform: uppercase;
@@ -21,7 +37,7 @@ a {
 
 .info {
   font-family: 'Fundamental Brigade', sans-serif;
-  font-size: utils.relative-font-size(40, $minimum: 2.2rem);
+  font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
   line-height: 1.25;
 }
 

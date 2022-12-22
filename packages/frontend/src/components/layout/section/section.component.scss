@@ -9,7 +9,7 @@
 
 :host {
   position: relative;
-  display: block;
+  display: flex;
   padding-top: var(--kvlm-header-offset);
   min-height: calc(100vh - var(--kvlm-header-offset));
 
@@ -21,16 +21,20 @@
   color: var(---kvlm-section-color);
 
   section {
+    position: relative;
+    z-index: 1;
+
     @include utils.mobile() {
       @include utils.wrapper($padding: 40px);
     }
 
     @include utils.desktop() {
       @include utils.wrapper($padding: 50px);
-    }
 
-    position: relative;
-    z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 
   kvlm-brook {
