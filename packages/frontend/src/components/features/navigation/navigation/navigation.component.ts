@@ -43,8 +43,8 @@ export class Navigation extends LitElement {
 
   render() {
     return html`
-      <nav>
-        <a href="/" @click="${this.handleClick}">
+      <nav @click="${this.handleClick}">
+        <a href="/">
           <kvlm-logo></kvlm-logo>
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.4 37.4">
