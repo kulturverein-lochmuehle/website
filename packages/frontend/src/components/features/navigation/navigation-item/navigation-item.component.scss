@@ -17,11 +17,11 @@ a {
   transition: 0.3s ease;
   transition-property: color;
 
-  @include utils.mobile() {
+  @include utils.media-lt(utils.$breakpoint-navigation) {
     font-size: 4rem;
   }
 
-  @include utils.desktop() {
+  @include utils.media-gt(utils.$breakpoint-navigation) {
     font-size: 2rem;
   }
 
