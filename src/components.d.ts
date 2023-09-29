@@ -49,6 +49,8 @@ export namespace Components {
     }
     interface KvlmMain {
     }
+    interface KvlmNewsletter {
+    }
     interface KvlmRoot {
     }
     interface KvlmSubpages {
@@ -144,6 +146,12 @@ declare global {
         prototype: HTMLKvlmMainElement;
         new (): HTMLKvlmMainElement;
     };
+    interface HTMLKvlmNewsletterElement extends Components.KvlmNewsletter, HTMLStencilElement {
+    }
+    var HTMLKvlmNewsletterElement: {
+        prototype: HTMLKvlmNewsletterElement;
+        new (): HTMLKvlmNewsletterElement;
+    };
     interface HTMLKvlmRootElement extends Components.KvlmRoot, HTMLStencilElement {
     }
     var HTMLKvlmRootElement: {
@@ -182,6 +190,7 @@ declare global {
         "kvlm-icon-logo": HTMLKvlmIconLogoElement;
         "kvlm-loader": HTMLKvlmLoaderElement;
         "kvlm-main": HTMLKvlmMainElement;
+        "kvlm-newsletter": HTMLKvlmNewsletterElement;
         "kvlm-root": HTMLKvlmRootElement;
         "kvlm-subpages": HTMLKvlmSubpagesElement;
         "kvlm-today": HTMLKvlmTodayElement;
@@ -231,6 +240,8 @@ declare namespace LocalJSX {
     }
     interface KvlmMain {
     }
+    interface KvlmNewsletter {
+    }
     interface KvlmRoot {
     }
     interface KvlmSubpages {
@@ -256,6 +267,7 @@ declare namespace LocalJSX {
         "kvlm-icon-logo": KvlmIconLogo;
         "kvlm-loader": KvlmLoader;
         "kvlm-main": KvlmMain;
+        "kvlm-newsletter": KvlmNewsletter;
         "kvlm-root": KvlmRoot;
         "kvlm-subpages": KvlmSubpages;
         "kvlm-today": KvlmToday;
@@ -279,6 +291,7 @@ declare module "@stencil/core" {
             "kvlm-icon-logo": LocalJSX.KvlmIconLogo & JSXBase.HTMLAttributes<HTMLKvlmIconLogoElement>;
             "kvlm-loader": LocalJSX.KvlmLoader & JSXBase.HTMLAttributes<HTMLKvlmLoaderElement>;
             "kvlm-main": LocalJSX.KvlmMain & JSXBase.HTMLAttributes<HTMLKvlmMainElement>;
+            "kvlm-newsletter": LocalJSX.KvlmNewsletter & JSXBase.HTMLAttributes<HTMLKvlmNewsletterElement>;
             "kvlm-root": LocalJSX.KvlmRoot & JSXBase.HTMLAttributes<HTMLKvlmRootElement>;
             "kvlm-subpages": LocalJSX.KvlmSubpages & JSXBase.HTMLAttributes<HTMLKvlmSubpagesElement>;
             "kvlm-today": LocalJSX.KvlmToday & JSXBase.HTMLAttributes<HTMLKvlmTodayElement>;

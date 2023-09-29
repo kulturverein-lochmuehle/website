@@ -52,6 +52,9 @@ export class Root implements ComponentInterface {
               <Route path={/^\/protokolle/}>
                 <kvlm-generic-page config={this.config} src="/pages/protokolle.mdx" />
               </Route>
+              <Route path={/^\/newsletter/}>
+                <kvlm-generic-page config={this.config} src="/pages/newsletter.mdx" />
+              </Route>
             </Switch>
           </kvlm-content>
         </kvlm-main>
@@ -68,6 +71,9 @@ export class Root implements ComponentInterface {
           <a {...href('/protokolle')} class={{ active: this.activePath.startsWith('/protokolle') }}>
             Protokolle
           </a>
+          {/* <a {...href('/newsletter')} class={{ active: this.activePath.startsWith('/newsletter') }}>
+            Newsletter
+          </a> */}
           <a href="https://www.facebook.com/kulturverein.lochmuehle" target="_blank">
             Facebook
           </a>
