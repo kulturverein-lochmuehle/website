@@ -2,17 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "lib": [
-      "esnext"
-    ],
-    "module": "commonjs",
+    "lib": ["esnext"],
     "outDir": "dist/functions",
     "skipLibCheck": true
   },
-  "include": [
-    "src/functions"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/functions"],
+  "exclude": ["node_modules"]
 }

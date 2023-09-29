@@ -1,5 +1,5 @@
-import { ComponentInterface } from '@stencil/core';
-import { Config } from '../utils/config.utils';
+import type { ComponentInterface } from '@stencil/core';
+import type { Config } from '../utils/config.utils.js';
 
 export type PageComponent = ComponentInterface & {
   config: Config;

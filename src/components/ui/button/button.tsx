@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, Element, h, Prop, Watch } from '@stencil/core';
-import { matchQueryFromCustomProp } from '../../../utils/media-query.utils';
+import { matchQueryFromCustomProp } from '../../../utils/media-query.utils.js';
 
 @Component({
   tag: 'kvlm-button',
@@ -20,7 +20,7 @@ export class Button implements ComponentInterface {
   forzeBlock?: boolean;
 
   @Prop()
-  type = 'button';
+  type: HTMLButtonElement['type'] = 'button';
 
   @Prop()
   download?: string;

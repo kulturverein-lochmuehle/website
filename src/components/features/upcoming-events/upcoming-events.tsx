@@ -1,6 +1,6 @@
 import { Component, ComponentInterface, h, Prop, State } from '@stencil/core';
-import { UpcomingEvent } from '../../../types/event.types';
-import { formatDate } from '../../../utils/date.utils';
+import type { UpcomingEvent } from '../../../types/event.types.js';
+import { formatDate } from '../../../utils/date.utils.js';
 
 @Component({
   tag: 'kvlm-upcoming-events',

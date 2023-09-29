@@ -1,8 +1,8 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
 
-import { PageComponent } from '../../../types/page.types';
-import { Config } from '../../../utils/config.utils';
-import { loadMarkdown } from '../../../utils/page.utils';
+import type { Config } from '../../../utils/config.utils.js';
+import type { PageComponent } from '../../../types/page.types.js';
+import { loadMarkdown } from '../../../utils/page.utils.js';
 
 @Component({
   tag: 'kvlm-generic-page',

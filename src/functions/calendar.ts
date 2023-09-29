@@ -1,7 +1,8 @@
-import fetch from 'node-fetch';
-import { Handler } from '@netlify/functions';
-import { parseICS } from 'ical/ical';
-import { UpcomingEvent } from '../types/event.types';
+import type { Handler } from '@netlify/functions';
+import { parseICS } from 'ical';
+import type { UpcomingEvent } from '../types/event.types.js';
+
+declare const fetch: Function;
 
 const handler: Handler = async () => {
   try {
@@ -16,7 +17,7 @@ const handler: Handler = async () => {
       // just future (or ongoing) events
       .filter(({ end }) => end > now)
       // map relevant information
-      .map(({ start, end, location, summary }) => ({ start, end, location, summary } as UpcomingEvent))
+      .map(({ start, end, location, summary }) => ({ start, end, location, summary }) as UpcomingEvent)
       // order all events descending
       .sort((a, b) => a.start.getTime() - b.start.getTime());
 

@@ -1,5 +1,5 @@
-import {Component, ComponentInterface, h, Host, Prop, State, Watch} from '@stencil/core';
-import {loadMarkdown} from '../../../utils/page.utils';
+import { Component, ComponentInterface, h, Host, Prop, State, Watch } from '@stencil/core';
+import { loadMarkdown } from '../../../utils/page.utils.js';
 
 @Component({
   tag: 'kvlm-subpages',
@@ -14,7 +14,7 @@ export class Subpages implements ComponentInterface {
   private _article = '';
 
   @State()
-  private _pages: { [name: string]: string; } = {};
+  private _pages: { [name: string]: string } = {};
 
   @Prop()
   src!: string;
@@ -34,13 +34,14 @@ export class Subpages implements ComponentInterface {
     return (
       <Host>
         <nav>
-          {Object.keys(this._pages).sort().reverse().map(name => (
-            <a class={{active: this._pages[name] === this._selected}}
-               onClick={() => this.loadPage(this._pages[name])}
-            >
-              {name}
-            </a>
-          ))}
+          {Object.keys(this._pages)
+            .sort()
+            .reverse()
+            .map(name => (
+              <a class={{ active: this._pages[name] === this._selected }} onClick={() => this.loadPage(this._pages[name])}>
+                {name}
+              </a>
+            ))}
         </nav>
         <article innerHTML={this._article} />
       </Host>

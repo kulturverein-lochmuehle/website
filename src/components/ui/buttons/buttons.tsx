@@ -1,5 +1,5 @@
 import { Component, ComponentInterface, h, Prop, Watch } from '@stencil/core';
-import { matchQueryFromCustomProp } from '../../../utils/media-query.utils';
+import { matchQueryFromCustomProp } from '../../../utils/media-query.utils.js';
 
 @Component({
   tag: 'kvlm-buttons',

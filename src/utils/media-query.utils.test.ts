@@ -1,4 +1,4 @@
-import { matchQuery, matchQueryFromCustomProp, queryLists } from './media-query.utils';
+import { matchQuery, matchQueryFromCustomProp, queryLists } from './media-query.utils.js';
 
 // mock match media for current test case
 Object.defineProperty(window, 'matchMedia', {

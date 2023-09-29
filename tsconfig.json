@@ -7,9 +7,17 @@
     "experimentalDecorators": true,
     "jsx": "react",
     "jsxFactory": "h",
+    "module": "nodenext",
     "moduleResolution": "nodenext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "target": "esnext"
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "compilerOptions": {
+      "resolveJsonModule": true
+    }
   }
 }

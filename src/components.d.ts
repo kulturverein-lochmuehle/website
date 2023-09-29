@@ -5,7 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Config } from "./utils/config.utils";
+import { Config } from "./utils/config.utils.js";
+export { Config } from "./utils/config.utils.js";
 export namespace Components {
     interface KvlmAuthenticate {
         "at": string;
@@ -21,7 +22,7 @@ export namespace Components {
         "forzeBlock"?: boolean;
         "href"?: string;
         "target"?: string;
-        "type": string;
+        "type": HTMLButtonElement['type'];
     }
     interface KvlmButtons {
         "direction": 'horizontal' | 'vertical';
@@ -59,6 +60,10 @@ export namespace Components {
         "calendarUrl": string;
         "loading"?: string;
     }
+}
+export interface KvlmBackgroundCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLKvlmBackgroundElement;
 }
 declare global {
     interface HTMLKvlmAuthenticateElement extends Components.KvlmAuthenticate, HTMLStencilElement {
@@ -189,7 +194,7 @@ declare namespace LocalJSX {
     }
     interface KvlmBackground {
         "image": string;
-        "onLoaded"?: (event: CustomEvent<string>) => void;
+        "onLoaded"?: (event: KvlmBackgroundCustomEvent<string>) => void;
         "preview": string;
     }
     interface KvlmButton {
@@ -199,7 +204,7 @@ declare namespace LocalJSX {
         "forzeBlock"?: boolean;
         "href"?: string;
         "target"?: string;
-        "type"?: string;
+        "type"?: HTMLButtonElement['type'];
     }
     interface KvlmButtons {
         "direction"?: 'horizontal' | 'vertical';

@@ -1,6 +1,6 @@
 import { Component, ComponentInterface, h, Host, State } from '@stencil/core';
 import { createRouter, href, Route } from '@stencil/router';
-import { Config, getConfig } from '../../../utils/config.utils';
+import { type Config, getConfig } from '../../../utils/config.utils.js';
 
 const { path, Switch, on } = createRouter();
 

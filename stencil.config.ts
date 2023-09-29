@@ -1,8 +1,8 @@
-import { Config } from '@stencil/core';
+import type { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 import { postcss } from '@stencil/postcss';
 import autoprefixer from 'autoprefixer';
-import nodePolyfills from 'rollup-plugin-node-polyfills';
+// import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -47,7 +47,7 @@ export const config: Config = {
     },
   ],
   plugins: [sass(), postcss({ plugins: [autoprefixer] })],
-  rollupPlugins: { after: [nodePolyfills()] },
+  // rollupPlugins: { after: [nodePolyfills()] },
   taskQueue: 'async',
   tsconfig: 'tsconfig.www.json',
 };
