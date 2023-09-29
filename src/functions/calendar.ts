@@ -13,6 +13,9 @@ const handler: Handler = async () => {
     'Access-Control-Allow-Headers': 'content-type, x-requested-with',
   };
 
+  // handle options requests
+  if (httpMethod === 'OPTIONS') return { headers, statusCode: 200 };
+
   try {
     const response = await fetch(env.KVLM_CALENDAR_URL, { redirect: 'follow' });
     const calendar = ical.parseICS(await response.text());
@@ -37,7 +40,7 @@ const handler: Handler = async () => {
   } catch (message) {
     return {
       headers,
-      statusCode: 500,
+      statusCode: 503,
       body: JSON.stringify({ error: 'Failed fetching calendar data', message }),
     };
   }

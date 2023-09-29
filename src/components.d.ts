@@ -50,6 +50,7 @@ export namespace Components {
     interface KvlmMain {
     }
     interface KvlmNewsletter {
+        "at": string;
     }
     interface KvlmRoot {
     }
@@ -241,6 +242,7 @@ declare namespace LocalJSX {
     interface KvlmMain {
     }
     interface KvlmNewsletter {
+        "at": string;
     }
     interface KvlmRoot {
     }

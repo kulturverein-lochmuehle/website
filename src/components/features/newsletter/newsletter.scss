@@ -23,12 +23,19 @@ label:not([hidden]) {
   }
 }
 
-input:not([type='checkbox']) {
-  all: unset;
-  flex: 1 0 auto;
-  cursor: text;
+input {
+  &:not([type='checkbox']) {
+    all: unset;
+    flex: 1 0 auto;
+    cursor: text;
+  }
+
+  &:disabled,
+  &:disabled ~ * {
+    opacity: 0.5;
+  }
 }
 
-kvlm-button {
+input kvlm-button {
   margin-top: 20px;
 }

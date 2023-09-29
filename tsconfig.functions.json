@@ -5,6 +5,7 @@
     "lib": ["esnext"],
     "outDir": "dist/functions",
     "skipLibCheck": true,
+    "target": "esnext",
     "verbatimModuleSyntax": true
   },
   "include": ["src/functions"],

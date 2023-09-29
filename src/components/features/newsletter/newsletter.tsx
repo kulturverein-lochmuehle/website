@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, State, h } from '@stencil/core';
+import { Component, ComponentInterface, Prop, State, h } from '@stencil/core';
 import { href } from '@stencil/router';
 
 @Component({
@@ -16,6 +16,12 @@ export class Newsletter implements ComponentInterface {
   @State()
   private _isSent = false;
 
+  @State()
+  private _hasError = false;
+
+  @Prop()
+  readonly at!: string;
+
   private handleInput(event: InputEvent) {
     const input = event.target as HTMLInputElement;
     this._isValid = input.form?.checkValidity() ?? false;
@@ -23,57 +29,66 @@ export class Newsletter implements ComponentInterface {
 
   private async handleSubmit(event: Event) {
     event.preventDefault();
+    this._hasError = false;
     this._isIdle = false;
-    const form = event.target as HTMLFormElement;
-    const body = new FormData(form);
-    body.append('form-name', form.name);
+    const formData = new FormData(event.target as HTMLFormElement);
+    const data = {};
+    formData.forEach((value, key) => (data[key] = value));
 
-    await fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-    });
-    this._isSent = true; // response.ok;
-    this._isIdle = true;
+    try {
+      const response = await fetch(this.at, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      this._isSent = response.ok;
+      this._hasError = !response.ok;
+      this._isIdle = true;
+    } catch (error) {
+      this._hasError = true;
+      this._isSent = false;
+      this._isIdle = true;
+    }
   }
 
   render() {
     if (!this._isSent) {
       return (
-        <form
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-          name="newsletter"
-          method="post"
-          onInput={event => this.handleInput(event)}
-          onSubmit={event => this.handleSubmit(event)}
-        >
+        <form name="newsletter" method="post" onInput={event => this.handleInput(event)} onSubmit={event => this.handleSubmit(event)}>
           <label hidden aria-hidden="true">
-            <input name="bot-field" />
+            <input type="text" name="honey" />
           </label>
 
           <label>
-            Vorname: <input disabled={!this._isIdle} type="text" name="firstname" />
+            Vorname: <input disabled={!this._isIdle} type="text" name="first_name" />
           </label>
 
           <label>
-            Nachname: <input disabled={!this._isIdle} type="text" name="lastname" />
+            Nachname: <input disabled={!this._isIdle} type="text" name="last_name" />
           </label>
 
           <label>
-            Email-Adresse: <input disabled={!this._isIdle} type="email" name="email" required />
+            Email-Adresse*: <input disabled={!this._isIdle} type="email" name="email" required />
           </label>
 
           <label class="checkbox">
             <input disabled={!this._isIdle} type="checkbox" name="consent" required />
             <span>
-              Ich bin mit den <a {...href('/datenschutz')}>Datenschutzbestimmungen</a> vertraut und stimme zu.
+              Ich bin mit den <a {...href('/datenschutz')}>Datenschutzbestimmungen</a> vertraut und stimme zu.*
             </span>
           </label>
 
           <kvlm-button disabled={!this._isIdle || !this._isValid} type="submit">
             Zum Newsletter anmelden
           </kvlm-button>
+
+          {this._hasError && (
+            <p class="error">
+              Es ist ein Fehler aufgetreten.
+              <br />
+              Bitte Angaben prüfen später und erneut versuchen.
+            </p>
+          )}
         </form>
       );
     } else {

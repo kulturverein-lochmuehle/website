@@ -8,12 +8,8 @@ const handler: Handler = async ({ body, httpMethod }) => {
     'Access-Control-Allow-Headers': 'content-type, x-requested-with',
   };
 
-  if (httpMethod.toLowerCase() === 'options') {
-    return {
-      headers,
-      statusCode: 200,
-    };
-  }
+  // handle options requests
+  if (httpMethod === 'OPTIONS') return { headers, statusCode: 200 };
 
   try {
     const { KVLM_PROTOCOL_TOKEN } = JSON.parse(body);

@@ -8,5 +8,8 @@
   "docs": {
     "membership": "/docs/Mitgliedsantrag.pdf",
     "protocols": "/protocols.json"
+  },
+  "newsletter": {
+    "registration": "/.netlify/functions/newsletter-registration"
   }
 }
