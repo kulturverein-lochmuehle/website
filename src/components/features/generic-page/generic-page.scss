@@ -2,7 +2,12 @@ section:not(:last-child) {
   margin-bottom: calc(var(--base-size) * 3);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 0;
 
   + p {
@@ -19,8 +24,9 @@ table {
   margin: 1em 0;
   border-collapse: collapse;
 
-  td, th {
-    padding: .3em 1em;
+  td,
+  th {
+    padding: 0.3em 1em;
     border-bottom: 1px solid currentColor;
 
     &:first-child {
@@ -37,10 +43,18 @@ table {
   }
 }
 
+ul {
+  padding-left: 0.85em;
+}
+
 blockquote {
   margin: var(--base-size) 0;
-  padding: 0 calc(var(--base-size) * 2) 0 calc(var(--base-size) * 1.9);
+  padding: 0 calc(var(--base-size) * 2) 0 0.85em;
 
-  border-left: calc(var(--base-size) * .1) solid currentColor;
+  border-left: calc(var(--base-size) * 0.1) solid currentColor;
   font-style: italic;
+}
+
+img {
+  max-width: 100%;
 }
