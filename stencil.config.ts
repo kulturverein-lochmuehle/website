@@ -17,6 +17,11 @@ export const config: Config = {
     {
       copy: [
         {
+          // mailjet domain verification
+          // todo remove once verified
+          src: '1010ef7470b30bc3883d165ead4d7324.txt',
+        },
+        {
           src: 'browserconfig.xml',
         },
         {
