@@ -1,3 +1,4 @@
+import { env } from 'node:process';
 import type { Handler } from '@netlify/functions';
 
 const handler: Handler = async ({ body, httpMethod }) => {
@@ -16,7 +17,7 @@ const handler: Handler = async ({ body, httpMethod }) => {
 
   try {
     const { KVLM_PROTOCOL_TOKEN } = JSON.parse(body);
-    const success = KVLM_PROTOCOL_TOKEN === process.env.KVLM_PROTOCOL_TOKEN;
+    const success = KVLM_PROTOCOL_TOKEN === env.KVLM_PROTOCOL_TOKEN;
 
     return {
       headers,

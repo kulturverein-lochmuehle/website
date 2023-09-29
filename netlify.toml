@@ -1,16 +1,21 @@
 # redirect everything to the index (SPA style)
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+from = "/*"
+status = 200
+to = "/index.html"
+
+[dev]
+# https://cli.netlify.com/functions-dev/#usage
+functions = "src/functions"
+functionsPort = 3332
 
 [build]
-  # run the site build
-  command = """
+# run the site build
+command = """
     npm run build
   """
-  # the directory published to netlify's CDN
-  publish = "dist/www"
+# the directory published to netlify's CDN
+publish = "dist/www"
 
-  # functions build directory
-  functions = "dist/functions"
+# functions build directory
+functions = "dist/functions"
