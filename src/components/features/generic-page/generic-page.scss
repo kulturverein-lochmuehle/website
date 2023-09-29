@@ -1,0 +1,46 @@
+section:not(:last-child) {
+  margin-bottom: calc(var(--base-size) * 3);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0;
+
+  + p {
+    margin-top: 0;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+table {
+  margin: 1em 0;
+  border-collapse: collapse;
+
+  td, th {
+    padding: .3em 1em;
+    border-bottom: 1px solid currentColor;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  th {
+    border-bottom-width: 3px;
+  }
+}
+
+blockquote {
+  margin: var(--base-size) 0;
+  padding: 0 calc(var(--base-size) * 2) 0 calc(var(--base-size) * 1.9);
+
+  border-left: calc(var(--base-size) * .1) solid currentColor;
+  font-style: italic;
+}

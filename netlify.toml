@@ -1,0 +1,18 @@
+# redirect everything to the index (SPA style)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[build]
+  # run the site build
+  command = """
+    npm run test &&
+    rm -rf dist &&
+    npm run build
+  """
+  # the directory published to netlify's CDN
+  publish = "dist/www"
+
+  # functions build directory
+  functions = "dist/functions"

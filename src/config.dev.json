@@ -1,0 +1,12 @@
+{
+  "auth": "https://kvlm.netlify.app/.netlify/functions/auth",
+  "calendar": {
+    "google": "https://calendar.google.com/calendar/embed?src=bt9jo8d4eih6jnd962kblscces%40group.calendar.google.com&ctz=Europe%2FBerlin",
+    "ical": "https://calendar.google.com/calendar/ical/bt9jo8d4eih6jnd962kblscces%40group.calendar.google.com/public/basic.ics",
+    "upcoming": "https://kvlm.netlify.app/.netlify/functions/calendar"
+  },
+  "docs": {
+    "membership": "/docs/Mitgliedsantrag.pdf",
+    "protocols": "/protocols.json"
+  }
+}

@@ -1,0 +1,25 @@
+@import '../../../styles/utils';
+
+:host {
+  padding: var(--base-size);
+  opacity: 0;
+  transition: 2s opacity 2s ease-out;
+
+  color: var(--color-white);
+
+  @media ($media-query-tablet) {
+    max-width: 80vw;
+  }
+
+  @media ($media-query-desktop) {
+    max-width: 60vw;
+  }
+
+  @media ($media-query-large-desktop) {
+    max-width: calc(var(--base-size) * 43.2);
+  }
+}
+
+:host([visible]) {
+  opacity: 1;
+}

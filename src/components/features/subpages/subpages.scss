@@ -1,0 +1,20 @@
+nav {
+  display: block;
+  margin-top: 1.33em;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #fff;
+
+  a {
+    display: block;
+    color: inherit;
+
+    &.active,
+    &:hover {
+      opacity: .8;
+    }
+
+    &:not(.active) {
+      cursor: pointer;
+    }
+  }
+}

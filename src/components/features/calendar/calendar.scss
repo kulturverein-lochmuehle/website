@@ -1,0 +1,24 @@
+@import '../../../styles/utils';
+
+:host {
+  display: block;
+  padding: var(--base-size) 0;
+}
+
+iframe {
+  border: 0;
+  height: 40rem;
+  width: 100%;
+
+  @media ($media-query-tablet) {
+    width: 80vw;
+  }
+
+  @media ($media-query-desktop) {
+    width: 60vw;
+  }
+
+  @media ($media-query-large-desktop) {
+    width: 40vw;
+  }
+}

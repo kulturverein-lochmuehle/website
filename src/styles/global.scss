@@ -1,0 +1,104 @@
+@use 'utils' as utils;
+
+// apply resets
+@import '~css-reset-and-normalize/scss/reset-and-normalize';
+@import '~css-reset-and-normalize/scss/button-reset';
+@import '~css-reset-and-normalize/scss/link-reset';
+
+@font-face {
+  font-family: 'Fundamental Brigade';
+  src: url('/assets/fonts/fundamental-brigade/fundamental-brigade-latin-400.woff2') format('woff2'),
+  url('/assets/fonts/fundamental-brigade/fundamental-brigade-latin-400.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Super Grotesk';
+  src: url('/assets/fonts/super-grotesk/super-grotesk-latin-500.woff2') format('woff2'),
+  url('/assets/fonts/super-grotesk/super-grotesk-latin-500.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Muli';
+  src: url('/assets/fonts/muli/muli-latin-400.woff2') format('woff2'),
+  url('/assets/fonts/muli/muli-latin-400.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+:root {
+  /// breakpoints
+  --breakpoint-mobile: #{utils.$breakpoint-mobile};
+  --breakpoint-tablet: #{utils.$breakpoint-tablet};
+  --breakpoint-desktop: #{utils.$breakpoint-desktop};
+
+  // media queries
+  --media-query-tablet: #{utils.$media-query-tablet};
+  --media-query-desktop: #{utils.$media-query-desktop};
+  --media-query-large-desktop: #{utils.$media-query-large-desktop};
+
+  /// colors
+  // basic colors
+  --color-transparent: transparent;
+  --color-white: #fff;
+  --color-grey-70: #b4b4b4;
+  --color-grey-30: #4d4d4d;
+  --color-grey-20: #333;
+  --color-black: #000;
+
+  // cd colors
+   --color-cyan-light: #a8ebff;
+   --color-cyan: #6aebff;
+   --color-cyan-dark: #388b99;
+
+  /// fonts
+  // font families
+  --font-face-decorated: 'Super Grotesk', sans-serif;
+  --font-face-default: 'Muli', Helvetica, sans-serif;
+
+  // font weights
+  --font-weight-bold: 500;
+  --font-weight-regular: 400;
+
+  // font sizes
+  --font-size-base: 10px;
+
+  /// sizes
+  --base-size: 20px;
+}
+
+html,
+body {
+  // [1] Ensure the page always fills at least the entire height of the viewport.
+  // [2] Prevent iOS text size adjust after orientation change, without disabling user zoom.
+  // [3] Fonts on OSX will look more consistent with other systems that do not render text using sub-pixel anti-aliasing.
+  // sass-lint:disable property-sort-order no-vendor-prefixes
+  -webkit-tap-highlight-color: var(--color-transparent);
+  -webkit-touch-callout: none;
+  height: 100%; // [1]
+
+  -webkit-text-size-adjust: 100%; // [2]
+  -ms-text-size-adjust: 100%; // [2]
+
+  -webkit-font-smoothing: antialiased; // [3]
+  -moz-osx-font-smoothing: grayscale; // [3]
+}
+
+html {
+  background-color: var(--color-cyan);
+  font-size: var(--font-size-base);
+}
+
+body {
+  font: var(--font-weight-regular) normal calc(var(--font-size-base) * 2)/1.3 var(--font-face-default);
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: utils.$breakpoint-tablet) {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+}

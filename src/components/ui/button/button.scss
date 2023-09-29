@@ -1,0 +1,52 @@
+:host([block]) {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.button {
+  appearance: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+
+  background: transparent;
+  border: 1px solid currentColor;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0.125em 0.75em;
+  position: relative;
+
+  :host([disabled]) & {
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  :host([block]) & {
+    display: block;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+
+    background: currentColor;
+    content: '';
+    opacity: 0;
+    transition: 0.1s opacity ease-in-out;
+  }
+
+  &:not([disabled]):hover {
+    &::before {
+      opacity: 0.15;
+    }
+  }
+}

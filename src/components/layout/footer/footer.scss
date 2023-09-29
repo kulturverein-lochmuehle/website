@@ -1,0 +1,37 @@
+@import '../../../styles/utils';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: calc(var(--base-size) / 2) var(--base-size);
+  position: sticky;
+  bottom: 0;
+
+  background: var(--color-cyan);
+  color: var(--color-grey-20);
+  line-height: 2;
+
+  @media ($media-query-tablet) {
+    padding: calc(var(--base-size) * 2) var(--base-size);
+  }
+}
+
+::slotted(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+::slotted(a.active),
+::slotted(a:not(.active):hover) {
+  opacity: .8;
+}
+
+::slotted(a.active) {
+  cursor: default;
+}
+
+::slotted(a:not(:last-child)) {
+  margin-right: var(--base-size);
+}

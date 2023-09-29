@@ -1,0 +1,24 @@
+@import '../../../styles/utils';
+
+:host {
+  padding: var(--base-size);
+  color: var(--color-cyan);
+  z-index: 100;
+}
+
+h1 {
+  margin: 0;
+  padding: 0 0 0 calc(var(--base-size) * .25);
+
+  font: var(--font-weight-bold) normal 5.6vw/1 var(--font-face-decorated);
+  letter-spacing: .41em;
+  text-transform: uppercase;
+
+  span {
+    letter-spacing: .7em;
+  }
+
+  @media ($media-query-tablet) {
+    font-size: 43px;
+  }
+}

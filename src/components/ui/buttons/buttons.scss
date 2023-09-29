@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+}
+
+:host([direction="horizontal"]) {
+  flex-direction: row;
+
+  ::slotted(kvlm-button:not(:last-child)) {
+    margin-right: var(--base-size);
+  }
+}
+
+:host([direction="vertical"]) {
+  flex-direction: column;
+
+  ::slotted(kvlm-button:not(:last-child)) {
+    margin-bottom: calc(var(--base-size) / 2);
+  }
+}

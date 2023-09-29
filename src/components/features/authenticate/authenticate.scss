@@ -1,0 +1,35 @@
+:host {
+  ---gv-authenticate-color: var(--gv-authenticate-color, #fff);
+}
+
+form {
+  display: block;
+  padding: 20px 0;
+}
+
+input {
+  appearance: none;
+  background: none;
+  border: 1px solid var(---gv-authenticate-color);
+  outline: none;
+
+  display: block;
+  margin: 0 0 1.33em;
+  padding: calc(var(--base-size) / 2) var(--base-size);
+
+  font: inherit;
+  color: inherit;
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+
+  &::placeholder {
+    color: var(---gv-authenticate-color);
+    opacity: .75;
+  }  
+
+  &.error {
+    ---gv-authenticate-color: rgb(201, 67, 67);
+  }
+}
