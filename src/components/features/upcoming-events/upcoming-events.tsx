@@ -1,6 +1,6 @@
 import { Component, ComponentInterface, h, Prop, State } from '@stencil/core';
 import type { UpcomingEvent } from '../../../types/event.types.js';
-import { formatDate } from '../../../utils/date.utils.js';
+import { exceedsOneDay, formatDate } from '../../../utils/date.utils.js';
 
 @Component({
   tag: 'kvlm-upcoming-events',
@@ -22,9 +22,17 @@ export class UpcomingEvents implements ComponentInterface {
 
   async componentDidLoad() {
     this.isLoading = true;
-    const data = await fetch(this.calendarUrl, { redirect: 'follow' });
-    this.upcomingEvents = await data.json();
+    const response = await fetch(this.calendarUrl, { redirect: 'follow' });
+    if (response.ok) this.upcomingEvents = await response.json();
     this.isLoading = false;
+  }
+
+  renderDates(start: Date, end: Date): string {
+    if (exceedsOneDay(start, end)) {
+      return `${formatDate(start)} - ${formatDate(new Date(end.getTime() - 1))}`;
+    } else {
+      return formatDate(start);
+    }
   }
 
   render() {
@@ -36,9 +44,10 @@ export class UpcomingEvents implements ComponentInterface {
     } else {
       return (
         <ul>
-          {this.upcomingEvents.map(({ start, summary, location }) => (
+          {this.upcomingEvents.map(({ start, end, summary, location }) => (
             <li>
-              {formatDate(new Date(start))}, <strong>{summary}</strong>, {location}
+              {this.renderDates(new Date(start), new Date(end))}, <strong>{summary}</strong>,<br />
+              {location}
             </li>
           ))}
         </ul>
