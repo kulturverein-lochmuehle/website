@@ -2,11 +2,11 @@ import { Component, ComponentInterface, Prop, State, h } from '@stencil/core';
 import { href } from '@stencil/router';
 
 @Component({
-  tag: 'kvlm-newsletter',
-  styleUrl: 'newsletter.scss',
+  tag: 'kvlm-newsletter-registration',
+  styleUrl: 'newsletter-registration.scss',
   shadow: true,
 })
-export class Newsletter implements ComponentInterface {
+export class NewsletterRegistration implements ComponentInterface {
   @State()
   private _isIdle = true;
 
@@ -82,24 +82,13 @@ export class Newsletter implements ComponentInterface {
             Zum Newsletter anmelden
           </kvlm-button>
 
-          {this._hasError && (
-            <p class="error">
-              Es ist ein Fehler aufgetreten.
-              <br />
-              Bitte Angaben prüfen später und erneut versuchen.
-            </p>
-          )}
+          {this._hasError && <slot name="error" />}
         </form>
       );
     } else {
       return (
         <div class="success">
-          <h3>Fast geschafft!</h3>
-          <p>
-            Eine Bestätigungsmail wurde an die angegebene Adresse versendet.
-            <br />
-            Sobald diese verifiziert wurde, liefern wir Aktuelles.
-          </p>
+          <slot name="success" />
         </div>
       );
     }

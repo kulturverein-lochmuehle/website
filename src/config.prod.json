@@ -10,6 +10,7 @@
     "protocols": "/protocols.json"
   },
   "newsletter": {
-    "registration": "/.netlify/functions/newsletter-registration"
+    "registration": "/.netlify/functions/newsletter-registration",
+    "verification": "/.netlify/functions/newsletter-verification"
   }
 }

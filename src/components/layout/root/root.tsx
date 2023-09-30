@@ -1,8 +1,10 @@
 import { Component, ComponentInterface, h, Host, State } from '@stencil/core';
-import { createRouter, href, Route } from '@stencil/router';
-import { type Config, getConfig } from '../../../utils/config.utils.js';
+import { createRouter, href } from '@stencil/router';
 
-const { path, Switch, on } = createRouter();
+import { getConfig } from '../../../utils/config.utils.js';
+import { GenericPageRoute, GenericRouteContext } from '../../../utils/router.utils.js';
+
+const { on, path, Switch } = createRouter();
 
 @Component({
   tag: 'kvlm-root',
@@ -11,7 +13,7 @@ const { path, Switch, on } = createRouter();
 })
 export class Root implements ComponentInterface {
   @State()
-  private config?: Config;
+  private context: GenericRouteContext;
 
   @State()
   private activePath = path;
@@ -20,8 +22,9 @@ export class Root implements ComponentInterface {
   private initialized = false;
 
   async componentWillLoad() {
-    // resolve config
-    this.config = await getConfig();
+    // resolve config and set to context
+    const config = await getConfig();
+    this.context = { activeRoute: path, config };
 
     // register route change listener
     on('change', ({ pathname }) => (this.activePath = pathname));
@@ -34,27 +37,14 @@ export class Root implements ComponentInterface {
         <kvlm-main>
           <kvlm-content visible={this.initialized}>
             <Switch>
-              <Route path="/">
-                <kvlm-generic-page config={this.config} src="/pages/start.mdx" />
-              </Route>
-              <Route path={/^\/impressum/}>
-                <kvlm-generic-page config={this.config} src="/pages/impressum.mdx" />
-              </Route>
-              <Route path={/^\/datenschutz/}>
-                <kvlm-generic-page config={this.config} src="/pages/datenschutz.mdx" />
-              </Route>
-              <Route path={/^\/satzung/}>
-                <kvlm-generic-page config={this.config} src="/pages/satzung.mdx" />
-              </Route>
-              <Route path={/^\/beitragsordnung/}>
-                <kvlm-generic-page config={this.config} src="/pages/beitragsordnung.mdx" />
-              </Route>
-              <Route path={/^\/protokolle/}>
-                <kvlm-generic-page config={this.config} src="/pages/protokolle.mdx" />
-              </Route>
-              <Route path={/^\/newsletter/}>
-                <kvlm-generic-page config={this.config} src="/pages/newsletter.mdx" />
-              </Route>
+              <GenericPageRoute context={this.context} path="/" src="/pages/start.mdx" />
+              <GenericPageRoute context={this.context} path="/impressum" src="/pages/impressum.mdx" />
+              <GenericPageRoute context={this.context} path="/datenschutz" src="/pages/datenschutz.mdx" />
+              <GenericPageRoute context={this.context} path="/satzung" src="/pages/satzung.mdx" />
+              <GenericPageRoute context={this.context} path="/beitragsordnung" src="/pages/beitragsordnung.mdx" />
+              <GenericPageRoute context={this.context} path="/protokolle" src="/pages/protokolle.mdx" />
+              <GenericPageRoute context={this.context} path="/newsletter-anmeldung" src="/pages/newsletter-anmeldung.mdx" />
+              <GenericPageRoute context={this.context} path="/newsletter-verifizieren" src="/pages/newsletter-verifizieren.mdx" />
             </Switch>
           </kvlm-content>
         </kvlm-main>
@@ -71,9 +61,9 @@ export class Root implements ComponentInterface {
           <a {...href('/protokolle')} class={{ active: this.activePath.startsWith('/protokolle') }}>
             Protokolle
           </a>
-          {/* <a {...href('/newsletter')} class={{ active: this.activePath.startsWith('/newsletter') }}>
+          <a {...href('/newsletter-anmeldung')} class={{ active: this.activePath.startsWith('/newsletter-anmeldung') }}>
             Newsletter
-          </a> */}
+          </a>
           <a href="https://www.facebook.com/kulturverein.lochmuehle" target="_blank">
             Facebook
           </a>

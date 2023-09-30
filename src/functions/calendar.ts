@@ -3,15 +3,13 @@ import type { Handler } from '@netlify/functions';
 import * as ical from 'ical';
 
 import type { UpcomingEvent } from '../types/event.types.js';
+import { getCorsHeaders } from './utils/cors.utils.js';
 
 declare const fetch: Function;
 
-const handler: Handler = async () => {
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'content-type, x-requested-with',
-  };
+const handler: Handler = async ({ httpMethod }) => {
+  // retrieve cors headers
+  const headers = getCorsHeaders(httpMethod);
 
   // handle options requests
   if (httpMethod === 'OPTIONS') return { headers, statusCode: 200 };

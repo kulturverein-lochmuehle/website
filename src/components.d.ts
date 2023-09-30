@@ -5,8 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Config } from "./utils/config.utils.js";
-export { Config } from "./utils/config.utils.js";
+import { GenericRouteContext } from "./utils/router.utils.js";
+export { GenericRouteContext } from "./utils/router.utils.js";
 export namespace Components {
     interface KvlmAuthenticate {
         "at": string;
@@ -36,7 +36,7 @@ export namespace Components {
     interface KvlmFooter {
     }
     interface KvlmGenericPage {
-        "config": Config;
+        "context": GenericRouteContext;
         "src": string;
     }
     interface KvlmHeader {
@@ -49,7 +49,7 @@ export namespace Components {
     }
     interface KvlmMain {
     }
-    interface KvlmNewsletter {
+    interface KvlmNewsletterRegistration {
         "at": string;
     }
     interface KvlmRoot {
@@ -147,11 +147,12 @@ declare global {
         prototype: HTMLKvlmMainElement;
         new (): HTMLKvlmMainElement;
     };
-    interface HTMLKvlmNewsletterElement extends Components.KvlmNewsletter, HTMLStencilElement {
+    interface HTMLKvlmNewsletterRegistrationElement extends Components.KvlmNewsletterRegistration, HTMLStencilElement {
     }
-    var HTMLKvlmNewsletterElement: {
-        prototype: HTMLKvlmNewsletterElement;
-        new (): HTMLKvlmNewsletterElement;
+    var HTMLKvlmNewsletterRegistrationElement: {
+        prototype: HTMLKvlmNewsletterRegistrationElement;
+        new (): HTMLKvlmNewsletterRegistrationElement;
+    };
     };
     interface HTMLKvlmRootElement extends Components.KvlmRoot, HTMLStencilElement {
     }
@@ -191,7 +192,7 @@ declare global {
         "kvlm-icon-logo": HTMLKvlmIconLogoElement;
         "kvlm-loader": HTMLKvlmLoaderElement;
         "kvlm-main": HTMLKvlmMainElement;
-        "kvlm-newsletter": HTMLKvlmNewsletterElement;
+        "kvlm-newsletter-registration": HTMLKvlmNewsletterRegistrationElement;
         "kvlm-root": HTMLKvlmRootElement;
         "kvlm-subpages": HTMLKvlmSubpagesElement;
         "kvlm-today": HTMLKvlmTodayElement;
@@ -228,7 +229,7 @@ declare namespace LocalJSX {
     interface KvlmFooter {
     }
     interface KvlmGenericPage {
-        "config": Config;
+        "context": GenericRouteContext;
         "src": string;
     }
     interface KvlmHeader {
@@ -241,7 +242,9 @@ declare namespace LocalJSX {
     }
     interface KvlmMain {
     }
-    interface KvlmNewsletter {
+    interface KvlmNewsletterRegistration {
+        "at": string;
+    }
         "at": string;
     }
     interface KvlmRoot {
@@ -269,7 +272,7 @@ declare namespace LocalJSX {
         "kvlm-icon-logo": KvlmIconLogo;
         "kvlm-loader": KvlmLoader;
         "kvlm-main": KvlmMain;
-        "kvlm-newsletter": KvlmNewsletter;
+        "kvlm-newsletter-registration": KvlmNewsletterRegistration;
         "kvlm-root": KvlmRoot;
         "kvlm-subpages": KvlmSubpages;
         "kvlm-today": KvlmToday;
@@ -293,7 +296,7 @@ declare module "@stencil/core" {
             "kvlm-icon-logo": LocalJSX.KvlmIconLogo & JSXBase.HTMLAttributes<HTMLKvlmIconLogoElement>;
             "kvlm-loader": LocalJSX.KvlmLoader & JSXBase.HTMLAttributes<HTMLKvlmLoaderElement>;
             "kvlm-main": LocalJSX.KvlmMain & JSXBase.HTMLAttributes<HTMLKvlmMainElement>;
-            "kvlm-newsletter": LocalJSX.KvlmNewsletter & JSXBase.HTMLAttributes<HTMLKvlmNewsletterElement>;
+            "kvlm-newsletter-registration": LocalJSX.KvlmNewsletterRegistration & JSXBase.HTMLAttributes<HTMLKvlmNewsletterRegistrationElement>;
             "kvlm-root": LocalJSX.KvlmRoot & JSXBase.HTMLAttributes<HTMLKvlmRootElement>;
             "kvlm-subpages": LocalJSX.KvlmSubpages & JSXBase.HTMLAttributes<HTMLKvlmSubpagesElement>;
             "kvlm-today": LocalJSX.KvlmToday & JSXBase.HTMLAttributes<HTMLKvlmTodayElement>;

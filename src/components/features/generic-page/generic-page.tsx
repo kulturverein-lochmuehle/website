@@ -1,8 +1,8 @@
 import { Component, h, Prop, Watch } from '@stencil/core';
 
-import type { Config } from '../../../utils/config.utils.js';
 import type { PageComponent } from '../../../types/page.types.js';
 import { loadMarkdown } from '../../../utils/page.utils.js';
+import { GenericRouteContext } from '../../../utils/router.utils.js';
 
 @Component({
   tag: 'kvlm-generic-page',
@@ -12,15 +12,19 @@ import { loadMarkdown } from '../../../utils/page.utils.js';
 export class GenericPage implements PageComponent {
   private elementRef: HTMLElement;
 
+  get config() {
+    return this.context.config;
+  }
+
   @Prop()
-  config!: Config;
+  context!: GenericRouteContext;
 
   @Prop()
   src!: string;
 
   @Watch('src')
   async loadMarkdown() {
-    this.elementRef.innerHTML = await loadMarkdown(this.src, { config: this.config });
+    this.elementRef.innerHTML = await loadMarkdown(this.src, this.context);
   }
 
   async componentDidLoad() {

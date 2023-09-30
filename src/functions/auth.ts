@@ -1,12 +1,11 @@
 import { env } from 'node:process';
 import type { Handler } from '@netlify/functions';
+import { getCorsHeaders } from './utils/cors.utils.js';
+
 
 const handler: Handler = async ({ body, httpMethod }) => {
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'content-type, x-requested-with',
-  };
+  // retrieve cors headers
+  const headers = getCorsHeaders(httpMethod);
 
   // handle options requests
   if (httpMethod === 'OPTIONS') return { headers, statusCode: 200 };
@@ -23,7 +22,7 @@ const handler: Handler = async ({ body, httpMethod }) => {
   } catch (message) {
     return {
       headers,
-      statusCode: 500,
+      statusCode: 401,
       body: JSON.stringify({ error: 'Failed authentication', message }),
     };
   }

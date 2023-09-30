@@ -10,6 +10,7 @@
     "protocols": "/protocols.json"
   },
   "newsletter": {
-    "registration": "http://localhost:3332/.netlify/functions/newsletter-registration"
+    "registration": "http://localhost:3332/.netlify/functions/newsletter-registration",
+    "verification": "http://localhost:3332/.netlify/functions/newsletter-verification"
   }
 }

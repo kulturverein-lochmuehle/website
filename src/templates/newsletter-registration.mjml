@@ -1,0 +1,68 @@
+<mjml>
+  <mj-head>
+    <mj-title>Anmeldung zum Newsletter bestätigen</mj-title>
+    <mj-font name="Muli" href="https://fonts.googleapis.com/css?family=Muli" />
+    <mj-style inline="inline">
+      a {
+        color: inherit;
+        text-underline-offset: .25em
+      }
+    </mj-style>
+    <mj-attributes>
+      <mj-all font-family="Muli" font-size="20px" font-weight="400" line-height="1.5" />
+    </mj-attributes>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image src="https://sxivw.mjt.lu/tplimg/sxivw/b/m450t/x9nys.png" alt="Logo des Kulturverein Lochmühle e.V." width="250px" height="47px" align="left" />
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="40px" font-weight="700">
+          Noch ein letzter Schritt
+        </mj-text>
+        <mj-text>
+          Bevor wir den Newsletter versenden können, muss die Registrierung noch bestätigt werden.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-button href="https://www.kulturverein-lochmuehle.de/newsletter-verifizieren?token={{var:verificationToken}}" align="left" inner-padding="10px 20px" border-radius="0" background-color="transparent" color="#000" font-size="20px" text-transform="uppercase" border="2px solid #000">
+          Registrierung abschließen
+        </mj-button>
+
+        <mj-text font-size="16px">
+          Alternativ kann der Link auch direkt im Browser aufgerufen werden:<br />
+          <a href="https://www.kulturverein-lochmuehle.de/newsletter-verifizieren?token={{var:verificationToken}}">https://www.kulturverein-lochmuehle.de/newsletter-verifizieren?token={{var:verificationToken}}</a>
+        </mj-text>
+
+        <mj-text font-size="0" padding="0">
+          [[WORKFLOW_EXIT_LINK_DE]]
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="16px">
+          —<br />
+          Kulturverein Lochmühle e.V.<br />
+          Amtsgericht Dresden VR 11793<br />
+          Vertreten durch den Vorstand:<br />
+          Anne-Kathrin Roßner<br />
+          Eva Selbmann<br />
+          David Enke<br />
+          <br />
+          Lotzbachstraße 27<br />
+          D-01156 Dresden<br />
+          <a href="mailto:vorstand@kulturverein-lochmuehle.de">vorstand@kulturverein-lochmuehle.de</a><br />
+          <a href="https://www.kulturverein-lochmuehle.de">kulturverein-lochmuehle.de</a><br />
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

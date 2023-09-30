@@ -14,7 +14,7 @@ export type Config = {
 let config: Config;
 
 export const resolveConfig = async (): Promise<Config> => {
-  const response = await fetch('config.json');
+  const response = await fetch('/config.json');
   return await response.json();
 };
 
