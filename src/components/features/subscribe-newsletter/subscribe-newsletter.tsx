@@ -2,11 +2,11 @@ import { Component, ComponentInterface, Prop, State, h } from '@stencil/core';
 import { href } from '@stencil/router';
 
 @Component({
-  tag: 'kvlm-newsletter-registration',
-  styleUrl: 'newsletter-registration.scss',
+  tag: 'kvlm-subscribe-newsletter',
+  styleUrl: 'subscribe-newsletter.scss',
   shadow: true,
 })
-export class NewsletterRegistration implements ComponentInterface {
+export class SubscribeNewsletter implements ComponentInterface {
   @State()
   private _isIdle = true;
 

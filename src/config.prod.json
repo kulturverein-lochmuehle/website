@@ -9,8 +9,5 @@
     "membership": "/docs/Mitgliedsantrag.pdf",
     "protocols": "/protocols.json"
   },
-  "newsletter": {
-    "registration": "/.netlify/functions/newsletter-registration",
-    "verification": "/.netlify/functions/newsletter-verification"
-  }
+  "newsletter": "/.netlify/functions/subscribe-newsletter"
 }

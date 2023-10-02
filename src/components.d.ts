@@ -49,17 +49,13 @@ export namespace Components {
     }
     interface KvlmMain {
     }
-    interface KvlmNewsletterRegistration {
-        "at": string;
-    }
-    interface KvlmNewsletterVerification {
-        "at": string;
-        "token": string;
-    }
     interface KvlmRoot {
     }
     interface KvlmSubpages {
         "src": string;
+    }
+    interface KvlmSubscribeNewsletter {
+        "at": string;
     }
     interface KvlmToday {
     }
@@ -151,18 +147,6 @@ declare global {
         prototype: HTMLKvlmMainElement;
         new (): HTMLKvlmMainElement;
     };
-    interface HTMLKvlmNewsletterRegistrationElement extends Components.KvlmNewsletterRegistration, HTMLStencilElement {
-    }
-    var HTMLKvlmNewsletterRegistrationElement: {
-        prototype: HTMLKvlmNewsletterRegistrationElement;
-        new (): HTMLKvlmNewsletterRegistrationElement;
-    };
-    interface HTMLKvlmNewsletterVerificationElement extends Components.KvlmNewsletterVerification, HTMLStencilElement {
-    }
-    var HTMLKvlmNewsletterVerificationElement: {
-        prototype: HTMLKvlmNewsletterVerificationElement;
-        new (): HTMLKvlmNewsletterVerificationElement;
-    };
     interface HTMLKvlmRootElement extends Components.KvlmRoot, HTMLStencilElement {
     }
     var HTMLKvlmRootElement: {
@@ -174,6 +158,12 @@ declare global {
     var HTMLKvlmSubpagesElement: {
         prototype: HTMLKvlmSubpagesElement;
         new (): HTMLKvlmSubpagesElement;
+    };
+    interface HTMLKvlmSubscribeNewsletterElement extends Components.KvlmSubscribeNewsletter, HTMLStencilElement {
+    }
+    var HTMLKvlmSubscribeNewsletterElement: {
+        prototype: HTMLKvlmSubscribeNewsletterElement;
+        new (): HTMLKvlmSubscribeNewsletterElement;
     };
     interface HTMLKvlmTodayElement extends Components.KvlmToday, HTMLStencilElement {
     }
@@ -201,10 +191,9 @@ declare global {
         "kvlm-icon-logo": HTMLKvlmIconLogoElement;
         "kvlm-loader": HTMLKvlmLoaderElement;
         "kvlm-main": HTMLKvlmMainElement;
-        "kvlm-newsletter-registration": HTMLKvlmNewsletterRegistrationElement;
-        "kvlm-newsletter-verification": HTMLKvlmNewsletterVerificationElement;
         "kvlm-root": HTMLKvlmRootElement;
         "kvlm-subpages": HTMLKvlmSubpagesElement;
+        "kvlm-subscribe-newsletter": HTMLKvlmSubscribeNewsletterElement;
         "kvlm-today": HTMLKvlmTodayElement;
         "kvlm-upcoming-events": HTMLKvlmUpcomingEventsElement;
     }
@@ -252,17 +241,13 @@ declare namespace LocalJSX {
     }
     interface KvlmMain {
     }
-    interface KvlmNewsletterRegistration {
-        "at": string;
-    }
-    interface KvlmNewsletterVerification {
-        "at": string;
-        "token": string;
-    }
     interface KvlmRoot {
     }
     interface KvlmSubpages {
         "src": string;
+    }
+    interface KvlmSubscribeNewsletter {
+        "at": string;
     }
     interface KvlmToday {
     }
@@ -284,10 +269,9 @@ declare namespace LocalJSX {
         "kvlm-icon-logo": KvlmIconLogo;
         "kvlm-loader": KvlmLoader;
         "kvlm-main": KvlmMain;
-        "kvlm-newsletter-registration": KvlmNewsletterRegistration;
-        "kvlm-newsletter-verification": KvlmNewsletterVerification;
         "kvlm-root": KvlmRoot;
         "kvlm-subpages": KvlmSubpages;
+        "kvlm-subscribe-newsletter": KvlmSubscribeNewsletter;
         "kvlm-today": KvlmToday;
         "kvlm-upcoming-events": KvlmUpcomingEvents;
     }
@@ -309,10 +293,9 @@ declare module "@stencil/core" {
             "kvlm-icon-logo": LocalJSX.KvlmIconLogo & JSXBase.HTMLAttributes<HTMLKvlmIconLogoElement>;
             "kvlm-loader": LocalJSX.KvlmLoader & JSXBase.HTMLAttributes<HTMLKvlmLoaderElement>;
             "kvlm-main": LocalJSX.KvlmMain & JSXBase.HTMLAttributes<HTMLKvlmMainElement>;
-            "kvlm-newsletter-registration": LocalJSX.KvlmNewsletterRegistration & JSXBase.HTMLAttributes<HTMLKvlmNewsletterRegistrationElement>;
-            "kvlm-newsletter-verification": LocalJSX.KvlmNewsletterVerification & JSXBase.HTMLAttributes<HTMLKvlmNewsletterVerificationElement>;
             "kvlm-root": LocalJSX.KvlmRoot & JSXBase.HTMLAttributes<HTMLKvlmRootElement>;
             "kvlm-subpages": LocalJSX.KvlmSubpages & JSXBase.HTMLAttributes<HTMLKvlmSubpagesElement>;
+            "kvlm-subscribe-newsletter": LocalJSX.KvlmSubscribeNewsletter & JSXBase.HTMLAttributes<HTMLKvlmSubscribeNewsletterElement>;
             "kvlm-today": LocalJSX.KvlmToday & JSXBase.HTMLAttributes<HTMLKvlmTodayElement>;
             "kvlm-upcoming-events": LocalJSX.KvlmUpcomingEvents & JSXBase.HTMLAttributes<HTMLKvlmUpcomingEventsElement>;
         }

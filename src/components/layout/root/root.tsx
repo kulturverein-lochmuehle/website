@@ -45,6 +45,7 @@ export class Root implements ComponentInterface {
               <GenericPageRoute context={this.context} path="/protokolle" src="/pages/protokolle.mdx" />
               <GenericPageRoute context={this.context} path="/newsletter-anmeldung" src="/pages/newsletter-anmeldung.mdx" />
               <GenericPageRoute context={this.context} path="/newsletter-verifizieren" src="/pages/newsletter-verifizieren.mdx" />
+              <GenericPageRoute context={this.context} path="/newsletter-abonniert" src="/pages/newsletter-abonniert.mdx" />
             </Switch>
           </kvlm-content>
         </kvlm-main>
