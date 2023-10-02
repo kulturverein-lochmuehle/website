@@ -1,3 +1,4 @@
+/// <reference lib="dom" /> - required for 'fetch' to work
 import { env } from 'node:process';
 import type { Handler } from '@netlify/functions';
 
