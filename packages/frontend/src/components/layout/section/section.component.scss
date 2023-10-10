@@ -21,7 +21,14 @@
   color: var(---kvlm-section-color);
 
   section {
-    @include utils.wrapper($padding: 50px);
+    @include utils.mobile() {
+      @include utils.wrapper($padding: 40px);
+    }
+
+    @include utils.desktop() {
+      @include utils.wrapper($padding: 50px);
+    }
+
     position: relative;
     z-index: 1;
   }

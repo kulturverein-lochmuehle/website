@@ -13,6 +13,9 @@ export class Navigation extends LitElement {
 
   private readonly handleScrollBound = this.handleScroll.bind(this);
 
+  @property({ reflect: true, type: Boolean })
+  opened = false;
+
   @property({ reflect: true, attribute: 'scroll-fade-distance', type: Number })
   scrollFadeDistance = 100;
 
@@ -33,17 +36,21 @@ export class Navigation extends LitElement {
     });
   }
 
+  handleClick(event: Event) {
+    event.preventDefault();
+    this.opened = !this.opened;
+  }
+
   render() {
     return html`
       <nav>
-        <a href="/">
+        <a href="/" @click="${this.handleClick}">
           <kvlm-logo></kvlm-logo>
 
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.556 20.795">
-            <path
-              d="M927.335,4843.929l13.731,16.4,13.76-16.4"
-              transform="translate(-925.801 -4842.643)"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.4 37.4">
+            <path d="M1.4 1.4 18.7 18.7 36 1.4" />
+            <path d="M18.7 18.7 18.7 18.7" />
+            <path d="M18.7 18.7 18.7 18.7" />
           </svg>
         </a>
         <slot></slot>

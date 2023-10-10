@@ -1,5 +1,6 @@
 @use 'sass:string';
 @use 'styles/utils';
+@use './components/ui/typo/typo.component.scss';
 
 $fonts: (
   'Fundamental Brigade': (
@@ -45,8 +46,6 @@ html {
 }
 
 body {
-  font-family: 'Fundamental Brigade', sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.5;
+  @extend .body;
   color: #161615;
 }
