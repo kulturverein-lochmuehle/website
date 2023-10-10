@@ -78,13 +78,15 @@ export class NavigationItem extends LitElement {
     if (!this.inline) {
       return;
     }
+
+    // either way, we're handling this click ourselves
+    event.preventDefault();
+
     // check if we are already on the route
     if (window.location.pathname === this.href) {
-      event.preventDefault();
       return;
     }
     // inline links are not handled by default router, so we need to prevent the default behaviour
-    event.preventDefault();
     changeLocationInline(this.href, true);
   }
 
