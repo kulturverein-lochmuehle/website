@@ -12,44 +12,10 @@
   <body>
     <kvlm-root>
       <kvlm-navigation slot="header">
-        <kvlm-navigation-item href="/willkommen" title="Willkommen" />
-        <kvlm-navigation-item href="/neues" title="Neues" />
-        <kvlm-navigation-item href="/bisher" title="Bisher" />
+        <kvlm-navigation-item href="/verein/willkommen" label="Willkommen"></kvlm-navigation-item>
+        <kvlm-navigation-item href="/verein/neues" label="Neues"></kvlm-navigation-item>
+        <kvlm-navigation-item href="/verein/bisher" label="Bisher"></kvlm-navigation-item>
       </kvlm-navigation>
-
-      <kvlm-section
-        style="
-          --kvlm-section-background-from: #75f0de;
-          --kvlm-section-background-to: #6fbad9;
-          --kvlm-section-color: var(--kvlm-color-typo-dark);
-        "
-      >
-        <kvlm-typo>
-          <h1 class="title">Du hast uns gerade noch gefehlt</h1>
-        </kvlm-typo>
-      </kvlm-section>
-      <kvlm-section
-        style="
-          --kvlm-section-background-from: #525252;
-          --kvlm-section-background-to: #101010;
-          --kvlm-section-color: var(--kvlm-color-typo-light);
-        "
-      >
-        <kvlm-typo>
-          <h1 class="title">Jetzt bei uns</h1>
-        </kvlm-typo>
-      </kvlm-section>
-      <kvlm-section
-        style="
-          --kvlm-section-background-from: #525252;
-          --kvlm-section-background-to: #101010;
-          --kvlm-section-color: var(--kvlm-color-typo-light);
-        "
-      >
-        <kvlm-typo>
-          <h1 class="title">Was bisher geschah</h1>
-        </kvlm-typo>
-      </kvlm-section>
     </kvlm-root>
     <script defer type="module" src="/index.js"></script>
   </body>
