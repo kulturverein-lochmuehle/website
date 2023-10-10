@@ -7,9 +7,6 @@ import netlify from '@astrojs/netlify/functions';
 // https://astro.build/config
 export default defineConfig({
   integrations: [lit(), mdx()],
-  build: {
-    format: 'file'
-  },
   output: 'server',
   adapter: netlify()
 });
