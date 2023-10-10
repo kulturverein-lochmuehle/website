@@ -1,3 +1,4 @@
+import _debounce from 'lodash-es/debounce';
 import { LitElement, html, isServer, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 import { readCustomProperty } from '@/utils/custom-property.utils';
@@ -16,10 +17,14 @@ export class Main extends LitElement {
 
   // ssr doesn't support IntersectionObserver
   private readonly intersectionOptions: IntersectionObserverInit = { threshold: 0.5 };
-  private readonly intersectionObserver = !isServer && new IntersectionObserver(
-    entries => this.handleIntersections(entries),
-    this.intersectionOptions
-  );
+  private readonly intersectionObserver =
+    !isServer && new IntersectionObserver(this.handleIntersections, this.intersectionOptions);
+
+  // ssr doesn't support MutationObserver
+  private readonly mutationOptions: MutationObserverInit = { childList: true };
+  private readonly handleMutationsDebouncedBound = _debounce(this.observeContents.bind(this), 10);
+  private readonly mutationObserver =
+    !isServer && new MutationObserver(this.handleMutationsDebouncedBound);
 
   private readonly handleInlineLocationChangedBound = this.handleInlineLocationChanged.bind(this);
 
@@ -49,7 +54,7 @@ export class Main extends LitElement {
   }
 
   override disconnectedCallback() {
-    // don not check for intersections
+    // don not check for intersections any more
     this.intersectionObserver.disconnect();
 
     window.removeEventListener(
@@ -61,9 +66,18 @@ export class Main extends LitElement {
   }
 
   observeContents() {
+    // don't check for orphaned intersections any more
     this.intersectionObserver.disconnect();
+
+    // add new intersection observations
     this.assignedElements
-      .filter(element => this.scrollObserveSelector && element.matches(this.scrollObserveSelector))
+      .reduce((observed, element) => {
+        if (this.scrollObserveSelector === undefined) return observed;
+        if (element.matches(this.scrollObserveSelector)) return [...observed, element];
+        const within = element.querySelector<HTMLElement>(this.scrollObserveSelector);
+        if (within !== null) return [...observed, within];
+        return observed;
+      }, [] as HTMLElement[])
       .forEach(element => {
         this.intersectionObserver.observe(element);
       });
@@ -80,6 +94,11 @@ export class Main extends LitElement {
 
   @eventOptions({ passive: true })
   handleSlotChange() {
+    // watch assigned elements for changes
+    this.mutationObserver.disconnect();
+    this.assignedElements.forEach(element => {
+      this.mutationObserver.observe(element, this.mutationOptions);
+    });
     // check for intersection due to scrolling
     this.observeContents();
     // initialize correct offset
@@ -97,7 +116,16 @@ export class Main extends LitElement {
   }
 
   getActiveElement(id: string): HTMLElement | undefined {
-    return this.assignedElements.find(element => element.id === id);
+    const r = this.assignedElements.reduce((_, element) => {
+      // either the element itself has the id
+      if (element.id === id) return element;
+      // or one of the nested elements
+      const child = element.querySelector<HTMLElement>(`[id="${id}"]`);
+      if (child !== null) return child;
+      // if not, deliver previous result (or undefined)
+      return _;
+    });
+    return r;
   }
 
   changeNavigationTheme(id: string) {
