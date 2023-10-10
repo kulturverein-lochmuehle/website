@@ -5,7 +5,7 @@ import NavItem from '../../components/nav-item.component.astro';
 import Title from '../../components/title.component.astro';
 import Info from '../../components/info.component.astro';
 
-const sections = await Astro.glob('./sections/*.section.mdx');
+const sections = await Astro.glob('/src/content/verein/sections/*.section.mdx');
 ---
 
 <DefaultLayout lang="de" title="Kulturverein Lochmühle">
