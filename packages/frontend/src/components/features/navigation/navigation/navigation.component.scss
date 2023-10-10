@@ -116,20 +116,19 @@ a:first-child {
       display: none;
     }
 
+    path:nth-child(1n + 2) {
+      stroke-dasharray: 25;
+      transition: stroke-dashoffset 0.3s ease;
+    }
+
     :host(:not([opened])) & {
       height: 1.64rem;
+      stroke-dashoffset: 25;
     }
 
     :host([opened]) & {
       height: 3.4rem;
-
-      path:nth-child(2) {
-        d: path('M18.7 18.7 36 36');
-      }
-
-      path:nth-child(3) {
-        d: path('M18.7 18.7 1.4 36');
-      }
+      stroke-dashoffset: 0;
     }
 
     path {

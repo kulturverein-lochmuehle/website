@@ -1,5 +1,5 @@
 import { LitElement, html, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import styles from './navigation.component.scss';
 
@@ -32,6 +32,7 @@ export class Navigation extends LitElement {
     });
   }
 
+  @eventOptions({ passive: false, capture: true })
   handleClick(event: Event) {
     event.preventDefault();
     this.opened = !this.opened;
@@ -45,8 +46,8 @@ export class Navigation extends LitElement {
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.4 37.4">
             <path d="M1.4 1.4 18.7 18.7 36 1.4" />
-            <path d="M18.7 18.7 18.7 18.7" />
-            <path d="M18.7 18.7 18.7 18.7" />
+            <path d="M18.7 18.7 36 36" />
+            <path d="M18.7 18.7 1.4 36" />
           </svg>
         </a>
         <slot></slot>
