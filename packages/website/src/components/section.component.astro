@@ -1,0 +1,16 @@
+---
+const { backgroundFrom, backgroundTo, color, slug } = Astro.props;
+---
+
+<kvlm-section
+  id={slug}
+  style={{
+    '--kvlm-section-background-from': backgroundFrom,
+    '--kvlm-section-background-to': backgroundTo,
+    '--kvlm-section-color': color
+  }}
+>
+  <kvlm-typo>
+    <slot />
+  </kvlm-typo>
+</kvlm-section>

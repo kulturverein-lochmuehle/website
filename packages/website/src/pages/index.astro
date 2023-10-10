@@ -1,0 +1,29 @@
+---
+import DefaultLayout from '../layouts/default.layout.astro';
+import Section from '../components/section.component.astro';
+import NavItem from '../components/nav-item.component.astro';
+import Title from '../components/title.component.astro';
+import Info from '../components/info.component.astro';
+
+const sections = await Astro.glob('./sections/*.section.mdx');
+---
+
+<DefaultLayout lang="de" title="Kulturverein Lochmühle">
+  <kvlm-navigation slot="header">
+    {
+      sections.map(({ frontmatter: { slug, title } }) => (
+        <NavItem href={`/verein/${slug}`} label={title} />
+      ))
+    }
+    <NavItem href="/verein/impressum" label="Impressum" />
+  </kvlm-navigation>
+  {
+    sections.map(({ Content, frontmatter }) => {
+      return (
+        <Section {...frontmatter} slug={`/verein/${frontmatter.slug}`}>
+          <Content components={{ h1: Title, p: Info }} />
+        </Section>
+      );
+    })
+  }
+</DefaultLayout>
