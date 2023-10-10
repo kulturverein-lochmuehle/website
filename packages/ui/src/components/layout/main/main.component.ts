@@ -1,4 +1,3 @@
-import _debounce from 'lodash-es/debounce';
 import { LitElement, html, isServer, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 import { readCustomProperty } from '@/utils/custom-property.utils';
@@ -20,27 +19,23 @@ export class Main extends LitElement {
   private readonly intersectionObserver =
     !isServer && new IntersectionObserver(this.handleIntersections, this.intersectionOptions);
 
-  // ssr doesn't support MutationObserver
-  private readonly mutationOptions: MutationObserverInit = { childList: true };
-  private readonly handleMutationsDebouncedBound = _debounce(this.observeContents.bind(this), 10);
-  private readonly mutationObserver =
-    !isServer && new MutationObserver(this.handleMutationsDebouncedBound);
-
   private readonly handleInlineLocationChangedBound = this.handleInlineLocationChanged.bind(this);
 
   @queryAssignedElements()
   private assignedElements!: HTMLElement[];
 
+  private get observableElements() {
+    return this.assignedElements.reduce((observed, element) => {
+      if (this.scrollObserveSelector === undefined) return observed;
+      if (element.matches(this.scrollObserveSelector)) return [...observed, element];
+      const within = element.querySelector<HTMLElement>(this.scrollObserveSelector);
+      if (within !== null) return [...observed, within];
+      return observed;
+    }, [] as HTMLElement[]);
+  }
+
   @property({ reflect: true, attribute: 'scroll-observe-selector', type: String })
   scrollObserveSelector?: string;
-
-  override attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-    // re-observe contents
-    if (['scroll-observe-selector', 'scroll-visible-attribute'].includes(name)) {
-      this.observeContents();
-    }
-  }
 
   override connectedCallback() {
     super.connectedCallback();
@@ -51,6 +46,12 @@ export class Main extends LitElement {
       this.handleInlineLocationChangedBound,
       false
     );
+
+    // observe contents once scrolled
+    window.addEventListener('scroll', () => this.observeContents(), { passive: true, once: true });
+
+    // scroll to intial location
+    window.setTimeout(() => this.scrollToContent(window.location.pathname, false), 100);
   }
 
   override disconnectedCallback() {
@@ -70,17 +71,9 @@ export class Main extends LitElement {
     this.intersectionObserver.disconnect();
 
     // add new intersection observations
-    this.assignedElements
-      .reduce((observed, element) => {
-        if (this.scrollObserveSelector === undefined) return observed;
-        if (element.matches(this.scrollObserveSelector)) return [...observed, element];
-        const within = element.querySelector<HTMLElement>(this.scrollObserveSelector);
-        if (within !== null) return [...observed, within];
-        return observed;
-      }, [] as HTMLElement[])
-      .forEach(element => {
-        this.intersectionObserver.observe(element);
-      });
+    this.observableElements.forEach(element => {
+      this.intersectionObserver.observe(element);
+    });
   }
 
   @eventOptions({ passive: true })
@@ -90,19 +83,6 @@ export class Main extends LitElement {
       const active = entry.target as HTMLElement;
       changeLocationInline(active.id, false);
     }
-  }
-
-  @eventOptions({ passive: true })
-  handleSlotChange() {
-    // watch assigned elements for changes
-    this.mutationObserver.disconnect();
-    this.assignedElements.forEach(element => {
-      this.mutationObserver.observe(element, this.mutationOptions);
-    });
-    // check for intersection due to scrolling
-    this.observeContents();
-    // initialize correct offset
-    this.scrollToContent(window.location.pathname, false);
   }
 
   @eventOptions({ passive: true })
@@ -116,7 +96,7 @@ export class Main extends LitElement {
   }
 
   getActiveElement(id: string): HTMLElement | undefined {
-    const r = this.assignedElements.reduce((_, element) => {
+    return this.assignedElements.reduce((_, element) => {
       // either the element itself has the id
       if (element.id === id) return element;
       // or one of the nested elements
@@ -124,8 +104,7 @@ export class Main extends LitElement {
       if (child !== null) return child;
       // if not, deliver previous result (or undefined)
       return _;
-    });
-    return r;
+    }, undefined as HTMLElement | undefined);
   }
 
   changeNavigationTheme(id: string) {
@@ -156,7 +135,7 @@ export class Main extends LitElement {
   }
 
   render() {
-    return html`<slot @slotchange="${this.handleSlotChange}"></slot>`;
+    return html`<slot></slot>`;
   }
 }
 
