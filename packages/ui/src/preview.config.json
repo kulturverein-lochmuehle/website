@@ -1,5 +1,6 @@
 {
   "$schema": "../node_modules/@webcomponents-preview/client/dist/config.schema.json",
   "initialActiveElement": "kvlm-logo",
-  "initialPreviewTab": "viewer"
+  "initialPreviewTab": "viewer",
+  "title": " "
 }
