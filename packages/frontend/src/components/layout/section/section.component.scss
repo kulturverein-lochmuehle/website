@@ -4,6 +4,7 @@
 :host {
   ---kvlm-section-background-from: var(--kvlm-section-background-from, var(--kvlm-section-background, #75f0de));
   ---kvlm-section-background-to: var(--kvlm-section-background-to, var(--kvlm-section-background, #6fbad9));
+  ---kvlm-section-color: var(--kvlm-section-color, #eaeaea);
 }
 
 :host {
@@ -15,9 +16,12 @@
     var(---kvlm-section-background-from) 0%,
     var(---kvlm-section-background-to) 100%
   );
+  color: var(---kvlm-section-color);
 
   section {
     @include utils.wrapper($padding: 50px);
+    position: relative;
+    z-index: 1;
   }
 
   kvlm-brook {
