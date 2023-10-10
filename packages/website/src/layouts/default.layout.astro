@@ -1,7 +1,7 @@
 ---
 import 'lit/experimental-hydrate-support.js';
 import '@kvlm/ui';
-import kvlmStyles from '@kvlm/ui/dist/index.css?url';
+import '@kvlm/ui/dist/index.css';
 
 const { lang, title } = Astro.props;
 ---
@@ -13,9 +13,6 @@ const { lang, title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta content="IE=Edge" http-equiv="x-ua-compatible" />
-
-    <link rel="preload" href={kvlmStyles} as="style" />
-    <link rel="stylesheet" href={kvlmStyles} />
 
     <title>{title}</title>
   </head>
