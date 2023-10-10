@@ -1,3 +1,5 @@
+/// <reference types="@types/node" />
+
 import { defineConfig } from 'tinacms';
 
 // Your hosting provider likely exposes this as an environment variable
@@ -29,7 +31,7 @@ export default defineConfig({
             console.log(args);
             return '/index.page/index.html';
             // return `/pages/${args.slug}`;
-          },
+          }
         },
         fields: [
           {
