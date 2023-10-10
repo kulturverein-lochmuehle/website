@@ -1,17 +1,31 @@
-# kvlm-navigation-item
+# class: `NavigationItem`
 
-## Properties
+## Fields
 
-| Property | Attribute | Type      | Default |
-|----------|-----------|-----------|---------|
-| `active` | `active`  | `boolean` | false   |
-| `href`   | `href`    | `string`  |         |
-| `inline` | `inline`  | `boolean` | false   |
-| `label`  | `label`   | `string`  |         |
+| Name     | Privacy | Type      | Default | Description | Inherited From |
+| -------- | ------- | --------- | ------- | ----------- | -------------- |
+| `active` |         | `boolean` | `false` |             |                |
+| `inline` |         | `boolean` | `false` |             |                |
+| `href`   |         | `string`  |         |             |                |
+| `label`  |         | `string`  |         |             |                |
 
 ## Methods
 
-| Method                  | Type                   |
-|-------------------------|------------------------|
-| `handleClick`           | `(event: Event): void` |
-| `handleLocationChanged` | `(): void`             |
+| Name                    | Privacy | Description | Parameters     | Return | Inherited From |
+| ----------------------- | ------- | ----------- | -------------- | ------ | -------------- |
+| `connectedCallback`     |         |             |                |        |                |
+| `disconnectedCallback`  |         |             |                |        |                |
+| `handleLocationChanged` |         |             |                |        |                |
+| `handleClick`           |         |             | `event: Event` |        |                |
+| `render`                |         |             |                |        |                |
+
+## Attributes
+
+| Name     | Field  | Inherited From |
+| -------- | ------ | -------------- |
+| `active` | active |                |
+| `inline` | inline |                |
+| `href`   | href   |                |
+| `label`  | label  |                |
+
+<hr/>

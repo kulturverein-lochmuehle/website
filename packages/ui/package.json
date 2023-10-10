@@ -17,9 +17,8 @@
   "scripts": {
     "lint": "eslint --ext .ts src",
     "clean": "shx rm -rf dist",
-    "generate:barrels": "barrelsby --config .barrelsby.json",
-    "generate:readmes": "wca analyze src --format markdown --outFiles '{dir}/README.md'",
-    "generate": "run-p --print-name generate:*",
+    "generate": "barrelsby --config .barrelsby.json",
+    "docs": "cross-env NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 cem analyze --config custom-elements-manifest.config.ts",
     "test:run": "cross-env NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 wtr --config web-test-runner.config.ts",
     "test": "run-s --print-name build:components test:run",
     "test:watch": "run-p --print-name \"build:components --watch\" \"test:run --watch\"",
@@ -27,8 +26,10 @@
     "build:components": "ts-node esbuild.config.ts",
     "build:types": "tsc --project tsconfig.types.json",
     "build": "run-p --print-name build:*",
+    "predev": "run-s --print-name clean generate",
+    "dev:docs": "npm run docs -- --watch",
     "dev:components": "npm run build:components -- --watch --port 3500",
-    "dev": "run-s --print-name clean generate dev:*"
+    "dev": "run-p --print-name dev:*"
   },
   "dependencies": {
     "lit": "2.7.0",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@csstools/css-parser-algorithms": "2.1.0",
     "@csstools/css-tokenizer": "2.1.0",
+    "@custom-elements-manifest/analyzer": "0.8.0",
     "@esm-bundle/chai": "4.3.4-fix.0",
     "@lit-labs/testing": "0.2.0",
     "@open-wc/semantic-dom-diff": "0.19.9",
@@ -53,6 +55,10 @@
     "@web/test-runner-commands": "0.6.5",
     "@web/test-runner-playwright": "0.9.0",
     "@webcomponents/template-shadowroot": "0.2.1",
+    "@webcomponents-preview/cem-plugin-examples": "0.0.34",
+    "@webcomponents-preview/cem-plugin-generate-readmes": "0.0.34",
+    "@webcomponents-preview/cem-plugin-grouping": "0.0.34",
+    "@webcomponents-preview/client": "0.0.32",
     "autoprefixer": "10.4.14",
     "axe-core": "4.6.3",
     "barrelsby": "2.5.1",
@@ -74,13 +80,13 @@
     "ts-node": "10.9.1",
     "tslib": "2.5.0",
     "typedoc": "0.23.28",
-    "typescript": "5.0.2",
-    "web-component-analyzer": "2.0.0-next.4"
+    "typescript": "5.0.2"
   },
   "engines": {
     "node": "^18"
   },
   "overrides": {
     "esbuild": "0.17.14"
-  }
+  },
+  "customElements": "dist/custom-elements.json"
 }

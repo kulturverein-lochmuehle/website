@@ -5,7 +5,7 @@
     "emitDeclarationOnly": true,
     "emitDecoratorMetadata": true,
     "outDir": "dist",
-    "sourceMap": false
+    "sourceMap": true
   },
-  "include": ["globals.d.ts", "src"]
+  "include": ["globals.d.ts", "src/index.ts"]
 }

@@ -10,5 +10,3 @@ export * from './components/ui/brook/brook.component';
 export * from './components/ui/houses/houses.component';
 export * from './components/ui/logo/logo.component';
 export * from './components/ui/typo/typo.component';
-export * from './utils/custom-property.utils';
-export * from './utils/event.utils';

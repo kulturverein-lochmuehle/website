@@ -41,10 +41,13 @@ const {
 const options: BuildOptions = {
   sourceRoot: 'src',
   entryPoints: [
+    // bundle library
     'src/index.ts',
-    'src/index.html',
     'src/index.scss',
-    'src/config.json'
+    // bundle preview
+    'src/index.html',
+    'src/preview.ts',
+    'src/preview.config.json'
   ],
   outdir: 'dist',
   format: 'esm',
@@ -104,9 +107,10 @@ if (watch) {
           ghostMode: {
             clicks: true,
             forms: true,
+            // @ts-expect-error this seems not to be typed properly
             location: true,
             scroll: true
-          } as any,
+          },
           onReady(sync) {
             const syncPort = sync.getOption('ui').get('port');
             const syncUrl = `http://0.0.0.0:${syncPort}`;

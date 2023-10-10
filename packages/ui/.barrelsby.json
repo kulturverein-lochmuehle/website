@@ -2,7 +2,7 @@
   "directory": "src",
   "delete": true,
   "flat": true,
-  "include": ["components", "utils"],
+  "include": ["components"],
   "exclude": [".*\\.spec\\.ts$"],
   "singleQuotes": true
 }

@@ -1,15 +1,27 @@
-# kvlm-navigation
+# class: `Navigation`
 
-## Properties
+## Fields
 
-| Property             | Attribute              | Type      | Default |
-|----------------------|------------------------|-----------|---------|
-| `opened`             | `opened`               | `boolean` | false   |
-| `scrollFadeDistance` | `scroll-fade-distance` | `number`  | 100     |
+| Name                 | Privacy | Type      | Default | Description | Inherited From |
+| -------------------- | ------- | --------- | ------- | ----------- | -------------- |
+| `opened`             |         | `boolean` | `false` |             |                |
+| `scrollFadeDistance` |         | `number`  | `100`   |             |                |
 
 ## Methods
 
-| Method         | Type                   |
-|----------------|------------------------|
-| `handleClick`  | `(event: Event): void` |
-| `handleScroll` | `(): void`             |
+| Name                   | Privacy | Description | Parameters     | Return | Inherited From |
+| ---------------------- | ------- | ----------- | -------------- | ------ | -------------- |
+| `connectedCallback`    |         |             |                |        |                |
+| `disconnectedCallback` |         |             |                |        |                |
+| `handleScroll`         |         |             |                |        |                |
+| `handleClick`          |         |             | `event: Event` |        |                |
+| `render`               |         |             |                |        |                |
+
+## Attributes
+
+| Name                   | Field              | Inherited From |
+| ---------------------- | ------------------ | -------------- |
+| `opened`               | opened             |                |
+| `scroll-fade-distance` | scrollFadeDistance |                |
+
+<hr/>

@@ -1,7 +1,10 @@
-# kvlm-typo
+# class: `Typo`
 
 ## Methods
 
-| Method             | Type       |
-|--------------------|------------|
-| `createRenderRoot` | `(): this` |
+| Name               | Privacy | Description | Parameters | Return | Inherited From |
+| ------------------ | ------- | ----------- | ---------- | ------ | -------------- |
+| `createRenderRoot` |         |             |            |        |                |
+| `render`           |         |             |            |        |                |
+
+<hr/>
