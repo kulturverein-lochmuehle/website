@@ -1,0 +1,32 @@
+---
+const { frontmatter } = Astro.props;
+---
+
+<html lang={frontmatter.lang ?? 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta content="IE=Edge" http-equiv="x-ua-compatible" />
+
+    <title>{frontmatter.title}</title>
+    <link rel="stylesheet" href="../../node_modules/@kvlm/ui/dist/index.css" />
+  </head>
+  <body>
+		<kvlm-root>
+      <kvlm-navigation slot="header">
+        <kvlm-navigation-item inline href="/verein/willkommen" label="Willkommen"></kvlm-navigation-item>
+        <kvlm-navigation-item inline href="/verein/neues" label="Neues"></kvlm-navigation-item>
+        <kvlm-navigation-item inline href="/verein/bisher" label="Bisher"></kvlm-navigation-item>
+        <kvlm-navigation-item inline href="/verein/mitglied-werden" label="Mitglied werden"></kvlm-navigation-item>
+        <kvlm-navigation-item inline href="/verein/impressum" label="Impressum"></kvlm-navigation-item>
+      </kvlm-navigation>
+    </kvlm-root>
+
+    <slot />
+
+    <!-- <script src="../../node_modules/lit/experimental-hydrate-support.js"></script> -->
+    <script defer type="module" src="../../node_modules/@kvlm/ui/dist/index.js"></script>
+  </body>
+</html>

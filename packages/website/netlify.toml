@@ -6,8 +6,11 @@
   publish = "dist"
   command = """
     pnpm --recursive install &&
-    pnpm --recursive --filter @kvlm/ui... build
+    pnpm --recursive --filter @kvlm/website... build
   """
+
+[functions]
+directory = "dist/functions"
 
 [[redirects]]
   from = "/*"
