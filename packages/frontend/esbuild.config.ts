@@ -1,3 +1,4 @@
+import { createServer, request as httpRequest } from 'node:http';
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
@@ -28,7 +29,7 @@ const importMapper = (path: string): string => {
 
 // parse cli arguments
 const {
-  values: { ci = false, port = '3500', watch }
+  values: { ci = false, port: targetPort = '3500', watch }
 } = parseArgs({
   options: {
     ci: { type: 'boolean' },
@@ -86,13 +87,48 @@ if (watch) {
     const ctx = await context({
       ...options,
       banner: { js: bannerJs },
-      plugins: [...(options.plugins ?? []), browserSyncPlugin()]
+      plugins: [
+        ...(options.plugins ?? []),
+        browserSyncPlugin({
+          logLevel: 'silent',
+          logPrefix: 'KVLM',
+          logSnippet: false,
+          ghostMode: {
+            clicks: true,
+            forms: true,
+            scroll: true
+          },
+          onReady(sync) {
+            const syncPort = sync.getOption('ui').get('port');
+            const syncUrl = `http://0.0.0.0:${syncPort}`;
+            console.info(`${green('>')} Browser Sync UI started at ${cyan(syncUrl)}`);
+          }
+        })
+      ]
     });
     await ctx.watch();
-    const { host: hostname } = await ctx.serve({ servedir: 'dist', port: Number(port) });
+    const { host: hostname, port } = await ctx.serve({ servedir: 'dist' });
+
+    // use proxy for SPA
+    // https://esbuild.github.io/api/#serve-proxy
+    createServer((request, response) => {
+      const { url, method, headers } = request;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const path = ~url!.split('/').pop()!.indexOf('.') || url === '/esbuild' ? url : '/index.html';
+
+      request.pipe(
+        httpRequest({ hostname, port, path, method, headers }, proxyReponse => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          response.writeHead(proxyReponse.statusCode!, proxyReponse.headers);
+          proxyReponse.pipe(response, { end: true });
+        }),
+        { end: true }
+      );
+    }).listen(targetPort);
 
     // notify user
     console.info(`${green('>')} Server started at ${cyan(`http://${hostname}:${port}`)}`);
+    console.info(`${green('>')} Proxy started at ${cyan(`http://${hostname}:${targetPort}`)}`);
   } catch (error) {
     console.error(error);
     process.exit(1);

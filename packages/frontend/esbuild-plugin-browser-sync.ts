@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
-import { type ServerOptions, create } from 'browser-sync';
+import { type BrowserSyncInstance, type Options, create } from 'browser-sync';
 import type { Plugin } from 'esbuild';
 
-type PluginOptions = ServerOptions & { foo: boolean };
+type PluginOptions = Options & { onReady?: (instance: BrowserSyncInstance) => void };
 
 export function browserSyncPlugin(options?: Partial<PluginOptions>): Plugin {
   const sync = create();
@@ -12,20 +12,8 @@ export function browserSyncPlugin(options?: Partial<PluginOptions>): Plugin {
     setup(build) {
       build.onStart(() => {
         if (sync.active) return;
-        sync.init({
-          port: 3501,
-          logLevel: 'silent',
-          ghostMode: {
-            clicks: true,
-            scroll: true,
-            forms: {
-              submit: true,
-              inputs: true,
-              toggles: true
-            }
-          },
-          ...options
-        });
+        sync.init(options);
+        options?.onReady && options.onReady(sync);
       });
 
       build.onLoad({ filter: /\.html$/ }, async ({ path }) => {
