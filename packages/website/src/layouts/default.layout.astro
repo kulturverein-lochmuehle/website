@@ -2,10 +2,10 @@
 import '@kvlm/ui';
 import '@kvlm/ui/dist/index.css';
 
-const { lang, title } = Astro.props;
+const { lang = 'en', title } = Astro.props;
 ---
 
-<html lang={lang ?? 'en'}>
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
