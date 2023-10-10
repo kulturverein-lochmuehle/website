@@ -8,13 +8,13 @@ import { sassPlugin } from 'esbuild-sass-plugin';
 
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
-import postcssPresetEnv from 'postcss-preset-env';
+// import postcssPresetEnv from 'postcss-preset-env';
 
 import { browserSyncPlugin } from './esbuild-plugin-browser-sync';
 
 // apply postcss with autoprefixer in sass
 const transform = async (source: string): Promise<string> => {
-  const { css } = await postcss([autoprefixer, postcssPresetEnv({ stage: 0 })]).process(source, {
+  const { css } = await postcss([autoprefixer, /*postcssPresetEnv({ stage: 0 })*/]).process(source, {
     from: source
   });
   return css;
