@@ -13,7 +13,7 @@ a {
 
 .title {
   font-family: 'Super Grotesk', sans-serif;
-  font-size: utils.relative-font-size(150, $minimum: 5.5rem);
+  font-size: utils.relative-font-size(150, $minimum: 5.5rem, $maximum: 14rem);
   font-weight: 700;
   line-height: math.div(16, 15);
   text-transform: uppercase;
