@@ -1,4 +1,4 @@
-import { LitElement, html, unsafeCSS } from 'lit';
+import { LitElement, html, isServer, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 import { readCustomProperty } from '@/utils/custom-property.utils';
 import {
@@ -14,8 +14,9 @@ import styles from './main.component.scss';
 export class Main extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
+  // ssr doesn't support IntersectionObserver
   private readonly intersectionOptions: IntersectionObserverInit = { threshold: 0.5 };
-  private readonly intersectionObserver = new IntersectionObserver(
+  private readonly intersectionObserver = !isServer && new IntersectionObserver(
     entries => this.handleIntersections(entries),
     this.intersectionOptions
   );

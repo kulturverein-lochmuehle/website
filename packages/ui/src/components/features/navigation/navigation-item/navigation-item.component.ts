@@ -1,5 +1,5 @@
 import _debounce from 'lodash-es/debounce';
-import { LitElement, html, unsafeCSS } from 'lit';
+import { LitElement, html, isServer, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { changeLocationInline, RoutingEvent } from '@/utils/event.utils';
 
@@ -28,6 +28,12 @@ export class NavigationItem extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback();
+
+    // ssr does not support `window` global, but calls this hook
+    // https://lit.dev/docs/ssr/authoring/#browser-only-code
+    // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
+    if (isServer) return;
+
     window.addEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleLocationChangedBound,
@@ -41,6 +47,13 @@ export class NavigationItem extends LitElement {
   }
 
   override disconnectedCallback() {
+    super.disconnectedCallback();
+
+    // ssr does not support `window` global, but calls this hook
+    // https://lit.dev/docs/ssr/authoring/#browser-only-code
+    // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
+    if (isServer) return;
+
     window.removeEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleLocationChangedBound,
@@ -51,7 +64,6 @@ export class NavigationItem extends LitElement {
       this.handleLocationChangedBound,
       false
     );
-    super.disconnectedCallback();
   }
 
   @eventOptions({ passive: true })

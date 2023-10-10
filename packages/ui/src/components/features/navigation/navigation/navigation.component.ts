@@ -1,4 +1,4 @@
-import { LitElement, html, unsafeCSS } from 'lit';
+import { LitElement, html, isServer, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import styles from './navigation.component.scss';
@@ -15,13 +15,25 @@ export class Navigation extends LitElement {
   @property({ reflect: true, attribute: 'scroll-fade-distance', type: Number })
   scrollFadeDistance = 100;
 
-  constructor() {
-    super();
+  override connectedCallback() {
+    super.connectedCallback();
+
+    // ssr does not support `window` global, but calls this hook
+    // https://lit.dev/docs/ssr/authoring/#browser-only-code
+    // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
+    if (isServer) return;
+
     window.addEventListener('scroll', this.handleScrollBound, false);
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     super.disconnectedCallback();
+
+    // ssr does not support `window` global, but calls this hook
+    // https://lit.dev/docs/ssr/authoring/#browser-only-code
+    // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
+    if (isServer) return;
+
     window.removeEventListener('scroll', this.handleScrollBound, false);
   }
 
