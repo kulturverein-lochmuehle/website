@@ -1,4 +1,4 @@
-import { LitElement, html, isServer, unsafeCSS } from 'lit';
+import { LitElement, html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import styles from './typo.component.scss';
@@ -13,14 +13,7 @@ export class Typo extends LitElement {
   }
 
   render() {
-    // lit ssr seems to have a problem with style tags
-    if (isServer) return html``;
-
-    return html`
-      <style>
-        ${Typo.styles}
-      </style>
-    `;
+    return html`<style .innerHTML="${Typo.styles}"></style>`;
   }
 }
 
