@@ -9,6 +9,7 @@
   },
   "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -28,7 +29,6 @@
     "dev": "run-p --print-name dev:*"
   },
   "dependencies": {
-    "@vaadin/router": "1.7.4",
     "lit": "2.6.1",
     "lodash-es": "4.17.21"
   },
