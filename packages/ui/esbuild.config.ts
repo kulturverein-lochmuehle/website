@@ -2,8 +2,9 @@ import { createServer, request as httpRequest } from 'node:http';
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
+import glob from 'fast-glob';
+
 import { type BuildOptions, build, context } from 'esbuild';
-import copyPlugin from 'esbuild-copy-static-files';
 import { sassPlugin } from 'esbuild-sass-plugin';
 
 import autoprefixer from 'autoprefixer';
@@ -14,7 +15,7 @@ import { browserSyncPlugin } from './esbuild-plugin-browser-sync';
 
 // apply postcss with autoprefixer in sass
 const transform = async (source: string): Promise<string> => {
-  const { css } = await postcss([autoprefixer, /*postcssPresetEnv({ stage: 0 })*/]).process(source, {
+  const { css } = await postcss([autoprefixer /*postcssPresetEnv({ stage: 0 })*/]).process(source, {
     from: source
   });
   return css;
@@ -38,11 +39,21 @@ const {
   }
 });
 
+// we bundle each individual element as well
+const singleElements = await glob('src/*/**/!(*.spec).ts', { onlyFiles: true, unique: true });
+
 // prepare common build options
 const options: BuildOptions = {
   sourceRoot: 'src',
-  entryPoints: ['src/index.ts', 'src/index.html', 'src/index.scss'],
+  entryPoints: [
+    ...singleElements,
+    'src/index.ts',
+    'src/index.html',
+    'src/index.scss',
+    'src/config.json'
+  ],
   outdir: 'dist',
+  external: ['lit*'],
   platform: 'browser',
   format: 'esm',
   bundle: true,
@@ -52,6 +63,7 @@ const options: BuildOptions = {
   sourcemap: true,
   loader: {
     '.html': 'copy',
+    '.json': 'copy',
     '.md': 'copy',
     '.png': 'file',
     '.jpg': 'file',
@@ -72,10 +84,6 @@ const options: BuildOptions = {
       type: 'css',
       importMapper,
       transform
-    }),
-    copyPlugin({
-      src: 'src/config.json',
-      dest: 'dist/config.json'
     })
   ]
 };
