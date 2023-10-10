@@ -22,6 +22,7 @@ $fonts: (
         url('@/assets/fonts/#{$file-name}-#{$weight}.ttf') format('truetype');
       font-weight: $weight;
       font-style: normal;
+      font-display: swap;
     }
   }
 }
