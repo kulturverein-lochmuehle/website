@@ -11,7 +11,7 @@ export class VereinPage extends LitElement {
           style="
           --kvlm-section-background-from: #75f0de;
           --kvlm-section-background-to: #6fbad9;
-          --kvlm-section-color: var(--kvlm-color-typo-dark);
+          --kvlm-section-color: var(--kvlm-color-grey-dark);
         "
         >
           <kvlm-typo>
@@ -23,7 +23,7 @@ export class VereinPage extends LitElement {
           style="
           --kvlm-section-background-from: #525252;
           --kvlm-section-background-to: #101010;
-          --kvlm-section-color: var(--kvlm-color-typo-light);
+          --kvlm-section-color: var(--kvlm-color-grey-light);
         "
         >
           <kvlm-typo>
@@ -35,7 +35,7 @@ export class VereinPage extends LitElement {
           style="
           --kvlm-section-background-from: #525252;
           --kvlm-section-background-to: #101010;
-          --kvlm-section-color: var(--kvlm-color-typo-light);
+          --kvlm-section-color: var(--kvlm-color-grey-light);
         "
         >
           <kvlm-typo>

@@ -1,6 +1,3 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import postcssPresetEnv from 'postcss-preset-env';
@@ -8,11 +5,7 @@ import postcssPresetEnv from 'postcss-preset-env';
 import { build } from 'esbuild';
 import { clean } from 'esbuild-plugin-clean';
 import { copy } from 'esbuild-plugin-copy';
-import { minifyHTMLLiteralsPlugin } from 'esbuild-plugin-minify-html-literals';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const sassPluginOptions: SassPluginOptions = {
   async transform(source) {
@@ -40,7 +33,6 @@ build({
 
   plugins: [
     clean({ patterns: ['./dist'] }),
-    minifyHTMLLiteralsPlugin(),
     copy({
       resolveFrom: 'cwd',
       assets: [

@@ -1,5 +1,5 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 import styles from './section.component.scss';
 

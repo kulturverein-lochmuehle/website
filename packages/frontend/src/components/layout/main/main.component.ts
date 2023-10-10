@@ -1,9 +1,11 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
+import { readCustomProperty } from '../../../utils/custom-property.utils';
 import {
   changeLocationInline,
   InlineLocationChangedEvent,
-  RoutingEvent
+  RoutingEvent,
+  setNavigationTheme
 } from '../../../utils/event.utils';
 
 import styles from './main.component.scss';
@@ -29,9 +31,6 @@ export class Main extends LitElement {
 
   @property({ reflect: true, attribute: 'scroll-observe-selector', type: String })
   scrollObserveSelector?: string;
-
-  @property({ reflect: true, attribute: 'scroll-visible-attribute', type: String })
-  scrollVisibleAttribute = 'visible';
 
   override attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     super.attributeChangedCallback(name, oldValue, newValue);
@@ -64,15 +63,13 @@ export class Main extends LitElement {
     super.disconnectedCallback();
   }
 
-  getObservableContents(): HTMLElement[] {
-    return this.assignedElements.filter(element => element.matches(this.scrollObserveSelector));
-  }
-
   observeContents() {
     this.intersectionObserver.disconnect();
-    this.getObservableContents().forEach(element => {
-      this.intersectionObserver.observe(element);
-    });
+    this.assignedElements
+      .filter(element => element.matches(this.scrollObserveSelector))
+      .forEach(element => {
+        this.intersectionObserver.observe(element);
+      });
   }
 
   @eventOptions({ passive: true })
@@ -80,16 +77,12 @@ export class Main extends LitElement {
     const entry = entries.find(entry => entry.intersectionRatio > 0.5);
     if (entry) {
       const active = entry.target as HTMLElement;
-      this.getObservableContents()
-        .filter(element => !element.isSameNode(active))
-        .forEach(element => element.removeAttribute(this.scrollVisibleAttribute));
-      active.setAttribute(this.scrollVisibleAttribute, '');
       changeLocationInline(active.id, false);
     }
   }
 
   @eventOptions({ passive: true })
-  handleSlotChange(event: InlineLocationChangedEvent) {
+  handleSlotChange() {
     // check for intersection due to scrolling
     this.observeContents();
     // initialize correct offset
@@ -98,19 +91,43 @@ export class Main extends LitElement {
 
   @eventOptions({ passive: true })
   handleInlineLocationChanged({ detail }: InlineLocationChangedEvent) {
+    // broadcast latest color theme to navigation
+    // this.changeNavigationTheme(detail.href);
     if (detail.scroll) {
+      // scroll to target section
       this.scrollToContent(detail.href, true);
     }
   }
 
+  getActiveElement(id: string): HTMLElement | undefined {
+    return this.assignedElements.find(element => element.id === id);
+  }
+
+  changeNavigationTheme(id: string) {
+    // get active target for id
+    const target = this.getActiveElement(id);
+    if (target === undefined) return;
+
+    // read custom properties and build a navigation theme
+    const backgroundColorFrom = readCustomProperty(target, '---kvlm-section-background-from');
+    const backgroundColorTo = readCustomProperty(target, '---kvlm-section-background-to');
+    const brookColor = readCustomProperty(target, '---kvlm-section-color');
+    const fontColor = readCustomProperty(target, '---kvlm-section-color');
+
+    // apply the colors
+    setNavigationTheme({ backgroundColorFrom, backgroundColorTo, brookColor, fontColor });
+  }
+
   scrollToContent(id: string, animate: boolean) {
-    const target = this.assignedElements.find(element => element.id === id);
-    if (target !== undefined) {
-      window.scrollTo({
-        top: target.offsetTop,
-        behavior: animate ? 'smooth' : undefined
-      });
-    }
+    // get active target for id
+    const target = this.getActiveElement(id);
+    if (target === undefined) return;
+
+    // use built-in scroll behavior
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: animate ? 'smooth' : undefined
+    });
   }
 
   render() {

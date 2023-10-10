@@ -2,9 +2,9 @@
 
 // prettier-ignore
 :host {
-  ---kvlm-section-background-from: var(--kvlm-section-background-from, var(--kvlm-section-background, #75f0de));
-  ---kvlm-section-background-to: var(--kvlm-section-background-to, var(--kvlm-section-background, #6fbad9));
-  ---kvlm-section-color: var(--kvlm-section-color, #eaeaea);
+  ---kvlm-section-background-from: var(--kvlm-section-background-from, var(--kvlm-section-background, var(--kvlm-color-turquoise, red)));
+  ---kvlm-section-background-to: var(--kvlm-section-background-to, var(--kvlm-section-background, var(--kvlm-color-spray, blue)));
+  ---kvlm-section-color: var(--kvlm-section-color, var(--kvlm-color-grey-light));
 }
 
 :host {
