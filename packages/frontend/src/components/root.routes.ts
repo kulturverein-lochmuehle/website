@@ -1,40 +1,18 @@
-import { Commands, Context, PreventResult, Route } from '@vaadin/router';
+import { Route } from '@vaadin/router';
 
 export const ROOT_ROUTES: Route[] = [
   {
     path: '/',
-    redirect: '/verein'
+    redirect: '/verein/willkommen'
   },
   {
-    path: '/verein',
-    component: 'kvlm-page-demo',
-    children: [
-      {
-        path: '/',
-        redirect: '/willkommen'
-      },
-      {
-        path: '/willkommen',
-        component: 'kvlm-page-demo',
-        action: async (context: Context, commands: Commands) => {
-          console.log('ROOT_ROUTES', context);
-          // return commands.prevent();
-        }
-      },
-      {
-        path: '/neues',
-        component: 'kvlm-page-demo',
-        action: async (context: Context, commands: Commands) => {
-          console.log('ROOT_ROUTES', context);
-          // return commands.prevent();
-        }
-      }
-    ]
+    path: '/verein/:section',
+    component: 'kvlm-page-verein'
   },
   {
     path: '(.*)',
     action: async () => {
-      const temp = document.createElement('div');
+      const temp = document.createElement('article');
       temp.innerHTML = '<h1>404 Not found</h1>';
       return temp;
     }

@@ -12,4 +12,4 @@ export * from './components/features/navigation/navigation-item/navigation-item.
 export * from './components/layout/main/main.component';
 export * from './components/layout/section/section.component';
 
-export * from './components/pages/demo.page';
+export * from './components/pages/verein.page';

@@ -17,6 +17,8 @@ export class Main extends LitElement {
     this.intersectionOptions
   );
 
+  private readonly handleInlineLocationChangedBound = this.handleInlineLocationChanged.bind(this);
+
   @queryAssignedElements()
   private assignedElements!: HTMLElement[];
 
@@ -34,9 +36,27 @@ export class Main extends LitElement {
     }
   }
 
+  override connectedCallback() {
+    super.connectedCallback();
+
+    // watch for inline location changes
+    window.addEventListener(
+      'inline-location-changed',
+      this.handleInlineLocationChangedBound,
+      false
+    );
+  }
+
   override disconnectedCallback() {
-    super.disconnectedCallback();
+    // don not check for intersections
     this.intersectionObserver.disconnect();
+
+    window.removeEventListener(
+      'inline-location-changed',
+      this.handleInlineLocationChangedBound,
+      false
+    );
+    super.disconnectedCallback();
   }
 
   getObservableContents(): HTMLElement[] {
@@ -51,10 +71,6 @@ export class Main extends LitElement {
   }
 
   @eventOptions({ passive: true })
-  handleSlotChange() {
-    this.observeContents();
-  }
-
   handleIntersections(entries: IntersectionObserverEntry[]) {
     const entry = entries.find(entry => entry.intersectionRatio > 0.5);
     if (entry) {
@@ -63,6 +79,30 @@ export class Main extends LitElement {
         .filter(element => !element.isSameNode(active))
         .forEach(element => element.removeAttribute(this.scrollVisibleAttribute));
       active.setAttribute(this.scrollVisibleAttribute, '');
+    }
+  }
+
+  @eventOptions({ passive: true })
+  handleSlotChange() {
+    // check for intersection due to scrolling
+    this.observeContents();
+    // initialize correct offset
+    this.scrollToContent(window.location.pathname, false);
+  }
+
+  @eventOptions({ passive: true })
+  handleInlineLocationChanged() {
+    const { pathname } = window.location;
+    this.scrollToContent(pathname, true);
+  }
+
+  scrollToContent(id: string, animate: boolean) {
+    const target = this.assignedElements.find(element => element.id === id);
+    if (target !== undefined) {
+      window.scrollTo({
+        top: target.offsetTop,
+        behavior: animate ? 'smooth' : undefined
+      });
     }
   }
 
