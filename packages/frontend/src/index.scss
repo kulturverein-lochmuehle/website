@@ -26,7 +26,13 @@ $fonts: (
 }
 
 :root {
-  --kvlm-header-offset: 16rem;
+  @include utils.media-lt(utils.$breakpoint-navigation) {
+    --kvlm-header-offset: 12.6rem;
+  }
+
+  @include utils.media-gt(utils.$breakpoint-navigation) {
+    --kvlm-header-offset: 16rem;
+  }
 
   --kvlm-color-grey-dark: #161615;
   --kvlm-color-grey-medium: #525252;

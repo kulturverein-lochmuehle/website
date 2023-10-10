@@ -75,7 +75,7 @@ export class NavigationItem extends LitElement {
       event.preventDefault();
       return;
     }
-    // inline links are not handled by default router, so we need to prevent the default behavior
+    // inline links are not handled by default router, so we need to prevent the default behaviour
     event.preventDefault();
     changeLocationInline(this.href, true);
   }
