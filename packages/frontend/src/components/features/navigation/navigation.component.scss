@@ -1,0 +1,12 @@
+:host {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: row;
+  height: var(--kvlm-header-offset);
+
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+}
