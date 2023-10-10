@@ -3,17 +3,22 @@ import { passwordLess } from '@alinea/auth.passwordless';
 import { IcRoundInsertDriveFile } from '@alinea/ui/icons/IcRoundInsertDriveFile';
 import { IcRoundPermMedia } from '@alinea/ui/icons/IcRoundPermMedia';
 import { alinea, BrowserPreview, MediaSchema } from 'alinea';
-import { Author, BlogContainer, BlogPost, HomePage } from './schema';
-import { IcRoundPerson } from './schema/icons/ic-person';
 
 import { configureBackend } from './alinea.server';
+import { IcRoundPerson } from './schema/example/icons/ic-person';
+
+import { Author, BlogContainer, BlogPost, HomePage } from './schema/example';
+import { Page } from './schema/website';
 
 const schema = alinea.schema({
   ...MediaSchema,
+  // Example types
   Author,
-  HomePage,
   BlogContainer,
-  BlogPost
+  BlogPost,
+  HomePage,
+  // Website types
+  Page
 });
 
 export const config = alinea.createConfig({
@@ -27,11 +32,11 @@ export const config = alinea.createConfig({
     auth: passwordLess
   }).configure(configureBackend),
   workspaces: {
-    main: alinea.workspace('Blog', {
-      source: './content',
+    example: alinea.workspace('Example', {
+      source: './content/example',
       mediaDir: './public/assets',
       roots: {
-        pages: alinea.root('Blog', {
+        entries: alinea.root('Blog', {
           icon: IcRoundInsertDriveFile,
           contains: ['HomePage', 'BlogContainer']
         }),
@@ -51,11 +56,22 @@ export const config = alinea.createConfig({
         if (['Author', 'BlogContainer'].includes(entry.type)) return null;
         return (
           <BrowserPreview
-            url={`${location}/api/preview?${previewToken}`}
+            url={`${location}/api/preview?previewToken=${previewToken}`}
             // The preview pane will display this url to the user
             prettyUrl={entry.url}
           />
         );
+      }
+    }),
+
+    main: alinea.workspace('Website', {
+      source: './content/website',
+      mediaDir: './public/assets',
+      roots: {
+        pages: alinea.root('Pages', {
+          icon: IcRoundInsertDriveFile,
+          contains: ['Page']
+        })
       }
     })
   }

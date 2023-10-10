@@ -4,6 +4,6 @@
   "title": "Posts",
   "alinea": {
     "index": "a2",
-    "root": "pages"
+    "root": "entries"
   }
 }

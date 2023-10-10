@@ -1,3 +1,3 @@
 export const parseBoolean = (value: string | undefined): boolean => {
-  return ['1', 'true'].includes(value);
+  return value !== undefined ? ['1', 'true'].includes(value) : false;
 };
