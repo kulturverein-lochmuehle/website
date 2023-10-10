@@ -3,7 +3,7 @@ import { customElement, eventOptions, property, queryAssignedElements } from 'li
 import { readCustomProperty } from '@/utils/custom-property.utils';
 import {
   changeLocationInline,
-  InlineLocationChangedEvent,
+  type InlineLocationChangedEvent,
   RoutingEvent,
   setNavigationTheme
 } from '@/utils/event.utils';
@@ -50,7 +50,7 @@ export class Main extends LitElement {
     // observe contents once scrolled
     window.addEventListener('scroll', () => this.observeContents(), { passive: true, once: true });
 
-    // scroll to intial location
+    // scroll to initial location
     window.setTimeout(() => this.scrollToContent(window.location.pathname, false), 100);
   }
 

@@ -6,8 +6,7 @@ Monorepo of the Kulturverein Lochmühle e.V. website.
 
 - Install dependencies using `pnpm i`.
 - Build all packages using `pnpm -r build`.
-- Start the development servers using `pnpm -r dev`.
-
+- Start the development servers using `pnpm -r --filter @kvlm/ui dev` or `pnpm -r --filter @kvlm/website dev`.
 
 ## Updating dependencies
 

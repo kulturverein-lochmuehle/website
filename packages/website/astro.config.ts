@@ -9,17 +9,17 @@ export default defineConfig({
   integrations: [lit(), mdx()],
   output: 'server',
   adapter: netlify(),
-  vite: {
-    optimizeDeps: {
-      include: ['@kvlm/ui']
-    },
-    ssr: {
-      noExternal: ['@kvlm/ui']
-    },
-    build: {
-      rollupOptions: {
-          external: [/^@kvlm\/ui/]
-      }
-    }
-  }
+  // vite: {
+  //   optimizeDeps: {
+  //     include: ['@kvlm/ui']
+  //   },
+  //   ssr: {
+  //     noExternal: ['@kvlm/ui']
+  //   },
+  //   build: {
+  //     rollupOptions: {
+  //         external: [/^@kvlm\/ui/]
+  //     }
+  //   }
+  // }
 });

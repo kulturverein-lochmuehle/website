@@ -1,41 +1,46 @@
 ---
-import DefaultLayout from '../../layouts/default.layout.astro';
-import Title from '../../components/title.component.astro';
-import Info from '../../components/info.component.astro';
+import { getCollection } from 'astro:content';
 
-const sections = await Astro.glob('/src/content/verein/sections/*.section.mdx');
-const { slug } = Astro.params;
+import DefaultLayout from '@layouts/default.layout.astro';
+import Title from '@components/title.component.astro';
+import Info from '@components/info.component.astro';
+import { Navigation, NavigationItem, Section } from '@components/ui.components';
+
+const sections = await getCollection('verein');
+const { slug: currentSlug } = Astro.params;
 const { pathname } = Astro.url;
-const basePath = pathname.replace(new RegExp(`/${slug}$`), '');
+const basePath = pathname.replace(new RegExp(`/${currentSlug}$`), '');
 ---
 
 <DefaultLayout lang="de" title="Kulturverein Lochmühle">
-  <kvlm-navigation slot="header">
+  <Navigation slot="header">
     {
-      sections.map(({ frontmatter }) => (
-        <kvlm-navigation-item
-          inline
-          active={frontmatter.slug === slug}
-          href={`${basePath}/${frontmatter.slug}`}
-          label={frontmatter.title}
-        ></kvlm-navigation-item>
-      ))
+      sections
+        .concat({data: { title: 'Impressum' }, slug: 'impressum'})
+        .map(({ data, slug }) => (
+          <NavigationItem
+            inline
+            active={slug === currentSlug}
+            href={`${basePath}/${slug}`}
+            label={data.title}
+          ></NavigationItem>
+        )) as any
     }
-    <kvlm-navigation-item inline href={`${basePath}/impressum`} label="Impressum"></kvlm-navigation-item>
-  </kvlm-navigation>
+  </Navigation>
   {
-    sections.map(({ Content, frontmatter }) => {
+    sections.map(async ({ data, slug, render }) => {
+      const { Content } = await render();
       return (
-        <kvlm-section
-          id={`${basePath}/${frontmatter.slug}`}
+        <Section
+          id={`${basePath}/${slug}`}
           style={`
-            --kvlm-section-background-from: ${frontmatter.backgroundFrom};
-            --kvlm-section-background-to: ${frontmatter.backgroundTo};
-            --kvlm-section-color: ${frontmatter.color};
-          `}
+            --kvlm-section-background-from: ${data.backgroundFrom};
+            --kvlm-section-background-to: ${data.backgroundTo};
+            --kvlm-section-color: ${data.color};
+          ` as any}
         >
           <Content components={{ h1: Title, p: Info }} />
-        </kvlm-section>
+        </Section>
       );
     })
   }

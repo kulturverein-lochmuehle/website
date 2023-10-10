@@ -270,14 +270,14 @@ export type PagesMutation = {
   body?: InputMaybe<Scalars['JSON']['input']>;
 };
 
-export type PagesPartsFragment = { __typename?: 'Pages', lang: string, title: string, body?: any | null };
+export type PagesPartsFragment = { __typename: 'Pages', lang: string, title: string, body?: any | null };
 
 export type PagesQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PagesQuery = { __typename?: 'Query', pages: { __typename?: 'Pages', id: string, lang: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type PagesQuery = { __typename?: 'Query', pages: { __typename: 'Pages', id: string, lang: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type PagesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -289,10 +289,11 @@ export type PagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename?: 'Pages', id: string, lang: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type PagesConnectionQuery = { __typename?: 'Query', pagesConnection: { __typename?: 'PagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PagesConnectionEdges', cursor: string, node?: { __typename: 'Pages', id: string, lang: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const PagesPartsFragmentDoc = gql`
     fragment PagesParts on Pages {
+  __typename
   lang
   title
   body

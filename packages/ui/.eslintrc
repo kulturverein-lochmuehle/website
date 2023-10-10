@@ -4,6 +4,7 @@
   "plugins": ["@typescript-eslint/eslint-plugin", "eslint-plugin-tsdoc"],
   "root": true,
   "rules": {
+    "no-console": ["error", { "allow": ["warn"] }],
     "tsdoc/syntax": "warn"
   }
 }

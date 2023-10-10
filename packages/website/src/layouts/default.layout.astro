@@ -1,6 +1,6 @@
 ---
 import '@kvlm/ui/global.css';
-import Main from '@kvlm/ui/astro/components/layout/main/main.js';
+import { Main } from '@components/ui.components';
 
 const { lang = 'en', title } = Astro.props;
 ---
@@ -20,7 +20,7 @@ const { lang = 'en', title } = Astro.props;
       <slot name="header" />
     </header>
     <main>
-      <Main client:idle scrollObserveSelector={'123'}>
+      <Main client:idle scrollObserveSelector="kvlm-section">
         <slot />
       </Main>
     </main>

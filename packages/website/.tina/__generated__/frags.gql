@@ -1,4 +1,5 @@
 fragment PagesParts on Pages {
+  __typename
   lang
   title
   body

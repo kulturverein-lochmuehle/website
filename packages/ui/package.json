@@ -16,7 +16,11 @@
     "dist"
   ],
   "exports": {
-    "./global.css": "./dist/index.css",
+
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
     "./*.js": {
       "import": "./dist/*.js",
       "types": "./dist/*.d.ts"
@@ -24,7 +28,8 @@
     "./astro/*.js": {
       "import": "./astro/*.js",
       "types": "./astro/*.d.ts"
-    }
+    },
+    "./global.css": "./dist/index.css"
   },
   "scripts": {
     "lint": "eslint --ext .ts src",
