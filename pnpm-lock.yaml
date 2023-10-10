@@ -14,13 +14,14 @@ importers:
       '@alinea/content': link:.alinea
       '@alinea/core': 0.3.1
       '@alinea/dashboard': 0.3.1
+      '@alinea/preview': 0.3.1
       '@alinea/ui': 0.3.1
       '@types/node': 18.11.9
       '@types/nodemailer': 6.4.6
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
       alinea: 0.3.1
-      autoprefixer: ^10.4.7
+      autoprefixer: 10.4.13
       classnames: 2.3.2
       date-fns: 2.29.3
       next: 12.3.3
@@ -38,6 +39,7 @@ importers:
       '@alinea/content': link:.alinea
       '@alinea/core': 0.3.1_react@18.2.0
       '@alinea/dashboard': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/preview': 0.3.1_react@18.2.0
       '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
       alinea: 0.3.1_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2

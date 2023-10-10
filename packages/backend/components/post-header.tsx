@@ -1,17 +1,17 @@
-import type {Author} from '../schema'
-import Avatar from './avatar'
-import CoverImage from './cover-image'
-import DateFormatter from './date-formatter'
-import PostTitle from './post-title'
+import type { Author } from '../schema';
+import Avatar from './avatar';
+import CoverImage from './cover-image';
+import DateFormatter from './date-formatter';
+import PostTitle from './post-title';
 
 type Props = {
-  title: string
-  coverImage: string
-  date: string
-  author: Author
-}
+  title: string;
+  coverImage: string;
+  date: string;
+  author: Author;
+};
 
-const PostHeader = ({title, coverImage, date, author}: Props) => {
+const PostHeader = ({ title, coverImage, date, author }: Props) => {
   return (
     <>
       <PostTitle>{title}</PostTitle>
@@ -30,7 +30,7 @@ const PostHeader = ({title, coverImage, date, author}: Props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default PostHeader
+export default PostHeader;

@@ -13,7 +13,7 @@ const schema = alinea.schema({
   Author,
   HomePage,
   BlogContainer,
-  BlogPost,
+  BlogPost
 });
 
 export const config = alinea.createConfig({
@@ -21,10 +21,10 @@ export const config = alinea.createConfig({
   dashboard: {
     staticFile: './public/admin.html',
     dashboardUrl: '/admin.html',
-    handlerUrl: '/api/cms',
+    handlerUrl: '/api/cms'
   },
   backend: backend({
-    auth: passwordLess,
+    auth: passwordLess
   }).configure(configureBackend),
   workspaces: {
     main: alinea.workspace('Blog', {
@@ -33,22 +33,21 @@ export const config = alinea.createConfig({
       roots: {
         pages: alinea.root('Blog', {
           icon: IcRoundInsertDriveFile,
-          contains: ['HomePage', 'BlogContainer'],
+          contains: ['HomePage', 'BlogContainer']
         }),
         authors: alinea.root('Authors', {
           icon: IcRoundPerson,
-          contains: ['Author'],
+          contains: ['Author']
         }),
         assets: alinea.root('Assets', {
           icon: IcRoundPermMedia,
-          contains: ['MediaLibrary'],
-        }),
+          contains: ['MediaLibrary']
+        })
       },
       preview({ entry, previewToken }) {
         // During dev point at running Next.js development server,
         // in production use the current domain
-        const location =
-          process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '';
+        const location = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '';
         if (['Author', 'BlogContainer'].includes(entry.type)) return null;
         return (
           <BrowserPreview
@@ -57,7 +56,7 @@ export const config = alinea.createConfig({
             prettyUrl={entry.url}
           />
         );
-      },
-    }),
-  },
+      }
+    })
+  }
 });
