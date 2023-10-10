@@ -55,38 +55,39 @@
     "@web/test-runner-commands": "0.6.5",
     "@web/test-runner-playwright": "0.9.0",
     "@webcomponents/template-shadowroot": "0.2.1",
-    "@webcomponents-preview/cem-plugin-examples": "0.0.34",
-    "@webcomponents-preview/cem-plugin-generate-readmes": "0.0.34",
-    "@webcomponents-preview/cem-plugin-grouping": "0.0.34",
-    "@webcomponents-preview/client": "0.0.32",
+    "@webcomponents-preview/cem-plugin-examples": "0.0.35",
+    "@webcomponents-preview/cem-plugin-generate-readmes": "0.0.35",
+    "@webcomponents-preview/cem-plugin-grouping": "0.0.35",
+    "@webcomponents-preview/client": "0.0.34",
     "autoprefixer": "10.4.14",
     "axe-core": "4.6.3",
     "barrelsby": "2.5.1",
     "browser-sync": "2.29.1",
     "chai-a11y-axe": "1.4.1",
     "cross-env": "7.0.3",
-    "esbuild": "0.17.14",
+    "esbuild": "0.17.15",
     "esbuild-plugin-clean": "1.0.1",
     "esbuild-sass-plugin": "2.8.0",
     "eslint": "8.37.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-tsdoc": "0.2.17",
+    "fast-glob": "3.2.12",
     "npm-run-all": "4.1.5",
     "postcss": "8.4.21",
-    "postcss-preset-env": "8.2.0",
+    "postcss-preset-env": "8.3.0",
     "resolve": "1.22.1",
     "sass": "1.60.0",
     "shx": "0.3.4",
     "ts-node": "10.9.1",
     "tslib": "2.5.0",
     "typedoc": "0.23.28",
-    "typescript": "5.0.2"
+    "typescript": "5.0.3"
   },
   "engines": {
     "node": "^18"
   },
   "overrides": {
-    "esbuild": "0.17.14"
+    "esbuild": "0.17.15"
   },
   "customElements": "dist/custom-elements.json"
 }

@@ -5,6 +5,7 @@ import { parseArgs } from 'node:util';
 import { type BuildOptions, build, context } from 'esbuild';
 import { sassPlugin } from 'esbuild-sass-plugin';
 
+import glob from 'fast-glob';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 // import postcssPresetEnv from 'postcss-preset-env';
@@ -37,10 +38,15 @@ const {
   }
 });
 
+// we bundle each individual element as well
+const singleElements = await glob('src/*/**/!(*.spec).ts', { onlyFiles: true, unique: true });
+
 // prepare common build options
 const options: BuildOptions = {
   sourceRoot: 'src',
   entryPoints: [
+    // bundle each element
+    ...singleElements,
     // bundle library
     'src/index.ts',
     'src/index.scss',
@@ -55,6 +61,7 @@ const options: BuildOptions = {
   metafile: true,
   minify: true,
   treeShaking: true,
+  external: ['lit*'],
   sourcemap: 'both',
   loader: {
     '.html': 'copy',
