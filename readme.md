@@ -12,6 +12,6 @@ Monorepo of the Kulturverein Lochmühle e.V. website.
 ## Updating dependencies
 
 ```bash
-pnpm dlx npm-check-updates -u
-pnpm install
+pnpm -r exec pnpx npm-check-updates -u
+pnpm i
 ```
