@@ -1,5 +1,10 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
+import {
+  changeLocationInline,
+  InlineLocationChangedEvent,
+  RoutingEvent
+} from '../../../utils/event.utils';
 
 import styles from './main.component.scss';
 
@@ -41,7 +46,7 @@ export class Main extends LitElement {
 
     // watch for inline location changes
     window.addEventListener(
-      'inline-location-changed',
+      RoutingEvent.InlineLocationChanged,
       this.handleInlineLocationChangedBound,
       false
     );
@@ -52,7 +57,7 @@ export class Main extends LitElement {
     this.intersectionObserver.disconnect();
 
     window.removeEventListener(
-      'inline-location-changed',
+      RoutingEvent.InlineLocationChanged,
       this.handleInlineLocationChangedBound,
       false
     );
@@ -79,11 +84,12 @@ export class Main extends LitElement {
         .filter(element => !element.isSameNode(active))
         .forEach(element => element.removeAttribute(this.scrollVisibleAttribute));
       active.setAttribute(this.scrollVisibleAttribute, '');
+      changeLocationInline(active.id, false);
     }
   }
 
   @eventOptions({ passive: true })
-  handleSlotChange() {
+  handleSlotChange(event: InlineLocationChangedEvent) {
     // check for intersection due to scrolling
     this.observeContents();
     // initialize correct offset
@@ -91,9 +97,10 @@ export class Main extends LitElement {
   }
 
   @eventOptions({ passive: true })
-  handleInlineLocationChanged() {
-    const { pathname } = window.location;
-    this.scrollToContent(pathname, true);
+  handleInlineLocationChanged({ detail }: InlineLocationChangedEvent) {
+    if (detail.scroll) {
+      this.scrollToContent(detail.href, true);
+    }
   }
 
   scrollToContent(id: string, animate: boolean) {

@@ -1,5 +1,6 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, eventOptions, property } from 'lit/decorators.js';
+import { changeLocationInline, RoutingEvent } from '../../../../utils/event.utils';
 
 import styles from './navigation-item.component.scss';
 
@@ -27,29 +28,39 @@ export class NavigationItem extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('inline-location-changed', this.handleLocationChangedBound, false);
     window.addEventListener(
-      'vaadin-router-location-changed',
+      RoutingEvent.InlineLocationChanged,
+      this.handleLocationChangedBound,
+      false
+    );
+    window.addEventListener(
+      RoutingEvent.RouterLocationChanged,
       this.handleLocationChangedBound,
       false
     );
   }
 
   override disconnectedCallback() {
-    window.removeEventListener('inline-location-changed', this.handleLocationChangedBound, false);
     window.removeEventListener(
-      'vaadin-router-location-changed',
+      RoutingEvent.InlineLocationChanged,
+      this.handleLocationChangedBound,
+      false
+    );
+    window.removeEventListener(
+      RoutingEvent.RouterLocationChanged,
       this.handleLocationChangedBound,
       false
     );
     super.disconnectedCallback();
   }
 
+  @eventOptions({ passive: true })
   handleLocationChanged() {
     // mark as active if the current location matches the href
     this.active = window.location.pathname.startsWith(this.href);
   }
 
+  @eventOptions({ passive: false })
   handleClick(event: Event) {
     // handle normal links with default router
     if (!this.inline) {
@@ -62,8 +73,7 @@ export class NavigationItem extends LitElement {
     }
     // inline links are not handled by default router, so we need to prevent the default behavior
     event.preventDefault();
-    window.history.pushState({}, '', this.href);
-    window.dispatchEvent(new CustomEvent('inline-location-changed', { detail: this.href }));
+    changeLocationInline(this.href, true);
   }
 
   render() {
