@@ -9,19 +9,19 @@ const sections = await Astro.glob('/src/content/verein/sections/*.section.mdx');
 ---
 
 <DefaultLayout lang="de" title="Kulturverein Lochmühle">
-  <Navigation client:load slot="header">
+  <Navigation client:only="lit" slot="header">
     {
       sections.map(({ frontmatter: { slug, title } }) => (
-        <NavigationItem client:load href={`${Astro.url.pathname}/${slug}`} label={title} />
+        <NavigationItem client:only="lit" inline href={`${Astro.url.pathname}/${slug}`} label={title} />
       ))
     }
-    <NavigationItem client:load href={`${Astro.url.pathname}/impressum`} label="Impressum" />
+    <NavigationItem client:only="lit" inline href={`${Astro.url.pathname}/impressum`} label="Impressum" />
   </Navigation>
   {
     sections.map(({ Content, frontmatter }) => {
       return (
         <Section
-          client:visible
+          client:only="lit"
           id={`${Astro.url.pathname}/${frontmatter.slug}`}
           style={`
             --kvlm-section-background-from: ${frontmatter.backgroundFrom};

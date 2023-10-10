@@ -20,7 +20,7 @@ const { lang = 'en', title } = Astro.props;
       <slot name="header" />
     </header>
     <main>
-      <Main client:load scroll-observe-selector="kvlm-section">
+      <Main client:only="lit" scroll-observe-selector="kvlm-section">
         <slot />
       </Main>
     </main>
