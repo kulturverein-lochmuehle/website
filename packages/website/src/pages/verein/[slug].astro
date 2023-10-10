@@ -1,6 +1,4 @@
 ---
-import { Navigation, NavigationItem, Section } from '@kvlm/ui';
-
 import DefaultLayout from '../../layouts/default.layout.astro';
 import Title from '../../components/title.component.astro';
 import Info from '../../components/info.component.astro';
@@ -12,25 +10,23 @@ const basePath = pathname.replace(new RegExp(`/${slug}$`), '');
 ---
 
 <DefaultLayout lang="de" title="Kulturverein Lochmühle">
-  <Navigation client:only="lit" slot="header">
+  <kvlm-navigation slot="header">
     {
       sections.map(({ frontmatter }) => (
-        <NavigationItem
-          client:only="lit"
+        <kvlm-navigation-item
           inline
           active={frontmatter.slug === slug}
           href={`${basePath}/${frontmatter.slug}`}
           label={frontmatter.title}
-        />
+        ></kvlm-navigation-item>
       ))
     }
-    <NavigationItem client:only="lit" inline href={`${basePath}/impressum`} label="Impressum" />
-  </Navigation>
+    <kvlm-navigation-item inline href={`${basePath}/impressum`} label="Impressum"></kvlm-navigation-item>
+  </kvlm-navigation>
   {
     sections.map(({ Content, frontmatter }) => {
       return (
-        <Section
-          client:only="lit"
+        <kvlm-section
           id={`${basePath}/${frontmatter.slug}`}
           style={`
             --kvlm-section-background-from: ${frontmatter.backgroundFrom};
@@ -39,7 +35,7 @@ const basePath = pathname.replace(new RegExp(`/${slug}$`), '');
           `}
         >
           <Content components={{ h1: Title, p: Info }} />
-        </Section>
+        </kvlm-section>
       );
     })
   }
