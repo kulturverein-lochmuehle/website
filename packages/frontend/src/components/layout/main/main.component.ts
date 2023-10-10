@@ -1,12 +1,12 @@
 import { LitElement, html, css, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
-import { readCustomProperty } from '../../../utils/custom-property.utils';
+import { readCustomProperty } from '@/utils/custom-property.utils';
 import {
   changeLocationInline,
   InlineLocationChangedEvent,
   RoutingEvent,
   setNavigationTheme
-} from '../../../utils/event.utils';
+} from '@/utils/event.utils';
 
 import styles from './main.component.scss';
 

@@ -1,24 +1,33 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
-    "inlineSources": true,
-    "lib": ["es2017", "dom", "dom.iterable"],
-    "module": "es2015",
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2020", "dom", "dom.iterable"],
+    "module": "esnext",
     "moduleResolution": "node",
-    "noImplicitAny": false,
-    "outDir": "./dist",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "skipLibCheck": true,
-    "sourceMap": true,
-    "target": "es2017"
+    "strict": true,
+    "target": "esnext",
+    "useDefineForClassFields": false
   },
-  "exclude": [],
-  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
   "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "files": true,
+    "logError": true,
+    "transpileOnly": true,
     "compilerOptions": {
-      "module": "commonjs"
+      "module": "esnext",
+      "target": "esnext"
     }
   }
 }

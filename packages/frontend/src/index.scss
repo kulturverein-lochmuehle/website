@@ -1,6 +1,6 @@
 @use 'sass:string';
-@use 'styles/utils';
-@use './components/ui/typo/typo.component.scss';
+@use '@/styles/utils';
+@use '@/components/ui/typo/typo.component.scss' as typo;
 
 $fonts: (
   'Fundamental Brigade': (
@@ -16,9 +16,9 @@ $fonts: (
   @each $weight in $weights {
     @font-face {
       font-family: $family;
-      src: url('/assets/fonts/#{$file-name}-#{$weight}.woff2') format('woff2'),
-        url('/assets/fonts/#{$file-name}-#{$weight}.woff') format('woff'),
-        url('/assets/fonts/#{$file-name}-#{$weight}.ttf') format('truetype');
+      src: url('@/assets/fonts/#{$file-name}-#{$weight}.woff2') format('woff2'),
+        url('@/assets/fonts/#{$file-name}-#{$weight}.woff') format('woff'),
+        url('@/assets/fonts/#{$file-name}-#{$weight}.ttf') format('truetype');
       font-weight: $weight;
       font-style: normal;
     }

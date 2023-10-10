@@ -1,65 +1,99 @@
+import { resolve } from 'node:path';
+import { parseArgs } from 'node:util';
+
+import { type BuildOptions, build, context } from 'esbuild';
+import copyPlugin from 'esbuild-copy-static-files';
+import { sassPlugin } from 'esbuild-sass-plugin';
+
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import postcssPresetEnv from 'postcss-preset-env';
 
-import { build } from 'esbuild';
-import { clean } from 'esbuild-plugin-clean';
-import { copy } from 'esbuild-plugin-copy';
-import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
+import { browserSyncPlugin } from './esbuild-plugin-browser-sync';
 
-const sassPluginOptions: SassPluginOptions = {
-  async transform(source) {
-    const plugins = [autoprefixer, postcssPresetEnv({ stage: 0 })];
-    const { css } = await postcss(plugins).process(source, { from: source });
-    return css;
-  }
+
+// apply postcss with autoprefixer in sass
+const transform = async (source: string): Promise<string> => {
+  const { css } = await postcss([autoprefixer, postcssPresetEnv({ stage: 0 })]).process(source, { from: source });
+  return css;
 };
 
-const isWatchMode = process.argv.includes('--watch');
+// resolve @ imports in sass
+const importMapper = (path: string): string => {
+  if (path.includes('node_modules')) return path;
+  if (path.includes('@')) return resolve(path.replace(/^.*@\/?/, './src/'));
+  return path;
+};
 
-build({
-  bundle: true,
-  entryPoints: ['src/index.ts'],
-  external: ['*.ttf', '*.woff', '*.woff2'],
-  format: 'esm',
-  incremental: true,
-  minify: !isWatchMode,
+// parse cli arguments
+const {
+  values: { ci = false, port = '3500', watch },
+} = parseArgs({
+  options: {
+    ci: { type: 'boolean' },
+    port: { type: 'string', short: 'p' },
+    watch: { type: 'boolean', short: 'w' },
+  },
+});
+
+// prepare common build options
+const options: BuildOptions = {
+  sourceRoot: 'src',
+  entryPoints: ['src/index.ts', 'src/index.html', 'src/index.scss'],
   outdir: 'dist',
-  sourcemap: isWatchMode,
-  splitting: true,
+  platform: 'browser',
+  format: 'esm',
+  bundle: true,
+  metafile: true,
+  minify: true,
   treeShaking: true,
-  watch: isWatchMode,
-
+  sourcemap: true,
+  loader: {
+    '.html': 'copy',
+    '.md': 'copy',
+    '.ttf': 'file',
+    '.woff': 'file',
+    '.woff2': 'file',
+  },
+  logLevel: 'error',
   plugins: [
-    clean({ patterns: ['./dist'] }),
-    copy({
-      resolveFrom: 'cwd',
-      assets: [
-        {
-          from: ['./src/config.json'],
-          to: ['./dist/config.json']
-        },
-        {
-          from: ['./src/index.html'],
-          to: ['./dist/index.html']
-        },
-        {
-          from: ['./src/assets/**/*'],
-          to: ['./dist/assets'],
-          keepStructure: true
-        }
-      ]
+    sassPlugin({
+      type: 'css-text',
+      filter: /\.component\.scss$/,
+      importMapper,
+      transform,
     }),
     sassPlugin({
-      ...sassPluginOptions,
-      filter: /index.scss$/,
-      type: 'css'
+      type: 'css',
+      importMapper,
+      transform,
     }),
-    sassPlugin({
-      ...sassPluginOptions,
-      type: 'css-text'
-    })
-  ]
-})
-  .then(() => !isWatchMode && process.exit(0))
-  .catch(() => process.exit(1));
+    copyPlugin({
+      src: 'src/config.json',
+      dest: 'dist/config.json',
+    }),
+    browserSyncPlugin()
+  ],
+};
+
+if (watch) {
+  try {
+    const bannerJs = ` if (typeof EventSource !== 'undefined') { new EventSource('/esbuild').addEventListener('change', () => location.reload()) }`;
+    const green = (message: string) => (ci ? message : `\u001b[32m${message}\u001b[0m`);
+    const cyan = (message: string) => (ci ? message : `\u001b[36m${message}\u001b[0m`);
+
+    // start dev server in watch mode
+    const ctx = await context({ ...options, banner: { js: bannerJs } });
+    await ctx.watch();
+    const { host: hostname } = await ctx.serve({ servedir: 'dist', port: Number(port) });
+
+    // notify user
+    console.info(`${green('>')} Server started at ${cyan(`http://${hostname}:${port}`)}`);
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+} else {
+  await build(options);
+  process.exit(0);
+}

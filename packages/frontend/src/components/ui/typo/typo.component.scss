@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use '../../../styles/utils.scss';
+@use '@/styles/utils';
 
 * {
   @include utils.mobile() {

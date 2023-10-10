@@ -1,4 +1,4 @@
-@use '../../../../styles/utils';
+@use '@/styles/utils';
 
 :host {
   ---kvlm-navigation-item-stroke-distance: var(--kvlm-navigation-item-stroke-distance, 0.175em);

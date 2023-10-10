@@ -5,9 +5,10 @@
 [build]
   publish = "dist"
   command = """
-    pnpm install --recursive &&
-    pnpm run --recursive --filter @kvlm/website-frontend... build
+    pnpm --recursive install &&
+    pnpm --recursive --filter @kvlm/website-frontend... build
   """
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
