@@ -9,6 +9,6 @@
     "email": "david@enke.dev"
   },
   "engines": {
-    "node": "^18"
+    "node": "^18||^20"
   }
 }
