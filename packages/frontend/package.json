@@ -23,7 +23,7 @@
     "build:components": "ts-node esbuild.config.ts",
     "build:types": "tsc --project tsconfig.types.json",
     "build": "run-p --print-name build:*",
-    "predev": "run-p --print-name clean generate",
+    "predev": "run-s --print-name clean generate",
     "dev:build": "npm run build:components -- --watch --port 3500",
     "dev": "run-p --print-name dev:*"
   },

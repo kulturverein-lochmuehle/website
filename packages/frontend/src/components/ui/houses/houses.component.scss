@@ -1,0 +1,16 @@
+@use '@/styles/utils';
+
+img {
+  height: auto;
+  width: 100%;
+
+  @include utils.media-gt(utils.$breakpoint-mobile) {
+    float: right;
+    width: 27.6vw; // 317.4px / 1150px * 100vw
+  }
+
+  @include utils.media-gt(utils.$breakpoint-navigation) {
+    height: 60vh;
+    width: auto;
+  }
+}

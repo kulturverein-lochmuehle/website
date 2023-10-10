@@ -16,6 +16,7 @@ export class VereinPage extends LitElement {
           })}"
         >
           <kvlm-typo>
+            <kvlm-houses></kvlm-houses>
             <h1 class="title">Du hast uns gerade noch gefehlt</h1>
             <p class="info">
               <a href="/verein/mitglied-werden">Jetzt Mitglied werden</a> und ein Stück

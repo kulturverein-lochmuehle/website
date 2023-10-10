@@ -53,6 +53,9 @@ const options: BuildOptions = {
   loader: {
     '.html': 'copy',
     '.md': 'copy',
+    '.png': 'file',
+    '.jpg': 'file',
+    '.jpeg': 'file',
     '.ttf': 'file',
     '.woff': 'file',
     '.woff2': 'file'
@@ -81,6 +84,7 @@ if (watch) {
   try {
     const bannerJs = ` if (typeof EventSource !== 'undefined') { new EventSource('/esbuild').addEventListener('change', () => location.reload()) }`;
     const green = (message: string) => (ci ? message : `\u001b[32m${message}\u001b[0m`);
+    const grey = (message: string) => (ci ? message : `\u001b[90m${message}\u001b[0m`);
     const cyan = (message: string) => (ci ? message : `\u001b[36m${message}\u001b[0m`);
 
     // start dev server in watch mode
@@ -106,6 +110,8 @@ if (watch) {
           onReady(sync) {
             const syncPort = sync.getOption('ui').get('port');
             const syncUrl = `http://0.0.0.0:${syncPort}`;
+            console.clear();
+            console.info(grey('  KVLM'));
             console.info(`${green('>')} Browser Sync UI started at ${cyan(syncUrl)}`);
           }
         })
