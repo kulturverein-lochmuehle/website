@@ -16,7 +16,7 @@
     "@lit-labs/ssr": "3.1.0",
     "@tinacms/cli": "1.4.1",
     "@webcomponents/template-shadowroot": "0.2.1",
-    "astro": "2.1.7",
+    "astro": "2.1.8",
     "graphql": "16.6.0",
     "graphql-tag": "2.12.6",
     "lit": "2.7.0",
