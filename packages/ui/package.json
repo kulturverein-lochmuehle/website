@@ -83,8 +83,5 @@
   },
   "overrides": {
     "esbuild": "0.17.14"
-  },
-  "vaadin": {
-    "disableUsageStatistics": true
   }
 }
