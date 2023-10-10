@@ -13,8 +13,10 @@ export class Navigation extends LitElement {
 
   render() {
     return html`
-      <kvlm-logo></kvlm-logo>
-      <slot></slot>
+      <nav>
+        <kvlm-logo></kvlm-logo>
+        <slot></slot>
+      </nav>
     `;
   }
 }
