@@ -4,6 +4,7 @@
 
 export * from './components/features/navigation/navigation/navigation.component';
 export * from './components/features/navigation/navigation-item/navigation-item.component';
+export * from './components/features/timeline/timeline-item/timeline-item.component';
 export * from './components/layout/main/main.component';
 export * from './components/layout/section/section.component';
 export * from './components/ui/brook/brook.component';

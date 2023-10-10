@@ -10,7 +10,8 @@ import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 // import postcssPresetEnv from 'postcss-preset-env';
 
-import { browserSyncPlugin } from './esbuild-plugin-browser-sync';
+import { browserSyncPlugin } from './esbuild-plugin-browser-sync.js';
+import { astroWrappersPlugin } from './esbuild-plugin-astro-wrappers.js';
 
 // apply postcss with autoprefixer in sass
 const transform = async (source: string): Promise<string> => {
@@ -55,13 +56,14 @@ const options: BuildOptions = {
     'src/preview.ts',
     'src/preview.config.json'
   ],
+  external: ['lit*'],
   outdir: 'dist',
   format: 'esm',
   bundle: true,
   metafile: true,
   minify: true,
   treeShaking: true,
-  external: ['lit*'],
+  // external: ['lit*'],
   sourcemap: 'both',
   loader: {
     '.html': 'copy',
@@ -86,7 +88,12 @@ const options: BuildOptions = {
       type: 'css',
       importMapper,
       transform
-    })
+    }),
+    astroWrappersPlugin({
+      filter: /\.component\.ts$/,
+      removeSuffix: '.component.ts',
+      outdir: 'astro',
+    }),
   ]
 };
 

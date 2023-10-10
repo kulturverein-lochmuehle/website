@@ -1,0 +1,40 @@
+@use 'sass:map';
+
+/// Mixin for container queries. Should be included in the container element.
+/// The mixin will check if container queries are supported and use them if
+/// possible. If not, it will fall back to a media query. Subsequent selectors
+/// will be nested inside the mixin content.
+///
+/// @example
+/// ```scss
+/// .wrapper {
+///   @include container(teaser, inline-size, width > 768px) {
+///     .label {
+///       font-size: 1.5rem;
+///
+///       @container teaser (width > 768px) {
+///       font-size: 1.2rem;
+///     }
+///   }
+/// }
+/// ```
+@mixin container($name, $type, $condition) {
+  // check if the mixin is used inide a selector
+  @if & {
+    // use container queries if available
+    @supports (container: $name / $condition) {
+      container: $name / $condition;
+      @content ('@container #{$name} (#{$condition})');
+    }
+
+    // use media query as fallback
+    @supports not (container: $name / $condition) {
+      @content ('@media (#{$condition})');
+    }
+  }
+
+  // if not, throw a warning
+  @else {
+    @warn "The container mixin must be used inside a selector.";
+  }
+}

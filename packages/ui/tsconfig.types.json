@@ -7,5 +7,9 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "include": ["globals.d.ts", "src/index.ts"]
+  "tsc-alias": {
+    "resolveFullPaths": true
+  },
+  "include": ["globals.d.ts", "src/**/*.ts"],
+  "exclude": ["node_modules", "src/**/*.spec.ts"]
 }

@@ -9,5 +9,17 @@ export default defineConfig({
   integrations: [lit(), mdx()],
   output: 'server',
   adapter: netlify(),
-  vite: { ssr: { external: ['lit'] } }
+  vite: {
+    optimizeDeps: {
+      include: ['@kvlm/ui']
+    },
+    ssr: {
+      noExternal: ['@kvlm/ui']
+    },
+    build: {
+      rollupOptions: {
+          external: [/^@kvlm\/ui/]
+      }
+    }
+  }
 });

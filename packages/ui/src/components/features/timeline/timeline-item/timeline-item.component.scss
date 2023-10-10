@@ -1,0 +1,18 @@
+@use '@/styles/utils';
+
+p {
+}
+
+:host {
+  @include utils.container(timeline-item, inline-size, 'width > #{utils.$breakpoint-mobile}') using ($query) {
+    p {
+      font-family: 'Fundamental Brigade', sans-serif;
+      font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
+      line-height: 1.25;
+@debug($query)
+      // #{$query} {
+        // font-size: 16;
+      // }
+    }
+  }
+}
