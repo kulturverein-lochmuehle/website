@@ -38,20 +38,20 @@ $background: linear-gradient(
   transition: 0.3s ease;
   transition-property: color;
 
-  @include utils.mobile() {
+  @include utils.media-lt(utils.$breakpoint-navigation) {
     background: $background;
     height: 12.6rem;
     overflow: hidden;
     transition: height 0.3s ease;
   }
 
-  @include utils.desktop() {
+  @include utils.media-gt(utils.$breakpoint-navigation) {
     align-items: center;
     height: var(---kvlm-navigation-height);
   }
 }
 
-@include utils.mobile() {
+@include utils.media-lt(utils.$breakpoint-navigation) {
   :host([opened]) {
     height: 100vh;
   }
@@ -60,14 +60,14 @@ $background: linear-gradient(
 nav {
   display: flex;
 
-  @include utils.mobile() {
+  @include utils.media-lt(utils.$breakpoint-navigation) {
     flex-direction: column;
     gap: 3rem;
     padding: 4rem;
     width: 100vw;
   }
 
-  @include utils.desktop() {
+  @include utils.media-gt(utils.$breakpoint-navigation) {
     @include utils.wrapper($padding: 0 5rem);
     align-items: center;
     flex-direction: row;
@@ -78,14 +78,14 @@ nav {
 a:first-child {
   color: inherit;
 
-  @include utils.mobile() {
+  @include utils.media-lt(utils.$breakpoint-navigation) {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 5rem;
   }
 
-  @include utils.desktop() {
+  @include utils.media-gt(utils.$breakpoint-navigation) {
     margin-right: auto;
   }
 
@@ -99,7 +99,7 @@ a:first-child {
     color: inherit;
     transition: color 0.3s ease;
 
-    @include utils.mobile() {
+    @include utils.media-lt(utils.$breakpoint-navigation) {
       margin-right: auto;
     }
   }
@@ -112,7 +112,7 @@ a:first-child {
     transition: height 0.3s ease;
     overflow: visible;
 
-    @include utils.desktop() {
+    @include utils.media-gt(utils.$breakpoint-navigation) {
       display: none;
     }
 
