@@ -7,6 +7,7 @@ export default {
   testFramework: { config: { timeout: 60000 } },
   nodeResolve: true,
   preserveSymlinks: true,
+  staticLogging: true,
   files: ['./src/**/*.spec.ts'],
   browsers: [playwrightLauncher({ product: 'chromium' })],
   plugins: [esbuildPlugin({ ts: true }), litSsrPlugin()]

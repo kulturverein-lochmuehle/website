@@ -20,7 +20,7 @@
     "generate:barrels": "barrelsby --config .barrelsby.json",
     "generate:readmes": "wca analyze src --format markdown --outFiles '{dir}/README.md'",
     "generate": "run-p --print-name generate:*",
-    "test:run": "cross-env NODE_OPTIONS='--loader ts-node/esm' wtr --config web-test-runner.config.ts",
+    "test:run": "cross-env NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 wtr --config web-test-runner.config.ts",
     "test": "run-s --print-name build:components test:run",
     "test:watch": "run-p --print-name \"build:components --watch\" \"test:run --watch\"",
     "prebuild": "run-s --print-name clean generate",
