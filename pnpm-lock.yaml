@@ -5,12 +5,11 @@ importers:
   .:
     specifiers: {}
 
-  packages/frontend:
+  packages/ui:
     specifiers:
       '@types/browser-sync': 2.26.3
       '@types/lodash-es': 4.17.6
       '@types/node': 18.15.3
-      '@types/postcss-preset-env': 8.0.0
       '@typescript-eslint/eslint-plugin': 5.55.0
       '@typescript-eslint/parser': 5.55.0
       '@vaadin/router': 1.7.4
@@ -45,7 +44,6 @@ importers:
       '@types/browser-sync': 2.26.3
       '@types/lodash-es': 4.17.6
       '@types/node': 18.15.3
-      '@types/postcss-preset-env': 8.0.0_postcss@8.4.21
       '@typescript-eslint/eslint-plugin': 5.55.0_342y7v4tc7ytrrysmit6jo4wri
       '@typescript-eslint/parser': 5.55.0_vgl77cfdswitgr47lm5swmv43m
       autoprefixer: 10.4.14_postcss@8.4.21
@@ -733,15 +731,6 @@ packages:
     resolution: {integrity: sha512-OFwMPH5eJOhtwR92GMjTNWukaKTdWQC12cBgRvrTQl5CwhruSq6734wi1CTSh5Qjm/pMJWaKOOPKZOp6FpIkXQ==}
     dev: true
 
-  /@types/postcss-preset-env/8.0.0_postcss@8.4.21:
-    resolution: {integrity: sha512-Mjw3bkhK1SkPg9HgBxUic1hSzpF5p3fSslgZrSg8fPC9mkjoz6ghhVqr9a+kVVDSvE7Lrw6GY/D+yLxmJ4IDAg==}
-    deprecated: This is a stub types definition. postcss-preset-env provides its own type definitions, so you do not need this installed.
-    dependencies:
-      postcss-preset-env: 8.0.1_postcss@8.4.21
-    transitivePeerDependencies:
-      - postcss
-    dev: true
-
   /@types/semver/7.3.13:
     resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
     dev: true
@@ -1321,7 +1310,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /connect-history-api-fallback/1.6.0:
@@ -2034,6 +2023,16 @@ packages:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
 
+  /follow-redirects/1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: true
+
   /follow-redirects/1.15.2_debug@4.3.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -2235,7 +2234,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2_debug@4.3.2
+      follow-redirects: 1.15.2
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
