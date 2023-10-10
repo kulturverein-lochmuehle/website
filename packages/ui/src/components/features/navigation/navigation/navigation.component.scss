@@ -10,8 +10,8 @@ $background: linear-gradient(
 
 // prettier-ignore
 :host {
-  ---kvlm-navigation-background-from: var(--kvlm-navigation-background-from, var(--kvlm-color-turquoise, red));
-  ---kvlm-navigation-background-to: var(--kvlm-navigation-background-to, var(--kvlm-color-spray, blue));
+  ---kvlm-navigation-background-from: var(--kvlm-navigation-background-from, var(--kvlm-color-turquoise, #fff));
+  ---kvlm-navigation-background-to: var(--kvlm-navigation-background-to, var(--kvlm-color-spray, #fff));
   ---kvlm-navigation-color-typo: var(--kvlm-navigation-color-typo, var(--kvlm-color-grey-dark, #000));
   ---kvlm-navigation-height: var(--kvlm-navigation-height, var(--kvlm-header-offset, 100px));
   ---kvlm-navigation-scroll-distance: var(--kvlm-navigation-scroll-distance, 0);
