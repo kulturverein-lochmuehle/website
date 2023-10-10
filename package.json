@@ -7,5 +7,8 @@
   "author": {
     "name": "David Enke",
     "email": "david@enke.dev"
+  },
+  "engines": {
+    "node": "^18"
   }
 }

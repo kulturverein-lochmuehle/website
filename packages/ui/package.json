@@ -90,8 +90,7 @@
     "typescript": "5.0.4"
   },
   "engines": {
-    "node": "^18 || ^20"
+    "node": "^18"
   },
-  "overrides": {},
   "customElements": "dist/custom-elements.json"
 }
