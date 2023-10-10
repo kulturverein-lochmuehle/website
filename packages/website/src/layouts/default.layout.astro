@@ -1,6 +1,6 @@
 ---
-import '@kvlm/ui';
 import '@kvlm/ui/dist/index.css';
+import { Main } from '@kvlm/ui';
 
 const { lang = 'en', title } = Astro.props;
 ---
@@ -20,9 +20,9 @@ const { lang = 'en', title } = Astro.props;
       <slot name="header" />
     </header>
     <main>
-      <kvlm-main scroll-observe-selector="kvlm-section">
+      <Main client:load scroll-observe-selector="kvlm-section">
         <slot />
-      </kvlm-main>
+      </Main>
     </main>
   </body>
 </html>

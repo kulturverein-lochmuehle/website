@@ -2,8 +2,6 @@ import { createServer, request as httpRequest } from 'node:http';
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
-import glob from 'fast-glob';
-
 import { type BuildOptions, build, context } from 'esbuild';
 import { sassPlugin } from 'esbuild-sass-plugin';
 
@@ -39,28 +37,22 @@ const {
   }
 });
 
-// we bundle each individual element as well
-const singleElements = await glob('src/*/**/!(*.spec).ts', { onlyFiles: true, unique: true });
-
 // prepare common build options
 const options: BuildOptions = {
   sourceRoot: 'src',
   entryPoints: [
-    ...singleElements,
     'src/index.ts',
     'src/index.html',
     'src/index.scss',
     'src/config.json'
   ],
   outdir: 'dist',
-  external: ['lit*'],
-  platform: 'browser',
   format: 'esm',
   bundle: true,
   metafile: true,
   minify: true,
   treeShaking: true,
-  sourcemap: true,
+  sourcemap: 'both',
   loader: {
     '.html': 'copy',
     '.json': 'copy',

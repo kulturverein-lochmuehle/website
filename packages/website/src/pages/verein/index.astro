@@ -1,7 +1,7 @@
 ---
+import { Navigation, NavigationItem, Section } from '@kvlm/ui';
+
 import DefaultLayout from '../../layouts/default.layout.astro';
-import Section from '../../components/section.component.astro';
-import NavItem from '../../components/nav-item.component.astro';
 import Title from '../../components/title.component.astro';
 import Info from '../../components/info.component.astro';
 
@@ -9,18 +9,26 @@ const sections = await Astro.glob('/src/content/verein/sections/*.section.mdx');
 ---
 
 <DefaultLayout lang="de" title="Kulturverein Lochmühle">
-  <kvlm-navigation slot="header">
+  <Navigation client:load slot="header">
     {
       sections.map(({ frontmatter: { slug, title } }) => (
-        <NavItem href={`${Astro.url.pathname}/${slug}`} label={title} />
+        <NavigationItem client:load href={`${Astro.url.pathname}/${slug}`} label={title} />
       ))
     }
-    <NavItem href={`${Astro.url.pathname}/impressum`} label="Impressum" />
-  </kvlm-navigation>
+    <NavigationItem client:load href={`${Astro.url.pathname}/impressum`} label="Impressum" />
+  </Navigation>
   {
     sections.map(({ Content, frontmatter }) => {
       return (
-        <Section {...frontmatter} slug={`${Astro.url.pathname}/${frontmatter.slug}`}>
+        <Section
+          client:visible
+          id={`${Astro.url.pathname}/${frontmatter.slug}`}
+          style={`
+            --kvlm-section-background-from: ${frontmatter.backgroundFrom};
+            --kvlm-section-background-to: ${frontmatter.backgroundTo};
+            --kvlm-section-color: ${frontmatter.color};
+          `}
+        >
           <Content components={{ h1: Title, p: Info }} />
         </Section>
       );
