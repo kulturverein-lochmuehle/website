@@ -1,15 +1,11 @@
-import { LitElement, html, css, unsafeCSS } from 'lit';
+import { LitElement, html, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 import styles from './navigation.component.scss';
 
 @customElement('kvlm-navigation')
 export class Navigation extends LitElement {
-  static override readonly styles = [
-    css`
-      ${unsafeCSS(styles)}
-    `
-  ];
+  static override readonly styles = unsafeCSS(styles);
 
   private readonly handleScrollBound = this.handleScroll.bind(this);
 

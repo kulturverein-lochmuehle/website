@@ -13,7 +13,7 @@ declare module 'esbuild-copy-static-files' {
   };
   const copyStaticFiles: (options?: Partial<CopyStaticFilesOptions>) => Plugin;
   export default copyStaticFiles;
-}>
+}
 
 // Tell Typescript that SASS imports are okay as they're handled by bundler
 declare module '*.scss' {

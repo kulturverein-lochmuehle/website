@@ -1,5 +1,5 @@
 import _debounce from 'lodash-es/debounce';
-import { LitElement, html, css, unsafeCSS } from 'lit';
+import { LitElement, html, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { changeLocationInline, RoutingEvent } from '@/utils/event.utils';
 
@@ -7,11 +7,7 @@ import styles from './navigation-item.component.scss';
 
 @customElement('kvlm-navigation-item')
 export class NavigationItem extends LitElement {
-  static override readonly styles = [
-    css`
-      ${unsafeCSS(styles)}
-    `
-  ];
+  static override readonly styles = unsafeCSS(styles);
 
   private readonly handleLocationChangedBound = _debounce(
     this.handleLocationChanged.bind(this),
@@ -25,10 +21,10 @@ export class NavigationItem extends LitElement {
   inline = false;
 
   @property({ reflect: true, type: String })
-  href: string;
+  href!: string;
 
   @property({ reflect: true, type: String })
-  label: string;
+  label!: string;
 
   override connectedCallback() {
     super.connectedCallback();

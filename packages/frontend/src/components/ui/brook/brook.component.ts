@@ -1,15 +1,11 @@
-import { LitElement, html, css, unsafeCSS } from 'lit';
+import { LitElement, html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import styles from './brook.component.scss';
 
 @customElement('kvlm-brook')
 export class Brook extends LitElement {
-  static override readonly styles = [
-    css`
-      ${unsafeCSS(styles)}
-    `
-  ];
+  static override readonly styles = unsafeCSS(styles);
 
   render() {
     return html`

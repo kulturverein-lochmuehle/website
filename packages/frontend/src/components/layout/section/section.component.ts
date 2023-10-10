@@ -1,15 +1,11 @@
-import { LitElement, html, css, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, html, unsafeCSS } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 import styles from './section.component.scss';
 
 @customElement('kvlm-section')
 export class Section extends LitElement {
-  static override readonly styles = [
-    css`
-      ${unsafeCSS(styles)}
-    `
-  ];
+  static override readonly styles = unsafeCSS(styles);
 
   render() {
     return html`

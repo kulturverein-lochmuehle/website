@@ -1,4 +1,4 @@
-import { LitElement, html, css, unsafeCSS } from 'lit';
+import { LitElement, html, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 import { readCustomProperty } from '@/utils/custom-property.utils';
 import {
@@ -12,11 +12,7 @@ import styles from './main.component.scss';
 
 @customElement('kvlm-main')
 export class Main extends LitElement {
-  static override readonly styles = [
-    css`
-      ${unsafeCSS(styles)}
-    `
-  ];
+  static override readonly styles = unsafeCSS(styles);
 
   private readonly intersectionOptions: IntersectionObserverInit = { threshold: 0.5 };
   private readonly intersectionObserver = new IntersectionObserver(
@@ -66,7 +62,7 @@ export class Main extends LitElement {
   observeContents() {
     this.intersectionObserver.disconnect();
     this.assignedElements
-      .filter(element => element.matches(this.scrollObserveSelector))
+      .filter(element => this.scrollObserveSelector && element.matches(this.scrollObserveSelector))
       .forEach(element => {
         this.intersectionObserver.observe(element);
       });

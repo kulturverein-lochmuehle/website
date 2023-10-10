@@ -1,6 +1,12 @@
 export type InlineLocationChangedEventDetail = { href: string; scroll: boolean };
 export type InlineLocationChangedEvent = CustomEvent<InlineLocationChangedEventDetail>;
 
+declare global {
+  interface WindowEventMap {
+    [RoutingEvent.InlineLocationChanged]: InlineLocationChangedEvent;
+  }
+}
+
 export enum RoutingEvent {
   InlineLocationChanged = 'inline-location-changed',
   RouterLocationChanged = 'vaadin-router-location-changed'
@@ -22,7 +28,7 @@ export type NavigationTheme = {
   fontColor: string;
 };
 
-export const setNavigationTheme = (theme: NavigationTheme) => {
+export const setNavigationTheme = (theme: Partial<NavigationTheme>) => {
   const navigationThemeAttr = 'navigation-theme';
   document.head.querySelector(`style[${navigationThemeAttr}]`)?.remove();
   const navigationTheme = document.createElement('style');

@@ -10,8 +10,9 @@ export class Root extends LitElement {
   private readonly router = new Router();
 
   configureRouter(outlet?: Element) {
+    if (!outlet) return;
     this.router.setRoutes(ROOT_ROUTES);
-    this.router.setOutlet(outlet!);
+    this.router.setOutlet(outlet);
   }
 
   render() {

@@ -11,10 +11,11 @@ import postcssPresetEnv from 'postcss-preset-env';
 
 import { browserSyncPlugin } from './esbuild-plugin-browser-sync';
 
-
 // apply postcss with autoprefixer in sass
 const transform = async (source: string): Promise<string> => {
-  const { css } = await postcss([autoprefixer, postcssPresetEnv({ stage: 0 })]).process(source, { from: source });
+  const { css } = await postcss([autoprefixer, postcssPresetEnv({ stage: 0 })]).process(source, {
+    from: source
+  });
   return css;
 };
 
@@ -27,13 +28,13 @@ const importMapper = (path: string): string => {
 
 // parse cli arguments
 const {
-  values: { ci = false, port = '3500', watch },
+  values: { ci = false, port = '3500', watch }
 } = parseArgs({
   options: {
     ci: { type: 'boolean' },
     port: { type: 'string', short: 'p' },
-    watch: { type: 'boolean', short: 'w' },
-  },
+    watch: { type: 'boolean', short: 'w' }
+  }
 });
 
 // prepare common build options
@@ -53,7 +54,7 @@ const options: BuildOptions = {
     '.md': 'copy',
     '.ttf': 'file',
     '.woff': 'file',
-    '.woff2': 'file',
+    '.woff2': 'file'
   },
   logLevel: 'error',
   plugins: [
@@ -61,19 +62,18 @@ const options: BuildOptions = {
       type: 'css-text',
       filter: /\.component\.scss$/,
       importMapper,
-      transform,
+      transform
     }),
     sassPlugin({
       type: 'css',
       importMapper,
-      transform,
+      transform
     }),
     copyPlugin({
       src: 'src/config.json',
-      dest: 'dist/config.json',
-    }),
-    browserSyncPlugin()
-  ],
+      dest: 'dist/config.json'
+    })
+  ]
 };
 
 if (watch) {
@@ -83,7 +83,11 @@ if (watch) {
     const cyan = (message: string) => (ci ? message : `\u001b[36m${message}\u001b[0m`);
 
     // start dev server in watch mode
-    const ctx = await context({ ...options, banner: { js: bannerJs } });
+    const ctx = await context({
+      ...options,
+      banner: { js: bannerJs },
+      plugins: [...(options.plugins ?? []), browserSyncPlugin()]
+    });
     await ctx.watch();
     const { host: hostname } = await ctx.serve({ servedir: 'dist', port: Number(port) });
 
