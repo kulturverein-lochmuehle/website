@@ -1,13 +1,5 @@
-# https://answers.netlify.com/t/using-pnpm-and-pnpm-workspaces/2759/17?u=davidenke
-[build.environment]
-  NPM_FLAGS = "--version"
-
 [build]
-  publish = "dist"
-  command = """
-    pnpm --recursive install &&
-    pnpm --recursive --filter @kvlm/website... build
-  """
+command = "pnpm --recursive --filter @kvlm/website... build"
 
 [functions]
-  directory = "dist/functions"
+directory = "dist/functions"
