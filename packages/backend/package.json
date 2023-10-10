@@ -1,0 +1,43 @@
+{
+  "name": "@kvlm/website-backend",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "David Enke",
+    "email": "david@enke.dev"
+  },
+  "scripts": {
+    "dev": "alinea serve -- next",
+    "build": "alinea generate -- next build",
+    "start": "next start",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@alinea/auth.passwordless": "0.3.1",
+    "@alinea/backend": "0.3.1",
+    "@alinea/backend.github": "0.3.1",
+    "@alinea/backend.indexeddb": "0.3.1",
+    "@alinea/content": "link:.alinea",
+    "@alinea/core": "0.3.1",
+    "@alinea/dashboard": "0.3.1",
+    "@alinea/ui": "0.3.1",
+    "alinea": "0.3.1",
+    "classnames": "2.3.2",
+    "date-fns": "2.29.3",
+    "next": "12.3.3",
+    "nodemailer": "6.8.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "3.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/nodemailer": "6.4.6",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "autoprefixer": "^10.4.7",
+    "postcss": "8.4.19",
+    "typescript": "4.9.3"
+  }
+}
