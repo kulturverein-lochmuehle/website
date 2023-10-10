@@ -93,11 +93,16 @@ if (watch) {
           logLevel: 'silent',
           logPrefix: 'KVLM',
           logSnippet: false,
+          codeSync: false,
+          reloadOnRestart: false,
+          injectChanges: false,
+          single: true,
           ghostMode: {
             clicks: true,
             forms: true,
+            location: true,
             scroll: true
-          },
+          } as any,
           onReady(sync) {
             const syncPort = sync.getOption('ui').get('port');
             const syncUrl = `http://0.0.0.0:${syncPort}`;
