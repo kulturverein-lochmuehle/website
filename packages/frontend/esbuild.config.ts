@@ -9,6 +9,8 @@ import { minifyHTMLLiteralsPlugin } from 'esbuild-plugin-minify-html-literals';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
 
 const sassPluginOptions: SassPluginOptions = {
+  cache: false,
+  verbose: true,
   async transform(source) {
     const plugins = [autoprefixer, postcssPresetEnv({ stage: 0 })];
     const { css } = await postcss(plugins).process(source, { from: source });

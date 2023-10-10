@@ -1,0 +1,34 @@
+@use '../../../styles/utils';
+
+// prettier-ignore
+:host {
+  ---kvlm-section-background-from: var(--kvlm-section-background-from, var(--kvlm-section-background, #75f0de));
+  ---kvlm-section-background-to: var(--kvlm-section-background-to, var(--kvlm-section-background, #6fbad9));
+}
+
+:host {
+  position: relative;
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(
+    150deg,
+    var(---kvlm-section-background-from) 0%,
+    var(---kvlm-section-background-to) 100%
+  );
+
+  section {
+    @include utils.wrapper($padding: 50px);
+  }
+
+  kvlm-brook {
+    position: absolute;
+    inset: 50% 0 auto auto;
+    transform: translateY(-50%);
+
+    width: 100%;
+    min-width: 1400px;
+
+    pointer-events: none;
+    user-select: none;
+  }
+}

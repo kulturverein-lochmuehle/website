@@ -1,4 +1,4 @@
-lockfileVersion: 5.4
+lockfileVersion: 5.3
 
 importers:
 
@@ -32,23 +32,23 @@ importers:
       tailwindcss: 3.2.4
       typescript: 4.9.3
     dependencies:
-      '@alinea/auth.passwordless': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/backend': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/auth.passwordless': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/backend': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/backend.github': 0.3.1_react@18.2.0
-      '@alinea/backend.indexeddb': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/backend.indexeddb': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/content': link:.alinea
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/dashboard': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/dashboard': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/preview': 0.3.1_react@18.2.0
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      alinea: 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
+      alinea: 0.3.1_react-dom@18.2.0+react@18.2.0
       classnames: 2.3.2
       date-fns: 2.29.3
-      next: 12.3.3_biqbaboplfbrettd7655fr4n2y
+      next: 12.3.3_react-dom@18.2.0+react@18.2.0
       nodemailer: 6.8.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      tailwindcss: 3.2.4_postcss@8.4.19
+      tailwindcss: 3.2.4
     devDependencies:
       '@types/node': 18.11.9
       '@types/nodemailer': 6.4.6
@@ -68,7 +68,7 @@ importers:
       esbuild-plugin-clean: 0.9.0
       esbuild-plugin-copy: 1.3.0
       esbuild-plugin-minify-html-literals: 1.0.1
-      esbuild-sass-plugin: 2.4.0
+      esbuild-sass-plugin: 2.4.1
       lit: 2.4.1
       npm-run-all: 4.1.5
       postcss: 8.4.19
@@ -88,27 +88,27 @@ importers:
       esbuild-plugin-clean: 0.9.0_esbuild@0.14.54
       esbuild-plugin-copy: 1.3.0_esbuild@0.14.54
       esbuild-plugin-minify-html-literals: 1.0.1_esbuild@0.14.54
-      esbuild-sass-plugin: 2.4.0
+      esbuild-sass-plugin: 2.4.1
       npm-run-all: 4.1.5
       postcss: 8.4.19
       postcss-preset-env: 7.8.3_postcss@8.4.19
       rimraf: 3.0.2
-      ts-node: 10.9.1_wup25etrarvlqkprac7h35hj7u
+      ts-node: 10.9.1_b51fae9271046ab829f100be7df4e9fd
       tslib: 2.4.1
       typescript: 4.9.3
 
 packages:
 
-  /@alinea/auth.passwordless/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/auth.passwordless/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-p3D10rNLYN0fVgqk1MOsBP2pvLl7EV6kEiBF8oYaBNr5hu8QhfNl0cdZR+3TyqdoiD3wyAkd2H5jCXRU/blPLA==}
     peerDependencies:
       react: '*'
     dependencies:
-      '@alinea/backend': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/backend': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/client': 0.3.1_react@18.2.0
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/dashboard': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/dashboard': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
       superstruct: 0.15.5
     transitivePeerDependencies:
@@ -126,22 +126,22 @@ packages:
       - react
     dev: false
 
-  /@alinea/backend.indexeddb/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/backend.indexeddb/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-HzAvFKwloCJ/8tdJQ7rWa/SCLlZTT9o2zuPkod+bnRrFcfKo3TZFDkn6N4FO8gkERBs31js0kWuwV7PJOFj7Eg==}
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
     transitivePeerDependencies:
       - react
       - react-dom
     dev: false
 
-  /@alinea/backend/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/backend/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-rwm/4AtceiLZAjIlc86DKb9YIbrvmb6J8fBv0n+ITkzeKb8f1UePsc/hKjp9EOthY3bPeBZAwB6fNQZWIDbFgA==}
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
       '@alinea/iso': 0.1.21
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/sqlite-wasm': 0.1.11
       '@alinea/store': 0.3.1
     transitivePeerDependencies:
@@ -149,14 +149,14 @@ packages:
       - react-dom
     dev: false
 
-  /@alinea/cli/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/cli/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-x1+oeMkC+Sc5Yb0QQVX1+3zZkwkDgj8yb/cfhtONvUaIaLtAdoLbOiyDp4ins0Qt/JJvoyaA3Fg099fAy+E79g==}
     dependencies:
-      '@alinea/backend': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/backend': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/client': 0.3.1_react@18.2.0
       '@alinea/core': 0.3.1_react@18.2.0
       '@alinea/iso': 0.1.21
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/sqlite-wasm': 0.1.11
       '@alinea/store': 0.3.1
       esbuild: 0.15.14
@@ -174,18 +174,18 @@ packages:
       - react
     dev: false
 
-  /@alinea/cloud/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/cloud/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-tT0yUE+OQZh32oHjKyWn1H/OVCoa7voTcLRTmKBNFILwKBYrVDGbpRqzkCneB/S3JMSWwFhVw+RMrPvmcVoFKQ==}
     peerDependencies:
       react: '*'
     dependencies:
-      '@alinea/backend': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/backend': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/client': 0.3.1_react@18.2.0
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/dashboard': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/dashboard': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/iso': 0.1.21
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
@@ -205,79 +205,79 @@ packages:
     resolution: {integrity: sha512-5blkH5ckLtfj603dtufsvcb3aYMxjZcyIo7nd1nIZNYFOcSVPmY5CgHYFaEJcym0wTZ2UgndXDGVogIlpItM9A==}
     dev: false
 
-  /@alinea/dashboard/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/dashboard/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-gtqJ9a5LNYdXBTHBSz7gpRIQm1VANMBALyrdKyA/r8GQF17wZrYP24WSguct8gwrmG4jRAFkFMs+lszERvGH3g==}
     peerDependencies:
       react: '*'
       react-dom: '*'
     dependencies:
-      '@alinea/backend': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/backend.indexeddb': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/backend': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/backend.indexeddb': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/client': 0.3.1_react@18.2.0
       '@alinea/core': 0.3.1_react@18.2.0
       '@alinea/css': 0.3.1
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/input.hidden': 0.3.1_react@18.2.0
-      '@alinea/input.link': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.path': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.select': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.text': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/picker.entry': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/input.link': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.path': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.select': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.text': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/picker.entry': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/preview': 0.3.1_react@18.2.0
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/store': 0.3.1
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@alinea/editor/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/editor/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-uG4sllqHxpEuvmB9RxmzV3LLjebgi+rzcITmZKa8dK3pIQhPM4Xdq6py5sRxQ66SE9X0iOrG/h7VdTIWBcD5ZQ==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.check/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.check/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-IKDIQDQO7jObe2ghJRN/PWpLPbxOuo/YZrsH40hibiKhMQ7HndOIwzSQiEWcXMymSabjr4mJhLzBvY+evWWixg==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.code/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.code/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-wxOi7VIb8b4xgsuanYuinhE6+Nl+OvgMFumJLUT6CvJlPqrzUDTwOljd587JROGfG9BYw0Twx1th0bx179f7Uw==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.date/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.date/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-QKQO/XBdIAIHJJyRSCI3Z0gScvfKu375k1vn4W0fPXx/Gby/uf2Et+mDS6s9YBYQdgUjWdYjtgbfyL3u6SbiXA==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
@@ -291,144 +291,144 @@ packages:
       - react
     dev: false
 
-  /@alinea/input.json/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.json/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-rqWsGhqNvLpmGJaEzRSYJWxx9wXcaY+EyYNTJ2VxNktEflaw4AXOybj7rgEtA9dcbgEtHhN1JwHl6phRIWHH3A==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.link/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.link/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-O+TZg/vhk79KB7SyLKAqL4XVld5hfGK8J6gbPiA7H/Y0tGmy13thlrP3+4XrnWL5+EQw3yppRqJt0sD3U+XwcA==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/picker.entry': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/picker.url': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/picker.entry': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/picker.url': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/store': 0.3.1
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.list/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.list/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-0ZMzL7D5q5c2f8vvvo+mQSxRqc5vxjuVHsXo0OhC51ecOLzr2SJ1YZ3/aQEZPgENCPI6RpSq+zkJeFUQJOfusg==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.number/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.number/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-/Tm4IQPVEmTfYDpIBBgQtL+XnRo/DF1xoDXgnMk9mjTc4KTfn5eRt2IvjA9WcIHg9Q+vJZ5fc5jCy5Y0SjeckQ==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.object/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.object/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-O7mxTv8yQo880tylFkn3nn3fkqHmjfZzRONERMGTqXVKgtV/W1rs9oujhkv2ej+Vs3Ds0/Y8RzPiwDzzmtUoAg==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.path/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.path/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-b420hzjpuiYzniIYNc4NOEqJpQK7UlnhRK1O2tnut7ZV2C/+Gn3iXyyw0gg3N+Ag0lUzJ0KZnQTd8AKSTwKG5g==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.richtext/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.richtext/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-z2c7YR08w+0KNIoT5PJn9aSeAkoBB2aBDi4S6RJZEGGNJsGcNE9UquKJsOBolrnAoC+Mc+IoxhvgugXeu4gGDA==}
     peerDependencies:
       react: '*'
       react-dom: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/dashboard': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.check': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.link': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.text': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/picker.entry': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/picker.url': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/dashboard': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.check': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.link': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.text': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/picker.entry': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/picker.url': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@alinea/input.select/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.select/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-kvEWzIZkt/YL5PE9AwTSMVAFGzqNilS2k3n3mhda/8chpahgqnwpMkoKyCz8GW7QNeBYv/NkNDqFb0cXOAAxhg==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.tabs/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.tabs/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-6TzSvmYFQ+Bje7X5KH7xispbCCdKxX/256OHT515JXxrLoQzUfVnmJXfuox9hu0T15/XXimujaqAW0ZMpNYwxA==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/input.text/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/input.text/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-gr1fC3j0ikYkmKXaD31QSyp/glOtaCVU4kmQOXlwaMtBu/j0Kuw/MEyu0QMhjDoUEIaa0lL3I6TiMnGo7eoE0Q==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
@@ -438,30 +438,30 @@ packages:
     resolution: {integrity: sha512-+0P5WcoCZy4GgssBOWkJJrGy/ZFGGaxzTk/bwYhDRn9BXbsVhi3uxYaxO1cSoiBZq+/+5lk24bNCI/SEdAfQhw==}
     dev: false
 
-  /@alinea/picker.entry/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/picker.entry/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-9YGqzsbBtD42YumlqScYFxYxIkCkrakEz5RwUk+htabqPD93jYOju+Jt2QkHlZCjgwV4CeBW8T3KD+oY8238Mg==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/dashboard': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/dashboard': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
     dev: false
 
-  /@alinea/picker.url/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/picker.url/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-zbwJzE8yOlHxvnpwgPlpJH0soITgxD7LSD+nscWKl41y4ntqqVtpw85WcoYSaluqWY6s5hZ3baCqVf98drN4MQ==}
     peerDependencies:
       react: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/editor': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.check': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.text': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/ui': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/editor': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.check': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.text': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/ui': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
     transitivePeerDependencies:
       - react-dom
@@ -475,7 +475,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@alinea/shared/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/shared/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-VeaNUaAsbz0yD+ZT6y9FzV0tR86264d7AfWsvnOVHopoK8BcpJbNA8wDDiEcyl/Px/Q2nVS0fg6bIuce4kqIag==}
     peerDependencies:
       react: '*'
@@ -495,14 +495,14 @@ packages:
     resolution: {integrity: sha512-GjqiP5kV015jwE0Y9Ly70aM0+ql+dwMkVaovNSqL1t+rtaHEgS0yK9hts4UlAewXrmzizWiLzS5Vo4/evNNHDw==}
     dev: false
 
-  /@alinea/ui/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /@alinea/ui/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-r+cRQ9NlInFXb/js6UxES2h1X9AZyAqmQitqgzWec2915WjeF7WT+ItyORo7VNgAAFbaGlxkCvtEOGq7S5etLg==}
     peerDependencies:
       react: '*'
       react-dom: '*'
     dependencies:
       '@alinea/core': 0.3.1_react@18.2.0
-      '@alinea/shared': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/shared': 0.3.1_react-dom@18.2.0+react@18.2.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
@@ -541,7 +541,7 @@ packages:
     peerDependencies:
       postcss: ^8.2
     dependencies:
-      '@csstools/selector-specificity': 2.0.2_45y636a2vqremknoajyxd5nkzy
+      '@csstools/selector-specificity': 2.0.2_e771edf81aac224629ae027171f5aace
       postcss: 8.4.19
       postcss-selector-parser: 6.0.10
     dev: true
@@ -594,7 +594,7 @@ packages:
     peerDependencies:
       postcss: ^8.2
     dependencies:
-      '@csstools/selector-specificity': 2.0.2_45y636a2vqremknoajyxd5nkzy
+      '@csstools/selector-specificity': 2.0.2_e771edf81aac224629ae027171f5aace
       postcss: 8.4.19
       postcss-selector-parser: 6.0.10
     dev: true
@@ -679,7 +679,7 @@ packages:
       postcss: 8.4.19
     dev: true
 
-  /@csstools/selector-specificity/2.0.2_45y636a2vqremknoajyxd5nkzy:
+  /@csstools/selector-specificity/2.0.2_e771edf81aac224629ae027171f5aace:
     resolution: {integrity: sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg==}
     engines: {node: ^12 || ^14 || >=16}
     peerDependencies:
@@ -1351,28 +1351,28 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /alinea/0.3.1_biqbaboplfbrettd7655fr4n2y:
+  /alinea/0.3.1_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-c2TtvSzsC3BoZL8am6ghbLJ48ase+dxbG4cjcDV3z7508VRScnheJQgnSgtW7yMHuvBjccXtrU+5djn9SfG2Qw==}
     hasBin: true
     dependencies:
-      '@alinea/cli': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/cloud': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/cli': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/cloud': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/core': 0.3.1_react@18.2.0
       '@alinea/css': 0.3.1
-      '@alinea/dashboard': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.check': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.code': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.date': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.json': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.link': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.list': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.number': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.object': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.path': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.richtext': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.select': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.tabs': 0.3.1_biqbaboplfbrettd7655fr4n2y
-      '@alinea/input.text': 0.3.1_biqbaboplfbrettd7655fr4n2y
+      '@alinea/dashboard': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.check': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.code': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.date': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.json': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.link': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.list': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.number': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.object': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.path': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.richtext': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.select': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.tabs': 0.3.1_react-dom@18.2.0+react@18.2.0
+      '@alinea/input.text': 0.3.1_react-dom@18.2.0+react@18.2.0
       '@alinea/sqlite-wasm': 0.1.11
     transitivePeerDependencies:
       - react
@@ -2199,8 +2199,8 @@ packages:
       minify-html-literals: 1.3.5
     dev: true
 
-  /esbuild-sass-plugin/2.4.0:
-    resolution: {integrity: sha512-fJOkKjvsDFQzaraM9G8p0JX+LfcP9DF4lxmbSNErza31d4u8+cv3k6vl5WT5O0+Ya56t+Auzy2cVksuyMy44lA==}
+  /esbuild-sass-plugin/2.4.1:
+    resolution: {integrity: sha512-9Sf73lTm1vbD5FPXjS4ekKJV4+293dn2d0Asi/2E2ZpLAU8o4p4WrGsxLyKkGWBVZHusXO5ifgAyQ27pw8jUxg==}
     dependencies:
       esbuild: 0.15.14
       resolve: 1.22.1
@@ -3025,7 +3025,7 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /next/12.3.3_biqbaboplfbrettd7655fr4n2y:
+  /next/12.3.3_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-Rx2Y6Wl5R8E77NOfBupp/B9OPCklqfqD0yN2+rDivhMjd6hjVFH5n0WTDI4PWwDmZsdNcYt6NV85kJ3PLR+eNQ==}
     engines: {node: '>=12.22.0'}
     hasBin: true
@@ -3529,7 +3529,7 @@ packages:
     peerDependencies:
       postcss: ^8.2
     dependencies:
-      '@csstools/selector-specificity': 2.0.2_45y636a2vqremknoajyxd5nkzy
+      '@csstools/selector-specificity': 2.0.2_e771edf81aac224629ae027171f5aace
       postcss: 8.4.19
       postcss-selector-parser: 6.0.10
     dev: true
@@ -3986,12 +3986,10 @@ packages:
       wordwrapjs: 4.0.1
     dev: true
 
-  /tailwindcss/3.2.4_postcss@8.4.19:
+  /tailwindcss/3.2.4:
     resolution: {integrity: sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==}
     engines: {node: '>=12.13.0'}
     hasBin: true
-    peerDependencies:
-      postcss: ^8.0.9
     dependencies:
       arg: 5.0.2
       chokidar: 3.5.3
@@ -4042,7 +4040,7 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /ts-node/10.9.1_wup25etrarvlqkprac7h35hj7u:
+  /ts-node/10.9.1_b51fae9271046ab829f100be7df4e9fd:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
