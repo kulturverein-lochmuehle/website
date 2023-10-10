@@ -11,6 +11,11 @@ export class NavigationItem extends LitElement {
     `
   ];
 
+  private readonly handleLocationChangedBound = this.handleLocationChanged.bind(this);
+
+  @property({ reflect: true, type: Boolean })
+  active = false;
+
   @property({ reflect: true, type: Boolean })
   inline = false;
 
@@ -20,9 +25,41 @@ export class NavigationItem extends LitElement {
   @property({ reflect: true, type: String })
   label: string;
 
+  override connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('inline-location-changed', this.handleLocationChangedBound, false);
+    window.addEventListener(
+      'vaadin-router-location-changed',
+      this.handleLocationChangedBound,
+      false
+    );
+  }
+
+  override disconnectedCallback() {
+    window.removeEventListener('inline-location-changed', this.handleLocationChangedBound, false);
+    window.removeEventListener(
+      'vaadin-router-location-changed',
+      this.handleLocationChangedBound,
+      false
+    );
+    super.disconnectedCallback();
+  }
+
+  handleLocationChanged() {
+    // mark as active if the current location matches the href
+    this.active = window.location.pathname.startsWith(this.href);
+  }
+
   handleClick(event: Event) {
     // handle normal links with default router
-    if (!this.inline) return;
+    if (!this.inline) {
+      return;
+    }
+    // check if we are already on the route
+    if (window.location.pathname === this.href) {
+      event.preventDefault();
+      return;
+    }
     // inline links are not handled by default router, so we need to prevent the default behavior
     event.preventDefault();
     window.history.pushState({}, '', this.href);

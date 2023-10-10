@@ -1,2 +1,9 @@
 a {
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  :host([active]) & {
+    text-decoration: underline;
+  }
 }
