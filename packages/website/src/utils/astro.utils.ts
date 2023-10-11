@@ -21,3 +21,7 @@ export type Props<T extends Constructor<HTMLElement>> = Partial<
 export function withAstro<T extends Constructor<HTMLElement>>(target: T) {
   return target as unknown as new (_props: Props<T>) => T;
 }
+
+export function isInlineSection(id: string) {
+  return id.endsWith('.section.mdx');
+}

@@ -1,47 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
+import { getEntryBySlug } from 'astro:content';
 
-import DefaultLayout from '@layouts/default.layout.astro';
-import Title from '@components/title.component.astro';
-import Info from '@components/info.component.astro';
-import { Navigation, NavigationItem, Section } from '@components/ui.components';
+import { isInlineSection } from '@utils/astro.utils';
 
-const sections = await getCollection('verein');
+import Page from '@components/page.component.astro';
+import Sections from '@components/sections.component.astro';
+
 const { slug: currentSlug } = Astro.params;
-const { pathname } = Astro.url;
-const basePath = pathname.replace(new RegExp(`/${currentSlug}$`), '');
+const current = currentSlug && await getEntryBySlug('verein', currentSlug);
 ---
 
-<DefaultLayout lang="de" title="Kulturverein Lochmühle">
-  <Navigation slot="header">
-    {
-      sections
-        .concat({data: { title: 'Impressum' }, slug: 'impressum'})
-        .map(({ data, slug }) => (
-          <NavigationItem
-            inline
-            active={slug === currentSlug}
-            href={`${basePath}/${slug}`}
-            label={data.title}
-          ></NavigationItem>
-        )) as any
-    }
-  </Navigation>
-  {
-    sections.map(async ({ data, slug, render }) => {
-      const { Content } = await render();
-      return (
-        <Section
-          id={`${basePath}/${slug}`}
-          style={`
-            --kvlm-section-background-from: ${data.backgroundFrom};
-            --kvlm-section-background-to: ${data.backgroundTo};
-            --kvlm-section-color: ${data.color};
-          ` as any}
-        >
-          <Content components={{ h1: Title, p: Info }} />
-        </Section>
-      );
-    })
-  }
-</DefaultLayout>
+{
+  current && !isInlineSection(current.id) ? (
+    <Page />
+  ) : (
+    <Sections />
+  )
+}

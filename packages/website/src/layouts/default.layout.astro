@@ -1,8 +1,18 @@
 ---
 import '@kvlm/ui/global.css';
-import { Main } from '@components/ui.components';
+
+import { getCollection } from 'astro:content';
+import { isInlineSection } from '@utils/astro.utils';
+import { Main, Navigation, NavigationItem } from '@components/ui.components';
+
+const collection = await getCollection('verein');
+const sections = collection.filter(({ id }) => isInlineSection(id));
+const pages = collection.filter(({ id }) => !isInlineSection(id));
 
 const { lang = 'en', title } = Astro.props;
+const { slug: currentSlug } = Astro.params;
+const { pathname } = Astro.url;
+const basePath = pathname.replace(new RegExp(`/${currentSlug}$`), '');
 ---
 
 <html lang={lang}>
@@ -17,7 +27,20 @@ const { lang = 'en', title } = Astro.props;
   </head>
   <body>
     <header>
-      <slot name="header" />
+      <Navigation>
+        {
+          sections
+            .concat(pages)
+            .map(({ data, id, slug }) => (
+              <NavigationItem
+                inline={isInlineSection(id)}
+                active={slug === currentSlug}
+                href={`${basePath}/${slug}`}
+                label={data.title}
+              ></NavigationItem>
+            )) as any
+        }
+      </Navigation>
     </header>
     <main>
       <Main client:idle scrollObserveSelector="kvlm-section">
