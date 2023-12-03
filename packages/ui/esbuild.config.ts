@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createServer, request as httpRequest } from 'node:http';
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
@@ -56,7 +57,6 @@ const options: BuildOptions = {
     'src/preview.ts',
     'src/preview.config.json'
   ],
-  external: ['lit*'],
   outdir: 'dist',
   format: 'esm',
   bundle: true,
@@ -92,8 +92,8 @@ const options: BuildOptions = {
     astroWrappersPlugin({
       filter: /\.component\.ts$/,
       removeSuffix: '.component.ts',
-      outdir: 'astro',
-    }),
+      outdir: 'astro'
+    })
   ]
 };
 
@@ -163,6 +163,9 @@ if (watch) {
     process.exit(1);
   }
 } else {
-  await build(options);
+  await build({
+    ...options,
+    // external: ['lit*']
+  });
   process.exit(0);
 }

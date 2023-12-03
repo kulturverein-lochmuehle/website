@@ -11,12 +11,12 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "customElements": "dist/custom-elements.json",
   "files": [
     "astro",
     "dist"
   ],
   "exports": {
-
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
@@ -50,28 +50,28 @@
     "dev": "run-p -lns dev:*"
   },
   "dependencies": {
-    "lit": "2.8.0",
+    "lit": "3.1.0",
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
     "@csstools/css-parser-algorithms": "2.3.2",
     "@csstools/css-tokenizer": "2.2.1",
-    "@custom-elements-manifest/analyzer": "0.8.4",
+    "@custom-elements-manifest/analyzer": "0.9.0",
     "@esm-bundle/chai": "4.3.4-fix.0",
-    "@lit-labs/testing": "0.2.1",
-    "@open-wc/semantic-dom-diff": "0.20.0",
-    "@open-wc/testing": "3.2.0",
-    "@open-wc/testing-helpers": "2.3.0",
-    "@types/browser-sync": "2.27.1",
-    "@types/lodash-es": "4.17.9",
-    "@types/mocha": "10.0.2",
-    "@types/node": "20.8.4",
-    "@typescript-eslint/eslint-plugin": "6.7.5",
-    "@typescript-eslint/parser": "6.7.5",
-    "@web/dev-server-esbuild": "0.4.1",
-    "@web/test-runner": "0.17.1",
-    "@web/test-runner-commands": "0.8.0",
-    "@web/test-runner-playwright": "0.10.1",
+    "@lit-labs/testing": "0.2.3",
+    "@open-wc/semantic-dom-diff": "0.20.1",
+    "@open-wc/testing": "4.0.0",
+    "@open-wc/testing-helpers": "3.0.0",
+    "@types/browser-sync": "2.27.5",
+    "@types/lodash-es": "4.17.12",
+    "@types/mocha": "10.0.6",
+    "@types/node": "20.10.2",
+    "@typescript-eslint/eslint-plugin": "6.13.1",
+    "@typescript-eslint/parser": "6.13.1",
+    "@web/dev-server-esbuild": "1.0.1",
+    "@web/test-runner": "0.18.0",
+    "@web/test-runner-commands": "0.9.0",
+    "@web/test-runner-playwright": "0.11.0",
     "@webcomponents/template-shadowroot": "0.2.1",
     "@webcomponents-preview/cem-plugin-examples": "0.0.35",
     "@webcomponents-preview/cem-plugin-generate-readmes": "0.0.35",
@@ -83,27 +83,24 @@
     "browser-sync": "2.29.3",
     "chai-a11y-axe": "1.5.0",
     "cross-env": "7.0.3",
-    "esbuild": "0.19.4",
+    "esbuild": "0.19.8",
     "esbuild-plugin-clean": "1.0.1",
     "esbuild-sass-plugin": "2.16.0",
-    "eslint": "8.51.0",
-    "eslint-plugin-import": "2.28.1",
+    "eslint": "8.55.0",
+    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-lit": "1.10.1",
     "eslint-plugin-tsdoc": "0.2.17",
-    "fast-glob": "3.3.1",
+    "fast-glob": "3.3.2",
     "npm-run-all": "4.1.5",
-    "postcss": "8.4.31",
-    "postcss-preset-env": "9.2.0",
-    "resolve": "1.22.6",
-    "sass": "1.69.0",
+    "postcss": "8.4.32",
+    "postcss-preset-env": "9.3.0",
+    "resolve": "1.22.8",
+    "sass": "1.69.5",
     "shx": "0.3.4",
     "ts-node": "10.9.1",
     "tsc-alias": "1.8.8",
     "tslib": "2.6.2",
-    "typedoc": "0.25.2",
-    "typescript": "5.2.2"
-  },
-  "engines": {
-    "node": "^18||^20"
-  },
-  "customElements": "dist/custom-elements.json"
+    "typedoc": "0.25.4",
+    "typescript": "5.3.2"
+  }
 }
