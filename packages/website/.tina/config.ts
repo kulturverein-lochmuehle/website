@@ -3,7 +3,7 @@
 import { defineConfig } from 'tinacms';
 
 // Your hosting provider likely exposes this as an environment variable
-const branch = process.env.HEAD || 'main';
+const branch = process.env.HEAD || process.env.BRANCH || 'main';
 
 // https://tina.io/docs/reference/config/
 export default defineConfig({

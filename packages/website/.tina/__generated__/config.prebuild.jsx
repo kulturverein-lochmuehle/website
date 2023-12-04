@@ -1,6 +1,6 @@
 // .tina/config.ts
 import { defineConfig } from "tinacms";
-var branch = process.env.HEAD || "main";
+var branch = process.env.HEAD || process.env.BRANCH || "main";
 var config_default = defineConfig({
   branch,
   clientId: null,

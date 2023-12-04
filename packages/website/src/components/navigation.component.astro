@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import { getCollectionParams } from '@utils/collection.utils.js';
+
+type NavigationItem = {
+  label: string;
+  href: string;
+  active: boolean;
+  inline: boolean;
+};
+
+const { path } = Astro.params;
+const { collection, slug } = getCollectionParams(path);
+
+// prepare navigation items from collection pages
+const pages = await getCollection(collection!);
+const items = pages
+  // sort pages
+  .sort((a, b) => a.data.order - b.data.order)
+  // build navigation items
+  .reduce(
+    (acc, page) =>  [...acc, {
+      inline: page.slug.includes('/'),
+      active: page.slug === slug,
+      href: `/${collection}/${page.slug}`,
+      label: page.data.title,
+    }],
+    [] as NavigationItem[]
+  );
+---
+<kvlm-navigation>
+  {
+    items.map(item => <kvlm-navigation-item {...item} />)
+  }
+</kvlm-navigation>

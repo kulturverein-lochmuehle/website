@@ -1,0 +1,14 @@
+---
+import { getEntryBySlug } from 'astro:content';
+import { getCollectionParams } from '@utils/collection.utils';
+
+import Title from '@components/title.component.astro';
+import Info from '@components/info.component.astro';
+
+const { path } = Astro.params;
+const { collection, slug } = getCollectionParams(path);
+
+const current = await getEntryBySlug(collection!, slug!);
+const { Content } = await current!.render();
+---
+<Content components={{ h1: Title, p: Info }} />

@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import { getCollectionParams } from '@utils/collection.utils';
+
+import Title from '@components/title.component.astro';
+import Info from '@components/info.component.astro';
+
+const { path } = Astro.params;
+const { collection, page } = getCollectionParams(path);
+
+const entries = await getCollection(collection!, (item) => item.slug.startsWith(page!));
+const sections = await Promise.all(entries
+  // sort by section order
+  .sort((a, b) => a.data.order - b.data.order)
+  // prepare contents
+  .map(async entry => ({
+    id: `/${collection}/${entry.slug}`,
+    data: entry.data,
+    Content: (await entry.render()).Content
+  }))
+);
+---
+
+{
+  sections.map(async ({ data, id, Content }) => {
+    return (
+      <kvlm-section
+        id={id}
+        style={`
+          --kvlm-section-background-from: ${data.backgroundFrom};
+          --kvlm-section-background-to: ${data.backgroundTo};
+          --kvlm-section-color: ${data.color};
+        `}
+      >
+        <Content components={{ h1: Title, p: Info }} />
+      </kvlm-section>
+    );
+  })
+}
