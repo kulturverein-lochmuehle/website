@@ -12,7 +12,6 @@ import postcss from 'postcss';
 // import postcssPresetEnv from 'postcss-preset-env';
 
 import { browserSyncPlugin } from './esbuild-plugin-browser-sync.js';
-import { astroWrappersPlugin } from './esbuild-plugin-astro-wrappers.js';
 
 // apply postcss with autoprefixer in sass
 const transform = async (source: string): Promise<string> => {
@@ -88,11 +87,6 @@ const options: BuildOptions = {
       type: 'css',
       importMapper,
       transform
-    }),
-    astroWrappersPlugin({
-      filter: /\.component\.ts$/,
-      removeSuffix: '.component.ts',
-      outdir: 'astro'
     })
   ]
 };
@@ -163,9 +157,6 @@ if (watch) {
     process.exit(1);
   }
 } else {
-  await build({
-    ...options,
-    // external: ['lit*']
-  });
+  await build(options);
   process.exit(0);
 }
