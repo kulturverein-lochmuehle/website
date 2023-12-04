@@ -63,7 +63,7 @@ const options: BuildOptions = {
   minify: true,
   treeShaking: true,
   // external: ['lit*'],
-  sourcemap: 'both',
+  sourcemap: watch ? 'both' : false,
   loader: {
     '.html': 'copy',
     '.json': 'copy',
@@ -75,7 +75,7 @@ const options: BuildOptions = {
     '.woff': 'file',
     '.woff2': 'file'
   },
-  logLevel: 'error',
+  logLevel: watch ? 'info' : 'error',
   plugins: [
     sassPlugin({
       type: 'css-text',
@@ -157,6 +157,9 @@ if (watch) {
     process.exit(1);
   }
 } else {
-  await build(options);
+  await build({
+    ...options,
+    external: ['lit*']
+  });
   process.exit(0);
 }

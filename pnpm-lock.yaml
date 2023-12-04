@@ -167,9 +167,6 @@ importers:
       '@kvlm/ui':
         specifier: workspace:*
         version: link:../ui
-      '@webcomponents/template-shadowroot':
-        specifier: 0.2.1
-        version: 0.2.1
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -216,6 +213,9 @@ importers:
       graphql-tag:
         specifier: 2.12.6
         version: 2.12.6(graphql@16.8.1)
+      npm-run-all:
+        specifier: 4.1.5
+        version: 4.1.5
       postcss:
         specifier: 8.4.32
         version: 8.4.32
@@ -225,6 +225,9 @@ importers:
       scheduler:
         specifier: 0.23.0
         version: 0.23.0
+      shx:
+        specifier: 0.3.4
+        version: 0.3.4
       typescript:
         specifier: 5.3.2
         version: 5.3.2
@@ -8750,6 +8753,7 @@ packages:
 
   /@webcomponents/template-shadowroot@0.2.1:
     resolution: {integrity: sha512-fXL/vIUakyZL62hyvUh+EMwbVoTc0hksublmRz6ai6et8znHkJa6gtqMUZo1oc7dIz46exHSIImml9QTdknMHg==}
+    dev: true
 
   /@xstate/react@3.0.0(@types/react@18.2.41)(react@17.0.2):
     resolution: {integrity: sha512-KHSCfwtb8gZ7QH2luihvmKYI+0lcdHQOmGNRUxUEs4zVgaJCyd8csCEmwPsudpliLdUmyxX2pzUBojFkINpotw==}
@@ -10573,6 +10577,7 @@ packages:
 
   /end-of-stream@1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
+    requiresBuild: true
     dependencies:
       once: 1.4.0
 

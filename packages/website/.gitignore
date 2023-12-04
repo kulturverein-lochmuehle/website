@@ -2,8 +2,9 @@
 .netlify/
 dist/
 
-# generated types
+# generated
 .astro/
+/public/ui
 
 # dependencies
 node_modules/
