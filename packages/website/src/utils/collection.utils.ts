@@ -14,7 +14,7 @@ export type CollectionParams = {
  */
 export function getCollectionParams(path?: string): CollectionParams {
   const [collection, page, section] = path?.split('/') ?? [];
-  const slug = [page, section].join('/');
+  const slug = [page, section].filter(Boolean).join('/');
   const hasSections = section !== undefined;
   return { collection, slug, page, section, hasSections } as CollectionParams;
 }

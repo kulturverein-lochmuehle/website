@@ -45,9 +45,9 @@ export class Navigation extends LitElement {
     });
   }
 
-  @eventOptions({ passive: false, capture: true })
+  @eventOptions({ passive: true })
   handleClick(event: Event) {
-    event.preventDefault();
+    if (!event.defaultPrevented) return;
     this.opened = !this.opened;
   }
 

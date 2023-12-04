@@ -72,22 +72,15 @@ export class NavigationItem extends LitElement {
     this.active = window.location.pathname.startsWith(this.href);
   }
 
-  @eventOptions({ passive: false })
+  @eventOptions({ capture: true })
   handleClick(event: Event) {
     // handle normal links with default router
-    if (!this.inline) {
-      return;
+    if (this.inline) {
+      // prevent other listeners from handling this event
+      event.preventDefault();
+      // scroll to related section
+      changeLocationInline(this.href, true);
     }
-
-    // either way, we're handling this click ourselves
-    event.preventDefault();
-
-    // check if we are already on the route
-    if (window.location.pathname === this.href) {
-      return;
-    }
-    // inline links are not handled by default router, so we need to prevent the default behaviour
-    changeLocationInline(this.href, true);
   }
 
   render() {
