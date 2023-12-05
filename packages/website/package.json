@@ -8,8 +8,7 @@
     "predev": "run-s clean copy",
     "dev": "tinacms dev -v --noTelemetry --command 'astro dev --host'",
     "prebuild": "run-s clean copy",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "astro build"
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
