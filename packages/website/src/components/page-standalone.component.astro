@@ -11,4 +11,13 @@ const { collection, slug } = getCollectionParams(path);
 const current = await getEntryBySlug(collection!, slug!);
 const { Content } = await current!.render();
 ---
-<Content components={{ h1: Title, p: Info }} />
+
+<kvlm-section
+  style={`
+    --kvlm-section-background-from: ${current!.data.backgroundFrom};
+    --kvlm-section-background-to: ${current!.data.backgroundTo};
+    --kvlm-section-color: ${current!.data.color};
+  `}
+>
+  <Content components={{ h1: Title, p: Info }} />
+</kvlm-section>
