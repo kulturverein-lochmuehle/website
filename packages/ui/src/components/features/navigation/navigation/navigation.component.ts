@@ -8,7 +8,11 @@ import styles from './navigation.component.scss';
 export class Navigation extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
-  private readonly handleScrollBound = this.handleScroll.bind(this);
+  readonly #handleScrollBound = this.handleScroll.bind(this);
+
+  get #isMobile(): boolean {
+    return window.getComputedStyle(this).getPropertyValue('---kvlm-navigation-mobile') === '1';
+  }
 
   @property({ reflect: true, type: Boolean })
   opened = false;
@@ -24,7 +28,7 @@ export class Navigation extends LitElement {
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
     if (isServer) return;
 
-    window.addEventListener('scroll', this.handleScrollBound, false);
+    window.addEventListener('scroll', this.#handleScrollBound, false);
   }
 
   override disconnectedCallback() {
@@ -35,7 +39,7 @@ export class Navigation extends LitElement {
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
     if (isServer) return;
 
-    window.removeEventListener('scroll', this.handleScrollBound, false);
+    window.removeEventListener('scroll', this.#handleScrollBound, false);
   }
 
   handleScroll() {
@@ -47,14 +51,21 @@ export class Navigation extends LitElement {
 
   @eventOptions({ passive: true })
   handleClick(event: Event) {
+    if (!this.#isMobile) return;
     if (!event.defaultPrevented) return;
     this.opened = !this.opened;
+  }
+
+  @eventOptions({ capture: true })
+  handleLogoClick(event: Event) {
+    if (!this.#isMobile) return;
+    event.preventDefault();
   }
 
   render() {
     return html`
       <nav @click="${this.handleClick}">
-        <a href="/">
+        <a @click="${this.handleLogoClick}" href="/">
           <kvlm-logo></kvlm-logo>
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.4 37.4">

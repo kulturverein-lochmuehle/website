@@ -15,6 +15,7 @@
 | `disconnectedCallback` |         |             |                |        |                |
 | `handleScroll`         |         |             |                |        |                |
 | `handleClick`          |         |             | `event: Event` |        |                |
+| `handleLogoClick`      |         |             | `event: Event` |        |                |
 | `render`               |         |             |                |        |                |
 
 ## Attributes

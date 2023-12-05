@@ -39,6 +39,9 @@ $background: linear-gradient(
   transition-property: color;
 
   @include utils.media-lt(utils.$breakpoint-navigation) {
+    ---kvlm-navigation-desktop: 0;
+    ---kvlm-navigation-mobile: 1;
+
     background: $background;
     height: 12.6rem;
     overflow: hidden;
@@ -46,6 +49,9 @@ $background: linear-gradient(
   }
 
   @include utils.media-gt(utils.$breakpoint-navigation) {
+    ---kvlm-navigation-desktop: 1;
+    ---kvlm-navigation-mobile: 0;
+
     align-items: center;
     height: var(---kvlm-navigation-height);
   }
@@ -54,6 +60,7 @@ $background: linear-gradient(
 @include utils.media-lt(utils.$breakpoint-navigation) {
   :host([opened]) {
     height: 100vh;
+    height: 100svh;
   }
 }
 
