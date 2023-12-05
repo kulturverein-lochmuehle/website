@@ -157,9 +157,6 @@ if (watch) {
     process.exit(1);
   }
 } else {
-  await build({
-    ...options,
-    external: ['lit*']
-  });
+  await build(options);
   process.exit(0);
 }
