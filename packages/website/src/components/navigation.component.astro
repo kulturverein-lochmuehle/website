@@ -10,7 +10,16 @@ type NavigationItem = {
 };
 
 const { path } = Astro.params;
-const { collection, slug } = getCollectionParams(path);
+const { collection, page, slug } = getCollectionParams(path);
+
+// checks weather a given page slug should be linked inline or not, this depends on two things:
+// first, the page slug must contain a slash which marks it as a section link,
+// second, the page containing the section must be the current page already
+function isLinkedInline(slug: string): boolean {
+  const isSectionLink = slug.includes('/');
+  const isCurrentPage = slug.startsWith(`${page}/`);
+  return isSectionLink && isCurrentPage;
+}
 
 // prepare navigation items from collection pages
 const pages = await getCollection(collection!);
@@ -20,7 +29,7 @@ const items = pages
   // build navigation items
   .reduce(
     (acc, page) =>  [...acc, {
-      inline: page.slug.includes('/'),
+      inline: isLinkedInline(page.slug),
       active: page.slug === slug,
       href: `/${collection}/${page.slug}`,
       label: page.data.title,
