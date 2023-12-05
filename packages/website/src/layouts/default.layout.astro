@@ -5,6 +5,7 @@ interface Props {
   siteTitle?: string;
 }
 
+const UI_ROOT = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
 const { lang = 'de', pageTitle, siteTitle } = Astro.props;
 ---
 
@@ -18,8 +19,8 @@ const { lang = 'de', pageTitle, siteTitle } = Astro.props;
 
     <title>{ pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle }</title>
 
-    <link href="/ui/index.css" rel="stylesheet" />
-    <script src="/ui/index.js" type="module"></script>
+    <link href={`${UI_ROOT}/index.css`} rel="stylesheet" />
+    <script src={`${UI_ROOT}/index.js`} type="module"></script>
   </head>
   <body>
     <header>
