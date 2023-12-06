@@ -2,6 +2,8 @@
 
 # kvlm-main
 
+A layout component to wrap the page content.
+
 ## Properties
 
 | Property                | Attribute                 | Type                  |
@@ -18,3 +20,9 @@
 | `handleIntersections`         | `(entries: object): void`                        |
 | `observeContents`             | `(): void`                                       |
 | `scrollToContent`             | `(id: string, animate: boolean): void`           |
+
+## Slots
+
+| Name | Description      |
+|------|------------------|
+|      | The default slot |

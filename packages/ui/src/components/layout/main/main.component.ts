@@ -10,6 +10,11 @@ import {
 
 import styles from './main.component.scss';
 
+/**
+ * A layout component to wrap the page content.
+ * 
+ * @slot - The default slot
+ */
 @customElement('kvlm-main')
 export class Main extends LitElement {
   static override readonly styles = unsafeCSS(styles);
