@@ -1,33 +1,19 @@
 <!-- Auto Generated Below -->
 
-# class: `NavigationItem`
+# kvlm-navigation-item
 
-## Fields
+## Properties
 
-| Name     | Privacy | Type      | Default | Description | Inherited From |
-| -------- | ------- | --------- | ------- | ----------- | -------------- |
-| `active` |         | `boolean` | `false` |             |                |
-| `inline` |         | `boolean` | `false` |             |                |
-| `href`   |         | `string`  |         |             |                |
-| `label`  |         | `string`  |         |             |                |
+| Property | Attribute | Type      | Default |
+|----------|-----------|-----------|---------|
+| `active` | `active`  | `boolean` | false   |
+| `href`   | `href`    | `string`  |         |
+| `inline` | `inline`  | `boolean` | false   |
+| `label`  | `label`   | `string`  |         |
 
 ## Methods
 
-| Name                    | Privacy | Description | Parameters     | Return | Inherited From |
-| ----------------------- | ------- | ----------- | -------------- | ------ | -------------- |
-| `connectedCallback`     |         |             |                |        |                |
-| `disconnectedCallback`  |         |             |                |        |                |
-| `handleLocationChanged` |         |             |                |        |                |
-| `handleClick`           |         |             | `event: Event` |        |                |
-| `render`                |         |             |                |        |                |
-
-## Attributes
-
-| Name     | Field  | Inherited From |
-| -------- | ------ | -------------- |
-| `active` | active |                |
-| `inline` | inline |                |
-| `href`   | href   |                |
-| `label`  | label  |                |
-
-<hr/>
+| Method                  | Type                   |
+|-------------------------|------------------------|
+| `handleClick`           | `(event: Event): void` |
+| `handleLocationChanged` | `(): void`             |

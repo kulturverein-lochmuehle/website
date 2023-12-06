@@ -1,27 +1,23 @@
 <!-- Auto Generated Below -->
 
-# class: `TimelineItem`, `kvlm-timeline-item`
+# kvlm-timeline-item
 
-## Fields
+Displays a single timeline item eith its given title, timestamp and text.
 
-| Name    | Privacy | Type     | Default | Description | Inherited From |
-| ------- | ------- | -------- | ------- | ----------- | -------------- |
-| `date`  |         | `Date`   |         |             |                |
-| `title` |         | `string` |         |             |                |
-| `text`  |         | `string` |         |             |                |
+## Example
 
-## Methods
+```html
+<kvlm-timeline-item
+  date="2023-05-18"
+  title="Foo"
+  text="Bar"
+></kvlm-timeline-item>
+```
 
-| Name     | Privacy | Description | Parameters | Return | Inherited From |
-| -------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `render` |         |             |            |        |                |
+## Properties
 
-## Attributes
-
-| Name    | Field | Inherited From |
-| ------- | ----- | -------------- |
-| `date`  | date  |                |
-| `title` | title |                |
-| `text`  | text  |                |
-
-<hr/>
+| Property | Attribute | Type     |
+|----------|-----------|----------|
+| `date`   | `date`    | `Date`   |
+| `text`   | `text`    | `string` |
+| `title`  | `title`   | `string` |

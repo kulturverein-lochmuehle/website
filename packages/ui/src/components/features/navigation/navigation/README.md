@@ -1,30 +1,18 @@
 <!-- Auto Generated Below -->
 
-# class: `Navigation`
+# kvlm-navigation
 
-## Fields
+## Properties
 
-| Name                 | Privacy | Type      | Default | Description | Inherited From |
-| -------------------- | ------- | --------- | ------- | ----------- | -------------- |
-| `opened`             |         | `boolean` | `false` |             |                |
-| `scrollFadeDistance` |         | `number`  | `100`   |             |                |
+| Property             | Attribute              | Type      | Default |
+|----------------------|------------------------|-----------|---------|
+| `opened`             | `opened`               | `boolean` | false   |
+| `scrollFadeDistance` | `scroll-fade-distance` | `number`  | 100     |
 
 ## Methods
 
-| Name                   | Privacy | Description | Parameters     | Return | Inherited From |
-| ---------------------- | ------- | ----------- | -------------- | ------ | -------------- |
-| `connectedCallback`    |         |             |                |        |                |
-| `disconnectedCallback` |         |             |                |        |                |
-| `handleScroll`         |         |             |                |        |                |
-| `handleClick`          |         |             | `event: Event` |        |                |
-| `handleLogoClick`      |         |             | `event: Event` |        |                |
-| `render`               |         |             |                |        |                |
-
-## Attributes
-
-| Name                   | Field              | Inherited From |
-| ---------------------- | ------------------ | -------------- |
-| `opened`               | opened             |                |
-| `scroll-fade-distance` | scrollFadeDistance |                |
-
-<hr/>
+| Method            | Type                   |
+|-------------------|------------------------|
+| `handleClick`     | `(event: Event): void` |
+| `handleLogoClick` | `(event: Event): void` |
+| `handleScroll`    | `(): void`             |

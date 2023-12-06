@@ -1,31 +1,20 @@
 <!-- Auto Generated Below -->
 
-# class: `Main`
+# kvlm-main
 
-## Fields
+## Properties
 
-| Name                    | Privacy | Type                  | Default | Description | Inherited From |
-| ----------------------- | ------- | --------------------- | ------- | ----------- | -------------- |
-| `scrollObserveSelector` |         | `string \| undefined` |         |             |                |
+| Property                | Attribute                 | Type                  |
+|-------------------------|---------------------------|-----------------------|
+| `scrollObserveSelector` | `scroll-observe-selector` | `string \| undefined` |
 
 ## Methods
 
-| Name                          | Privacy | Description | Parameters                               | Return                     | Inherited From |
-| ----------------------------- | ------- | ----------- | ---------------------------------------- | -------------------------- | -------------- |
-| `connectedCallback`           |         |             |                                          |                            |                |
-| `disconnectedCallback`        |         |             |                                          |                            |                |
-| `observeContents`             |         |             |                                          |                            |                |
-| `handleIntersections`         |         |             | `entries: IntersectionObserverEntry[]`   |                            |                |
-| `handleInlineLocationChanged` |         |             | `{ detail }: InlineLocationChangedEvent` |                            |                |
-| `getActiveElement`            |         |             | `id: string`                             | `HTMLElement \| undefined` |                |
-| `changeNavigationTheme`       |         |             | `id: string`                             |                            |                |
-| `scrollToContent`             |         |             | `id: string, animate: boolean`           |                            |                |
-| `render`                      |         |             |                                          |                            |                |
-
-## Attributes
-
-| Name                      | Field                 | Inherited From |
-| ------------------------- | --------------------- | -------------- |
-| `scroll-observe-selector` | scrollObserveSelector |                |
-
-<hr/>
+| Method                        | Type                                             |
+|-------------------------------|--------------------------------------------------|
+| `changeNavigationTheme`       | `(id: string): void`                             |
+| `getActiveElement`            | `(id: string): any`                              |
+| `handleInlineLocationChanged` | `({ detail }: InlineLocationChangedEvent): void` |
+| `handleIntersections`         | `(entries: object): void`                        |
+| `observeContents`             | `(): void`                                       |
+| `scrollToContent`             | `(id: string, animate: boolean): void`           |

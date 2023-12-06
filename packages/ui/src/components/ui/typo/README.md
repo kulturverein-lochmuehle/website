@@ -1,12 +1,9 @@
 <!-- Auto Generated Below -->
 
-# class: `Typo`
+# kvlm-typo
 
 ## Methods
 
-| Name               | Privacy | Description | Parameters | Return | Inherited From |
-| ------------------ | ------- | ----------- | ---------- | ------ | -------------- |
-| `createRenderRoot` |         |             |            |        |                |
-| `render`           |         |             |            |        |                |
-
-<hr/>
+| Method             | Type       |
+|--------------------|------------|
+| `createRenderRoot` | `(): this` |

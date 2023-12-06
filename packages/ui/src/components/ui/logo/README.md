@@ -1,11 +1,10 @@
 <!-- Auto Generated Below -->
 
-# class: `Logo`
+# kvlm-logo
 
-## Methods
+## CSS Custom Properties
 
-| Name     | Privacy | Description | Parameters | Return | Inherited From |
-| -------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `render` |         |             |            |        |                |
-
-<hr/>
+| Property                  | Description        |
+|---------------------------|--------------------|
+| `--kvlm-logo-brook-color` | Color of the brook |
+| `--kvlm-logo-typo-color`  | Color of the typo  |

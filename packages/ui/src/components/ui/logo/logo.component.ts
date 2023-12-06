@@ -3,6 +3,10 @@ import { customElement } from 'lit/decorators.js';
 
 import styles from './logo.component.scss';
 
+/**
+ * @cssprop --kvlm-logo-brook-color - Color of the brook
+ * @cssprop --kvlm-logo-typo-color - Color of the typo
+ */
 @customElement('kvlm-logo')
 export class Logo extends LitElement {
   static override readonly styles = unsafeCSS(styles);
