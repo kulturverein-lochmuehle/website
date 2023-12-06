@@ -13,7 +13,11 @@ export class Typo extends LitElement {
   }
 
   render() {
-    return html`<style .innerHTML="${Typo.styles}"></style>`;
+    return html`
+      <style>
+        ${Typo.styles}
+      </style>
+    `;
   }
 }
 

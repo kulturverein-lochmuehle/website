@@ -1,48 +1,50 @@
 @use 'sass:math';
 @use '@/styles/utils';
 
-* {
-  @include utils.mobile() {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
+kvlm-typo {
+  * {
+    @include utils.mobile() {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
   }
-}
 
-// prettier-ignore
-h1, h2, h3, h4, h5, h6, p, ul {
-  margin: 0;
-}
-
-// prettier-ignore
-h1, h2, h3, h4, h5, h6 {
-  ~ p, ~ ul {
-    margin-top: 1em;
+  // prettier-ignore
+  h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: 0;
   }
-}
 
-a {
-  color: inherit;
-  text-decoration: underline;
-}
+  // prettier-ignore
+  h1, h2, h3, h4, h5, h6 {
+    ~ p, ~ ul, ~ ol {
+      margin-top: 1em;
+    }
+  }
 
-.title {
-  font-family: 'Super Grotesk', sans-serif;
-  font-size: utils.relative-font-size(150, $minimum: 3.2rem, $maximum: 12.5rem);
-  font-weight: 700;
-  line-height: math.div(16, 15);
-  text-transform: uppercase;
-}
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
 
-.info {
-  font-family: 'Fundamental Brigade', sans-serif;
-  font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
-  line-height: 1.25;
-}
+  .kvlm-typo--title {
+    font-family: 'Super Grotesk', sans-serif;
+    font-size: utils.relative-font-size(150, $minimum: 3.2rem, $maximum: 12.5rem);
+    font-weight: 700;
+    line-height: math.div(16, 15);
+    text-transform: uppercase;
+  }
 
-.body {
-  font-family: 'Fundamental Brigade', sans-serif;
-  font-size: utils.relative-font-size(20, $minimum: 1.6rem);
-  line-height: 1.5;
+  .kvlm-typo--lead {
+    font-family: 'Fundamental Brigade', sans-serif;
+    font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
+    line-height: 1.25;
+  }
+
+  .kvlm-typo--body {
+    font-family: 'Fundamental Brigade', sans-serif;
+    font-size: utils.relative-font-size(20, $minimum: 1.6rem);
+    line-height: 1.5;
+  }
 }
