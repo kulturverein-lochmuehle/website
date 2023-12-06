@@ -2,6 +2,7 @@
 
 import { dirname, resolve } from 'node:path';
 
+import { customElementExamplesPlugin } from '@webcomponents-preview/cem-plugin-examples';
 import { customElementGenerateReadmesPlugin } from '@webcomponents-preview/cem-plugin-generate-readmes';
 import { customElementGroupingPlugin } from '@webcomponents-preview/cem-plugin-grouping';
 
@@ -11,6 +12,7 @@ export default {
   globs: ['src/components/**/*.component.ts'],
   outdir: 'dist',
   plugins: [
+    customElementExamplesPlugin(),
     customElementGenerateReadmesPlugin({
       addInlineReadme: true,
       transformer: 'cem',
