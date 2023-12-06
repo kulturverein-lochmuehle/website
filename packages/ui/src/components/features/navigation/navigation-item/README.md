@@ -1,3 +1,5 @@
+<!-- Auto Generated Below -->
+
 # class: `NavigationItem`
 
 ## Fields

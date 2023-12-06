@@ -1,3 +1,5 @@
+<!-- Auto Generated Below -->
+
 # class: `TimelineItem`, `kvlm-timeline-item`
 
 ## Fields
