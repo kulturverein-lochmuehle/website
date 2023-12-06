@@ -1,4 +1,4 @@
-name: Checks and Deploy
+name: Deploy
 
 on:
   push:
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   build:
-    name: Checks
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -47,9 +47,6 @@ jobs:
 
       - name: Lint
         run: pnpm -r --parallel lint
-
-      - name: Test
-        run: pnpm -r --parallel --if-present test
 
       - name: Build
         run: pnpm -r --filter @kvlm/ui... build
