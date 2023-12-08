@@ -1,7 +1,7 @@
 import { LitElement, html, isServer, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import '../../../ui/logo/logo.component';
+import '@/components/ui/logo/logo.component';
 import styles from './navigation.component.scss';
 
 @customElement('kvlm-navigation')
