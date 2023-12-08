@@ -7,6 +7,8 @@ import SectionedPage from '@components/page-sectioned.component.astro';
 import Navigation from '@components/navigation.component.astro';
 import { getEntryBySlug } from 'astro:content';
 
+const siteTitle = 'Kulturverein Lochmühle e.V.';
+
 const { path } = Astro.params;
 const { collection, slug, hasSections } = getCollectionParams(path);
 
@@ -32,7 +34,7 @@ if (current === undefined) {
 }
 
 ---
-<DefaultLayout siteTitle={current.data?.title}>
+<DefaultLayout pageTitle={current.data?.title} siteTitle={siteTitle}>
   <Navigation slot="header" />
   { hasSections ? <SectionedPage /> : <StandalonePage /> }
 </DefaultLayout>

@@ -1,6 +1,8 @@
 ---
 import DefaultLayout from '../layouts/default.layout.astro'
+
+const siteTitle = 'Kulturverein Lochmühle e.V.';
 ---
-<DefaultLayout siteTitle="Seite nicht gefunden">
+<DefaultLayout pageTitle="Seite nicht gefunden" siteTitle={siteTitle}>
   <h1>Seite nicht gefunden</h1>
 </DefaultLayout>
