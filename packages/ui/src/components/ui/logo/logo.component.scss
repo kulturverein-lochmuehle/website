@@ -1,5 +1,5 @@
 :host {
-  ---kvlm-logo-brook-color: var(--kvlm-logo-brook-color, #fff);
+  ---kvlm-logo-brook-color: var(--kvlm-logo-brook-color, var(--kvlm-color-spray));
   ---kvlm-logo-typo-color: var(--kvlm-logo-typo-color, currentColor);
 }
 
