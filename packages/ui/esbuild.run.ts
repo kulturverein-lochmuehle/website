@@ -1,14 +1,20 @@
-/* eslint-disable no-console */
+import { existsSync, watch as watchFile } from 'node:fs';
 import { resolve } from 'node:path';
+import { readFile, writeFile } from 'node:fs/promises';
 import { parseArgs } from 'node:util';
 
 import { type BuildOptions, build, context } from 'esbuild';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
+import { dtsPlugin } from 'esbuild-plugin-d.ts';
 
 import glob from 'fast-glob';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss';
 import postcssPresetEnv from 'postcss-preset-env';
+
+import { createServer } from './esbuild.server.js';
+import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';
+import { dtsAliasesPlugin } from './esbuild-declaration-aliases.plugin.js';
 
 // resolve @ imports in sass
 const importMapper = (path: string): string => {
@@ -85,17 +91,49 @@ const options: BuildOptions = {
     '.woff': 'file',
     '.woff2': 'file'
   },
-  logLevel: watch ? 'info' : 'error',
-  plugins: [sassPlugin(inlineOptions), sassPlugin(globalOptions)]
+  logLevel: 'error',
+  plugins: [
+    barrelsbyPlugin({ configPath: '.barrelsby.json', addMissingJsExtensions: true }),
+    dtsPlugin(),
+    dtsAliasesPlugin({ tsConfigPath: 'tsconfig.types.json' }),
+
+    sassPlugin(inlineOptions),
+    sassPlugin(globalOptions)
+  ]
 };
 
 if (watch) {
-  const bannerJs = ` if (typeof EventSource !== 'undefined') { new EventSource('/esbuild').addEventListener('change', () => location.reload(true)) }`;
-
   // start dev server in watch mode
-  const ctx = await context({ ...options, banner: { js: bannerJs } });
+  const internalPort = 28487;
+  const server = createServer(internalPort, true);
+  const manifestPath = resolve(options.outdir!, 'custom-elements.json');
+
+  // prepare context and start watching
+  const ctx = await context({
+    ...options,
+    banner: {
+      js: `${server.reloadBanner('wcp-hot-reload', `http://127.0.0.1:${port}`)}\n${
+        options.banner?.js ?? ''
+      }`
+    }
+  });
   await ctx.watch();
-  await ctx.serve({ servedir: 'dist', port: Number(port) });
+  await ctx.serve({ servedir: options.outdir, port: internalPort });
+
+  // prepare dev server
+  server.listen(Number(port), async () => {
+    // notify user
+    const url = `http://127.0.0.1:${port}/`;
+    // eslint-disable-next-line no-console
+    console.info(` > Preview: \x1b[4m${url}\x1b[0m\n\n`);
+
+    // as the docs are maybe not ready yet, touch the target already
+    if (!existsSync(manifestPath)) await writeFile(manifestPath, '{}', 'utf-8');
+    watchFile(manifestPath, async () => {
+      const manifest = await readFile(manifestPath, 'utf-8');
+      server.respond(manifest);
+    });
+  });
 } else {
   await build(options);
 }

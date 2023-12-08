@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <wcp-root config-url="preview.config.json" manifest-url="custom-elements.json">
+    <wcp-root
+      config-url="preview.config.json"
+      manifest-url="custom-elements.json"
+      reload-query-param="wcp-hot-reload"
+    >
       <kvlm-logo slot="logo" style="width: 100%; ---kvlm-logo-brook-color: #6fbad9"></kvlm-logo>
     </wcp-root>
     <script defer type="module" src="preview.js"></script>
