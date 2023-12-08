@@ -97,13 +97,14 @@ a:first-child {
   }
 
   kvlm-logo {
+    --kvlm-logo-brook-color: #fff;
+    ---kvlm-logo-typo-color: inherit;
+
     display: block;
     height: 4.6rem;
     // offset the logo to align with the typo with the content
     // the first letter is set to 7.8 in a container with 246.2 width
     transform: translateX(#{math.div(7.8, 246.2) * 10 - 1%});
-
-    color: inherit;
     transition: color 0.3s ease;
 
     @include utils.media-lt(utils.$breakpoint-navigation) {
