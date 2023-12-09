@@ -1,10 +1,53 @@
 {
-  "extends": ["plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:deprecation/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:lit-a11y/recommended",
+    "plugin:require-extensions/recommended",
+    "plugin:prettier/recommended"
+  ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint/eslint-plugin", "eslint-plugin-tsdoc"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "eslint-plugin-lit",
+    "eslint-plugin-tsdoc",
+    "require-extensions",
+    "simple-import-sort",
+    "unused-imports",
+    "file-extension-in-import-ts",
+    "import",
+    "lit-a11y"
+  ],
   "root": true,
   "rules": {
-    "no-console": ["error", { "allow": ["warn"] }],
-    "tsdoc/syntax": "warn"
+    "file-extension-in-import-ts/file-extension-in-import-ts": "error",
+    "import/no-unresolved": ["error", { "ignore": ["\\.js$"] }],
+    "no-unused-vars": "off",
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error",
+    "tsdoc/syntax": "warn",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "vars": "all",
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    }
   }
 }
