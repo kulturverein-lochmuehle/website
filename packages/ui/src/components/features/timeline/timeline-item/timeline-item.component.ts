@@ -1,8 +1,9 @@
-import { LitElement, html, unsafeCSS } from 'lit';
+import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined';
 
-import { DateConverter } from '@/utils/converter.utils';
-import { getLocale } from '@/utils/locale.utils';
+import { DateConverter } from '@/utils/converter.utils.js';
+import { formatDate } from '@/utils/format.utils.js';
 
 import styles from './timeline-item.component.scss';
 
@@ -19,22 +20,13 @@ export class TimelineItem extends LitElement {
   @property({ reflect: true, type: String })
   title!: string;
 
-  @property({ reflect: true, type: String })
-  text!: string;
-
-  private formatDate(date: Date): string {
-    return date.toLocaleDateString(getLocale(), {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  }
-
   render() {
     return html`
-      <time datetime="${this.date}">${this.formatDate(this.date)}</time>
+      <time datetime="${ifDefined(this.getAttribute('date')) as string}">
+        ${formatDate(this.date)}
+      </time>
       <h2>${this.title}</h2>
-      <p>${this.text}</p>
+      <slot></slot>
     `;
   }
 }
