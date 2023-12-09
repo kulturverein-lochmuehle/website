@@ -1,7 +1,8 @@
-import { LitElement, html, isServer, unsafeCSS } from 'lit';
+import '@/components/ui/logo/logo.component.js';
+
+import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import '@/components/ui/logo/logo.component';
 import styles from './navigation.component.scss';
 
 @customElement('kvlm-navigation')
@@ -64,7 +65,7 @@ export class Navigation extends LitElement {
 
   render() {
     return html`
-      <nav @click="${this.handleClick}">
+      <nav @click="${this.handleClick}" @keydown="${this.handleClick}">
         <a @click="${this.handleLogoClick}" href="/">
           <kvlm-logo></kvlm-logo>
 

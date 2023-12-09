@@ -1,8 +1,9 @@
-import { ssrFixture } from '@lit-labs/testing/fixtures.js';
-import { html, fixture, expect } from '@open-wc/testing';
-
-import type { Brook } from './brook.component';
 import '../../../../dist/components/ui/brook/brook.component.js';
+
+import { ssrFixture } from '@lit-labs/testing/fixtures.js';
+import { expect, fixture, html } from '@open-wc/testing';
+
+import type { Brook } from './brook.component.js';
 
 describe('Brook', () => {
   it('renders with shadow dom', async () => {

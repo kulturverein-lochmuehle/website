@@ -1,4 +1,4 @@
-import http, { type ServerResponse, type Server, type OutgoingHttpHeaders } from 'node:http';
+import http, { type OutgoingHttpHeaders, type Server, type ServerResponse } from 'node:http';
 
 type DevServer = Server & {
   /**

@@ -1,7 +1,8 @@
-import _debounce from 'lodash-es/debounce';
-import { LitElement, html, isServer, unsafeCSS } from 'lit';
+import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
-import { changeLocationInline, RoutingEvent } from '@/utils/event.utils';
+import _debounce from 'lodash-es/debounce.js';
+
+import { changeLocationInline, RoutingEvent } from '@/utils/event.utils.js';
 
 import styles from './navigation-item.component.scss';
 

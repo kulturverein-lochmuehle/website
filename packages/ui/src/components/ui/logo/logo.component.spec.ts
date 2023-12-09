@@ -1,8 +1,9 @@
-import { ssrFixture } from '@lit-labs/testing/fixtures.js';
-import { html, fixture, expect } from '@open-wc/testing';
-
-import type { Logo } from './logo.component';
 import '../../../../dist/components/ui/logo/logo.component.js';
+
+import { ssrFixture } from '@lit-labs/testing/fixtures.js';
+import { expect, fixture, html } from '@open-wc/testing';
+
+import type { Logo } from './logo.component.js';
 
 describe('Logo', () => {
   it('renders with shadow dom', async () => {

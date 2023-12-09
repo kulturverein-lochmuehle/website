@@ -1,13 +1,13 @@
-import { LitElement, html, unsafeCSS } from 'lit';
+import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import styles from './section.component.scss';
 
 /**
  * A layout component to wrap sections of the page.
- * 
+ *
  * @slot - The default slot
- * 
+ *
  * @cssprop --kvlm-section-background-from - Background gradient start color
  * @cssprop --kvlm-section-background-to - Background gradient end color
  * @cssprop --kvlm-section-color - Color of the content

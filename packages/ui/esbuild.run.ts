@@ -1,14 +1,13 @@
 import { existsSync, watch as watchFile } from 'node:fs';
-import { resolve } from 'node:path';
 import { readFile, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
-import { type BuildOptions, build, context } from 'esbuild';
-import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
-import { dtsPlugin } from 'esbuild-plugin-d.ts';
-
-import glob from 'fast-glob';
 import autoprefixer from 'autoprefixer';
+import { build, type BuildOptions, context } from 'esbuild';
+import { dtsPlugin } from 'esbuild-plugin-d.ts';
+import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
+import { default as glob } from 'fast-glob';
 import postcss from 'postcss';
 import postcssPresetEnv from 'postcss-preset-env';
 

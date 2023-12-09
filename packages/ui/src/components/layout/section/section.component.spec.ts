@@ -1,8 +1,9 @@
-import { ssrFixture } from '@lit-labs/testing/fixtures.js';
-import { html, fixture, expect } from '@open-wc/testing';
-
-import type { Section } from './section.component';
 import '../../../../dist/components/layout/section/section.component.js';
+
+import { ssrFixture } from '@lit-labs/testing/fixtures.js';
+import { expect, fixture, html } from '@open-wc/testing';
+
+import type { Section } from './section.component.js';
 
 describe('Section', () => {
   it('renders with shadow dom', async () => {

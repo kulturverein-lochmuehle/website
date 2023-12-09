@@ -1,18 +1,19 @@
-import { LitElement, html, isServer, unsafeCSS } from 'lit';
+import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
-import { readCustomProperty } from '@/utils/custom-property.utils';
+
+import { readCustomProperty } from '@/utils/custom-property.utils.js';
 import {
   changeLocationInline,
   type InlineLocationChangedEvent,
   RoutingEvent,
   setNavigationTheme
-} from '@/utils/event.utils';
+} from '@/utils/event.utils.js';
 
 import styles from './main.component.scss';
 
 /**
  * A layout component to wrap the page content.
- * 
+ *
  * @slot - The default slot
  */
 @customElement('kvlm-main')
@@ -101,15 +102,18 @@ export class Main extends LitElement {
   }
 
   getActiveElement(id: string): HTMLElement | undefined {
-    return this.assignedElements.reduce((_, element) => {
-      // either the element itself has the id
-      if (element.id === id) return element;
-      // or one of the nested elements
-      const child = element.querySelector<HTMLElement>(`[id="${id}"]`);
-      if (child !== null) return child;
-      // if not, deliver previous result (or undefined)
-      return _;
-    }, undefined as HTMLElement | undefined);
+    return this.assignedElements.reduce(
+      (_, element) => {
+        // either the element itself has the id
+        if (element.id === id) return element;
+        // or one of the nested elements
+        const child = element.querySelector<HTMLElement>(`[id="${id}"]`);
+        if (child !== null) return child;
+        // if not, deliver previous result (or undefined)
+        return _;
+      },
+      undefined as HTMLElement | undefined
+    );
   }
 
   changeNavigationTheme(id: string) {

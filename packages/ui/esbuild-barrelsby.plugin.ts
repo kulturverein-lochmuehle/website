@@ -1,11 +1,11 @@
-import type { LogLevel, OnResolveResult, Plugin } from 'esbuild';
 import { exec } from 'node:child_process';
-
 import { existsSync, watchFile } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { cwd } from 'node:process';
 import { promisify } from 'node:util';
+
+import type { OnResolveResult, Plugin } from 'esbuild';
 
 export type BarrelsbyPluginOptions = {
   /**
@@ -19,7 +19,10 @@ export type BarrelsbyPluginOptions = {
   addMissingJsExtensions?: boolean;
 };
 
-export function barrelsbyPlugin({ configPath, addMissingJsExtensions = false }: BarrelsbyPluginOptions): Plugin {
+export function barrelsbyPlugin({
+  configPath,
+  addMissingJsExtensions = false
+}: BarrelsbyPluginOptions): Plugin {
   const pluginName = 'esbuild-plugin-barrelsby';
   return {
     name: pluginName,
@@ -29,7 +32,7 @@ export function barrelsbyPlugin({ configPath, addMissingJsExtensions = false }: 
         const index = resolve(resolveDir, path);
 
         // return a promise that resolves when the watcher fires
-        return new Promise<OnResolveResult | undefined>(async (done) => {
+        return new Promise<OnResolveResult | undefined>(done => {
           // as we can not await the result of barrelsby directly,
           // we have to watch the file system for a change
           const watcher = watchFile(index, { interval: 200, persistent: false }, async () => {
@@ -64,7 +67,7 @@ export function barrelsbyPlugin({ configPath, addMissingJsExtensions = false }: 
             // report errors
             done({
               path: index,
-              errors: [{ pluginName, id: name, text: message, detail: stack }],
+              errors: [{ pluginName, id: name, text: message, detail: stack }]
             });
 
             // remove watcher
@@ -72,9 +75,9 @@ export function barrelsbyPlugin({ configPath, addMissingJsExtensions = false }: 
           });
 
           // call barrelsby to generate the initial barrel
-          await promisify(exec)(`barrelsby --config ${configPath}`, { cwd: cwd() });
+          promisify(exec)(`barrelsby --config ${configPath}`, { cwd: cwd() });
         });
       });
-    },
+    }
   };
 }

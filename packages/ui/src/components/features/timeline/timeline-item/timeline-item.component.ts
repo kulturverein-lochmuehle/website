@@ -1,6 +1,6 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { DateConverter } from '@/utils/converter.utils.js';
 import { formatDate } from '@/utils/format.utils.js';

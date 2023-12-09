@@ -1,8 +1,9 @@
-import { ssrFixture } from '@lit-labs/testing/fixtures.js';
-import { html, fixture, expect } from '@open-wc/testing';
-
-import type { Houses } from './houses.component';
 import '../../../../dist/components/ui/houses/houses.component.js';
+
+import { ssrFixture } from '@lit-labs/testing/fixtures.js';
+import { expect, fixture, html } from '@open-wc/testing';
+
+import type { Houses } from './houses.component.js';
 
 describe('Houses', () => {
   it('renders with shadow dom', async () => {
