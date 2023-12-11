@@ -17,19 +17,17 @@ const { lang = 'de', pageTitle, siteTitle } = Astro.props;
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta content="IE=Edge" http-equiv="x-ua-compatible" />
 
-    <title>{ pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle }</title>
+    <title>{pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
 
     <link href={`${UI_ROOT}/index.css`} rel="stylesheet" />
     <script src={`${UI_ROOT}/index.js`} type="module"></script>
   </head>
   <body>
-    <header>
+    <kvlm-layout>
       <slot name="header" />
-    </header>
-    <main>
       <kvlm-main scroll-observe-selector="kvlm-section">
         <slot />
       </kvlm-main>
-    </main>
+    </kvlm-layout>
   </body>
 </html>

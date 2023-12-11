@@ -37,7 +37,7 @@ const items = pages
     [] as NavigationItem[]
   );
 ---
-<kvlm-navigation>
+<kvlm-navigation slot="header">
   {
     items.map(item => <kvlm-navigation-item {...item} />)
   }
