@@ -1,15 +1,20 @@
-@use '@/styles/utils';
+@use '@/styles/utils' as utils;
+
+:host {
+  display: block;
+  container-type: inline-size;
+}
 
 img {
   height: auto;
   width: 100%;
 
-  @include utils.media-gt(utils.$breakpoint-mobile) {
+  @include utils.container(sm) {
     float: right;
     width: 27.6vw; // 317.4px / 1150px * 100vw
   }
 
-  @include utils.media-gt(utils.$breakpoint-navigation) {
+  @include utils.container(lg) {
     height: 60vh;
     width: auto;
   }
