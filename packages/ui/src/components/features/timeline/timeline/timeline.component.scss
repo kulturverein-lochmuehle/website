@@ -1,0 +1,7 @@
+@use '@/styles/utils' as utils;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
+}
