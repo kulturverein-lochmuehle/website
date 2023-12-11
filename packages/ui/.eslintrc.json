@@ -1,19 +1,34 @@
 {
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:deprecation/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "plugin:json/recommended",
     "plugin:lit-a11y/recommended",
     "plugin:require-extensions/recommended",
     "plugin:prettier/recommended"
   ],
+  "overrides": [
+    {
+      "extends": ["plugin:@typescript-eslint/disable-type-checked"],
+      "files": ["./**/*.json", "./.*.json"],
+      "parserOptions": {
+        "extraFileExtensions": [".json"],
+        "project": "./tsconfig.lint.json",
+        "tsconfigRootDir": "."
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "project": "./tsconfig.json",
-    "sourceType": "module"
+    "ecmaVersion": 2021,
+    "extraFileExtensions": [".json"],
+    "project": "./tsconfig.lint.json",
+    "sourceType": "module",
+    "tsconfigRootDir": "."
   },
   "plugins": [
     "@typescript-eslint",
@@ -24,15 +39,30 @@
     "unused-imports",
     "file-extension-in-import-ts",
     "import",
+    "json",
     "lit-a11y"
   ],
   "root": true,
   "rules": {
     "file-extension-in-import-ts/file-extension-in-import-ts": "error",
     "import/no-unresolved": ["error", { "ignore": ["\\.js$"] }],
+    "json/*": "error",
     "no-unused-vars": "off",
     "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^\\u0000"],
+          ["^node:"],
+          ["^@?\\w"],
+          ["^"],
+          ["^\\."],
+          ["^.+\\.s?css$"],
+          ["^.+\\.s?json$"]
+        ]
+      }
+    ],
     "tsdoc/syntax": "warn",
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
@@ -44,10 +74,5 @@
         "varsIgnorePattern": "^_"
       }
     ]
-  },
-  "settings": {
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts"]
-    }
   }
 }

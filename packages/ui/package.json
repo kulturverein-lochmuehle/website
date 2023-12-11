@@ -28,7 +28,7 @@
     "./global.css": "./dist/index.css"
   },
   "scripts": {
-    "lint": "eslint . -c .eslintrc --ext .ts",
+    "lint": "eslint . -c .eslintrc.json",
     "docs": "cross-env NODE_OPTIONS='--loader ts-node/esm --no-warnings' cem analyze --config cem.config.ts",
     "test:run": "cross-env NODE_OPTIONS='--loader ts-node/esm --no-warnings' wtr --config web-test-runner.config.ts",
     "test": "run-s -lns build:components test:run",
@@ -84,6 +84,7 @@
     "eslint-plugin-deprecation": "2.0.0",
     "eslint-plugin-file-extension-in-import-ts": "2.0.0",
     "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-json": "3.1.0",
     "eslint-plugin-lit": "1.10.1",
     "eslint-plugin-lit-a11y": "4.1.1",
     "eslint-plugin-prettier": "5.0.1",
