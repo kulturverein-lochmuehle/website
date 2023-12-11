@@ -6,3 +6,10 @@ declare module '*.scss' {
 declare module '*.png' {
   export const styles: string;
 }
+
+declare interface Window {
+  kvlm: {
+    breakpoints: Record<string, number>;
+    version: string;
+  };
+}

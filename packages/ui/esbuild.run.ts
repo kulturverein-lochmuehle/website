@@ -91,6 +91,22 @@ const options: BuildOptions = {
     '.woff2': 'file'
   },
   logLevel: 'error',
+  banner: {
+    js: `// prepare global namespace
+if (!window.kvlm) window.kvlm = {};
+
+// set kvlm version globally
+if (window.kvlm.version !== undefined && window.kvlm.version !== '${MANIFEST.version}') {
+  console.warn('[kvlm] ${
+    MANIFEST.version
+  }: Another version (' + window.kvlm.version + ') has already been loaded.');
+} else window.kvlm.version = '${MANIFEST.version}';
+
+// set breakpoints globally
+window.kvlm.breakpoints = {
+${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${value},\n`, '')}};
+`
+  },
   plugins: [
     barrelsbyPlugin({ configPath: '.barrelsby.json', addMissingJsExtensions: true }),
     dtsPlugin(),
