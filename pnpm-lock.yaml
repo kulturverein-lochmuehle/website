@@ -72,17 +72,17 @@ importers:
         specifier: 0.11.0
         version: 0.11.0
       '@webcomponents-preview/cem-plugin-examples':
-        specifier: 0.0.39
-        version: 0.0.39(@custom-elements-manifest/analyzer@0.9.0)
+        specifier: 0.0.40
+        version: 0.0.40(@custom-elements-manifest/analyzer@0.9.0)
       '@webcomponents-preview/cem-plugin-generate-readmes':
-        specifier: 0.0.39
-        version: 0.0.39(@custom-elements-manifest/analyzer@0.9.0)
+        specifier: 0.0.40
+        version: 0.0.40(@custom-elements-manifest/analyzer@0.9.0)
       '@webcomponents-preview/cem-plugin-grouping':
-        specifier: 0.0.39
-        version: 0.0.39(@custom-elements-manifest/analyzer@0.9.0)
+        specifier: 0.0.40
+        version: 0.0.40(@custom-elements-manifest/analyzer@0.9.0)
       '@webcomponents-preview/client':
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.6.1
+        version: 0.6.1
       '@webcomponents/template-shadowroot':
         specifier: 0.2.1
         version: 0.2.1
@@ -8812,32 +8812,32 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@webcomponents-preview/cem-plugin-examples@0.0.39(@custom-elements-manifest/analyzer@0.9.0):
-    resolution: {integrity: sha512-rzAmLq1Sq1RlR+5la7LAximQFgw472b6X/Mrqg/Ztf9UONcetzF335aZKof0riX1ksFnJ0J3WMFcAVPlHoDMfQ==}
+  /@webcomponents-preview/cem-plugin-examples@0.0.40(@custom-elements-manifest/analyzer@0.9.0):
+    resolution: {integrity: sha512-/kd/5+EMg09OYJHRpj9MTWOSIlTsceqzdMyrn9aDUisP3e3vwTf4G6XKdeYLe1n3pMEzYppYllnAFjNDedPhGQ==}
     peerDependencies:
-      '@custom-elements-manifest/analyzer': ^0.8.0
+      '@custom-elements-manifest/analyzer': 0.8.x || 0.9.x
     dependencies:
       '@custom-elements-manifest/analyzer': 0.9.0
     dev: true
 
-  /@webcomponents-preview/cem-plugin-generate-readmes@0.0.39(@custom-elements-manifest/analyzer@0.9.0):
-    resolution: {integrity: sha512-IBKpzDn6r25DyVA51KMNsw8MHyDn/hQLgWZTwOq8FcnH+ACoAE1aY/7r/oSDddKG3Bsa39FVJsX6MX7QdFrSvA==}
+  /@webcomponents-preview/cem-plugin-generate-readmes@0.0.40(@custom-elements-manifest/analyzer@0.9.0):
+    resolution: {integrity: sha512-q710gwoRiy1IeGczWPBWh55bUeKsfWvbIjHoZhn4miuZ+ODAFV1zJtqh34PMogVUJQ9z55vhRKnFkD4c7EjqMg==}
     peerDependencies:
-      '@custom-elements-manifest/analyzer': ^0.8.0
+      '@custom-elements-manifest/analyzer': 0.8.x || 0.9.x
     dependencies:
       '@custom-elements-manifest/analyzer': 0.9.0
     dev: true
 
-  /@webcomponents-preview/cem-plugin-grouping@0.0.39(@custom-elements-manifest/analyzer@0.9.0):
-    resolution: {integrity: sha512-LK8iXCNATCYMlHgCORmuUttu5TJVoghaE65XB1Yyv2foZRUmU9Zu3Jp79vxH++Fqn2vmveV0NkqA8d21fXPN9g==}
+  /@webcomponents-preview/cem-plugin-grouping@0.0.40(@custom-elements-manifest/analyzer@0.9.0):
+    resolution: {integrity: sha512-JTArZb9PqpZRxUZavcIh3uvbbdACYRmHas7JvaiztSxrxMED2EuxXPDsZsKogQjldLmH9pf53ceR3Ps2qKiQMg==}
     peerDependencies:
-      '@custom-elements-manifest/analyzer': ^0.8.0
+      '@custom-elements-manifest/analyzer': 0.8.x || 0.9.x
     dependencies:
       '@custom-elements-manifest/analyzer': 0.9.0
     dev: true
 
-  /@webcomponents-preview/client@0.6.0:
-    resolution: {integrity: sha512-bmNx2AMhsjnQ/hEQf6rqYmhkxkxsuOTTiHm74LqvaPtsxKwBiC/7CXKYbeQkZzXj6f8oS35i84+tIH079nHw/w==}
+  /@webcomponents-preview/client@0.6.1:
+    resolution: {integrity: sha512-WAtKa1+etWoz132zY2feRs/4+zvK6Ct1yEebtvgzaBrCADkSIIAIVPeZ+U2tSOHdRsTpT+UMZdEJetTKcTt3kw==}
     dependencies:
       '@open-wc/lit-helpers': 0.6.0(lit@3.1.0)
       css.gg: 2.1.1

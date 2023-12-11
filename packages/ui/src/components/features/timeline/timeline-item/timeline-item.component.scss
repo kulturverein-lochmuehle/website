@@ -1,18 +1,12 @@
-@use '@/styles/utils';
-
-p {
-}
+@use '@/styles/utils' as utils;
 
 :host {
-  @include utils.container(timeline-item, inline-size, 'width > #{utils.$breakpoint-mobile}') using ($query) {
-    p {
-      font-family: 'Fundamental Brigade', sans-serif;
-      font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
-      line-height: 1.25;
-@debug($query)
-      // #{$query} {
-        // font-size: 16;
-      // }
-    }
+  display: block;
+  font-family: 'Fundamental Brigade', sans-serif;
+  font-size: utils.relative-font-size(16, $minimum: 1.6rem, $maximum: 2.2rem);
+  line-height: 1.25;
+
+  @include utils.container(sm) {
+    font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
   }
 }

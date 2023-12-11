@@ -14,6 +14,9 @@ import styles from './timeline-item.component.scss';
 export class TimelineItem extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
+  @property({ type: String, reflect: true })
+  readonly role = 'listitem';
+
   @property({ reflect: true, converter: DateConverter() })
   date!: Date;
 

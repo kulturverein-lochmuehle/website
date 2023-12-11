@@ -1,4 +1,4 @@
-@use '@/styles/utils';
+@use '@/styles/utils' as utils;
 
 // prettier-ignore
 :host {
@@ -10,8 +10,10 @@
 :host {
   position: relative;
   display: flex;
-  padding-top: var(--kvlm-header-offset);
-  min-height: calc(100svh - var(--kvlm-header-offset));
+  padding-top: var(--kvlm-layout-header-offset);
+  min-height: calc(100svh - var(--kvlm-layout-header-offset));
+
+  container-type: inline-size;
 
   background: linear-gradient(
     150deg,
@@ -24,11 +26,9 @@
     position: relative;
     z-index: 1;
 
-    @include utils.mobile() {
-      @include utils.wrapper($padding: 40px);
-    }
+    @include utils.wrapper($padding: 40px);
 
-    @include utils.desktop() {
+    @include utils.container(sm) {
       @include utils.wrapper($padding: 50px);
 
       display: flex;

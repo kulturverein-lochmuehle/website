@@ -1,7 +1,9 @@
 @use 'sass:math';
 @use 'sass:string';
-@use '@/styles/utils';
-@use '@/components/ui/typo/typo.component.scss' as typo;
+@use '@/styles/utils' as utils;
+// @use '@/components/ui/typo/typo.component.scss' as typo;
+
+@import './globals.scss';
 
 $fonts: (
   'Fundamental Brigade': (
@@ -17,7 +19,8 @@ $fonts: (
   @each $weight in $weights {
     @font-face {
       font-family: $family;
-      src: url('@/assets/fonts/#{$file-name}-#{$weight}.woff2') format('woff2'),
+      src:
+        url('@/assets/fonts/#{$file-name}-#{$weight}.woff2') format('woff2'),
         url('@/assets/fonts/#{$file-name}-#{$weight}.woff') format('woff'),
         url('@/assets/fonts/#{$file-name}-#{$weight}.ttf') format('truetype');
       font-weight: $weight;
@@ -27,82 +30,62 @@ $fonts: (
   }
 }
 
-:root {
-  @include utils.media-lt(utils.$breakpoint-navigation) {
-    --kvlm-header-offset: 12.6rem;
-  }
-
-  @include utils.media-gt(utils.$breakpoint-navigation) {
-    --kvlm-header-offset: 16rem;
-  }
-
-  --kvlm-color-grey-dark: #161615;
-  --kvlm-color-grey-medium: #525252;
-  --kvlm-color-grey-light: #eaeaea;
-
-  --kvlm-color-spray: #6fbad9;
-  --kvlm-color-turquoise: #75f0de;
-}
-
 html,
 body {
   margin: 0;
 }
 
-html {
-  font-size: 10px;
-}
+// todo move to typo
+// body {
+//   @extend .body;
+//   color: #161615;
+// }
 
-body {
-  @extend .body;
-  color: #161615;
-}
+// // This lived in the typo element before, but as we can assume the usage within a
+// // static site generator, all contents will be passed in through the outermost
+// // element anyway, thus the global style will always be applied.
+// * {
+//   @include utils.mobile() {
+//     overflow-wrap: break-word;
+//     word-wrap: break-word;
+//     word-break: break-word;
+//     hyphens: auto;
+//   }
+// }
 
-// This lived in the typo element before, but as we can assume the usage within a
-// static site generator, all contents will be passed in through the outermost
-// element anyway, thus the global style will always be applied.
-* {
-  @include utils.mobile() {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
-  }
-}
+// // prettier-ignore
+// h1, h2, h3, h4, h5, h6, p, ul {
+//   margin: 0;
+// }
 
-// prettier-ignore
-h1, h2, h3, h4, h5, h6, p, ul {
-  margin: 0;
-}
+// // prettier-ignore
+// h1, h2, h3, h4, h5, h6 {
+//   ~ p, ~ ul {
+//     margin-top: 1em;
+//   }
+// }
 
-// prettier-ignore
-h1, h2, h3, h4, h5, h6 {
-  ~ p, ~ ul {
-    margin-top: 1em;
-  }
-}
+// a {
+//   color: inherit;
+//   text-decoration: underline;
+// }
 
-a {
-  color: inherit;
-  text-decoration: underline;
-}
+// .title {
+//   font-family: 'Super Grotesk', sans-serif;
+//   font-size: utils.relative-font-size(150, $minimum: 3.2rem, $maximum: 12.5rem);
+//   font-weight: 700;
+//   line-height: math.div(16, 15);
+//   text-transform: uppercase;
+// }
 
-.title {
-  font-family: 'Super Grotesk', sans-serif;
-  font-size: utils.relative-font-size(150, $minimum: 3.2rem, $maximum: 12.5rem);
-  font-weight: 700;
-  line-height: math.div(16, 15);
-  text-transform: uppercase;
-}
+// .info {
+//   font-family: 'Fundamental Brigade', sans-serif;
+//   font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
+//   line-height: 1.25;
+// }
 
-.info {
-  font-family: 'Fundamental Brigade', sans-serif;
-  font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
-  line-height: 1.25;
-}
-
-.body {
-  font-family: 'Fundamental Brigade', sans-serif;
-  font-size: utils.relative-font-size(20, $minimum: 1.6rem);
-  line-height: 1.5;
-}
+// .body {
+//   font-family: 'Fundamental Brigade', sans-serif;
+//   font-size: utils.relative-font-size(20, $minimum: 1.6rem);
+//   line-height: 1.5;
+// }

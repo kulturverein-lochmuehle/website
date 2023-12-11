@@ -15,6 +15,21 @@ import { createServer } from './esbuild.server.js';
 import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';
 import { dtsAliasesPlugin } from './esbuild-declaration-aliases.plugin.js';
 
+import BREAKPOINTS from './breakpoints.json' assert { type: 'json' };
+import MANIFEST from './package.json' assert { type: 'json' };
+
+// inject some global sass variables
+const precompile = (source: string, path: string): string => {
+  if (path.endsWith('breakpoint.variables.scss')) {
+    const breakpoints = Object.entries(BREAKPOINTS).reduce(
+      (acc, [key, value]) => `${acc}  ${key}: ${value}px,\n`,
+      '\n'
+    );
+    return source.replace(/(\$breakpoints:\s+\()(\);)/, `$1${breakpoints}$2`);
+  }
+  return source;
+};
+
 // resolve @ imports in sass
 const importMapper = (path: string): string => {
   if (path.includes('node_modules')) return path;
@@ -34,6 +49,7 @@ const transform = async (source: string): Promise<string> => {
 export const inlineOptions: SassPluginOptions = {
   type: 'css-text',
   filter: /\.component\.scss$/,
+  precompile,
   importMapper,
   transform
 };
@@ -41,6 +57,7 @@ export const inlineOptions: SassPluginOptions = {
 // will transform the given SCSS files into CSS files
 export const globalOptions: SassPluginOptions = {
   type: 'css',
+  precompile,
   importMapper,
   transform
 };
@@ -83,9 +100,7 @@ const options: BuildOptions = {
     '.html': 'copy',
     '.json': 'copy',
     '.md': 'copy',
-    '.png': 'file',
-    '.jpg': 'file',
-    '.jpeg': 'file',
+    '.png': 'dataurl',
     '.ttf': 'file',
     '.woff': 'file',
     '.woff2': 'file'

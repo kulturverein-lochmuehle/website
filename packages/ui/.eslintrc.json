@@ -45,7 +45,7 @@
   "root": true,
   "rules": {
     "file-extension-in-import-ts/file-extension-in-import-ts": "error",
-    "import/no-unresolved": ["error", { "ignore": ["\\.js$"] }],
+    "import/no-unresolved": ["error", { "ignore": ["\\.js$", "\\.png$", "\\?inline$"] }],
     "json/*": "error",
     "no-unused-vars": "off",
     "simple-import-sort/exports": "error",
@@ -58,7 +58,8 @@
           ["^@?\\w"],
           ["^"],
           ["^\\."],
-          ["^.+\\.s?css$"],
+          ["^.+\\.s?(png|jpg|jpeg|svg)$"],
+          ["^.+\\.s?(css|scss)$"],
           ["^.+\\.s?json$"]
         ]
       }

@@ -1,4 +1,4 @@
-@use '@/styles/utils';
+@use '@/styles/utils' as utils;
 
 :host {
   ---kvlm-navigation-item-stroke-distance: var(--kvlm-navigation-item-stroke-distance, 0.175em);
@@ -18,11 +18,9 @@ a {
   transition: 0.3s ease;
   transition-property: color;
 
-  @include utils.media-lt(utils.$breakpoint-navigation) {
-    font-size: 4rem;
-  }
+  font-size: 4rem;
 
-  @include utils.media-gt(utils.$breakpoint-navigation) {
+  @include utils.container(lg) {
     font-size: 2rem;
   }
 
