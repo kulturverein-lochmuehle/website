@@ -10,8 +10,8 @@
 :host {
   position: relative;
   display: flex;
-  padding-top: var(--kvlm-layout-header-offset);
-  min-height: calc(100svh - var(--kvlm-layout-header-offset));
+  padding-top: var(---kvlm-layout-header-offset);
+  min-height: calc(100svh - var(---kvlm-layout-header-offset));
 
   container-type: inline-size;
 
@@ -21,31 +21,32 @@
     var(---kvlm-section-background-to) 100%
   );
   color: var(---kvlm-section-color);
+}
 
-  section {
-    position: relative;
-    z-index: 1;
+section {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
 
-    @include utils.wrapper($padding: 40px);
+  @include utils.wrapper($padding: utils.size(4));
 
-    @include utils.container(sm) {
-      @include utils.wrapper($padding: 50px);
+  @include utils.container(sm) {
+    @include utils.wrapper($padding: utils.size(5));
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
+}
 
-  kvlm-brook {
-    position: absolute;
-    inset: 50% 0 auto auto;
-    transform: translateY(-50%);
+kvlm-brook {
+  position: absolute;
+  inset: 50% 0 auto auto;
+  transform: translateY(-50%);
 
-    width: 100%;
-    min-width: 1400px;
+  width: 100%;
+  min-width: 1400px;
 
-    pointer-events: none;
-    user-select: none;
-  }
+  pointer-events: none;
+  user-select: none;
 }

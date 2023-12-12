@@ -3,10 +3,10 @@
 :host {
   display: block;
   font-family: 'Fundamental Brigade', sans-serif;
-  font-size: utils.relative-font-size(16, $minimum: 1.6rem, $maximum: 2.2rem);
+  font-size: utils.relative-font-size(16, $minimum: utils.rem(1.6), $maximum: utils.rem(2.2));
   line-height: 1.25;
 
   @include utils.container(sm) {
-    font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
+    font-size: utils.relative-font-size(40, $minimum: utils.rem(2.2), $maximum: utils.rem(3.5));
   }
 }

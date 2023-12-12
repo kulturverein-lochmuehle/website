@@ -4,12 +4,13 @@
 
 ## Properties
 
-| Property | Attribute | Type      | Default |
-|----------|-----------|-----------|---------|
-| `active` | `active`  | `boolean` | false   |
-| `href`   | `href`    | `string`  |         |
-| `inline` | `inline`  | `boolean` | false   |
-| `label`  | `label`   | `string`  |         |
+| Property | Attribute | Modifiers | Type         | Default    |
+|----------|-----------|-----------|--------------|------------|
+| `active` | `active`  |           | `boolean`    | false      |
+| `href`   | `href`    |           | `string`     |            |
+| `inline` | `inline`  |           | `boolean`    | false      |
+| `label`  | `label`   |           | `string`     |            |
+| `role`   | `role`    | readonly  | `"listitem"` | "listitem" |
 
 ## Methods
 

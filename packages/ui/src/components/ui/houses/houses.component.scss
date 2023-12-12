@@ -10,7 +10,6 @@ img {
   width: 100%;
 
   @include utils.container(sm) {
-    float: right;
     width: 27.6vw; // 317.4px / 1150px * 100vw
   }
 

@@ -18,10 +18,10 @@ a {
   transition: 0.3s ease;
   transition-property: color;
 
-  font-size: 4rem;
+  font-size: utils.rem(4);
 
   @include utils.container(lg) {
-    font-size: 2rem;
+    font-size: utils.rem(2);
   }
 
   &::after {

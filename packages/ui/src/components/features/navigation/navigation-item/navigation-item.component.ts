@@ -15,6 +15,9 @@ export class NavigationItem extends LitElement {
     300
   );
 
+  @property({ reflect: true, type: String })
+  readonly role = 'listitem';
+
   @property({ reflect: true, type: Boolean })
   active = false;
 

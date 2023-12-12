@@ -1,0 +1,4 @@
+/// Calculates a font size relative to the base size (10px)
+@function rem($rem: 1, $base-size: #{var(--kvlm-base-size-typo)}) {
+  @return calc(#{$rem} * #{$base-size});
+}

@@ -9,11 +9,11 @@ import styles from './layout.component.scss';
  * @slot header - The header slot
  * @slot - The default slot
  *
+ * @cssprop --kvlm-layout-color-typo - The color of the typography
  * @cssprop [--kvlm-layout-min-height=100svh] - The minimum height of the layout
- * @cssprop [--kvlm-layout-header-offset-mobile=12.6rem] - The offset of the header on mobile devices
- * @cssprop [--kvlm-layout-header-offset-desktop=16rem] - The offset of the header on desktop devices
+ * @cssprop [--kvlm-layout-header-offset-mobile=utils.rem(12.6)] - The offset of the header on mobile devices
+ * @cssprop [--kvlm-layout-header-offset-desktop=utils.rem(16)] - The offset of the header on desktop devices
  * @cssprop --kvlm-layout-header-offset - Sets the offset of the header for **all devices**.
- *  _Will be overwritten by the specific mobile and desktop values if not set._
  */
 @customElement('kvlm-layout')
 export class Layout extends LitElement {

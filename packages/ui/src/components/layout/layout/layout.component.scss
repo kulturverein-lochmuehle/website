@@ -2,9 +2,10 @@
 
 // prettier-ignore
 :host {
+  ---kvlm-layout-color-typo: var(--kvlm-layout-color-typo, var(--kvlm-color-grey-dark, #000));
   ---kvlm-layout-min-height: var(--kvlm-layout-min-height, 100svh);
-  ---kvlm-layout-header-offset-mobile: var(--kvlm-layout-header-offset, var(--kvlm-layout-header-offset-mobile, 12.6rem));
-  ---kvlm-layout-header-offset-large: var(--kvlm-layout-header-offset, var(--kvlm-layout-header-offset-large, 16rem));
+  ---kvlm-layout-header-offset-mobile: var(--kvlm-layout-header-offset, var(--kvlm-layout-header-offset-mobile, #{utils.rem(12.6)}));
+  ---kvlm-layout-header-offset-desktop: var(--kvlm-layout-header-offset, var(--kvlm-layout-header-offset-desktop, #{utils.rem(16)}));
 }
 
 :host {
@@ -12,30 +13,33 @@
   flex-direction: column;
   min-height: var(---kvlm-layout-min-height);
 
+  color: var(---kvlm-layout-color-typo);
+  font-family: var(--kvlm-font-family-body);
+
   container-type: inline-size;
   isolation: isolate;
 }
 
 header,
 main {
-  // prettier-ignore
-  --kvlm-layout-header-offset: var(--kvlm-layout-header-offset, var(---kvlm-layout-header-offset-mobile));
+  ---kvlm-layout-header-offset: var(---kvlm-layout-header-offset-mobile);
 
-  @include utils.container(sm) {
-    // prettier-ignore
-    --kvlm-layout-header-offset: var(--kvlm-layout-header-offset, var(---kvlm-layout-header-offset-desktop));
+  @include utils.container(lg) {
+    ---kvlm-layout-header-offset: var(---kvlm-layout-header-offset-desktop);
   }
 }
 
 header {
   position: fixed;
   inset: 0 0 auto;
+  container-type: inline-size;
   z-index: 1;
 }
 
 main {
   display: flex;
   flex-direction: column;
+  container-type: inline-size;
 
   flex: 1 0 auto;
 }

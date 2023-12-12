@@ -37,7 +37,7 @@ kvlm-typo {
 
   .kvlm-typo--title {
     font-family: 'Super Grotesk', sans-serif;
-    font-size: utils.relative-font-size(150, $minimum: 3.2rem, $maximum: 12.5rem);
+    font-size: utils.relative-font-size(150, $minimum: utils.rem(3.2), $maximum: utils.rem(12.5));
     font-weight: 700;
     line-height: math.div(16, 15);
     text-transform: uppercase;
@@ -45,13 +45,13 @@ kvlm-typo {
 
   .kvlm-typo--lead {
     font-family: 'Fundamental Brigade', sans-serif;
-    font-size: utils.relative-font-size(40, $minimum: 2.2rem, $maximum: 3.5rem);
+    font-size: utils.relative-font-size(40, $minimum: utils.rem(2.2), $maximum: utils.rem(3.5));
     line-height: 1.25;
   }
 
   .kvlm-typo--body {
     font-family: 'Fundamental Brigade', sans-serif;
-    font-size: utils.relative-font-size(20, $minimum: 1.6rem);
+    font-size: utils.relative-font-size(20, $minimum: utils.rem(1.6));
     line-height: 1.5;
   }
 }

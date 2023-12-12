@@ -1,4 +1,6 @@
-@mixin wrapper($max-width: 1200px, $padding: 0 50px) {
+@use '../functions/size.function.scss' as *;
+
+@mixin wrapper($max-width: size(120), $padding: 0 size(5)) {
   box-sizing: border-box;
   width: 100%;
   max-width: $max-width;
