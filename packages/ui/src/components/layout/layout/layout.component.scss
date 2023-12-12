@@ -28,7 +28,8 @@ main {
 }
 
 header {
-  position: relative;
+  position: fixed;
+  inset: 0 0 auto;
   z-index: 1;
 }
 

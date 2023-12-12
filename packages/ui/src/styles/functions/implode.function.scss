@@ -1,0 +1,18 @@
+@use 'sass:list' as list;
+@use 'sass:meta' as meta;
+
+@function implode($list, $glue: '', $is-nested: false) {
+  $result: null;
+
+  @for $i from 1 through list.length($list) {
+    $e: list.nth($list, $i);
+
+    @if meta.type-of($e) == list {
+      $result: $result#{implode($e, $glue, true)};
+    } @else {
+      $result: if($i != list.length($list) or $is-nested, $result#{$e}#{$glue}, $result#{$e});
+    }
+  }
+
+  @return $result;
+}

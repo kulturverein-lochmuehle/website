@@ -5,6 +5,19 @@ import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import styles from './navigation.component.scss';
 
+/**
+ * @slot - Receives the navigation items.
+ *
+ * @cssprop --kvlm-navigation-background-from - Background gradient start color of the navigation bar.
+ * @cssprop --kvlm-navigation-background-to - Background gradient end color of the navigation bar.
+ * @cssprop --kvlm-navigation-color-typo - Color of the navigation bar text.
+ * @cssprop --kvlm-navigation-stroke-color - Color of the navigation bar stroke.
+ * @cssprop --kvlm-navigation-stroke-width - Width of the navigation bar stroke.
+ * @cssprop --kvlm-navigation-height - Height of the navigation bar. Will be computed based on layout.
+ * @cssprop --kvlm-navigation-scroll-distance - Distance scrolled in pixels. Internally set by the component.
+ * @cssprop --kvlm-navigation-shadow-spread - Spread of the navigation bar shadow. Computed from the scroll distance.
+ * @cssprop --kvlm-navigation-shadow-opacity - Opacity of the navigation bar shadow. Computed from the scroll distance.
+ */
 @customElement('kvlm-navigation')
 export class Navigation extends LitElement {
   static override readonly styles = unsafeCSS(styles);

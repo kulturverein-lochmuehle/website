@@ -15,7 +15,7 @@ $fonts: (
   )
 );
 @each $family, $weights in $fonts {
-  $file-name: string.to-lower-case(utils.str-replace($family, ' ', '-'));
+  $file-name: string.to-lower-case(utils.replace($family, ' ', '-'));
   @each $weight in $weights {
     @font-face {
       font-family: $family;

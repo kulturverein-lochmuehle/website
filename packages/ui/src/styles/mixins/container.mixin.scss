@@ -1,7 +1,30 @@
-@use 'sass:map';
-@use 'sass:meta';
-@use 'sass:string';
+@use 'sass:list' as list;
+@use 'sass:map' as map;
+@use 'sass:meta' as meta;
+@use 'sass:string' as string;
+
+@use '../functions/implode.function.scss' as ls;
 @use '../variables/breakpoint.variables.scss' as bp;
+
+// utility mixin to check breakpoints given to the mixin
+@mixin _check-given-breakpoint($breakpoint, $name) {
+  // check if $from is either numeric (custom) or a map key
+  @if meta.type-of($breakpoint) != number and meta.type-of($breakpoint) != string {
+    @error "The breakpoint for #{$name} (#{$breakpoint}) must be either a number or a valid map key (#{map.keys(bp.$breakpoints)}).";
+  }
+  // in case of a string, it must be a valid map key
+  @if meta.type-of($breakpoint) == string and not map.has-key(bp.$breakpoints, $breakpoint) {
+    @error "The breakpoint for #{$name} (#{$breakpoint}) does not exist.";
+  }
+}
+
+@function _resolve-breakpoint($breakpoint) {
+  @if meta.type-of($breakpoint) == number {
+    @return $breakpoint;
+  } @else {
+    @return map.get(bp.$breakpoints, $breakpoint);
+  }
+}
 
 /// Mixin for @container queries with a fallback to @media queries for elderly browsers.
 /// For the container queries to work, a container name must be provided. In our case,
@@ -31,27 +54,27 @@
 ///         font-size: rem(1.5);
 ///     }
 /// }
-@mixin container($from, $container-name: null) {
-  // check if $from is either numeric (custom) or a map key
-  @if meta.type-of($from) != number and meta.type-of($from) != string {
-    @error "The breakpoint #{$from} must be either a number or a valid map key (#{map.keys(bp.$breakpoints)}).";
-  }
-  // in case of a string, it must be a valid map key
-  @if meta.type-of($from) == string and not map.has-key(bp.$breakpoints, $from) {
-    @error "The breakpoint #{$from} does not exist.";
+@mixin container($from: null, $until: null, $container-name: null) {
+  // check that either $until or $from is set
+  @if not $until and not $from {
+    @error "Either $until or $from (the default) must be set.";
   }
 
-  // determine the breakpoint value
-  $breakpoint: null;
-  @if meta.type-of($from) == number {
-    $breakpoint: $from;
-  } @else {
-    $breakpoint: map.get(bp.$breakpoints, $from);
+  $conditions: [];
+  // check breakpoints if given
+  @if $from != null {
+    @include _check-given-breakpoint($from, '$from');
+    // determine the breakpoint value
+    $breakpoint: _resolve-breakpoint($from);
+    $conditions: list.append($conditions, '(min-width: #{$breakpoint})');
   }
-
-  // we'll use the min-width only for the time being, as the mobile
-  // first approach is the preferred design pattern
-  $property: min-width;
+  @if $until != null {
+    @include _check-given-breakpoint($until, '$until');
+    // determine the breakpoint value
+    $breakpoint: _resolve-breakpoint($until);
+    $conditions: list.append($conditions, '(max-width: #{$breakpoint - 1px})');
+  }
+  $condition: ls.implode($conditions, ' and ');
 
   // use container queries if available
   @supports (container-type: inline-size) {
@@ -64,7 +87,7 @@
       // container queries are not recognized by stylelint yet, as it is a bit outdated
       // TODO: update stylelint and remove the following line
       // stylelint-disable-next-line scss/at-rule-no-unknown
-      @container (#{$property}: #{$breakpoint}) {
+      @container #{$condition} {
         // pass the given mixin contents into the query
         @content;
       }
@@ -72,7 +95,7 @@
       // container queries are not recognized by stylelint yet, as it is a bit outdated
       // TODO: update stylelint and remove the following line
       // stylelint-disable-next-line scss/at-rule-no-unknown
-      @container #{string.unquote($container-name)} (#{$property}: #{$breakpoint}) {
+      @container #{string.unquote($container-name)} #{$condition} {
         // pass the given mixin contents into the query
         @content;
       }
@@ -81,7 +104,7 @@
 
   // use media query as fallback
   @supports not (container-type: inline-size) {
-    @media (#{$property}: #{$breakpoint}) {
+    @media #{$condition} {
       // pass the given mixin contents into the query
       @content;
     }

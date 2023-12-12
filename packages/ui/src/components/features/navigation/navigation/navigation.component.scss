@@ -23,56 +23,55 @@ $background: linear-gradient(
 }
 
 :host {
-  position: fixed;
-  inset: 0 0 auto;
-  z-index: 3;
-
   display: flex;
   flex-direction: row;
-  height: var(---kvlm-navigation-height);
+  container-type: inline-size;
 
   box-shadow: 0 0 var(---kvlm-navigation-shadow-spread)
     rgba(0, 0, 0, var(---kvlm-navigation-shadow-opacity));
   color: var(---kvlm-navigation-color-typo);
+
   background: $background;
-
   transition: 0.3s ease;
-  transition-property: color, height;
+  transition-property: color;
 
-  container-type: inline-size;
-  overflow: hidden;
+  @include utils.container($until: lg) {
+    ---kvlm-navigation-desktop: 0;
+    ---kvlm-navigation-mobile: 1;
 
-  ---kvlm-navigation-desktop: 0;
-  ---kvlm-navigation-mobile: 1;
+    background: $background;
+    height: 12.6rem;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
 
-  @include utils.container(lg) {
+  @include utils.container($from: lg) {
     ---kvlm-navigation-desktop: 1;
     ---kvlm-navigation-mobile: 0;
 
     align-items: center;
     height: var(---kvlm-navigation-height);
-    overflow: auto;
   }
 }
 
-:host([opened]) {
-  height: 100vh;
-  height: 100svh;
-
-  @include utils.container(lg) {
-    height: var(---kvlm-navigation-height);
+@include utils.container($until: lg) {
+  :host([opened]) {
+    height: 100vh;
+    height: 100svh;
   }
 }
 
 nav {
   display: flex;
 
-  flex-direction: column;
-  gap: 3rem;
-  padding: 4rem;
-  width: 100vw;
+  @include utils.container($until: lg) {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 4rem;
+    width: 100vw;
+  }
 
-  @include utils.container(lg) {
+  @include utils.container($from: lg) {
     @include utils.wrapper($padding: 0 5rem);
     align-items: center;
     flex-direction: row;
@@ -83,16 +82,14 @@ nav {
 a:first-child {
   color: inherit;
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 5rem;
+  @include utils.container($until: lg) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
 
-  @include utils.container(lg) {
-    flex-direction: column;
-    align-items: flex-start;
-
-    margin-bottom: 0;
+  @include utils.container($from: lg) {
     margin-right: auto;
   }
 
@@ -107,10 +104,8 @@ a:first-child {
     transform: translateX(#{math.div(7.8, 246.2) * 10 - 1%});
     transition: color 0.3s ease;
 
-    margin-right: auto;
-
-    @include utils.container(lg) {
-      margin-right: 0;
+    @include utils.container($until: lg) {
+      margin-right: auto;
     }
   }
 
@@ -122,7 +117,7 @@ a:first-child {
     transition: height 0.3s ease;
     overflow: visible;
 
-    @include utils.container(lg) {
+    @include utils.container($from: lg) {
       display: none;
     }
 
