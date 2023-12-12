@@ -19,5 +19,7 @@ const { Content } = await current!.render();
     --kvlm-section-color: ${current!.data.color};
   `}
 >
-  <Content components={{ h1: Title, p: Info }} />
+  <kvlm-typo>
+    <Content components={{ h1: Title, p: Info }} />
+  </kvlm-typo>
 </kvlm-section>

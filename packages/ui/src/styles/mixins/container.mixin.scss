@@ -3,17 +3,17 @@
 @use 'sass:meta' as meta;
 @use 'sass:string' as string;
 
-@use '../functions/implode.function.scss' as ls;
-@use '../variables/breakpoint.variables.scss' as bp;
+@use '../functions/implode.function.scss' as *;
+@use '../variables/breakpoint.variables.scss' as *;
 
 // utility mixin to check breakpoints given to the mixin
 @mixin _check-given-breakpoint($breakpoint, $name) {
   // check if $from is either numeric (custom) or a map key
   @if meta.type-of($breakpoint) != number and meta.type-of($breakpoint) != string {
-    @error "The breakpoint for #{$name} (#{$breakpoint}) must be either a number or a valid map key (#{map.keys(bp.$breakpoints)}).";
+    @error "The breakpoint for #{$name} (#{$breakpoint}) must be either a number or a valid map key (#{map.keys($breakpoints)}).";
   }
   // in case of a string, it must be a valid map key
-  @if meta.type-of($breakpoint) == string and not map.has-key(bp.$breakpoints, $breakpoint) {
+  @if meta.type-of($breakpoint) == string and not map.has-key($breakpoints, $breakpoint) {
     @error "The breakpoint for #{$name} (#{$breakpoint}) does not exist.";
   }
 }
@@ -22,7 +22,7 @@
   @if meta.type-of($breakpoint) == number {
     @return $breakpoint;
   } @else {
-    @return map.get(bp.$breakpoints, $breakpoint);
+    @return map.get($breakpoints, $breakpoint);
   }
 }
 
@@ -74,7 +74,7 @@
     $breakpoint: _resolve-breakpoint($until);
     $conditions: list.append($conditions, '(max-width: #{$breakpoint - 1px})');
   }
-  $condition: ls.implode($conditions, ' and ');
+  $condition: implode($conditions, ' and ');
 
   // use container queries if available
   @supports (container-type: inline-size) {

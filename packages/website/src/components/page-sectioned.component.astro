@@ -8,16 +8,17 @@ import Info from '@components/info.component.astro';
 const { path } = Astro.params;
 const { collection, page } = getCollectionParams(path);
 
-const entries = await getCollection(collection!, (item) => item.slug.startsWith(page!));
-const sections = await Promise.all(entries
-  // sort by section order
-  .sort((a, b) => a.data.order - b.data.order)
-  // prepare contents
-  .map(async entry => ({
-    id: `/${collection}/${entry.slug}`,
-    data: entry.data,
-    Content: (await entry.render()).Content
-  }))
+const entries = await getCollection(collection!, item => item.slug.startsWith(page!));
+const sections = await Promise.all(
+  entries
+    // sort by section order
+    .sort((a, b) => a.data.order - b.data.order)
+    // prepare contents
+    .map(async entry => ({
+      id: `/${collection}/${entry.slug}`,
+      data: entry.data,
+      Content: (await entry.render()).Content
+    }))
 );
 ---
 
@@ -32,7 +33,9 @@ const sections = await Promise.all(entries
           --kvlm-section-color: ${data.color};
         `}
       >
-        <Content components={{ h1: Title, p: Info }} />
+        <kvlm-typo>
+          <Content components={{ h1: Title, p: Info }} />
+        </kvlm-typo>
       </kvlm-section>
     );
   })

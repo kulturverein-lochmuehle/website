@@ -2,9 +2,9 @@
 
 ```html
 <kvlm-typo>
-  <p class="kvlm-typo--title">This is a title</p>
-  <p class="kvlm-typo--lead">This is informational.</p>
-  <p class="kvlm-typo--body">This is a regular paragraph.</p>
+  <p class="title">This is a title</p>
+  <p class="lead">This is informational.</p>
+  <p class="body">This is a regular paragraph.</p>
 </kvlm-typo>
 ```
 
