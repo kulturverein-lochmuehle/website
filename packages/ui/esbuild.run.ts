@@ -83,7 +83,8 @@ const options: BuildOptions = {
     ...singleElements,
     // bundle library
     'src/index.ts',
-    'src/index.scss',
+    'src/fonts.scss',
+    'src/globals.scss',
     // bundle preview
     'src/index.html',
     'src/preview.ts',
