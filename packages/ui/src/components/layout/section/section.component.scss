@@ -10,7 +10,6 @@
 :host {
   position: relative;
   display: flex;
-  padding-top: var(---kvlm-layout-header-offset);
   min-height: calc(100svh - var(---kvlm-layout-header-offset));
 
   container-type: inline-size;

@@ -30,7 +30,7 @@ main {
 }
 
 header {
-  position: fixed;
+  position: sticky;
   inset: 0 0 auto;
   container-type: inline-size;
   z-index: 1;
