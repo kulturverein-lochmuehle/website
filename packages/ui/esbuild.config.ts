@@ -4,13 +4,11 @@ import { parseArgs } from 'node:util';
 import autoprefixer from 'autoprefixer';
 import { build, type BuildOptions, context } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
-import { dtsPlugin } from 'esbuild-plugin-d.ts';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
 import postcss from 'postcss';
 import postcssPresetEnv from 'postcss-preset-env';
 
 import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';
-import { dtsAliasesPlugin } from './esbuild-declaration-aliases.plugin.js';
 
 import BREAKPOINTS from './breakpoints.json' assert { type: 'json' };
 import MANIFEST from './package.json' assert { type: 'json' };
@@ -120,8 +118,6 @@ ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${v
   },
   plugins: [
     barrelsbyPlugin({ configPath: '.barrelsby.json', addMissingJsExtensions: true }),
-    dtsPlugin(),
-    dtsAliasesPlugin({ tsConfigPath: 'tsconfig.types.json' }),
 
     copyStaticFiles({ src: 'src/preview.html', dest: 'dist/index.html' }),
     copyStaticFiles({ src: 'docs', dest: 'dist/docs', recursive: true }),
@@ -140,13 +136,16 @@ if (watch) {
       new EventSource('/esbuild').addEventListener('message', () => window.location.reload());
     }
   `;
-  const ctx = await context({ ...options, banner: { js: reloadBanner } });
+  const ctx = await context({
+    ...options,
+    banner: { js: `${options.banner?.js ?? ''}\n${reloadBanner}` }
+  });
   await ctx.watch();
   await ctx.serve({ servedir: 'dist', port: Number(port) });
 
   // notify user
   const url = `http://127.0.0.1:${port}/`;
-  console.info(` > Preview: \x1b[4m${url}\x1b[0m\n\n`);
+  console.info(`> Preview: \x1b[4m${url}\x1b[0m\n\n`);
 } else {
   await build(options);
 }
