@@ -1,0 +1,13 @@
+@use 'fonts';
+@use 'globals';
+
+body {
+  margin: 0;
+  font-family: var(--kvlm-font-family-body);
+}
+
+wcp-root {
+  // Increase the width of the text in the readme preview
+  // stylelint-disable-next-line custom-property-pattern
+  --wcp-layout-flowing-width: 1200px;
+}

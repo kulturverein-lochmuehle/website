@@ -1,3 +1,21 @@
-astro
-dist
-node_modules
+.env
+.envjenkins
+/.tmp
+/node_modules
+
+# IDEs
+.idea/
+.vscode/
+
+# os
+.DS_Store
+
+# generated files
+/dist
+/src/custom-elements.json
+/src/index.ts
+/reports
+
+# ignore compressed dist files
+/*.tgz
+/*.tar.gz

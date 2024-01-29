@@ -1,17 +1,14 @@
-import { existsSync, watch as watchFile } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
 import autoprefixer from 'autoprefixer';
 import { build, type BuildOptions, context } from 'esbuild';
+import copyStaticFiles from 'esbuild-copy-static-files';
 import { dtsPlugin } from 'esbuild-plugin-d.ts';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
-import { default as glob } from 'fast-glob';
 import postcss from 'postcss';
 import postcssPresetEnv from 'postcss-preset-env';
 
-import { createServer } from './esbuild.server.js';
 import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';
 import { dtsAliasesPlugin } from './esbuild-declaration-aliases.plugin.js';
 
@@ -72,26 +69,24 @@ const {
   }
 });
 
-// we bundle each individual element as well
-const singleElements = await glob('src/*/**/!(*.spec).ts', { onlyFiles: true, unique: true });
-
 // prepare common build options
 const options: BuildOptions = {
   sourceRoot: 'src',
   entryPoints: [
-    // bundle each element
-    ...singleElements,
+    // manifest (to be copied)
+    'src/custom-elements.json',
     // bundle library
     'src/index.ts',
     'src/fonts.scss',
     'src/globals.scss',
     // bundle preview
-    'src/index.html',
     'src/preview.ts',
+    'src/preview.scss',
     'src/preview.config.json'
   ],
   outdir: 'dist',
   format: 'esm',
+  platform: 'browser',
   bundle: true,
   metafile: true,
   minify: true,
@@ -128,6 +123,8 @@ ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${v
     dtsPlugin(),
     dtsAliasesPlugin({ tsConfigPath: 'tsconfig.types.json' }),
 
+    copyStaticFiles({ src: 'src/preview.html', dest: 'dist/index.html' }),
+
     sassPlugin(inlineOptions),
     sassPlugin(globalOptions)
   ]
@@ -135,36 +132,19 @@ ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${v
 
 if (watch) {
   // start dev server in watch mode
-  const internalPort = 28487;
-  const server = createServer(internalPort, true);
-  const manifestPath = resolve(options.outdir!, 'custom-elements.json');
-
-  // prepare context and start watching
-  const ctx = await context({
-    ...options,
-    banner: {
-      js: `${server.reloadBanner('wcp-hot-reload', `http://127.0.0.1:${port}`)}\n${
-        options.banner?.js ?? ''
-      }`
+  const reloadBanner = `
+    // reload page on file change
+    if (typeof EventSource !== 'undefined') {
+      new EventSource('/esbuild').addEventListener('message', () => window.location.reload());
     }
-  });
+  `;
+  const ctx = await context({ ...options, banner: { js: reloadBanner } });
   await ctx.watch();
-  await ctx.serve({ servedir: options.outdir, port: internalPort });
+  await ctx.serve({ servedir: 'dist', port: Number(port) });
 
-  // prepare dev server
-  server.listen(Number(port), async () => {
-    // notify user
-    const url = `http://127.0.0.1:${port}/`;
-    // eslint-disable-next-line no-console
-    console.info(` > Preview: \x1b[4m${url}\x1b[0m\n\n`);
-
-    // as the docs are maybe not ready yet, touch the target already
-    if (!existsSync(manifestPath)) await writeFile(manifestPath, '{}', 'utf-8');
-    watchFile(manifestPath, async () => {
-      const manifest = await readFile(manifestPath, 'utf-8');
-      server.respond(manifest);
-    });
-  });
+  // notify user
+  const url = `http://127.0.0.1:${port}/`;
+  console.info(` > Preview: \x1b[4m${url}\x1b[0m\n\n`);
 } else {
   await build(options);
 }

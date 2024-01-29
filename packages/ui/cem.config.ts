@@ -10,7 +10,7 @@ export default {
   packagejson: true,
   litelement: true,
   globs: ['src/components/**/*.component.{scss,ts}', 'src/components/**/EXAMPLES.md'],
-  outdir: 'dist',
+  outdir: 'src',
   plugins: [
     customElementExamplesPlugin(),
     customElementGenerateReadmesPlugin({

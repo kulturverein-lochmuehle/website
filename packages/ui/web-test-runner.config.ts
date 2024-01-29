@@ -4,11 +4,11 @@ import type { TestRunnerConfig } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 
 export default {
-  testFramework: { config: { timeout: 60000 } },
+  browsers: [playwrightLauncher({ product: 'chromium' })],
+  files: ['./src/**/*.spec.ts'],
   nodeResolve: true,
+  plugins: [esbuildPlugin({ ts: true }), litSsrPlugin()],
   preserveSymlinks: true,
   staticLogging: true,
-  files: ['./src/**/*.spec.ts'],
-  browsers: [playwrightLauncher({ product: 'chromium' })],
-  plugins: [esbuildPlugin({ ts: true }), litSsrPlugin()]
+  testFramework: { config: { timeout: 60000 } }
 } satisfies TestRunnerConfig;
