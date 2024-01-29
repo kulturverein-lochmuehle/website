@@ -35,6 +35,6 @@ if (current === undefined) {
 
 ---
 <DefaultLayout pageTitle={current.data?.title} siteTitle={siteTitle}>
-  <Navigation slot="header" />
+  <Navigation name="main" slot="header" />
   { hasSections ? <SectionedPage /> : <StandalonePage /> }
 </DefaultLayout>

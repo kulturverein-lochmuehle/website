@@ -9,7 +9,12 @@ type NavigationItem = {
   inline: boolean;
 };
 
+type Props = {
+  name: string;
+};
+
 const { path } = Astro.params;
+const { name } = Astro.props;
 const { collection, page, slug } = getCollectionParams(path);
 
 // checks weather a given page slug should be linked inline or not, this depends on two things:
@@ -24,21 +29,25 @@ function isLinkedInline(slug: string): boolean {
 // prepare navigation items from collection pages
 const pages = await getCollection(collection!);
 const items = pages
+  // filter pages that are not in navigation
+  .filter(page => page.data.navigation?.includes(name))
   // sort pages
   .sort((a, b) => a.data.order - b.data.order)
   // build navigation items
   .reduce(
-    (acc, page) =>  [...acc, {
-      inline: isLinkedInline(page.slug),
-      active: page.slug === slug,
-      href: `/${collection}/${page.slug}`,
-      label: page.data.title,
-    }],
+    (acc, page) => [
+      ...acc,
+      {
+        inline: isLinkedInline(page.slug),
+        active: page.slug === slug,
+        href: `/${collection}/${page.slug}`,
+        label: page.data.title
+      }
+    ],
     [] as NavigationItem[]
   );
 ---
+
 <kvlm-navigation slot="header">
-  {
-    items.map(item => <kvlm-navigation-item {...item} />)
-  }
+  {items.map(item => <kvlm-navigation-item {...item} />)}
 </kvlm-navigation>
