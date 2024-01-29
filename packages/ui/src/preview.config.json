@@ -1,12 +1,18 @@
 {
   "$schema": "../node_modules/@webcomponents-preview/client/dist/config.schema.json",
-  "initialActiveElement": "kvlm-logo",
   "initialCodePreviewTab": "preview",
   "initialStageTab": "readme",
   "logging": {
     "severity": "none"
   },
+  "additionalReadmes": [
+    {
+      "name": "Introduction",
+      "url": "docs/introduction.md"
+    }
+  ],
   "labels": {
+    "additionalReadmeGroupName": "Documentation",
     "title": " "
   }
 }

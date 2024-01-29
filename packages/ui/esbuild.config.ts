@@ -124,6 +124,8 @@ ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${v
     dtsAliasesPlugin({ tsConfigPath: 'tsconfig.types.json' }),
 
     copyStaticFiles({ src: 'src/preview.html', dest: 'dist/index.html' }),
+    copyStaticFiles({ src: 'docs', dest: 'dist/docs', recursive: true }),
+    copyStaticFiles({ src: 'README.md', dest: 'dist/docs/introduction.md' }),
 
     sassPlugin(inlineOptions),
     sassPlugin(globalOptions)
