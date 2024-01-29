@@ -1,7 +1,14 @@
 {
   "name": "@kvlm/website",
-  "type": "module",
+  "description": "kvlm.de website",
   "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "David Enke",
+    "email": "david@kvlm.de"
+  },
+  "type": "module",
   "scripts": {
     "clean": "shx rm -rf public/ui",
     "copy": "shx cp -r node_modules/@kvlm/ui/dist public/ui",

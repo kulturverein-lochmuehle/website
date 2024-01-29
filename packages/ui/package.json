@@ -1,11 +1,12 @@
 {
   "name": "@kvlm/ui",
-  "version": "1.0.0",
+  "description": "UI components for kvlm.de",
+  "version": "0.0.1",
   "license": "MIT",
   "private": true,
   "author": {
     "name": "David Enke",
-    "email": "david@enke.dev"
+    "email": "david@kvlm.de"
   },
   "type": "module",
   "main": "dist/index.js",

@@ -1,11 +1,11 @@
 {
-  "name": "@kvlm/website",
-  "version": "1.0.0",
-  "description": "Kulturverein Lochmühle e.V.",
+  "name": "@kvlm/source",
+  "description": "Monorepo of the Kulturverein Lochmühle e.V.",
+  "version": "0.0.1",
   "license": "MIT",
   "private": true,
   "author": {
     "name": "David Enke",
-    "email": "david@enke.dev"
+    "email": "david@kvlm.de"
   }
 }
