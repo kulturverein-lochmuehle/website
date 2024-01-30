@@ -1,0 +1,20 @@
+@use '@/styles/utils' as utils;
+
+// prettier-ignore
+:host {
+  ---kvlm-content-background: var(--kvlm-content-background, var(--kvlm-content-background, var(--kvlm-color-turquoise, #fff)));
+  ---kvlm-content-color: var(--kvlm-content-color, var(--kvlm-color-grey-light));
+}
+
+:host {
+  display: block;
+  background: var(---kvlm-content-background);
+  color: var(---kvlm-content-color);
+}
+
+article {
+  @include utils.wrapper($padding: 0 utils.size(5));
+
+  min-height: 100vh;
+  min-height: 100svh;
+}

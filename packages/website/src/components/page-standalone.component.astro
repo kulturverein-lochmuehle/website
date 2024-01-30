@@ -12,14 +12,13 @@ const current = await getEntryBySlug(collection!, slug!);
 const { Content } = await current!.render();
 ---
 
-<kvlm-section
+<kvlm-content
   style={`
-    --kvlm-section-background-from: ${current!.data.backgroundFrom};
-    --kvlm-section-background-to: ${current!.data.backgroundTo};
+    --kvlm-content-background: ${current!.data.background};
     --kvlm-section-color: ${current!.data.color};
   `}
 >
   <kvlm-typo>
     <Content components={{ h1: Title, p: Info }} />
   </kvlm-typo>
-</kvlm-section>
+</kvlm-content>
