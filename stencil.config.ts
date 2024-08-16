@@ -37,6 +37,9 @@ export const config: Config = {
           src: 'pages',
         },
         {
+          src: 'preisliste.html',
+        },
+        {
           src: `config.${isProduction ? 'prod' : 'dev'}.json`,
           dest: 'config.json',
         },

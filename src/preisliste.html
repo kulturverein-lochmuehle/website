@@ -1,0 +1,160 @@
+<header>
+  <input type="range" min="2" max="10" value="6" step="0.1" />
+</header>
+
+<main>
+  <section>
+    <!-- prettier-ignore -->
+    <textarea>Bier (0,5l)
+Radler (0,5l)
+Alkoholfreies Bier (0,5l)
+Limonade (0,3l)
+Bratwurst mit Brötchen
+Käse & Oliven</textarea>
+  </section>
+  <section>
+    <!-- prettier-ignore -->
+    <textarea>2,50 €
+2,50 €
+2,50 €
+1,50 €
+3,50 €
+3,00 €</textarea>
+  </section>
+</main>
+
+<script>
+  document.querySelector('input').addEventListener('input', event => {
+    document.documentElement.style.setProperty('--font-size', `${event.target.value}vw`);
+  });
+
+  document.querySelectorAll('textarea').forEach(textarea => {
+    textarea.addEventListener('input', () => {
+      textarea.parentElement.dataset.resizeText = textarea.value;
+    });
+    textarea.parentElement.dataset.resizeText = textarea.value;
+  });
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Super Grotesk';
+    src:
+      url('/assets/fonts/super-grotesk/super-grotesk-latin-500.woff2') format('woff2'),
+      url('/assets/fonts/super-grotesk/super-grotesk-latin-500.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Fundamental Brigade';
+    src:
+      url('/assets/fonts/fundamental-brigade/fundamental-brigade-latin-400.woff2') format('woff2'),
+      url('/assets/fonts/fundamental-brigade/fundamental-brigade-latin-400.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  body {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    margin: 10px;
+    background: #333;
+  }
+
+  main {
+    display: flex;
+    align-items: center;
+    aspect-ratio: 297 / 210;
+    padding: 1vw;
+    width: 100%;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    font-size: var(--font-size, 6vw);
+    background: #fff;
+  }
+
+  section {
+    display: grid;
+
+    &::after,
+    textarea {
+      grid-area: 1 / 1 / 2 / 2;
+      margin: 5px;
+      padding: 5px;
+
+      font-size: 1em;
+      line-height: 1.5;
+      border: 1px solid #ccc;
+    }
+
+    &::after {
+      content: attr(data-resize-text) ' ';
+      border-color: transparent;
+      white-space: pre-wrap;
+      visibility: hidden;
+    }
+
+    textarea {
+      appearance: none;
+      border-radius: 0.1em;
+      resize: none;
+      overflow: hidden;
+    }
+
+    &:first-of-type {
+      flex: 1 0 auto;
+
+      &::after,
+      textarea {
+        font-family: 'Fundamental Brigade', sans-serif;
+        text-align: left;
+      }
+    }
+
+    &:last-of-type {
+      flex: 1 1 auto;
+      width: fit-content;
+
+      &::after,
+      textarea {
+        font-family: 'Super Grotesk', sans-serif;
+        text-align: right;
+      }
+    }
+  }
+
+  @media print {
+    @page {
+      size: a4 landscape;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: block;
+      margin: 0;
+      background: transparent;
+    }
+
+    header {
+      display: none;
+    }
+
+    main {
+      aspect-ratio: 1;
+      height: 100%;
+      background: transparent;
+    }
+
+    section {
+      textarea {
+        border-color: transparent;
+      }
+    }
+  }
+</style>
