@@ -1,38 +1,57 @@
 <header>
-  <input type="range" min="2" max="10" value="6" step="0.1" />
+  <form>
+    <label>
+      <input name="font-size" type="range" min="2" max="10" value="6" step="0.1" />
+      <span>Schriftgröße</span>
+    </label>
+    <label>
+      <input name="format" type="radio" value="portrait" />
+      <span>Hochformat</span>
+    </label>
+    <label>
+      <input name="format" type="radio" value="landscape" />
+      <span>Querformat</span>
+    </label>
+  </form>
 </header>
 
 <main>
   <section>
-    <!-- prettier-ignore -->
-    <textarea>Bier (0,5l)
-Radler (0,5l)
-Alkoholfreies Bier (0,5l)
-Limonade (0,3l)
-Bratwurst mit Brötchen
-Käse & Oliven</textarea>
+    <table>
+      <thead>
+        <tr>
+          <th>Project ID</th>
+          <th>Invest ID</th>
+          <th>
+            <button aria-label="Add" ?disabled="${!this.isValid}" @click="${this.addProjectMapEntry}">+</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        ${map( this.formData.projectMap, ([projectId, investId], index) => html`
+        <tr data-project-map-index="${index}" @input="${this.updateProjectMapEntry}">
+          <td>
+            <input required type="text" data-project-map-entry-name="projectId" .value="${live(projectId)}" />
+          </td>
+          <td>
+            <input required type="text" data-project-map-entry-name="investId" .value="${live(investId)}" />
+          </td>
+          <td>
+            <button aria-label="Remove" @click="${this.removeProjectMapEntry}">-</button>
+          </td>
+        </tr>
+        ` )}
+      </tbody>
+    </table>
   </section>
-  <section>
-    <!-- prettier-ignore -->
-    <textarea>2,50 €
-2,50 €
-2,50 €
-1,50 €
-3,50 €
-3,00 €</textarea>
-  </section>
+  <section></section>
 </main>
 
 <script>
-  document.querySelector('input').addEventListener('input', event => {
-    document.documentElement.style.setProperty('--font-size', `${event.target.value}vw`);
-  });
-
-  document.querySelectorAll('textarea').forEach(textarea => {
-    textarea.addEventListener('input', () => {
-      textarea.parentElement.dataset.resizeText = textarea.value;
-    });
-    textarea.parentElement.dataset.resizeText = textarea.value;
+  document.querySelector('header form').addEventListener('input', event => {
+    const { name, value } = event.target;
+    const valueAligned = name === 'font-size' ? `${value}vw` : value;
+    document.documentElement.style.setProperty(`--${name}`, `${valueAligned}`);
   });
 </script>
 
@@ -55,79 +74,61 @@ Käse & Oliven</textarea>
     font-style: normal;
   }
 
+  html {
+    font-family: 'Fundamental Brigade';
+    background: #333;
+    color: #f4f4f4;
+  }
+
   body {
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
     margin: 10px;
-    background: #333;
+  }
+
+  header {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px 20px;
+
+    label {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 10px;
+
+      input {
+        margin: 0;
+      }
+    }
   }
 
   main {
     display: flex;
-    align-items: center;
-    aspect-ratio: 297 / 210;
-    padding: 1vw;
-    width: 100%;
     flex-flow: row nowrap;
-    justify-content: space-between;
-    font-size: var(--font-size, 6vw);
-    background: #fff;
   }
 
   section {
-    display: grid;
-
-    &::after,
-    textarea {
-      grid-area: 1 / 1 / 2 / 2;
-      margin: 5px;
-      padding: 5px;
-
-      font-size: 1em;
-      line-height: 1.5;
-      border: 1px solid #ccc;
-    }
-
-    &::after {
-      content: attr(data-resize-text) ' ';
-      border-color: transparent;
-      white-space: pre-wrap;
-      visibility: hidden;
-    }
-
-    textarea {
-      appearance: none;
-      border-radius: 0.1em;
-      resize: none;
-      overflow: hidden;
-    }
-
     &:first-of-type {
-      flex: 1 0 auto;
-
-      &::after,
-      textarea {
-        font-family: 'Fundamental Brigade', sans-serif;
-        text-align: left;
-      }
     }
 
     &:last-of-type {
-      flex: 1 1 auto;
-      width: fit-content;
+      flex: 1 0 auto;
 
-      &::after,
-      textarea {
-        font-family: 'Super Grotesk', sans-serif;
-        text-align: right;
-      }
+      aspect-ratio: 297 / 210;
+      padding: 1vw;
+      width: 100%;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      font-size: var(--font-size, 6vw);
+      background: #fff;
     }
   }
 
   @media print {
     @page {
-      size: a4 landscape;
+      size: a4 var(--format, portrait);
     }
 
     html,
