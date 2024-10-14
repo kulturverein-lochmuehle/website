@@ -1,6 +1,6 @@
 @use 'sass:math';
-@use '../functions/relative-font-size.function.scss' as *;
-@use '../functions/rem.function.scss' as *;
+@use '@/styles/functions/relative-font-size.function.scss' as *;
+@use '@/styles/functions/rem.function.scss' as *;
 
 %title {
   font-family: 'Super Grotesk', sans-serif;
@@ -11,13 +11,13 @@
 }
 
 %lead {
-  font-family: 'Fundamental Brigade', sans-serif;
+  font-family: var(--kvlm-font-family-body);
   font-size: relative-font-size(40, $minimum: rem(2.2), $maximum: rem(3.5));
   line-height: 1.25;
 }
 
 %body {
-  font-family: 'Fundamental Brigade', sans-serif;
+  font-family: var(--kvlm-font-family-body);
   font-size: relative-font-size(20, $minimum: rem(1.6));
   line-height: 1.5;
 }

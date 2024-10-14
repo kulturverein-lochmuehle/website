@@ -3,8 +3,8 @@
 @use 'sass:meta' as meta;
 @use 'sass:string' as string;
 
-@use '../functions/implode.function.scss' as *;
-@use '../variables/breakpoint.variables.scss' as *;
+@use '@/styles/functions/implode.function.scss' as *;
+@use '@/styles/variables/breakpoint.variables.scss' as *;
 
 // utility mixin to check breakpoints given to the mixin
 @mixin _check-given-breakpoint($breakpoint, $name) {
