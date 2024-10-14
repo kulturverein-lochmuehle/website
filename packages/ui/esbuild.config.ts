@@ -6,6 +6,7 @@ import { build, type BuildOptions, context } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
 import postcss from 'postcss';
+// @ts-expect-error -- types are present, but not working
 import postcssPresetEnv from 'postcss-preset-env';
 
 import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';

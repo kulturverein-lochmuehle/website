@@ -19,28 +19,26 @@
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-is": "18.2.0",
-    "tinacms": "1.5.28"
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-is": "18.3.1"
   },
   "devDependencies": {
-    "@astrojs/mdx": "2.1.0",
-    "@astrojs/netlify": "5.0.0",
-    "@codemirror/language": "6.10.0",
-    "@tinacms/cli": "1.5.39",
-    "@types/node": "20.11.10",
-    "@types/react": "18.2.48",
-    "@types/react-dom": "18.2.18",
-    "@types/react-is": "18.2.4",
-    "astro": "4.2.6",
-    "graphql": "16.8.1",
+    "@astrojs/mdx": "3.1.8",
+    "@astrojs/netlify": "5.5.3",
+    "@codemirror/language": "6.10.3",
+    "@types/node": "20.16.10",
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.1",
+    "@types/react-is": "18.3.0",
+    "astro": "4.16.2",
+    "graphql": "16.9.0",
     "graphql-tag": "2.12.6",
     "npm-run-all": "4.1.5",
-    "postcss": "8.4.33",
-    "rollup": "4.9.6",
-    "scheduler": "0.23.0",
+    "postcss": "8.4.47",
+    "rollup": "4.24.0",
+    "scheduler": "0.23.2",
     "shx": "0.3.4",
-    "typescript": "5.3.3"
+    "typescript": "5.6.3"
   }
 }
