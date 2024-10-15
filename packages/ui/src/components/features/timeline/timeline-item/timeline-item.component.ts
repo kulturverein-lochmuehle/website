@@ -17,11 +17,18 @@ export class TimelineItem extends LitElement {
   @property({ type: String, reflect: true })
   readonly role = 'listitem';
 
+  @property({ reflect: true, type: Boolean })
+  readonly trailing = false;
+
+  @property({ reflect: true, type: Boolean })
+  readonly leading = false;
+
+  // eslint-disable-next-line lit-plugin/no-incompatible-property-type
   @property({ reflect: true, converter: DateConverter() })
-  date!: Date;
+  readonly date!: Date;
 
   @property({ reflect: true, type: String })
-  title!: string;
+  readonly title!: string;
 
   render() {
     return html`

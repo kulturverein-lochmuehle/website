@@ -3,7 +3,7 @@
 @use '@/styles/functions/rem.function.scss' as *;
 
 %title {
-  font-family: 'Super Grotesk', sans-serif;
+  font-family: var(--kvlm-font-family-title);
   font-size: relative-font-size(150, $minimum: rem(3.2), $maximum: rem(12.5));
   font-weight: 700;
   line-height: math.div(16, 15);
