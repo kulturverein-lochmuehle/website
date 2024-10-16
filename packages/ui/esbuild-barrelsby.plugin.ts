@@ -1,3 +1,5 @@
+/* eslint-disable import/no-nodejs-modules */
+
 import { exec } from 'node:child_process';
 import { existsSync, watchFile } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
@@ -21,7 +23,7 @@ export type BarrelsbyPluginOptions = {
 
 export function barrelsbyPlugin({
   configPath,
-  addMissingJsExtensions = false
+  addMissingJsExtensions = false,
 }: BarrelsbyPluginOptions): Plugin {
   const pluginName = 'esbuild-plugin-barrelsby';
   return {
@@ -44,7 +46,7 @@ export function barrelsbyPlugin({
             // https://regex101.com/r/9wGBMU/1
             if (addMissingJsExtensions) {
               const barrel = await readFile(index, 'utf-8');
-              const fixed = barrel.replace(/(?<!\.js)';$/gm, `.js';`);
+              const fixed = barrel.replace(/(?<!\.js)';$/gm, ".js';");
               await writeFile(index, fixed, 'utf-8');
             }
 
@@ -67,7 +69,7 @@ export function barrelsbyPlugin({
             // report errors
             done({
               path: index,
-              errors: [{ pluginName, id: name, text: message, detail: stack }]
+              errors: [{ pluginName, id: name, text: message, detail: stack }],
             });
 
             // remove watcher
@@ -78,6 +80,6 @@ export function barrelsbyPlugin({
           promisify(exec)(`barrelsby --config ${configPath}`, { cwd: cwd() });
         });
       });
-    }
+    },
   };
 }

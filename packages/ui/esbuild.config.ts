@@ -1,3 +1,5 @@
+/* eslint-disable import/no-nodejs-modules */
+
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
@@ -19,7 +21,7 @@ const precompile = (source: string, path: string): string => {
   if (path.endsWith('breakpoint.variables.scss')) {
     const breakpoints = Object.entries(BREAKPOINTS).reduce(
       (acc, [key, value]) => `${acc}  ${key}: ${value}px,\n`,
-      '\n'
+      '\n',
     );
     return source.replace(/(\$breakpoints:\s+\()(\);)/, `$1${breakpoints}$2`);
   }
@@ -36,7 +38,7 @@ const importMapper = (path: string): string => {
 // add postcss to sass transformer
 const transform = async (source: string): Promise<string> => {
   const { css } = await postcss([autoprefixer, postcssPresetEnv({ stage: 0 })]).process(source, {
-    from: source
+    from: source,
   });
   return css;
 };
@@ -47,7 +49,7 @@ export const inlineOptions: SassPluginOptions = {
   filter: /\.component\.scss$/,
   precompile,
   importMapper,
-  transform
+  transform,
 };
 
 // will transform the given SCSS files into CSS files
@@ -55,17 +57,17 @@ export const globalOptions: SassPluginOptions = {
   type: 'css',
   precompile,
   importMapper,
-  transform
+  transform,
 };
 
 // parse cli arguments
 const {
-  values: { port = '3500', watch }
+  values: { port = '3500', watch },
 } = parseArgs({
   options: {
     port: { type: 'string', short: 'p' },
-    watch: { type: 'boolean', short: 'w' }
-  }
+    watch: { type: 'boolean', short: 'w' },
+  },
 });
 
 // prepare common build options
@@ -81,7 +83,7 @@ const options: BuildOptions = {
     // bundle preview
     'src/preview.ts',
     'src/preview.scss',
-    'src/preview.config.json'
+    'src/preview.config.json',
   ],
   outdir: 'dist',
   format: 'esm',
@@ -98,7 +100,7 @@ const options: BuildOptions = {
     '.png': 'dataurl',
     '.ttf': 'file',
     '.woff': 'file',
-    '.woff2': 'file'
+    '.woff2': 'file',
   },
   logLevel: 'error',
   banner: {
@@ -115,7 +117,7 @@ if (window.kvlm.version !== undefined && window.kvlm.version !== '${MANIFEST.ver
 // set breakpoints globally
 window.kvlm.breakpoints = {
 ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${value},\n`, '')}};
-`
+`,
   },
   plugins: [
     barrelsbyPlugin({ configPath: '.barrelsby.json', addMissingJsExtensions: true }),
@@ -125,8 +127,8 @@ ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${v
     copyStaticFiles({ src: 'README.md', dest: 'dist/docs/introduction.md' }),
 
     sassPlugin(inlineOptions),
-    sassPlugin(globalOptions)
-  ]
+    sassPlugin(globalOptions),
+  ],
 };
 
 if (watch) {
@@ -139,7 +141,7 @@ if (watch) {
   `;
   const ctx = await context({
     ...options,
-    banner: { js: `${options.banner?.js ?? ''}\n${reloadBanner}` }
+    banner: { js: `${options.banner?.js ?? ''}\n${reloadBanner}` },
   });
   await ctx.watch();
   await ctx.serve({ servedir: 'dist', port: Number(port) });

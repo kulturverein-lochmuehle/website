@@ -23,7 +23,6 @@ export class TimelineItem extends LitElement {
   @property({ reflect: true, type: Boolean })
   readonly leading = false;
 
-  // eslint-disable-next-line lit-plugin/no-incompatible-property-type
   @property({ reflect: true, converter: DateConverter() })
   readonly date!: Date;
 

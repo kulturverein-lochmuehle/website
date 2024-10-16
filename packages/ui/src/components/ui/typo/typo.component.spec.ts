@@ -21,8 +21,8 @@ describe('Logo', () => {
         </kvlm-typo>
       `,
       {
-        modules: ['../../../../dist/components/ui/typo/typo.component.js']
-      }
+        modules: ['../../../../dist/components/ui/typo/typo.component.js'],
+      },
     );
     expect(el.querySelector('style')).not.to.be.null;
   });

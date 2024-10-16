@@ -14,7 +14,7 @@ describe('Section', () => {
 
   it('renders on server', async () => {
     const el = await ssrFixture<Section>(html`<kvlm-section></kvlm-section>`, {
-      modules: ['../../../../dist/components/layout/section/section.component.js']
+      modules: ['../../../../dist/components/layout/section/section.component.js'],
     });
     expect(el.shadowRoot?.querySelector('section')).not.to.be.null;
   });

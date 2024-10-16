@@ -10,5 +10,5 @@ export default {
   plugins: [esbuildPlugin({ ts: true }), litSsrPlugin()],
   preserveSymlinks: true,
   staticLogging: true,
-  testFramework: { config: { timeout: 60000 } }
+  testFramework: { config: { timeout: 60000 } },
 } satisfies TestRunnerConfig;

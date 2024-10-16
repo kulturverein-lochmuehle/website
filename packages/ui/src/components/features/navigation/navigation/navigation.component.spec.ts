@@ -15,8 +15,8 @@ describe('Navigation', () => {
   it('renders on server', async () => {
     const el = await ssrFixture<Navigation>(html`<kvlm-navigation></kvlm-navigation>`, {
       modules: [
-        '../../../../../dist/components/features/navigation/navigation/navigation.component.js'
-      ]
+        '../../../../../dist/components/features/navigation/navigation/navigation.component.js',
+      ],
     });
     expect(el.shadowRoot?.querySelector('nav')).not.to.be.null;
   });

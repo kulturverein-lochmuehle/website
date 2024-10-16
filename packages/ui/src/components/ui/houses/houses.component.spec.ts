@@ -14,7 +14,7 @@ describe('Houses', () => {
 
   it('renders on server', async () => {
     const el = await ssrFixture<Houses>(html`<kvlm-houses></kvlm-houses>`, {
-      modules: ['../../../../dist/components/ui/houses/houses.component.js']
+      modules: ['../../../../dist/components/ui/houses/houses.component.js'],
     });
     expect(el.shadowRoot?.querySelector('img')).not.to.be.null;
   });

@@ -8,7 +8,7 @@ import type { NavigationItem } from './navigation-item.component.js';
 describe('Navigation Item', () => {
   it('renders with shadow dom', async () => {
     const el = await fixture<NavigationItem>(
-      html`<kvlm-navigation-item>Foo</kvlm-navigation-item>`
+      html`<kvlm-navigation-item>Foo</kvlm-navigation-item>`,
     );
 
     expect(el.shadowRoot).not.to.be.null;
@@ -19,9 +19,9 @@ describe('Navigation Item', () => {
       html`<kvlm-navigation-item>Foo</kvlm-navigation-item>`,
       {
         modules: [
-          '../../../../../dist/components/features/navigation/navigation-item/navigation-item.component.js'
-        ]
-      }
+          '../../../../../dist/components/features/navigation/navigation-item/navigation-item.component.js',
+        ],
+      },
     );
     expect(el.shadowRoot?.querySelector('a')).not.to.be.null;
   });

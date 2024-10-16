@@ -14,7 +14,7 @@ describe('Content', () => {
 
   it('renders on server', async () => {
     const el = await ssrFixture<Content>(html`<kvlm-content></kvlm-content>`, {
-      modules: ['../../../../dist/components/layout/content/content.component.js']
+      modules: ['../../../../dist/components/layout/content/content.component.js'],
     });
     expect(el.shadowRoot?.querySelector('article')).not.to.be.null;
   });

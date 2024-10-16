@@ -7,6 +7,6 @@ export function formatDate(date?: Date): string | undefined {
   return date?.toLocaleDateString(getLocale(), {
     month: 'long',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
   });
 }

@@ -14,7 +14,7 @@ describe('Brook', () => {
 
   it('renders on server', async () => {
     const el = await ssrFixture<Brook>(html`<kvlm-brook></kvlm-brook>`, {
-      modules: ['../../../../dist/components/ui/brook/brook.component.js']
+      modules: ['../../../../dist/components/ui/brook/brook.component.js'],
     });
     expect(el.shadowRoot?.querySelector('svg')).not.to.be.null;
   });

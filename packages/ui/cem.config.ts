@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+/* eslint-disable import/no-nodejs-modules */
 
 import { dirname, resolve } from 'node:path';
 
@@ -19,13 +20,13 @@ export default {
       outputPath(path) {
         if (path === undefined) return '';
         return resolve(dirname(path), 'README.md');
-      }
+      },
     }),
     customElementGroupingPlugin({
       addGroups(componentPath) {
         const [, , group] = componentPath?.split('/') || [];
         return [group];
-      }
-    })
-  ]
+      },
+    }),
+  ],
 };

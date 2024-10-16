@@ -12,7 +12,7 @@ export class NavigationItem extends LitElement {
 
   private readonly handleLocationChangedBound = _debounce(
     this.handleLocationChanged.bind(this),
-    300
+    300,
   );
 
   @property({ reflect: true, type: String })
@@ -41,12 +41,12 @@ export class NavigationItem extends LitElement {
     window.addEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleLocationChangedBound,
-      false
+      false,
     );
     window.addEventListener(
       RoutingEvent.RouterLocationChanged,
       this.handleLocationChangedBound,
-      false
+      false,
     );
   }
 
@@ -61,12 +61,12 @@ export class NavigationItem extends LitElement {
     window.removeEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleLocationChangedBound,
-      false
+      false,
     );
     window.removeEventListener(
       RoutingEvent.RouterLocationChanged,
       this.handleLocationChangedBound,
-      false
+      false,
     );
   }
 

@@ -12,5 +12,5 @@ export const DateConverter: ConverterFactory<Date | undefined> = () => ({
       return null;
     }
     return value.toISOString().slice(0, 10);
-  }
+  },
 });

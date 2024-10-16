@@ -14,7 +14,7 @@ describe('Layout', () => {
 
   it('renders on server', async () => {
     const el = await ssrFixture<Layout>(html`<kvlm-layout></kvlm-layout>`, {
-      modules: ['../../../../dist/components/layout/layout/layout.component.js']
+      modules: ['../../../../dist/components/layout/layout/layout.component.js'],
     });
     expect(el.shadowRoot?.querySelector('slot')).not.to.be.null;
   });

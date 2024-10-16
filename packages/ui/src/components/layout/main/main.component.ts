@@ -6,7 +6,7 @@ import {
   changeLocationInline,
   type InlineLocationChangedEvent,
   RoutingEvent,
-  setNavigationTheme
+  setNavigationTheme,
 } from '@/utils/event.utils.js';
 
 import styles from './main.component.scss';
@@ -50,7 +50,7 @@ export class Main extends LitElement {
     window.addEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleInlineLocationChangedBound,
-      false
+      false,
     );
 
     // observe contents once scrolled
@@ -67,7 +67,7 @@ export class Main extends LitElement {
     window.removeEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleInlineLocationChangedBound,
-      false
+      false,
     );
     super.disconnectedCallback();
   }
@@ -112,7 +112,7 @@ export class Main extends LitElement {
         // if not, deliver previous result (or undefined)
         return _;
       },
-      undefined as HTMLElement | undefined
+      undefined as HTMLElement | undefined,
     );
   }
 
@@ -139,7 +139,7 @@ export class Main extends LitElement {
     // use built-in scroll behavior
     window.scrollTo({
       top: target.offsetTop,
-      behavior: animate ? 'smooth' : undefined
+      behavior: animate ? 'smooth' : undefined,
     });
   }
 
