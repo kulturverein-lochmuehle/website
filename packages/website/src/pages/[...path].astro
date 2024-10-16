@@ -1,13 +1,11 @@
 ---
+import { getEntryBySlug } from 'astro:content';
 import { getCollectionParams } from '@utils/collection.utils.js';
 import DefaultLayout from '@layouts/default.layout.astro';
 
 import StandalonePage from '@components/page-standalone.component.astro';
 import SectionedPage from '@components/page-sectioned.component.astro';
 import Navigation from '@components/navigation.component.astro';
-import { getEntryBySlug } from 'astro:content';
-
-const siteTitle = 'Kulturverein Lochmühle e.V.';
 
 const { path } = Astro.params;
 const { collection, slug, hasSections } = getCollectionParams(path);
@@ -29,12 +27,12 @@ const current = await getEntryBySlug(collection!, slug!);
 if (current === undefined) {
   return new Response(null, {
     status: 404,
-    statusText: 'Not found',
+    statusText: 'Not found'
   });
 }
-
 ---
-<DefaultLayout pageTitle={current.data?.title} siteTitle={siteTitle}>
+
+<DefaultLayout pageTitle={current.data?.title}>
   <Navigation name="main" slot="header" />
-  { hasSections ? <SectionedPage /> : <StandalonePage /> }
+  {hasSections ? <SectionedPage /> : <StandalonePage />}
 </DefaultLayout>

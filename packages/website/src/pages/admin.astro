@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/base.layout.astro';
+---
+
+<BaseLayout pageTitle="Administration">
+  <meta slot="head" name="robots" content="noindex" />
+  <link slot="head" href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  <script src="decap-cms/dist/decap-cms.js"></script>
+</BaseLayout>

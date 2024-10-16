@@ -10,34 +10,26 @@
   },
   "type": "module",
   "scripts": {
-    "clean": "shx rm -rf public/ui",
-    "copy": "shx cp -r node_modules/@kvlm/ui/dist public/ui",
-    "predev": "run-s clean copy",
-    "dev": "tinacms dev -v --noTelemetry --command 'astro dev --host'",
-    "prebuild": "run-s clean copy",
-    "build": "astro build"
+    "dev:proxy": "cross-env PORT=4320 GIT_REPO_DIRECTORY=../../ netlify-cms-proxy-server",
+    "dev:start": "astro dev --host",
+    "dev": "run-p -lns dev:*",
+    "build:clean": "shx rm -rf public/ui",
+    "build:copy": "shx cp -r node_modules/@kvlm/ui/dist public/ui",
+    "build:build": "astro build",
+    "build": "run-s -lns build:*"
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-is": "18.3.1"
+    "decap-cms": "3.3.3"
   },
   "devDependencies": {
     "@astrojs/mdx": "3.1.8",
     "@astrojs/netlify": "5.5.3",
-    "@codemirror/language": "6.10.3",
     "@types/node": "20.16.10",
-    "@types/react": "18.3.11",
-    "@types/react-dom": "18.3.1",
-    "@types/react-is": "18.3.0",
     "astro": "4.16.2",
-    "graphql": "16.9.0",
-    "graphql-tag": "2.12.6",
+    "cross-env": "7.0.3",
+    "netlify-cms-proxy-server": "1.3.24",
     "npm-run-all": "4.1.5",
-    "postcss": "8.4.47",
-    "rollup": "4.24.0",
-    "scheduler": "0.23.2",
     "shx": "0.3.4",
     "typescript": "5.6.3"
   }

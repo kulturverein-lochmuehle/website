@@ -7,5 +7,7 @@ import netlify from '@astrojs/netlify/functions';
 export default defineConfig({
   integrations: [mdx()],
   output: 'server',
-  adapter: netlify()
+  adapter: netlify(),
+  devToolbar: { enabled: false },
+  server: { port: 4321 }
 });

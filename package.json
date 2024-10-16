@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel dev"
+  },
   "author": {
     "name": "David Enke",
     "email": "david@kvlm.de"

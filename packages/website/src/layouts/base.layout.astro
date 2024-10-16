@@ -1,0 +1,43 @@
+---
+export interface Props {
+  lang?: string;
+  siteTitle?: string;
+  pageTitle?: string;
+}
+
+const UI_ROOT = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
+const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta content="IE=Edge" http-equiv="x-ua-compatible" />
+
+    <title>{pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
+
+    <link href={`${UI_ROOT}/fonts.css`} rel="stylesheet" />
+    <link href={`${UI_ROOT}/globals.css`} rel="stylesheet" />
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+
+      html {
+        font-family: var(--kvlm-font-family-body);
+      }
+    </style>
+
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline src={`${UI_ROOT}/index.js`} type="module"></script>
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

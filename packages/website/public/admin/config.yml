@@ -1,0 +1,27 @@
+locale: "de"
+
+backend:
+  name: git-gateway
+  branch: main
+
+# https://decapcms.org/docs/working-with-a-local-git-repository/#configure-the-decap-cms-proxy-server-port-number
+local_backend:
+  url: http://localhost:4320/api/v1
+
+publish_mode: editorial_workflow
+
+media_folder: "packages/website/public/media"
+public_folder: "/public/media"
+
+collections:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "src/content/blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields for each document, usually in frontmatter
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - { label: "Rating (scale of 1-5)", name: "rating", widget: "number" }
+      - { label: "Body", name: "body", widget: "markdown" }
