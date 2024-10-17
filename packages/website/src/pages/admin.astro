@@ -1,9 +1,56 @@
 ---
-import BaseLayout from '../layouts/base.layout.astro';
+import BaseLayout from '@layouts/base.layout.astro';
+import type { CMS } from 'decap-cms-core';
+import type { createElement as CreateElement } from 'react';
+
+// force trailing slash
+if (Astro.url.pathname === '/admin') {
+  return Astro.redirect('/admin/');
+}
+
+declare global {
+  const h: typeof CreateElement;
+  interface Window {
+    CMS: CMS;
+  }
+}
 ---
 
 <BaseLayout pageTitle="Administration">
   <meta slot="head" name="robots" content="noindex" />
   <link slot="head" href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
-  <script src="decap-cms/dist/decap-cms.js"></script>
+
+  <script>
+    import CMS from 'decap-cms-app';
+    import { createElement } from 'react';
+    import { CmsPreview } from '../components/cms-preview.component.jsx';
+    import { Page } from '../components/page.component.jsx';
+
+
+    // load ui components from dev server in development
+    const uiRoot = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
+
+    // initialize the CMS
+    CMS.init();
+
+    // add preview styles
+    CMS.registerPreviewStyle(`${uiRoot}/fonts.css`);
+    CMS.registerPreviewStyle(`${uiRoot}/globals.css`);
+
+    // inline some adhoc styles
+    const style = `
+      body {
+        margin: 0;
+        font-family: var(--kvlm-font-family-body);
+      }
+    `;
+    const styleUrl = URL.createObjectURL(new Blob([style], { type: 'text/css' }));
+    CMS.registerPreviewStyle(styleUrl);
+
+    // register our page preview
+    CMS.registerPreviewTemplate('pages', ({ entry }) => {
+      const { data, slug } = entry.toJS();
+      return createElement(CmsPreview, { uiRoot }, createElement(Page, { data, slug }));
+    });
+  </script>
 </BaseLayout>

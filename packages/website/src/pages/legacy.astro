@@ -1,0 +1,38 @@
+---
+import { getEntryBySlug } from 'astro:content';
+import { getCollectionParams } from '@utils/collection.utils.js';
+import DefaultLayout from '@layouts/default.layout.astro';
+
+import StandalonePage from '@components/page-standalone.component.astro';
+import SectionedPage from '@components/page-sectioned.component.astro';
+import Navigation from '@components/navigation.component.astro';
+
+const { path } = Astro.params;
+const { collection, slug, hasSections } = getCollectionParams(path);
+
+// no path means we're on the homepage, so redirect
+// to page content with first order
+if (path === undefined) {
+  // TODO: get the first page from collection
+  return Astro.redirect('/verein/index/willkommen');
+}
+
+// get current page
+const current = await getEntryBySlug(collection!, slug!);
+
+// check if collection and page exists and, due to browsers
+// looking up some convenient files, handle requests with a 404
+// https://github.com/withastro/astro/issues/6565#issuecomment-1477236472
+// https://docs.astro.build/en/guides/server-side-rendering/#response
+if (current === undefined) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found'
+  });
+}
+---
+
+<DefaultLayout pageTitle={current.data?.title}>
+  <Navigation name="main" slot="header" />
+  {hasSections ? <SectionedPage /> : <StandalonePage />}
+</DefaultLayout>

@@ -2,6 +2,7 @@
 title: Willkommen
 blocks:
   - type: section
+    id: willkommen
     theme: light
     typo:
       - type: heading

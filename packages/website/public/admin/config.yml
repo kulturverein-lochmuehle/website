@@ -85,6 +85,9 @@ collections:
             label: "Section"
             widget: "object"
             fields:
+              - name: id
+                label: "ID"
+                widget: "string"
               - name: "theme"
                 label: "Theme"
                 widget: "select"

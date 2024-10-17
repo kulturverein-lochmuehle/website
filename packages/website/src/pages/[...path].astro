@@ -11,5 +11,5 @@ const current = await getEntry('pages', slug);
 
 <DefaultLayout pageTitle={current.data?.title}>
   <Navigation name="main" slot="header" />
-  <Page slug={slug} data={current.data} />
+  <Page data={current.data} slug={slug} />
 </DefaultLayout>
