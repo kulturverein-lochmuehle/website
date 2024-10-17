@@ -1,0 +1,9 @@
+---
+export type Props = {
+  style?: 'lead' | 'body';
+};
+
+const { style = 'lead' } = Astro.props;
+---
+
+<p class={style}><slot /></p>

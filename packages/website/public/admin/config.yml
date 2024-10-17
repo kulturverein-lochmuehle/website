@@ -13,10 +13,53 @@ publish_mode: editorial_workflow
 media_folder: "packages/website/public/media"
 public_folder: "/public/media"
 
+# content types
+typo: &typo
+  name: "typo"
+  label: "Typography"
+  widget: "list"
+  types:
+    - name: "heading"
+      label: "Heading"
+      widget: "object"
+      fields:
+        - name: "text"
+          label: "Text"
+          widget: "text"
+        - name: "level"
+          label: "Level"
+          widget: "number"
+          default: 1
+          min: 1
+          max: 6
+        - name: "style"
+          label: "Style"
+          widget: "select"
+          default: ""
+          options:
+            - { label: "None", value: "" }
+            - { label: "Title", value: "title" }
+    - name: "text"
+      label: "Text"
+      widget: "object"
+      fields:
+        - name: "text"
+          label: "Text"
+          widget: "markdown"
+          minimal: true
+          buttons: ["link"]
+        - name: "style"
+          label: "Style"
+          widget: "select"
+          default: "body"
+          options:
+            - { label: "Lead", value: "lead" }
+            - { label: "Body", value: "body" }
+
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
     label: "Blog" # Used in the UI
-    folder: "src/content/blog" # The path to the folder where the documents are stored
+    folder: "packages/website/src/content/blog" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     fields: # The fields for each document, usually in frontmatter
       - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
@@ -25,3 +68,27 @@ collections:
       - { label: "Featured Image", name: "thumbnail", widget: "image" }
       - { label: "Rating (scale of 1-5)", name: "rating", widget: "number" }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "Pages"
+    folder: "packages/website/src/content/pages"
+    create: true
+    fields:
+      - name: "title"
+        label: "Title"
+        widget: "string"
+      - name: "blocks"
+        label: "Blocks"
+        widget: "list"
+        types:
+          - name: "section"
+            label: "Section"
+            widget: "object"
+            fields:
+              - name: "theme"
+                label: "Theme"
+                widget: "select"
+                options:
+                  - { label: "Dark (grey)", value: "dark" }
+                  - { label: "Light (cyan)", value: "light" }
+              - <<: *typo
