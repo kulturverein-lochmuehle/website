@@ -2,11 +2,16 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "noFallthroughCasesInSwitch": true,
     "paths": {
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/utils/*"]
     },
+    "strictNullChecks": true,
+    "useDefineForClassFields": false,
     "verbatimModuleSyntax": true
   }
 }
