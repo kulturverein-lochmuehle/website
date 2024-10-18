@@ -26,6 +26,15 @@ declare global {
     import { CmsPreview } from '../components/cms-preview.component.jsx';
     import { Page } from '../components/page.component.jsx';
 
+    // reduce the noise in the console
+    // https://github.com/facebook/react/issues/5632
+    const { error } = console;
+    console.error = (s, ...args) => {
+      if (typeof s === 'string' && s.startsWith('Warning: ')) {
+        return console.warn(s, ...args);
+      }
+      return error(s, ...args);
+    };
 
     // load ui components from dev server in development
     const uiRoot = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
