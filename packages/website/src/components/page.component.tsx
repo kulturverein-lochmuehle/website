@@ -8,11 +8,5 @@ export type PageProps = {
 };
 
 export const Page: React.FC<PageProps> = ({ data: { blocks } }) => {
-  return (
-    <>
-      {blocks.map((data, index) => (
-        <Block key={index} {...data} />
-      ))}
-    </>
-  );
+  return <>{blocks?.map((data, index) => <Block key={index} {...data} />)}</>;
 };

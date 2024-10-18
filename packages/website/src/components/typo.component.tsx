@@ -1,7 +1,9 @@
 import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
 
-export type TypoProps = CollectionEntry<'pages'>['data']['blocks'][number]['typo'][number];
+export type TypoProps = NonNullable<
+  NonNullable<CollectionEntry<'pages'>['data']['blocks']>[number]['typo']
+>[number];
 
 export const Typo: React.FC<TypoProps> = ({ type, text, style, ...props }) => {
   switch (type) {

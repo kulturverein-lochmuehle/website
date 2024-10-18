@@ -2,7 +2,7 @@ import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
 import { Typo } from './typo.component.jsx';
 
-export type BlockProps = CollectionEntry<'pages'>['data']['blocks'][number];
+export type BlockProps = NonNullable<CollectionEntry<'pages'>['data']['blocks']>[number];
 
 export const Block: React.FC<BlockProps> = ({ theme, type, id, typo }) => {
   switch (type) {
@@ -18,7 +18,7 @@ export const Block: React.FC<BlockProps> = ({ theme, type, id, typo }) => {
             } as any
           }
         >
-          {typo.length > 0 && (
+          {typo?.length && (
             <kvlm-typo>
               {typo.map((data, index) => (
                 <Typo key={index} {...data} />
