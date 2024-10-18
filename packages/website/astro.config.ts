@@ -7,7 +7,11 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), react({ exclude: ['**/*.tsx'] })],
+  integrations: [
+    mdx(),
+    react({ exclude: ['**/*.tsx'] })
+    // lit(),
+  ],
   output: 'server',
   adapter: netlify({}),
   devToolbar: { enabled: false },

@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
-    "@webcomponents/template-shadowroot": "0.2.1",
     "decap-cms-app": "3.3.3",
     "lit": "3.2.1",
     "react": "18.3.1",

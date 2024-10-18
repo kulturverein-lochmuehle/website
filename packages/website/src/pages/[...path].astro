@@ -1,12 +1,34 @@
 ---
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import { getCollectionParams } from '@utils/collection.utils.js';
 import DefaultLayout from '@layouts/default.layout.astro';
 
 import Navigation from '@components/navigation.component.astro';
 import { Page } from '@components/page.component.tsx';
 
-const slug = 'willkommen';
-const current = await getEntry('pages', slug);
+const { path } = Astro.params;
+let { collection, slug } = getCollectionParams(path);
+
+if (slug === undefined) {
+  const [firstEntry] = await getCollection(collection);
+  console.log({ firstEntry });
+  slug = firstEntry.slug;
+  return Astro.redirect(slug);
+}
+console.log({ slug });
+
+const current = await getEntry(collection, slug);
+
+// check if collection and page exists and, due to browsers
+// looking up some convenient files, handle requests with a 404
+// https://github.com/withastro/astro/issues/6565#issuecomment-1477236472
+// https://docs.astro.build/en/guides/server-side-rendering/#response
+if (current === undefined) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found'
+  });
+}
 ---
 
 <DefaultLayout pageTitle={current.data?.title}>

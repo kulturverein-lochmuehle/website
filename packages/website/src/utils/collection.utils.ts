@@ -1,11 +1,10 @@
 import type { ContentCollectionKey } from 'astro:content';
 
 export type CollectionParams = {
-  collection?: ContentCollectionKey;
+  collection: ContentCollectionKey;
   slug?: string;
   page?: string;
   section?: string;
-  hasSections: boolean;
 };
 
 /**
@@ -13,8 +12,9 @@ export type CollectionParams = {
  * @param path
  */
 export function getCollectionParams(path?: string): CollectionParams {
-  const [collection, page, section] = path?.split('/') ?? [];
-  const slug = [page, section].filter(Boolean).join('/');
-  const hasSections = section !== undefined;
-  return { collection, slug, page, section, hasSections } as CollectionParams;
+  const collection = 'pages';
+  const [page, section] = path?.split('/') ?? [];
+  let slug: string | undefined = [page, section].filter(Boolean).join('/');
+  slug = slug.trim() === '' ? undefined : slug;
+  return { collection, slug, page, section };
 }
