@@ -7,17 +7,17 @@ import Navigation from '@components/navigation.component.astro';
 import { Page } from '@components/page.component.tsx';
 
 const { path } = Astro.params;
-let { collection, slug } = getCollectionParams(path);
+let { slug } = getCollectionParams(path);
 
 if (slug === undefined) {
-  const [firstEntry] = await getCollection(collection);
-  console.log({ firstEntry });
+  const [firstEntry] = await getCollection('pages');
+  console.log({ firstEntry }, firstEntry.data);
   slug = firstEntry.slug;
   return Astro.redirect(slug);
 }
 console.log({ slug });
 
-const current = await getEntry(collection, slug);
+const current = await getEntry('pages', slug);
 
 // check if collection and page exists and, due to browsers
 // looking up some convenient files, handle requests with a 404
@@ -26,7 +26,7 @@ const current = await getEntry(collection, slug);
 if (current === undefined) {
   return new Response(null, {
     status: 404,
-    statusText: 'Not found'
+    statusText: 'Not found',
   });
 }
 ---

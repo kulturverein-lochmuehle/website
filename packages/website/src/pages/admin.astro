@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/base.layout.astro';
-import type { CMS } from 'decap-cms-core';
+import type { CMS as CMSType } from 'decap-cms-core';
 import type { createElement as CreateElement } from 'react';
 
 // force trailing slash
@@ -11,10 +11,16 @@ if (Astro.url.pathname === '/admin') {
 declare global {
   const h: typeof CreateElement;
   interface Window {
-    CMS: CMS;
+    CMS: CMSType;
   }
 }
 ---
+
+<style>
+  body {
+    /* background-color: red !important; */
+  }
+</style>
 
 <BaseLayout pageTitle="Administration">
   <meta slot="head" name="robots" content="noindex" />

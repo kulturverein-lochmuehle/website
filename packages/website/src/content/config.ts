@@ -1,37 +1,10 @@
-import { defineCollection, z } from 'astro:content';
-import { text } from 'stream/consumers';
+import { prepareSchema } from 'astro-decap-collection';
+import { defineCollection } from 'astro:content';
 
-const pages = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string().min(1),
-    blocks: z
-      .array(
-        z.object({
-          id: z.string().min(1),
-          type: z.enum(['section']),
-          theme: z.enum(['light', 'dark']),
-          typo: z
-            .array(
-              z.discriminatedUnion('type', [
-                z.object({
-                  type: z.literal('heading'),
-                  text: z.string().min(1),
-                  level: z.number().min(1).max(6),
-                  style: z.enum(['', 'title'])
-                }),
-                z.object({
-                  type: z.literal('text'),
-                  text: z.string().min(1),
-                  style: z.enum(['lead', 'body'])
-                })
-              ])
-            )
-            .nullable()
-        })
-      )
-      .nullable()
-  })
-});
+import { schema as blogSchema } from './config.blog.ts';
+import { schema as pageSchema } from './config.pages.ts';
 
-export const collections = { pages };
+export const collections = {
+  blog: defineCollection(prepareSchema(blogSchema)),
+  pages: defineCollection(prepareSchema(pageSchema)),
+};

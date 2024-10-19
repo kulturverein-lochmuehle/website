@@ -43,7 +43,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: success() && github.ref == 'refs/heads/next' && github.event_name != 'pull_request'
         with:
-          name: latest
+          name: next
           path: packages/ui/dist
 
   deploy:
@@ -58,7 +58,7 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/download-artifact@v4
         with:
-          name: latest
+          name: next
           path: packages/ui/dist
       - uses: actions/upload-pages-artifact@v3
         with:
