@@ -1,0 +1,31 @@
+{
+  "name": "astro-decap-collection",
+  "version": "0.0.1",
+  "description": "Derive Astro collection schemas from Decap configs.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "astro-decap-collection": "dist/cli.js",
+    "adc": "dist/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "astro": "^4.0.0",
+    "zod": "^3.20.0"
+  },
+  "optionalDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.16.10",
+    "astro": "4.16.6",
+    "decap-cms-core": "3.4.2",
+    "typescript": "5.6.3",
+    "zod": "3.23.8"
+  }
+}
