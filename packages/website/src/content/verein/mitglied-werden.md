@@ -1,9 +1,10 @@
 ---
-title: Startseite
+title: Mitglied werden
+sorting: 1
 blocks:
   - type: section
-    id: willkommen
-    theme: light
+    id: test
+    theme: dark
     typo:
       - type: heading
         level: 1

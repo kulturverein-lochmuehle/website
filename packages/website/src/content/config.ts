@@ -1,10 +1,8 @@
 import { prepareSchema } from 'astro-decap-collection';
 import { defineCollection } from 'astro:content';
 
-import { schema as blogSchema } from './config.blog.ts';
-import { schema as pageSchema } from './config.pages.ts';
+import { schema as vereinSchema } from './config.verein.js';
 
 export const collections = {
-  blog: defineCollection(prepareSchema(blogSchema)),
-  pages: defineCollection(prepareSchema(pageSchema)),
+  verein: defineCollection(prepareSchema(vereinSchema)),
 };

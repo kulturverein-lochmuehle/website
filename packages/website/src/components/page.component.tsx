@@ -4,7 +4,7 @@ import { Block } from './block.component.jsx';
 
 export type PageProps = {
   slug: string;
-  data: CollectionEntry<'pages'>['data'];
+  data: CollectionEntry<'verein'>['data'];
 };
 
 export const Page: React.FC<PageProps> = ({ data: { blocks } }) => {

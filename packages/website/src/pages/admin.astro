@@ -16,9 +16,9 @@ declare global {
 }
 ---
 
-<style>
-  body {
-    /* background-color: red !important; */
+<style is:global>
+  li[data-dragging] {
+    opacity: 0.25;
   }
 </style>
 
@@ -27,10 +27,17 @@ declare global {
   <link slot="head" href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
 
   <script>
+    import type { ContentEntryMap } from 'astro:content';
     import CMS from 'decap-cms-app';
     import { createElement } from 'react';
     import { CmsPreview } from '../components/cms-preview.component.jsx';
     import { Page } from '../components/page.component.jsx';
+    import { registerStringTemplateFilter } from '../utils/decap.utils.js';
+    import { UuidWidget } from '../widgets/decap-uuid.widget.jsx';
+    import { patchEntryListing } from '../utils/react.utils.js';
+
+    // must come before CMS.init()
+    patchEntryListing<ContentEntryMap['verein']>();
 
     // reduce the noise in the console
     // https://github.com/facebook/react/issues/5632
@@ -45,8 +52,18 @@ declare global {
     // load ui components from dev server in development
     const uiRoot = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
 
+    // add some custom string template filters for the summary
+    registerStringTemplateFilter();
+    // DecapCmsLibWidgets.stringTemplate.addFilter(/^md$/, (str: string) => {
+    //   console.log({ str });
+    //   return str.toUpperCase();
+    // });
+
     // initialize the CMS
     CMS.init();
+
+    // add custom widgets
+    CMS.registerWidget('uuid', UuidWidget);
 
     // add preview styles
     CMS.registerPreviewStyle(`${uiRoot}/fonts.css`);

@@ -9,15 +9,15 @@ import { Page } from '@components/page.component.tsx';
 const { path } = Astro.params;
 let { slug } = getCollectionParams(path);
 
+// no slug, no problem - redirect to the first page
 if (slug === undefined) {
-  const [firstEntry] = await getCollection('pages');
-  console.log({ firstEntry }, firstEntry.data);
-  slug = firstEntry.slug;
-  return Astro.redirect(slug);
+  const collection = await getCollection('verein');
+  // sort collection and grab the first entry
+  const [firstEntry] = collection.toSorted(({ data: a }, { data: b }) => a.sorting - b.sorting);
+  return Astro.redirect(firstEntry.slug);
 }
-console.log({ slug });
 
-const current = await getEntry('pages', slug);
+const current = await getEntry('verein', slug);
 
 // check if collection and page exists and, due to browsers
 // looking up some convenient files, handle requests with a 404

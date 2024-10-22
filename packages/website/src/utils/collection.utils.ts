@@ -12,6 +12,7 @@ export type CollectionParams = {
  * @param path
  */
 export function getCollectionParams(path?: string): CollectionParams {
+  // let [collection, page, section] = path?.split('/') ?? [];
   const collection = 'pages';
   const [page, section] = path?.split('/') ?? [];
   let slug: string | undefined = [page, section].filter(Boolean).join('/');
