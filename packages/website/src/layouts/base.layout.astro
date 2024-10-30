@@ -5,7 +5,6 @@ export interface Props {
   pageTitle?: string;
 }
 
-const UI_ROOT = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
 const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = Astro.props;
 ---
 
@@ -20,8 +19,8 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
 
     <title>{pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
 
-    <link href={`${UI_ROOT}/fonts.css`} rel="stylesheet" />
-    <link href={`${UI_ROOT}/globals.css`} rel="stylesheet" />
+    <link href="/ui/fonts.css" rel="stylesheet" />
+    <link href="/ui/globals.css" rel="stylesheet" />
     <style>
       html,
       body {
@@ -34,7 +33,7 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
     </style>
 
     <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script is:inline src={`${UI_ROOT}/index.js`} type="module"></script>
+    <script is:inline src="/ui/index.js" type="module"></script>
     <slot name="head" />
   </head>
   <body>

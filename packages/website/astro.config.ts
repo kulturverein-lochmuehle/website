@@ -15,5 +15,23 @@ export default defineConfig({
   output: 'server',
   adapter: netlify({}),
   devToolbar: { enabled: false },
-  server: { port: 4321 }
+  server: { port: 4321 },
+  vite: {
+    server: {
+      proxy:
+        import.meta.env.MODE === 'development'
+          ? {
+              '/esbuild': {
+                target: 'http://localhost:3500',
+                changeOrigin: true,
+              },
+              '/ui': {
+                target: 'http://localhost:3500',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/ui/, ''),
+              },
+            }
+          : {},
+    },
+  },
 });
