@@ -1,0 +1,79 @@
+# just to satisfy schema validation
+backend: { name: "" }
+media_folder: ""
+
+# content types
+typo: &typo
+  name: typo
+  label: Typography
+  widget: list
+  types:
+    - name: heading
+      label: Heading
+      widget: object
+      fields:
+        - name: text
+          label: Text
+          widget: text
+        - name: level
+          label: Level
+          widget: number
+          default: 1
+          min: 1
+          max: 6
+        - name: style
+          label: Style
+          widget: select
+          default: ""
+          options:
+            - { label: None, value: "" }
+            - { label: Title, value: title }
+    - name: text
+      label: Text
+      widget: object
+      fields:
+        - name: text
+          label: Text
+          widget: markdown
+          minimal: true
+          buttons: [link]
+        - name: style
+          label: Style
+          widget: select
+          default: body
+          options:
+            - { label: Lead, value: lead }
+            - { label: Body, value: body }
+
+# pages collection
+collections:
+  - name: pages
+    label: Pages
+    folder: "packages/website/src/content/pages"
+    create: true
+    summary: "{{title}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+      - name: blocks
+        label: Blocks
+        widget: list
+        types:
+          - name: section
+            label: Section
+            widget: object
+            fields:
+              - name: title
+                label: Title
+                widget: string
+              - name: slug
+                label: Slug
+                widget: string
+              - name: theme
+                label: Theme
+                widget: select
+                options:
+                  - { label: "Dark (grey)", value: dark }
+                  - { label: "Light (cyan)", value: light }
+              - <<: *typo

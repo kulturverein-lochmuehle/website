@@ -5,11 +5,13 @@ import mdx from '@astrojs/mdx';
 import netlify from '@astrojs/netlify';
 import react from '@astrojs/react';
 
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     mdx(),
-    react({ exclude: ['**/*.tsx'] })
+    react(),
     // lit(),
   ],
   output: 'server',
@@ -17,6 +19,17 @@ export default defineConfig({
   devToolbar: { enabled: false },
   server: { port: 4321 },
   vite: {
+    define: { global: 'window' },
+    plugins: [
+      viteStaticCopy({
+        targets: [
+          {
+            src: 'node_modules/@kvlm/ui/dist/*',
+            dest: 'ui',
+          },
+        ],
+      }),
+    ],
     server: {
       proxy:
         import.meta.env.MODE === 'development'

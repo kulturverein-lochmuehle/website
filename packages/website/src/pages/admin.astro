@@ -1,7 +1,11 @@
 ---
-import BaseLayout from '@layouts/base.layout.astro';
 import type { CMS as CMSType } from 'decap-cms-core';
-import type { createElement as CreateElement } from 'react';
+import BaseLayout from '@/layouts/base.layout.astro';
+
+// (1) we need to inject these stuff for @react-refresh manually,
+//     despite this being a job of the @astro/react integration
+import react from '@vitejs/plugin-react';
+const FAST_REFRESH_PREAMBLE = react.preambleCode;
 
 // force trailing slash
 if (Astro.url.pathname === '/admin') {
@@ -9,35 +13,39 @@ if (Astro.url.pathname === '/admin') {
 }
 
 declare global {
-  const h: typeof CreateElement;
   interface Window {
     CMS: CMSType;
+    CMS_MANUAL_INIT: boolean;
+
+    // we need to inject these stuff for @react-refresh manually,
+    // despite this being a job of the @astro/react integration
+    $RefreshReg$: () => any;
+    $RefreshSig$: () => (type: any) => any;
+    __vite_plugin_react_preamble_installed__: boolean;
   }
 }
 ---
 
-<style is:global>
-  li[data-dragging] {
-    opacity: 0.25;
-  }
-</style>
-
 <BaseLayout pageTitle="Administration">
   <meta slot="head" name="robots" content="noindex" />
-  <link slot="head" href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+
+  <script is:inline slot="head" type="module" define:vars={{ FAST_REFRESH_PREAMBLE }}>
+    // (2) as the preamble code is evaluated with new Function(), the import statement
+    //     needs to be removed, imported manually, and injected back as argument
+    import RefreshRuntime from '/@react-refresh';
+    const preamble = FAST_REFRESH_PREAMBLE.replace(/import .*\n/, '');
+    new Function('RefreshRuntime', preamble)(RefreshRuntime);
+  </script>
 
   <script>
-    import type { ContentEntryMap } from 'astro:content';
-    import CMS from 'decap-cms-app';
-    import { createElement } from 'react';
-    import { CmsPreview } from '../components/cms-preview.component.jsx';
-    import { Page } from '../components/page.component.jsx';
-    import { registerStringTemplateFilter } from '../utils/decap.utils.js';
-    import { UuidWidget } from '../widgets/decap-uuid.widget.jsx';
-    import { patchEntryListing } from '../utils/react.utils.js';
+    window.CMS_MANUAL_INIT = true;
 
-    // must come before CMS.init()
-    patchEntryListing<ContentEntryMap['verein']>();
+    import CMS from 'decap-cms-app';
+    import { createElement as h } from 'react';
+    import { config } from '../../decap.config.js';
+    import { CmsPreview } from '@/components/cms-preview.component.jsx';
+    import { Navigation } from '@/components/navigation.component.jsx';
+    import { Page } from '@/components/page.component.jsx';
 
     // reduce the noise in the console
     // https://github.com/facebook/react/issues/5632
@@ -52,18 +60,8 @@ declare global {
     // load ui components from dev server in development
     const uiRoot = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
 
-    // add some custom string template filters for the summary
-    registerStringTemplateFilter();
-    // DecapCmsLibWidgets.stringTemplate.addFilter(/^md$/, (str: string) => {
-    //   console.log({ str });
-    //   return str.toUpperCase();
-    // });
-
     // initialize the CMS
-    CMS.init();
-
-    // add custom widgets
-    CMS.registerWidget('uuid', UuidWidget);
+    CMS.init({ config });
 
     // add preview styles
     CMS.registerPreviewStyle(`${uiRoot}/fonts.css`);
@@ -79,10 +77,19 @@ declare global {
     const styleUrl = URL.createObjectURL(new Blob([style], { type: 'text/css' }));
     CMS.registerPreviewStyle(styleUrl);
 
-    // register our page preview
+    // register our previews, wrapped in a mapping convenience component
+    CMS.registerPreviewTemplate('mainNavigation', ({ entry }) => {
+      const { data, slug } = entry.toJS();
+      return h(
+        CmsPreview,
+        { uiRoot },
+        h('kvlm-layout', null, h(Navigation, { data, slug, slot: 'header' })),
+      );
+    });
+
     CMS.registerPreviewTemplate('pages', ({ entry }) => {
       const { data, slug } = entry.toJS();
-      return createElement(CmsPreview, { uiRoot }, createElement(Page, { data, slug }));
+      return h(CmsPreview, { uiRoot }, h(Page, { data, slug }));
     });
   </script>
 </BaseLayout>

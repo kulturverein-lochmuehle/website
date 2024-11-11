@@ -2,13 +2,13 @@ import { z } from 'astro:content';
 
 export const schema = z.object({
   title: z.string().describe('Title'),
-  sorting: z.number().finite().int().describe('Sorting'),
   blocks: z
     .array(
       z.discriminatedUnion('type', [
         z
           .object({
-            id: z.string().describe('ID'),
+            title: z.string().describe('Title'),
+            slug: z.string().describe('Slug'),
             theme: z.enum(['dark', 'light']).describe('Theme'),
             typo: z
               .array(

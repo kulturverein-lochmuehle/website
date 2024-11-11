@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
-import { getCollectionParams } from '@utils/collection.utils';
+import { getCollectionParams } from '@/utils/collection.utils';
 
-import Title from '@components/title.component.astro';
-import Text from '@components/text.component.astro';
+import Title from '@/components/title.component.astro';
+import Text from '@/components/text.component.astro';
 
 const { path } = Astro.params;
 const { collection, page } = getCollectionParams(path);
@@ -33,9 +33,7 @@ const sections = await Promise.all(
           --kvlm-section-color: ${data.color};
         `}
       >
-        <kvlm-typo>
-          <Content components={{ h1: Title, p: Text }} />
-        </kvlm-typo>
+        <kvlm-typo><Content components={{ h1: Title, p: Text }} /></kvlm-typo>
       </kvlm-section>
     );
   })

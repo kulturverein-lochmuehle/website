@@ -7,7 +7,7 @@ export type CmsPreviewProps = {
 
 export const CmsPreview: React.FC<CmsPreviewProps> = ({ children, uiRoot = '/ui' }) => {
   React.useLayoutEffect(() => {
-    // add ui components
+    // add ui components to preview iframe
     const preview = document.getElementById('preview-pane') as HTMLIFrameElement | null;
     if (preview === null) return;
 

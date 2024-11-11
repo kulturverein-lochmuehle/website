@@ -1,20 +1,22 @@
 /* eslint-disable import/no-nodejs-modules */
-
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
 import autoprefixer from 'autoprefixer';
 import { build, type BuildOptions, context } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
+import { dtsPlugin } from 'esbuild-plugin-d.ts';
 import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
 import postcss from 'postcss';
 // @ts-expect-error -- types are present, but not working
 import postcssPresetEnv from 'postcss-preset-env';
 
 import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';
+import { reactLitElementPlugin } from './esbuild-react-lit-element.plugin.js';
 
 import BREAKPOINTS from './breakpoints.json' assert { type: 'json' };
 import MANIFEST from './package.json' assert { type: 'json' };
+import TSCONFIG from './tsconfig.json' assert { type: 'json' };
 
 // inject some global sass variables
 const precompile = (source: string, path: string): string => {
@@ -121,6 +123,14 @@ ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${v
   },
   plugins: [
     barrelsbyPlugin({ configPath: '.barrelsby.json', addMissingJsExtensions: true }),
+    reactLitElementPlugin({ fileName: 'react.d.ts', importModule: './index.d.js' }),
+    dtsPlugin({
+      tsconfig: {
+        ...TSCONFIG,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        compilerOptions: { ...TSCONFIG.compilerOptions, types: ['./src/globals.d.ts'] } as any,
+      },
+    }),
 
     copyStaticFiles({ src: 'src/preview.html', dest: 'dist/index.html' }),
     copyStaticFiles({ src: 'docs', dest: 'dist/docs', recursive: true }),

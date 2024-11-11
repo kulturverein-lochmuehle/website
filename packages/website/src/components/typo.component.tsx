@@ -2,18 +2,19 @@ import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
 
 export type TypoProps = NonNullable<
-  NonNullable<CollectionEntry<'verein'>['data']['blocks']>[number]['typo']
+  NonNullable<CollectionEntry<'pages'>['data']['blocks']>[number]['typo']
 >[number];
 
 export const Typo: React.FC<TypoProps> = ({ type, text, style, ...props }) => {
   switch (type) {
     case 'heading':
-      return React.createElement(`h${'level' in props && props.level}`, { className: style }, text);
+      const Headline = `h${'level' in props && props.level}` as any;
+      return <Headline className={style}>{text}</Headline>;
 
     case 'text':
-      return React.createElement('p', { className: style }, text);
+      return <p className={style}>{text}</p>;
 
     default:
-      return null;
+      return <></>;
   }
 };

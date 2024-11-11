@@ -1,8 +1,9 @@
-import { prepareSchema } from 'astro-decap-collection';
 import { defineCollection } from 'astro:content';
 
-import { schema as vereinSchema } from './config.verein.js';
+import { schema as navigation } from '@/collections/navigation.schema.js';
+import { schema as pages } from '@/collections/pages.schema.js';
 
 export const collections = {
-  verein: defineCollection(prepareSchema(vereinSchema)),
+  navigation: defineCollection({ type: 'data', schema: navigation }),
+  pages: defineCollection({ type: 'content', schema: pages }),
 };

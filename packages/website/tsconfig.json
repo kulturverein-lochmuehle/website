@@ -3,12 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "experimentalDecorators": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@utils/*": ["src/utils/*"]
+      "@/*": ["src/*"]
     },
     "strictNullChecks": true,
     "useDefineForClassFields": false,

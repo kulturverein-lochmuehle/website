@@ -4,9 +4,9 @@ import { Block } from './block.component.jsx';
 
 export type PageProps = {
   slug: string;
-  data: CollectionEntry<'verein'>['data'];
+  data: CollectionEntry<'pages'>['data'];
 };
 
-export const Page: React.FC<PageProps> = ({ data: { blocks } }) => {
-  return <>{blocks?.map((data, index) => <Block key={index} {...data} />)}</>;
+export const Page: React.FC<PageProps> = ({ data: { blocks }, slug }) => {
+  return <>{blocks?.map(data => <Block key={`/${slug}/${data.slug}`} page={slug} {...data} />)}</>;
 };
