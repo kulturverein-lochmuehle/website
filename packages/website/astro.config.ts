@@ -14,8 +14,8 @@ export default defineConfig({
     react(),
     // lit(),
   ],
-  output: 'static',
-  adapter: netlify({}),
+  output: 'server',
+  adapter: netlify(),
   devToolbar: { enabled: false },
   server: { port: 4321 },
   vite: {

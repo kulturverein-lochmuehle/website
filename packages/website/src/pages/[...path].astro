@@ -41,7 +41,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
       return items.concat(withSections);
     },
-    Promise.resolve([toPathItem('/')] as GetStaticPathsItem[]),
+    Promise.resolve([
+      toPathItem('/'),
+      toPathItem('/404'),
+      toPathItem('/admin'),
+    ] as GetStaticPathsItem[]),
   );
 };
 

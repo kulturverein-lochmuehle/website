@@ -28,7 +28,7 @@ export const config: CmsConfig = {
   load_config_file: false,
 
   media_folder: 'packages/website/public/media',
-  public_folder: '/public/media',
+  public_folder: 'packages/website/public/media',
   publish_mode: 'editorial_workflow',
 
   collections,

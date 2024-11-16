@@ -10,6 +10,9 @@
   "devDependencies": {
     "prettier": "3.3.3"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.27.2"
+  },
   "author": {
     "name": "David Enke",
     "email": "david@kvlm.de"
