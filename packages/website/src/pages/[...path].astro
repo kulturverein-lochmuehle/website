@@ -46,12 +46,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const { slug, isAdmin } = getCollectionParams(Astro.params.path as string);
+const home = await getDefaultRoute();
 
 // no slug, no problem - redirect to the first page
 if (slug === undefined) {
-  const route = await getDefaultRoute();
-  console.log(`Redirecting to ${route}`);
-  return Astro.redirect(route);
+  return Astro.redirect(home);
 }
 
 const page = await getEntry('pages', slug);
@@ -77,6 +76,7 @@ if (page === undefined) {
         client:only="react"
         slot="header"
         slug={Astro.params.path as string}
+        href={home}
       />
     )
   }

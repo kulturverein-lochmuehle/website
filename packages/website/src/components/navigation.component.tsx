@@ -3,6 +3,7 @@ import * as React from 'react';
 
 export type NavigationProps = {
   data: CollectionEntry<'navigation'>['data'];
+  href?: string;
   slug?: string;
   slot?: string;
 };
@@ -22,6 +23,8 @@ export function prepareLink(
   active: boolean;
   inline: boolean;
 } {
+  path = path.replace(/^\//, '');
+  current = current?.replace(/^\//, '');
   const href = `/${path}`;
   const active = current === path;
   const isSectionLink = path.indexOf('/') !== -1;
@@ -73,14 +76,19 @@ export async function prepareItems(
   );
 }
 
-export const Navigation: React.FC<NavigationProps> = ({ slug, slot, data: { pages } }) => {
+export const Navigation: React.FC<NavigationProps> = ({ href, slug, slot, data: { pages } }) => {
   const [items, setItems] = React.useState<NavigationItemProps[]>([]);
+  const [hrefInline, setHrefInline] = React.useState(false);
   React.useEffect(() => {
     prepareItems(pages, slug).then(setItems);
   }, [pages, slug]);
+  React.useEffect(() => {
+    if (href === undefined) return;
+    setHrefInline(prepareLink(href, slug).inline);
+  }, [href, slug]);
 
   return (
-    <kvlm-navigation slot={slot}>
+    <kvlm-navigation slot={slot} href={href} href-inline={hrefInline ? true : undefined}>
       {items.map(({ active, inline, ...item }, index) => (
         <kvlm-navigation-item
           {...(item as any)}

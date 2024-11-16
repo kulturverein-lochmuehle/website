@@ -3,6 +3,8 @@ import '@/components/ui/logo/logo.component.js';
 import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
+import { changeLocationInline } from '@/utils/event.utils.js';
+
 import styles from './navigation.component.scss';
 
 /**
@@ -22,17 +24,34 @@ import styles from './navigation.component.scss';
 export class Navigation extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
-  readonly #handleScrollBound = this.handleScroll.bind(this);
+  readonly #handleScroll = this.handleScroll.bind(this);
 
   get #isMobile(): boolean {
     return window.getComputedStyle(this).getPropertyValue('---kvlm-navigation-mobile') === '1';
   }
 
+  /**
+   * The href of the logo link.
+   */
+  @property({ reflect: true, type: String })
+  readonly href = '/';
+
+  /**
+   * Whether the logo link should be handled as inline.
+   * That means that the page will be scrolled to the related content.
+   */
+  @property({ reflect: true, type: Boolean, attribute: 'href-inline' })
+  readonly hrefInline = false;
+
+  /**
+   * The amount of pixels the user has to scroll to fully fade the navigation bar shadow.
+   * This maybe is the most detailed option you'll configure today.
+   */
+  @property({ reflect: true, attribute: 'scroll-fade-distance', type: Number })
+  readonly scrollFadeDistance = 100;
+
   @property({ reflect: true, type: Boolean })
   opened = false;
-
-  @property({ reflect: true, attribute: 'scroll-fade-distance', type: Number })
-  scrollFadeDistance = 100;
 
   override connectedCallback() {
     super.connectedCallback();
@@ -42,7 +61,7 @@ export class Navigation extends LitElement {
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
     if (isServer) return;
 
-    window.addEventListener('scroll', this.#handleScrollBound, false);
+    window.addEventListener('scroll', this.#handleScroll, false);
   }
 
   override disconnectedCallback() {
@@ -53,7 +72,7 @@ export class Navigation extends LitElement {
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
     if (isServer) return;
 
-    window.removeEventListener('scroll', this.#handleScrollBound, false);
+    window.removeEventListener('scroll', this.#handleScroll, false);
   }
 
   handleScroll() {
@@ -72,6 +91,11 @@ export class Navigation extends LitElement {
 
   @eventOptions({ capture: true })
   handleLogoClick(event: Event) {
+    if (this.hrefInline) {
+      event.preventDefault();
+      changeLocationInline(this.href, true);
+    }
+
     if (!this.#isMobile) return;
     event.preventDefault();
   }
@@ -79,7 +103,7 @@ export class Navigation extends LitElement {
   render() {
     return html`
       <nav @click="${this.handleClick}" @keydown="${this.handleClick}">
-        <a @click="${this.handleLogoClick}" href="/">
+        <a @click="${this.handleLogoClick}" href="${this.href}">
           <kvlm-logo></kvlm-logo>
 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.4 37.4">
