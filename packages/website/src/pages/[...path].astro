@@ -5,8 +5,8 @@ import { getEntry } from 'astro:content';
 import DefaultLayout from '@/layouts/default.layout.astro';
 import { getCollectionParams } from '@/utils/collection.utils.js';
 
-import { Navigation } from '@/components/navigation.component.jsx';
-import { Page } from '@/components/page.component.jsx';
+import { Navigation } from '@/components/navigation.component';
+import { Page } from '@/components/page.component';
 
 async function getDefaultRoute(): Promise<string> {
   const { data } = await getEntry('navigation', 'main');
@@ -50,7 +50,7 @@ const home = await getDefaultRoute();
 
 // no slug, no problem - redirect to the first page
 if (slug === undefined) {
-  return Astro.redirect(home);
+  return Astro.redirect(home, 301);
 }
 
 const page = await getEntry('pages', slug);

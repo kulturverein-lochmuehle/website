@@ -14,7 +14,7 @@ export default defineConfig({
     react(),
     // lit(),
   ],
-  output: 'server',
+  output: 'static',
   adapter: netlify({}),
   devToolbar: { enabled: false },
   server: { port: 4321 },
@@ -30,6 +30,7 @@ export default defineConfig({
         ],
       }),
     ],
+    resolve: { alias: { '@': new URL('./src', import.meta.url).pathname } },
     server: {
       proxy:
         import.meta.env.MODE === 'development'

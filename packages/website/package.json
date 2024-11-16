@@ -16,10 +16,10 @@
     "dev:proxy": "cross-env PORT=4320 GIT_REPO_DIRECTORY=../../ netlify-cms-proxy-server",
     "dev:sync": "run-s \"sync:decap -w\"",
     "dev:start": "astro dev --host",
-    "dev": "run-p -lns dev:*",
+    "dev": "cross-env FORCE_COLOR=1 run-p -lns dev:*",
     "build:sync": "run-s sync:decap",
     "build:build": "astro build",
-    "build": "run-s -lns build:*"
+    "build": "cross-env FORCE_COLOR=1 run-s -lns build:*"
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
@@ -52,5 +52,8 @@
     "tsx": "4.19.1",
     "typescript": "5.6.3",
     "vite-plugin-static-copy": "2.0.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.27.2"
   }
 }
