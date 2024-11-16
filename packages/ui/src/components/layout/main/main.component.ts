@@ -25,19 +25,39 @@ export class Main extends LitElement {
   private readonly intersectionObserver =
     !isServer && new IntersectionObserver(this.handleIntersections, this.intersectionOptions);
 
-  private readonly handleInlineLocationChangedBound = this.handleInlineLocationChanged.bind(this);
-
   @queryAssignedElements()
-  private assignedElements!: HTMLElement[];
+  private readonly assignedElements!: HTMLElement[];
 
-  private get observableElements() {
+  readonly #handleInlineLocationChanged = this.handleInlineLocationChanged.bind(this);
+
+  /**
+   * @private
+   */
+  get #observableElements() {
     return this.assignedElements.reduce((observed, element) => {
       if (this.scrollObserveSelector === undefined) return observed;
-      if (element.matches(this.scrollObserveSelector)) return [...observed, element];
-      const within = element.querySelector<HTMLElement>(this.scrollObserveSelector);
-      if (within !== null) return [...observed, within];
+
+      const itself = element.matches(this.scrollObserveSelector);
+      if (itself) return [...observed, element];
+
+      const within = element.querySelectorAll<HTMLElement>(this.scrollObserveSelector);
+      if (within.length) return [...observed, ...within];
+
       return observed;
     }, [] as HTMLElement[]);
+  }
+
+  /**
+   * @private
+   */
+  #observeContents() {
+    // don't check for orphaned intersections any more
+    this.intersectionObserver.disconnect();
+
+    // add new intersection observations
+    this.#observableElements.forEach(element => {
+      this.intersectionObserver.observe(element);
+    });
   }
 
   @property({ reflect: true, attribute: 'scroll-observe-selector', type: String })
@@ -49,37 +69,27 @@ export class Main extends LitElement {
     // watch for inline location changes
     window.addEventListener(
       RoutingEvent.InlineLocationChanged,
-      this.handleInlineLocationChangedBound,
+      this.#handleInlineLocationChanged,
       false,
     );
 
     // observe contents once scrolled
-    window.addEventListener('scroll', () => this.observeContents(), { passive: true, once: true });
+    window.addEventListener('scroll', () => this.#observeContents(), { passive: true, once: true });
 
     // scroll to initial location
     window.setTimeout(() => this.scrollToContent(window.location.pathname, false), 100);
   }
 
   override disconnectedCallback() {
-    // don not check for intersections any more
+    // do not check for intersections any more
     this.intersectionObserver.disconnect();
 
     window.removeEventListener(
       RoutingEvent.InlineLocationChanged,
-      this.handleInlineLocationChangedBound,
+      this.#handleInlineLocationChanged,
       false,
     );
     super.disconnectedCallback();
-  }
-
-  observeContents() {
-    // don't check for orphaned intersections any more
-    this.intersectionObserver.disconnect();
-
-    // add new intersection observations
-    this.observableElements.forEach(element => {
-      this.intersectionObserver.observe(element);
-    });
   }
 
   @eventOptions({ passive: true })

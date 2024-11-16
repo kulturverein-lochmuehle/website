@@ -18,7 +18,6 @@ A layout component to wrap the page content.
 | `getActiveElement`            | `(id: string): any`                              |
 | `handleInlineLocationChanged` | `({ detail }: InlineLocationChangedEvent): void` |
 | `handleIntersections`         | `(entries: object): void`                        |
-| `observeContents`             | `(): void`                                       |
 | `scrollToContent`             | `(id: string, animate: boolean): void`           |
 
 ## Slots
