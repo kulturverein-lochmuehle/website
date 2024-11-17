@@ -22,33 +22,6 @@ async function getDefaultRoute(): Promise<string> {
   return `/${page}/${slug}`;
 }
 
-export const prerender = true;
-export const getStaticPaths: GetStaticPaths = async () => {
-  const toPathItem = (route: string): GetStaticPathsItem => ({ params: { path: route } });
-  const { data } = await getEntry('navigation', 'main');
-
-  return data.pages.reduce(
-    async (all, { page, useSections }) => {
-      const items = await all;
-      const unsectioned = [...items, toPathItem(page)];
-      if (!useSections) return unsectioned;
-
-      const sectioned = await getEntry('pages', page);
-      if (sectioned === undefined) return unsectioned;
-
-      const slugs = sectioned.data.blocks.map(({ slug }) => slug);
-      const withSections = slugs.map(slug => toPathItem([page, slug].join('/')));
-
-      return items.concat(withSections);
-    },
-    Promise.resolve([
-      toPathItem('/'),
-      toPathItem('/404'),
-      toPathItem('/admin'),
-    ] as GetStaticPathsItem[]),
-  );
-};
-
 const { slug, isAdmin } = getCollectionParams(Astro.params.path as string);
 const home = await getDefaultRoute();
 

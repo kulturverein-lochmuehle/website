@@ -20,7 +20,7 @@ const collections = await Object.values(definitions).reduce(
 export const config: CmsConfig = {
   locale: 'de',
 
-  backend: { name: 'git-gateway', squash_merges: true, branch: 'main' },
+  backend: { name: 'git-gateway', squash_merges: true, branch: 'next' },
   // https://decapcms.org/docs/working-with-a-local-git-repository/#configure-the-decap-cms-proxy-server-port-number
   local_backend: { url: 'http://localhost:4320/api/v1' },
 

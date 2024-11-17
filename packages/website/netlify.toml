@@ -4,7 +4,3 @@ framework = "astro"
 [build]
 command = "pnpm --recursive --filter @kvlm/website... build"
 publish = "dist"
-
-[functions]
-directory = "dist/functions"
-node_bundler = "esbuild"
