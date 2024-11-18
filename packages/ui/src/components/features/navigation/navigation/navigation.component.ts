@@ -91,13 +91,15 @@ export class Navigation extends LitElement {
 
   @eventOptions({ capture: true })
   handleLogoClick(event: Event) {
+    if (this.#isMobile) {
+      event.preventDefault();
+      return;
+    }
+
     if (this.hrefInline) {
       event.preventDefault();
       changeLocationInline(this.href, true);
     }
-
-    if (!this.#isMobile) return;
-    event.preventDefault();
   }
 
   render() {
