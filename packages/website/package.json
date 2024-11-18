@@ -12,7 +12,7 @@
   "scripts": {
     "sync:decap": "adc -t ./src/collections -n %%name%%.schema.ts ./src/collections/*.collection.yml",
     "sync:astro": "astro sync",
-    "sync": "run-s -lns sync:*",
+    "sync": "cross-env FORCE_COLOR=1 run-s -lns sync:*",
     "dev:proxy": "cross-env PORT=4320 GIT_REPO_DIRECTORY=../../ netlify-cms-proxy-server",
     "dev:sync": "run-s \"sync:decap -w\"",
     "dev:start": "astro dev --host",
