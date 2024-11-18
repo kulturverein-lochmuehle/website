@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -29,8 +29,8 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
+          node-version-file: .nvmrc
+          cache: pnpm
       - name: Install dependencies
         run: pnpm install
 
@@ -40,10 +40,10 @@ jobs:
       - name: Build
         run: pnpm -r --filter @kvlm/ui... build
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: next
-          path: "packages/ui/dist"
+          path: packages/ui/dist
 
   deploy:
     name: Deploy
@@ -58,10 +58,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: next
-          path: "packages/ui/dist"
+          path: packages/ui/dist
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: "packages/ui/dist"
+          path: packages/ui/dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
