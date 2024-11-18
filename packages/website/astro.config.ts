@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config';
 
-// import lit from '@astrojs/lit';
 import mdx from '@astrojs/mdx';
 import netlify from '@astrojs/netlify';
 import react from '@astrojs/react';
@@ -9,11 +8,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    mdx(),
-    react(),
-    // lit(),
-  ],
+  integrations: [mdx(), react({ experimentalReactChildren: true })],
   output: 'server',
   adapter: netlify(),
   devToolbar: { enabled: false },
