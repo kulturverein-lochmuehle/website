@@ -21,16 +21,12 @@ export const Block: React.FC<BlockProps> = ({ theme, type, page, slug, typo }) =
           }
         >
           {typo?.length && (
-            <kvlm-typo>
-              {typo.map((data, index) => (
-                <Typo key={index} {...data} />
-              ))}
-            </kvlm-typo>
+            <kvlm-typo>{typo.map((data, index) => (<Typo key={index} {...data} />))}</kvlm-typo>
           )}
         </kvlm-section>
       );
 
     default:
-      return <></>;
+      return null;
   }
 };

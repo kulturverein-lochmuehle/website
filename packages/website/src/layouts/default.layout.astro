@@ -7,14 +7,6 @@ const { lang, observeScroll, pageTitle, siteTitle } = Astro.props;
 ---
 
 <BaseLayout lang={lang} siteTitle={siteTitle} pageTitle={pageTitle}>
-  <style is:global slot="head">
-    kvlm-navigation {
-      position: fixed;
-      inset: 0 0 auto;
-      z-index: 2;
-    }
-  </style>
-
   <slot name="head" slot="head" />
   <kvlm-layout>
     <slot name="header" />

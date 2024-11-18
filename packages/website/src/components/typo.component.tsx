@@ -12,9 +12,9 @@ export const Typo: React.FC<TypoProps> = ({ type, text, style, ...props }) => {
       return <Headline className={style}>{text}</Headline>;
 
     case 'text':
-      return <p className={style}>{text}</p>;
+      return <div className={style}>{text}</div>;
 
     default:
-      return <></>;
+      return null;
   }
 };

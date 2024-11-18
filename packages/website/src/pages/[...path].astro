@@ -1,26 +1,12 @@
 ---
-import type { GetStaticPaths, GetStaticPathsItem } from 'astro';
 import { getEntry } from 'astro:content';
 
 import DefaultLayout from '@/layouts/default.layout.astro';
 import { getCollectionParams } from '@/utils/collection.utils.js';
+import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
 
 import { Navigation } from '@/components/navigation.component';
 import { Page } from '@/components/page.component';
-
-async function getDefaultRoute(): Promise<string> {
-  const { data } = await getEntry('navigation', 'main');
-  const [{ page, useSections }] = data.pages;
-  if (!useSections) return page;
-
-  const sectioned = await getEntry('pages', page);
-  if (sectioned === undefined) return page;
-
-  const slug = sectioned.data.blocks[0]?.slug;
-  if (slug === undefined) return page;
-
-  return `/${page}/${slug}`;
-}
 
 const { slug, isAdmin } = getCollectionParams(Astro.params.path as string);
 const home = await getDefaultRoute();
@@ -31,7 +17,6 @@ if (slug === undefined) {
 }
 
 const page = await getEntry('pages', slug);
-const navigation = await getEntry('navigation', 'main');
 
 // check if collection and page exists and, due to browsers
 // looking up some convenient files, handle requests with a 404
@@ -43,19 +28,18 @@ if (page === undefined) {
     statusText: 'Not found',
   });
 }
+
+const items = await prepareNavigation(Astro.params.path);
 ---
 
 <DefaultLayout pageTitle={page.data?.title} observeScroll={!isAdmin}>
-  {
-    navigation && (
-      <Navigation
-        {...navigation}
-        client:only="react"
-        slot="header"
-        slug={Astro.params.path as string}
-        href={home}
-      />
-    )
-  }
-  <Page {...page} client:load />
+  <Navigation
+    client:load
+    client:slot="header"
+    current={Astro.params.path as string}
+    href={home}
+    items={items}
+    slot="header"
+  />
+  <Page {...page} />
 </DefaultLayout>

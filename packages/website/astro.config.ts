@@ -6,9 +6,11 @@ import react from '@astrojs/react';
 
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
+import { clientSlot } from './src/integrations/client-slot.integration.js';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), react({ experimentalReactChildren: true })],
+  integrations: [mdx(), react({ experimentalReactChildren: true }), clientSlot()],
   output: 'server',
   adapter: netlify(),
   devToolbar: { enabled: false },
