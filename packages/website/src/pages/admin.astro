@@ -44,7 +44,7 @@ export const prerender = true;
 
     import type { CollectionEntry } from 'astro:content';
     import CMS from 'decap-cms-app';
-    import { createElement as h, useEffect, useMemo, useState } from 'react';
+    import { createElement as h, useEffect, useState } from 'react';
     import { config } from '../../decap.config.js';
     import { CmsPreview } from '@/components/cms-preview.component.jsx';
     import { Navigation } from '@/components/navigation.component.jsx';
@@ -63,6 +63,8 @@ export const prerender = true;
 
     // load ui components from dev server in development
     const uiRoot = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
+    const uiData = await fetch(`${uiRoot}/index.js`).then(res => res.text());
+    const uiSrc = URL.createObjectURL(new Blob([uiData], { type: 'text/javascript' }));
 
     // initialize the CMS
     CMS.init({ config });
@@ -72,14 +74,16 @@ export const prerender = true;
     CMS.registerPreviewStyle(`${uiRoot}/globals.css`);
 
     // inline some adhoc styles
-    const style = `
+    const styles = `
       body {
         margin: 0;
         font-family: var(--kvlm-font-family-body);
+        background: repeating-conic-gradient(#dfdfe3 0% 25%, transparent 0% 50%) 50%;
+        background-position: 0 0;
+        background-size: 20px 20px;
       }
     `;
-    const styleUrl = URL.createObjectURL(new Blob([style], { type: 'text/css' }));
-    CMS.registerPreviewStyle(styleUrl);
+    CMS.registerPreviewStyle(styles, { raw: true });
 
     // register our previews, wrapped in a mapping convenience component
     CMS.registerPreviewTemplate('mainNavigation', ({ entry, getCollection }) => {
@@ -95,14 +99,21 @@ export const prerender = true;
 
       return h(
         CmsPreview,
-        { uiRoot },
+        { uiSrc },
         h('kvlm-layout', null, h(Navigation, { items, slot: 'header' })),
       );
     });
 
     CMS.registerPreviewTemplate('pages', ({ entry }) => {
       const { data, slug } = entry.toJS() as CollectionEntry<'pages'>;
-      return h(CmsPreview, { uiRoot }, h(Page, { data, slug }));
+      return h(
+        CmsPreview,
+        { uiSrc },
+        h('kvlm-layout', null, [
+          h('div', { style: { height: 'var(---kvlm-layout-header-offset)' } }),
+          h(Page, { data, slug }),
+        ]),
+      );
     });
   </script>
 </BaseLayout>

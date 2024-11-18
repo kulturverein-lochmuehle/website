@@ -1,11 +1,11 @@
 import React from 'react';
 
 export type CmsPreviewProps = {
-  uiRoot?: string;
+  uiSrc: string;
   children?: React.ReactNode[];
 };
 
-export const CmsPreview: React.FC<CmsPreviewProps> = ({ children, uiRoot = '/ui' }) => {
+export const CmsPreview: React.FC<CmsPreviewProps> = ({ children, uiSrc }) => {
   React.useLayoutEffect(() => {
     // add ui components to preview iframe
     const preview = document.getElementById('preview-pane') as HTMLIFrameElement | null;
@@ -16,11 +16,11 @@ export const CmsPreview: React.FC<CmsPreviewProps> = ({ children, uiRoot = '/ui'
 
     const uiComponents = preview.contentDocument?.createElement('script');
     uiComponents?.setAttribute('id', 'ui-components');
-    uiComponents?.setAttribute('src', `${uiRoot}/index.js`);
+    uiComponents?.setAttribute('src', uiSrc);
     uiComponents?.setAttribute('type', 'module');
 
     preview.contentDocument?.head.appendChild(uiComponents!);
-  }, [uiRoot]);
+  }, [uiSrc]);
 
   return <>{children}</>;
 };

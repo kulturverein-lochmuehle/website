@@ -1,13 +1,6 @@
 @use 'sass:math';
 @use '@/styles/utils' as utils;
 
-$background: linear-gradient(
-    150deg,
-    var(---kvlm-navigation-background-from) 0%,
-    var(---kvlm-navigation-background-to) 100%
-  )
-  no-repeat top / 100vw 100vh;
-
 // prettier-ignore
 :host {
   ---kvlm-navigation-background-from: var(--kvlm-navigation-background-from, var(--kvlm-color-turquoise, #fff));
@@ -29,7 +22,11 @@ $background: linear-gradient(
   box-shadow: 0 0 var(---kvlm-navigation-shadow-spread)
     rgba(0, 0, 0, var(---kvlm-navigation-shadow-opacity));
   color: var(---kvlm-navigation-color-typo);
-  background: $background;
+  background: linear-gradient(
+    150deg,
+    var(---kvlm-navigation-background-from) 0svh,
+    var(---kvlm-navigation-background-to) 100svh
+  );
   font-family: var(--kvlm-font-family-body);
 
   height: var(---kvlm-layout-header-offset);
@@ -41,7 +38,6 @@ $background: linear-gradient(
     ---kvlm-navigation-desktop: 0;
     ---kvlm-navigation-mobile: 1;
 
-    background: $background;
     overflow: hidden;
   }
 

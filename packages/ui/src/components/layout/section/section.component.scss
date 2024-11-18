@@ -17,9 +17,11 @@
 
   background: linear-gradient(
     150deg,
-    var(---kvlm-section-background-from) 0%,
-    var(---kvlm-section-background-to) 100%
+    var(---kvlm-section-background-from) 0svh,
+    var(---kvlm-section-background-to) 100svh
   );
+  background-position-y: calc(var(---kvlm-layout-header-offset) * -1);
+  background-size: 100svw calc(100svh + var(---kvlm-layout-header-offset));
   color: var(---kvlm-section-color);
 }
 
