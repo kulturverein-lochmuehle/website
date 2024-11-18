@@ -18,7 +18,7 @@ export const Navigation: React.FC<NavigationProps> = ({ href = '/', current, ite
       href={href}
       href-inline={inline ? true : undefined}
     >
-      {items.map(({ active, inline, ...item }, index) => (
+      {items?.map(({ active, inline, ...item }, index) => (
         <kvlm-navigation-item
           {...(item as any)}
           key={index}

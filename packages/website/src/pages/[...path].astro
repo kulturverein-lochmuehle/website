@@ -29,7 +29,7 @@ if (page === undefined) {
   });
 }
 
-const items = await prepareNavigation(Astro.params.path);
+const items = await prepareNavigation((slug: string) => getEntry('pages', slug), Astro.params.path);
 ---
 
 <DefaultLayout pageTitle={page.data?.title} observeScroll={!isAdmin}>

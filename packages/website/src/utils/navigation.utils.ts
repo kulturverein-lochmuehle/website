@@ -7,6 +7,8 @@ export type NavigationItem = {
   label: string;
 };
 
+export type PageResolver = (slug: string) => Promise<CollectionEntry<'pages'> | undefined>;
+
 export function prepareLink(
   path: string,
   current?: string,
@@ -27,6 +29,7 @@ export function prepareLink(
 
 export async function prepareItems(
   items: CollectionEntry<'navigation'>['data']['pages'],
+  resolvePage: PageResolver,
   current?: string,
 ): Promise<NavigationItem[]> {
   return items.reduce(
@@ -34,7 +37,7 @@ export async function prepareItems(
       if (!item) return all;
 
       // lazy load the page
-      const page = await getEntry('pages', item.page);
+      const page = await resolvePage(item.page);
       if (!page) return all;
 
       // do not use the page itself but its sections
@@ -68,10 +71,13 @@ export async function prepareItems(
   );
 }
 
-export async function prepareNavigation(current?: string): Promise<NavigationItem[]> {
+export async function prepareNavigation(
+  resolvePage: PageResolver,
+  current?: string,
+): Promise<NavigationItem[]> {
   const navigation = await getEntry('navigation', 'main');
   if (!navigation) return [];
-  return prepareItems(navigation.data.pages, current);
+  return prepareItems(navigation.data.pages, resolvePage, current);
 }
 
 export async function getDefaultRoute(): Promise<string> {

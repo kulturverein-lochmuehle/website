@@ -42,12 +42,14 @@ export const prerender = true;
   <script>
     window.CMS_MANUAL_INIT = true;
 
+    import type { CollectionEntry } from 'astro:content';
     import CMS from 'decap-cms-app';
-    import { createElement as h } from 'react';
+    import { createElement as h, useEffect, useMemo, useState } from 'react';
     import { config } from '../../decap.config.js';
     import { CmsPreview } from '@/components/cms-preview.component.jsx';
     import { Navigation } from '@/components/navigation.component.jsx';
     import { Page } from '@/components/page.component.jsx';
+    import { prepareItems, type NavigationItem } from '@/utils/navigation.utils';
 
     // reduce the noise in the console
     // https://github.com/facebook/react/issues/5632
@@ -80,17 +82,26 @@ export const prerender = true;
     CMS.registerPreviewStyle(styleUrl);
 
     // register our previews, wrapped in a mapping convenience component
-    CMS.registerPreviewTemplate('mainNavigation', ({ entry }) => {
-      const { data, slug } = entry.toJS();
+    CMS.registerPreviewTemplate('mainNavigation', ({ entry, getCollection }) => {
+      const [items, setItems] = useState([] as NavigationItem[]);
+
+      useEffect(() => {
+        const { data } = entry.toJS() as CollectionEntry<'navigation'>;
+        prepareItems(data.pages, async slug => {
+          const collection = await getCollection('pages', slug);
+          return { slug, data: (collection as any).first() } as CollectionEntry<'pages'>;
+        }).then(setItems);
+      }, [entry]);
+
       return h(
         CmsPreview,
         { uiRoot },
-        h('kvlm-layout', null, h(Navigation, { data, slug, slot: 'header' })),
+        h('kvlm-layout', null, h(Navigation, { items, slot: 'header' })),
       );
     });
 
     CMS.registerPreviewTemplate('pages', ({ entry }) => {
-      const { data, slug } = entry.toJS();
+      const { data, slug } = entry.toJS() as CollectionEntry<'pages'>;
       return h(CmsPreview, { uiRoot }, h(Page, { data, slug }));
     });
   </script>
