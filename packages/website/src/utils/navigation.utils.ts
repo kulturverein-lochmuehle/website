@@ -29,7 +29,6 @@ export async function prepareItems(
   items: CollectionEntry<'navigation'>['data']['pages'],
   current?: string,
 ): Promise<NavigationItem[]> {
-  console.log({ items });
   return items.reduce(
     async (all, item) => {
       if (!item) return all;
