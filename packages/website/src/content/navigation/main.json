@@ -6,11 +6,7 @@
     },
     {
       "useSections": false,
-      "page": "bar"
-    },
-    {
-      "useSections": false,
-      "page": "foo"
+      "page": "kontakt"
     }
   ]
 }

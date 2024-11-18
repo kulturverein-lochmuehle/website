@@ -1,6 +1,5 @@
 ---
 title: Startseite
-sorting: 0
 blocks:
   - type: section
     slug: willkommen

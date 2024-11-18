@@ -30,6 +30,7 @@ if (page === undefined) {
 }
 
 const items = await prepareNavigation((slug: string) => getEntry('pages', slug), Astro.params.path);
+console.log(items);
 ---
 
 <DefaultLayout pageTitle={page.data?.title} observeScroll={!isAdmin}>

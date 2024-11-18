@@ -1,6 +1,5 @@
 ---
 title: Mitglied werden
-sorting: 1
 blocks:
   - type: section
     slug: test
