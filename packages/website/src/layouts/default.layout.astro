@@ -8,10 +8,8 @@ const { lang, observeScroll, pageTitle, siteTitle } = Astro.props;
 
 <BaseLayout lang={lang} siteTitle={siteTitle} pageTitle={pageTitle}>
   <slot name="head" slot="head" />
-  <kvlm-layout>
+  <kvlm-layout scroll-observe-selector={observeScroll ? 'kvlm-section' : undefined}>
     <slot name="header" />
-    <kvlm-main scroll-observe-selector={observeScroll ? 'kvlm-section' : undefined}>
-      <slot />
-    </kvlm-main>
+    <slot />
   </kvlm-layout>
 </BaseLayout>

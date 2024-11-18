@@ -4,6 +4,20 @@
 
 A component to introduce the application layout.
 
+## Properties
+
+| Property                | Attribute                 | Type                  |
+|-------------------------|---------------------------|-----------------------|
+| `scrollObserveSelector` | `scroll-observe-selector` | `string \| undefined` |
+
+## Methods
+
+| Method                        | Type                                             |
+|-------------------------------|--------------------------------------------------|
+| `handleInlineLocationChanged` | `({ detail }: InlineLocationChangedEvent): void` |
+| `handleIntersections`         | `(entries: object): void`                        |
+| `scrollToContent`             | `(id: string, animate: boolean): void`           |
+
 ## Slots
 
 | Name     | Description      |
