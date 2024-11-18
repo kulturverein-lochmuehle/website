@@ -41,10 +41,9 @@ jobs:
         run: pnpm -r --filter @kvlm/ui... build
 
       - uses: actions/upload-artifact@v3
-        if: success() && github.ref == 'refs/heads/next' && github.event_name != 'pull_request'
         with:
           name: next
-          path: packages/ui/dist
+          path: "packages/ui/dist"
 
   deploy:
     name: Deploy
@@ -59,7 +58,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: next
-          path: packages/ui/dist
+          path: "packages/ui/dist"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: "packages/ui/dist"
