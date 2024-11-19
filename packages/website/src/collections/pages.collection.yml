@@ -45,6 +45,26 @@ typo: &typo
             - { label: Lead, value: lead }
             - { label: Body, value: body }
 
+# section type
+section: &section
+  name: section
+  label: Section
+  widget: object
+  fields:
+    - name: title
+      label: Title
+      widget: string
+    - name: slug
+      label: Slug
+      widget: string
+    - name: theme
+      label: Theme
+      widget: select
+      options:
+        - { label: "Dark (grey)", value: dark }
+        - { label: "Light (cyan)", value: light }
+    - <<: *typo
+
 # pages collection
 collections:
   - name: pages
@@ -60,20 +80,4 @@ collections:
         label: Blocks
         widget: list
         types:
-          - name: section
-            label: Section
-            widget: object
-            fields:
-              - name: title
-                label: Title
-                widget: string
-              - name: slug
-                label: Slug
-                widget: string
-              - name: theme
-                label: Theme
-                widget: select
-                options:
-                  - { label: "Dark (grey)", value: dark }
-                  - { label: "Light (cyan)", value: light }
-              - <<: *typo
+          - <<: *section
