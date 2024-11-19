@@ -30,6 +30,11 @@ export const prerender = true;
 
 <BaseLayout pageTitle="Administration">
   <meta slot="head" name="robots" content="noindex" />
+  <style is:global slot="head">
+    [class*='PreviewPaneFrame'] {
+      border-radius: 0 !important;
+    }
+  </style>
 
   <script is:inline slot="head" type="module" define:vars={{ FAST_REFRESH_PREAMBLE }}>
     // (2) as the preamble code is evaluated with new Function(), the import statement
