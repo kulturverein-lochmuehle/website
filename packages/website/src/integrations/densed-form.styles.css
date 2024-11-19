@@ -1,0 +1,75 @@
+.css-1jl34xb-PreviewPaneFrame {
+  border-radius: 0 !important;
+}
+.css-16t34u7-TopBar-StyledListItemTopBar-StyledListItemTopBar {
+  border-top-left-radius: 0 !important;
+}
+.e1nx103k1 {
+  padding: 0 8px !important;
+}
+.css-1265b6l-TopBarContainer {
+  margin: 0 -8px !important;
+  padding: 2px 2px 4px !important;
+}
+.css-1es1p1t {
+  padding: 0 8px 8px !important;
+}
+.css-t16udx {
+  padding: 8px !important;
+}
+.css-143b2ph-ListItem-listControlItem-SortableListItem,
+.css-a6y0jg-ControlContainer {
+  margin-top: 8px !important;
+}
+
+/* text input */
+.css-83wr9v,
+.css-13dyp8r {
+  padding: 8px !important;
+}
+
+/* select */
+.css-n3v41w-control,
+.css-d5zfyc-control {
+  padding: 8px 0 8px 8px !important;
+}
+.css-1hwfws3 {
+  padding: 0 !important;
+}
+.css-10n39n9-indicatorContainer,
+.css-11o65ev-indicatorContainer {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+}
+.css-1ixc7c5-menu {
+  margin-top: 2px !important;
+}
+.css-11unzgr {
+  padding: 0 !important;
+}
+.css-1mrs9u1-option,
+.css-1sqg7rp-option,
+.css-u267yo-option {
+  padding: 8px !important;
+}
+
+.css-1g6gooi {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.css-1qu85o2-FieldLabel-fieldLabel,
+.css-1pr3myi-FieldLabel-fieldLabel {
+  font-size: 9px !important;
+}
+
+/* button \w dropdown */
+.css-3x8bm8-StyledDropdownButton-button-default-caret-caretDown {
+  border-radius: 2px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+
+  &::after {
+    top: 11px !important;
+  }
+}
