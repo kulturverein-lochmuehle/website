@@ -24,9 +24,9 @@ typo: &typo
         - name: style
           label: Style
           widget: select
-          default: ""
+          default: none
           options:
-            - { label: None, value: "" }
+            - { label: None, value: none }
             - { label: Title, value: title }
     - name: text
       label: Text
@@ -63,7 +63,15 @@ section: &section
       options:
         - { label: "Dark (grey)", value: dark }
         - { label: "Light (cyan)", value: light }
-    - <<: *typo
+    - name: contents
+      label: Contents
+      widget: list
+      types:
+        - name: typo
+          label: Typography
+          widget: object
+          fields:
+            - <<: *typo
 
 # pages collection
 collections:

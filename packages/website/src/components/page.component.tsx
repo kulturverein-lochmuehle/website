@@ -8,5 +8,7 @@ export type PageProps = {
 };
 
 export const Page: React.FC<PageProps> = ({ data: { blocks }, slug }) => {
-  return <>{blocks?.map(data => <Block key={`/${slug}/${data.slug}`} page={slug} {...data} />)}</>;
+  return (
+    <>{blocks?.map((data, index) => <Block key={`block-${index}`} page={slug} {...data} />)}</>
+  );
 };

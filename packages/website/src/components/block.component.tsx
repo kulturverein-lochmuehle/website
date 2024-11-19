@@ -1,12 +1,12 @@
 import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
-import { Typo } from './typo.component.jsx';
+import { Content } from './content.component.jsx';
 
 export type BlockProps = NonNullable<CollectionEntry<'pages'>['data']['blocks']>[number] & {
   page: string;
 };
 
-export const Block: React.FC<BlockProps> = ({ theme, type, page, slug, typo }) => {
+export const Block: React.FC<BlockProps> = ({ theme, type, page, slug, contents }) => {
   switch (type) {
     case 'section':
       return (
@@ -20,9 +20,7 @@ export const Block: React.FC<BlockProps> = ({ theme, type, page, slug, typo }) =
             } as any
           }
         >
-          {typo?.length && (
-            <kvlm-typo>{typo.map((data, index) => (<Typo key={index} {...data} />))}</kvlm-typo>
-          )}
+          {contents?.map((data, index) => <Content key={`content-${index}`} {...data} />)}
         </kvlm-section>
       );
 
