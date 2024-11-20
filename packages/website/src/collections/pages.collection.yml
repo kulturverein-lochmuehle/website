@@ -5,29 +5,29 @@ media_folder: ""
 # content types
 typo: &typo
   name: typo
-  label: Typography
+  label: Typografie
   widget: list
   types:
     - name: heading
-      label: Heading
+      label: Überschrift
       widget: object
       fields:
         - name: text
           label: Text
           widget: text
         - name: level
-          label: Level
+          label: Ebene
           widget: number
           default: 1
           min: 1
           max: 6
         - name: style
-          label: Style
+          label: Variante
           widget: select
           default: none
           options:
-            - { label: None, value: none }
-            - { label: Title, value: title }
+            - { label: Ohne, value: none }
+            - { label: Titel, value: title }
     - name: text
       label: Text
       widget: object
@@ -38,37 +38,38 @@ typo: &typo
           minimal: true
           buttons: [link]
         - name: style
-          label: Style
+          label: Variante
           widget: select
           default: body
           options:
-            - { label: Lead, value: lead }
-            - { label: Body, value: body }
+            - { label: Hervorgehoben, value: lead }
+            - { label: Fließtext, value: body }
 
 # section type
 section: &section
   name: section
-  label: Section
+  label: Abschnitt
   widget: object
   fields:
     - name: title
-      label: Title
+      label: Titel
       widget: string
     - name: slug
       label: Slug
       widget: string
     - name: theme
-      label: Theme
+      label: Farbschema
       widget: select
       options:
-        - { label: "Dark (grey)", value: dark }
-        - { label: "Light (cyan)", value: light }
+        - { label: "Dunkel (anthrazit)", value: dark }
+        - { label: "Hell (cyan)", value: light }
     - name: contents
-      label: Contents
+      label: Inhalte
+      label_singular: Inhalt
       widget: list
       types:
         - name: typo
-          label: Typography
+          label: Typografie
           widget: object
           fields:
             - <<: *typo
@@ -76,16 +77,18 @@ section: &section
 # pages collection
 collections:
   - name: pages
-    label: Pages
+    label: Seiten
+    label_singular: Seite
     folder: "packages/website/src/content/pages"
     create: true
     summary: "{{title}}"
     fields:
       - name: title
-        label: Title
+        label: Titel
         widget: string
       - name: blocks
-        label: Blocks
+        label: Blöcke
+        label_singular: Block
         widget: list
         types:
           - <<: *section

@@ -1,15 +1,15 @@
 import { z } from 'astro:content';
 
 export const schema = z.object({
-  title: z.string().describe('Title'),
+  title: z.string().describe('Titel'),
   blocks: z
     .array(
       z.discriminatedUnion('type', [
         z
           .object({
-            title: z.string().describe('Title'),
+            title: z.string().describe('Titel'),
             slug: z.string().describe('Slug'),
-            theme: z.enum(['dark', 'light']).describe('Theme'),
+            theme: z.enum(['dark', 'light']).describe('Farbschema'),
             contents: z
               .array(
                 z.discriminatedUnion('type', [
@@ -28,27 +28,33 @@ export const schema = z.object({
                                   .min(1)
                                   .max(6)
                                   .default(1)
-                                  .describe('Level'),
-                                style: z.enum(['none', 'title']).default('none').describe('Style'),
+                                  .describe('Ebene'),
+                                style: z
+                                  .enum(['none', 'title'])
+                                  .default('none')
+                                  .describe('Variante'),
                               })
                               .extend({ type: z.literal('heading') }),
                             z
                               .object({
                                 text: z.string().describe('Text'),
-                                style: z.enum(['lead', 'body']).default('body').describe('Style'),
+                                style: z
+                                  .enum(['lead', 'body'])
+                                  .default('body')
+                                  .describe('Variante'),
                               })
                               .extend({ type: z.literal('text') }),
                           ]),
                         )
-                        .describe('Typography'),
+                        .describe('Typografie'),
                     })
                     .extend({ type: z.literal('typo') }),
                 ]),
               )
-              .describe('Contents'),
+              .describe('Inhalte'),
           })
           .extend({ type: z.literal('section') }),
       ]),
     )
-    .describe('Blocks'),
+    .describe('Blöcke'),
 });
