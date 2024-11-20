@@ -118,5 +118,26 @@ export const prerender = true;
         ]),
       );
     });
+
+    CMS.registerPreviewTemplate('chronicle', ({ entry }) => {
+      const { data } = entry.toJS() as CollectionEntry<'chronicle'>;
+      const { body, date, title } = data;
+      return h(
+        CmsPreview,
+        { uiSrc },
+        h('kvlm-layout', { style: { 'container-type': 'inline-size' } }, [
+          h('div', { style: { height: 'var(---kvlm-layout-header-offset)' } }),
+          h(
+            'kvlm-section',
+            null,
+            h(
+              'kvlm-timeline',
+              null,
+              h('kvlm-timeline-item', { date, title, leading: true, trailing: true }, body),
+            ),
+          ),
+        ]),
+      );
+    });
   </script>
 </BaseLayout>

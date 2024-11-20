@@ -20,6 +20,7 @@ export const CmsPreview: React.FC<CmsPreviewProps> = ({ children, uiSrc }) => {
     uiComponents?.setAttribute('type', 'module');
 
     preview.contentDocument?.head.appendChild(uiComponents!);
+    preview.contentDocument?.documentElement.setAttribute('lang', 'de');
   }, [uiSrc]);
 
   return <>{children}</>;

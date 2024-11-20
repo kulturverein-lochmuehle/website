@@ -1,0 +1,25 @@
+# just to satisfy schema validation
+backend: { name: "" }
+media_folder: ""
+
+# chronicle collection
+collections:
+  - name: chronicle
+    label: Chronik
+    label_singular: Eintrag
+    folder: "packages/website/src/content/chronicle"
+    create: true
+    delete: true
+    summary: "{{date | date('DD.MM.YYYY')}} {{title}}"
+    fields:
+      - name: title
+        label: Titel
+        widget: string
+      - name: date
+        label: Datum
+        date_format: true
+        picker_utc: true
+        widget: datetime
+      - name: body
+        label: Inhalt
+        widget: markdown
