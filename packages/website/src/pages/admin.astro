@@ -89,7 +89,7 @@ export const prerender = true;
     CMS.registerPreviewStyle(styles, { raw: true });
 
     // register our previews, wrapped in a mapping convenience component
-    CMS.registerPreviewTemplate('mainNavigation', ({ entry, getCollection }) => {
+    CMS.registerPreviewTemplate('main', ({ entry, getCollection }) => {
       const [items, setItems] = useState([] as NavigationItem[]);
 
       useEffect(() => {

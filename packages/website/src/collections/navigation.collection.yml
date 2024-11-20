@@ -9,7 +9,7 @@ collections:
     description: "Verschiedene Zusammenstellungen zur Navigation."
     format: json
     files:
-      - name: mainNavigation
+      - name: main
         label: Hauptnavigation
         description: "Die primäre Navigation am oberen Rand der Website."
         file: "packages/website/src/content/navigation/main.json"
