@@ -68,6 +68,7 @@
   border-radius: 2px !important;
   height: 28px !important;
   line-height: 28px !important;
+  text-transform: capitalize !important;
 
   &::after {
     top: 11px !important;
