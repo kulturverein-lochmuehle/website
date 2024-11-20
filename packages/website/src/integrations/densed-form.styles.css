@@ -68,9 +68,18 @@
   border-radius: 2px !important;
   height: 28px !important;
   line-height: 28px !important;
-  text-transform: capitalize !important;
 
   &::after {
     top: 11px !important;
   }
+}
+
+.css-dwhd2p-ExpandButtonContainer-ExpandButtonContainer,
+.css-1gic66b-NestedObjectLabel,
+.css-3x8bm8-StyledDropdownButton-button-default-caret-caretDown::first-letter,
+.css-1d50s12-AddButton-button-widget::first-letter {
+  text-transform: capitalize !important;
+}
+.css-1d50s12-AddButton-button-widget {
+  display: block !important;
 }
