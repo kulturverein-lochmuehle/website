@@ -55,7 +55,7 @@ section: &section
       label: Titel
       widget: string
     - name: slug
-      label: Slug
+      label: URL-Slug
       widget: string
     - name: theme
       label: Farbschema
@@ -79,6 +79,7 @@ collections:
   - name: pages
     label: Seiten
     label_singular: Seite
+    description: "Sichtbare Seiten der Website mit ihrer Struktur und Inhalten."
     folder: "packages/website/src/content/pages"
     create: true
     summary: "{{title}}"

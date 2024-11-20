@@ -7,6 +7,7 @@ collections:
   - name: chronicle
     label: Chronik
     label_singular: Eintrag
+    description: "Sammlung aller Veranstaltungen bisher und in Zukunft."
     folder: "packages/website/src/content/chronicle"
     create: true
     delete: true
