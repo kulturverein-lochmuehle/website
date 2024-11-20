@@ -19,8 +19,11 @@ collections:
       - name: date
         label: Datum
         date_format: true
-        picker_utc: true
         widget: datetime
+      - name: teaser
+        label: Teaser
+        optional: true
+        widget: text
       - name: body
         label: Inhalt
         widget: markdown
