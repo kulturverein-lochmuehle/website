@@ -16,6 +16,7 @@ collections:
         fields:
           - name: pages
             label: Seiten
+            label_singular: Seite
             widget: list
             fields:
               - name: page

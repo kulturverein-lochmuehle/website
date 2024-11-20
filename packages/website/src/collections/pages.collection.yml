@@ -4,46 +4,50 @@ media_folder: ""
 
 # content types
 typo: &typo
-  name: typo
-  label: Typografie
-  widget: list
-  types:
-    - name: heading
-      label: Überschrift
-      widget: object
-      fields:
+  - name: typo
+    label: Typografie
+    widget: object
+    fields:
+      name: typo
+      label: Typografie
+      widget: list
+      types:
+        - name: heading
+          label: Überschrift
+          widget: object
+          fields:
+            - name: text
+              label: Text
+              widget: text
+            - name: level
+              label: Ebene
+              widget: number
+              default: 1
+              min: 1
+              max: 6
+            - name: style
+              label: Variante
+              widget: select
+              default: none
+              options:
+                - { label: Ohne, value: none }
+                - { label: Titel, value: title }
         - name: text
           label: Text
-          widget: text
-        - name: level
-          label: Ebene
-          widget: number
-          default: 1
-          min: 1
-          max: 6
-        - name: style
-          label: Variante
-          widget: select
-          default: none
-          options:
-            - { label: Ohne, value: none }
-            - { label: Titel, value: title }
-    - name: text
-      label: Text
-      widget: object
-      fields:
-        - name: text
-          label: Text
-          widget: markdown
-          minimal: true
-          buttons: [link]
-        - name: style
-          label: Variante
-          widget: select
-          default: body
-          options:
-            - { label: Hervorgehoben, value: lead }
-            - { label: Fließtext, value: body }
+          widget: object
+          fields:
+            - name: text
+              label: Text
+              widget: markdown
+              minimal: true
+              buttons: [link]
+            - name: style
+              label: Variante
+              widget: select
+              default: body
+              options:
+                - { label: Hervorgehoben, value: lead }
+                - { label: Fließtext, value: body }
 
 # section type
 section: &section
@@ -68,11 +72,7 @@ section: &section
       label_singular: Inhalt
       widget: list
       types:
-        - name: typo
-          label: Typografie
-          widget: object
-          fields:
-            - <<: *typo
+        - <<: *typo
 
 # pages collection
 collections:
