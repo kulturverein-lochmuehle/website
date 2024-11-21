@@ -11,7 +11,9 @@ collections:
     folder: "packages/website/src/content/chronicle"
     create: true
     delete: true
+    slug: "{{date | date('YYYYMMDD') }}-{{slug}}"
     summary: "{{date | date('DD.MM.YYYY')}} {{title}}"
+    sortable_fields: [date]
     fields:
       - name: title
         label: Titel

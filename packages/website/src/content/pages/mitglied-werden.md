@@ -7,16 +7,15 @@ blocks:
     theme: dark
     contents:
       - type: typo
-        typo:
-          - type: heading
-            level: 1
-            style: title
-            text: |-
-              Du hast uns
-              gerade noch
-              gefehlt
-          - type: text
-            style: lead
-            text: Jetzt Mitglied werden und ein Stück Kulturlandschaft im Dresdner Westen
-              mitprägen.
+        heading:
+          level: 1
+          style: title
+          text: |-
+            Du hast uns
+            gerade noch
+            gefehlt
+        text:
+          style: lead
+          text: Jetzt Mitglied werden und ein Stück Kulturlandschaft im Dresdner Westen
+            mitprägen.
 ---

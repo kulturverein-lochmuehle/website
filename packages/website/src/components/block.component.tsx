@@ -6,9 +6,10 @@ export type BlockProps = NonNullable<CollectionEntry<'pages'>['data']['blocks']>
   page: string;
 };
 
-export const Block: React.FC<BlockProps> = ({ theme, type, page, slug, contents }) => {
-  switch (type) {
+export const Block: React.FC<BlockProps> = props => {
+  switch (props.type) {
     case 'section':
+      const { theme, page, slug, contents } = props;
       return (
         <kvlm-section
           id={`/${page}/${slug}`}

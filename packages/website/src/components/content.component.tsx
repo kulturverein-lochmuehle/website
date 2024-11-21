@@ -1,21 +1,23 @@
 import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
-import { Typo } from './typo.component.jsx';
 
 export type ContentProps = NonNullable<
   CollectionEntry<'pages'>['data']['blocks']
 >[number]['contents'][number];
 
-export const Content: React.FC<ContentProps> = ({ type, typo }) => {
-  switch (type) {
+export const Content: React.FC<ContentProps> = props => {
+  switch (props.type) {
     case 'typo':
+      const Headline = `h${props.heading.level}` as any;
       return (
         <kvlm-typo>
-          {typo?.map((data, index) => (
-            <Typo key={`typo-${index}`} {...data} />
-          ))}
+          <Headline className={props.heading.style}>{props.heading.text}</Headline>
+          {props.text && <p className={props.text.style}>{props.text.text}</p>}
         </kvlm-typo>
       );
+
+    case 'teaser':
+      return <kvlm-typo>Teaser</kvlm-typo>;
 
     default:
       return null;

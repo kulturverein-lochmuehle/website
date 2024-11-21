@@ -4,50 +4,62 @@ media_folder: ""
 
 # content types
 typo: &typo
-  - name: typo
-    label: Typografie
-    widget: object
-    fields:
-      name: typo
-      label: Typografie
-      widget: list
-      types:
-        - name: heading
-          label: Überschrift
-          widget: object
-          fields:
-            - name: text
-              label: Text
-              widget: text
-            - name: level
-              label: Ebene
-              widget: number
-              default: 1
-              min: 1
-              max: 6
-            - name: style
-              label: Variante
-              widget: select
-              default: none
-              options:
-                - { label: Ohne, value: none }
-                - { label: Titel, value: title }
+  name: typo
+  label: Typografie
+  widget: object
+  fields:
+    - name: heading
+      label: Überschrift
+      widget: object
+      fields:
         - name: text
           label: Text
-          widget: object
-          fields:
-            - name: text
-              label: Text
-              widget: markdown
-              minimal: true
-              buttons: [link]
-            - name: style
-              label: Variante
-              widget: select
-              default: body
-              options:
-                - { label: Hervorgehoben, value: lead }
-                - { label: Fließtext, value: body }
+          widget: text
+        - name: level
+          label: Ebene
+          widget: number
+          default: 1
+          min: 1
+          max: 6
+        - name: style
+          label: Variante
+          widget: select
+          default: none
+          options:
+            - { label: Ohne, value: none }
+            - { label: Titel, value: title }
+    - name: text
+      label: Text
+      widget: object
+      required: false
+      fields:
+        - name: text
+          label: Text
+          widget: markdown
+          required: false
+          minimal: true
+          buttons: [link]
+        - name: style
+          label: Variante
+          widget: select
+          required: false
+          default: body
+          options:
+            - { label: Hervorgehoben, value: lead }
+            - { label: Fließtext, value: body }
+
+teaser: &teaser
+  name: teaser
+  label: Teaser
+  widget: object
+  fields:
+    - name: scope
+      label: Umfang
+      widget: select
+      options:
+        - { label: "Nächste Veranstaltung", value: next }
+        - { label: "Bisherige Veranstaltungen", value: past }
+        - { label: "Alle Veranstaltungen", value: all }
 
 # section type
 section: &section
@@ -72,6 +84,7 @@ section: &section
       label_singular: Inhalt
       widget: list
       types:
+        - <<: *teaser
         - <<: *typo
 
 # pages collection
