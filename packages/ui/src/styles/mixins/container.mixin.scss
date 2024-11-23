@@ -1,30 +1,5 @@
-@use 'sass:list' as list;
-@use 'sass:map' as map;
-@use 'sass:meta' as meta;
 @use 'sass:string' as string;
-
-@use '@/styles/functions/implode.function.scss' as *;
-@use '@/styles/variables/breakpoint.variables.scss' as *;
-
-// utility mixin to check breakpoints given to the mixin
-@mixin _check-given-breakpoint($breakpoint, $name) {
-  // check if $from is either numeric (custom) or a map key
-  @if meta.type-of($breakpoint) != number and meta.type-of($breakpoint) != string {
-    @error "The breakpoint for #{$name} (#{$breakpoint}) must be either a number or a valid map key (#{map.keys($breakpoints)}).";
-  }
-  // in case of a string, it must be a valid map key
-  @if meta.type-of($breakpoint) == string and not map.has-key($breakpoints, $breakpoint) {
-    @error "The breakpoint for #{$name} (#{$breakpoint}) does not exist.";
-  }
-}
-
-@function _resolve-breakpoint($breakpoint) {
-  @if meta.type-of($breakpoint) == number {
-    @return $breakpoint;
-  } @else {
-    @return map.get($breakpoints, $breakpoint);
-  }
-}
+@use '@/styles/functions/prepare-query.function.scss' as *;
 
 /// Mixin for @container queries with a fallback to @media queries for elderly browsers.
 /// For the container queries to work, a container name must be provided. In our case,
@@ -55,26 +30,7 @@
 ///     }
 /// }
 @mixin container($from: null, $until: null, $container-name: null) {
-  // check that either $until or $from is set
-  @if not $until and not $from {
-    @error "Either $until or $from (the default) must be set.";
-  }
-
-  $conditions: [];
-  // check breakpoints if given
-  @if $from != null {
-    @include _check-given-breakpoint($from, '$from');
-    // determine the breakpoint value
-    $breakpoint: _resolve-breakpoint($from);
-    $conditions: list.append($conditions, '(min-width: #{$breakpoint})');
-  }
-  @if $until != null {
-    @include _check-given-breakpoint($until, '$until');
-    // determine the breakpoint value
-    $breakpoint: _resolve-breakpoint($until);
-    $conditions: list.append($conditions, '(max-width: #{$breakpoint - 1px})');
-  }
-  $condition: implode($conditions, ' and ');
+  $condition: prepare-query($from, $until);
 
   // use container queries if available
   @supports (container-type: inline-size) {

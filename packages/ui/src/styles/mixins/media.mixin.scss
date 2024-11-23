@@ -1,0 +1,37 @@
+@use 'sass:string' as string;
+@use '@/styles/functions/prepare-query.function.scss' as *;
+
+/// Mixin for @media queries based on breakpoints.
+///
+/// @example Usage with a map key as parameter:
+/// ```scss
+/// .wrapper {
+///     @include media(xs) {
+///         font-size: rem(1.5);
+///     }
+/// }
+/// ```
+///
+/// @example Usage with a custom breakpoint value as parameter:
+/// ```scss
+/// .wrapper {
+///     @include media(960px) {
+///         font-size: rem(1.5);
+///     }
+/// }
+///
+/// @example Usage with media name:
+/// ```scss
+/// .wrapper {
+///     @include media(sm, layout) {
+///         font-size: rem(1.5);
+///     }
+/// }
+@mixin media($from: null, $until: null, $media-name: null) {
+  $condition: prepare-query($from, $until);
+
+  @media #{$condition} {
+    // pass the given mixin contents into the query
+    @content;
+  }
+}

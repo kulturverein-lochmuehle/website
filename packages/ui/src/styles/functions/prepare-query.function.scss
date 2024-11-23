@@ -1,0 +1,54 @@
+@use 'sass:list' as list;
+@use 'sass:map' as map;
+@use 'sass:meta' as meta;
+
+@use '@/styles/functions/implode.function.scss' as *;
+@use '@/styles/variables/breakpoint.variables.scss' as *;
+
+// utility function to check breakpoints given to the mixin
+@function _check-given-breakpoint($breakpoint, $name) {
+  // check if $from is either numeric (custom) or a map key
+  @if meta.type-of($breakpoint) != number and meta.type-of($breakpoint) != string {
+    @error "The breakpoint for #{$name} (#{$breakpoint}) must be either a number or a valid map key (#{map.keys($breakpoints)}).";
+    @return false;
+  }
+  // in case of a string, it must be a valid map key
+  @if meta.type-of($breakpoint) == string and not map.has-key($breakpoints, $breakpoint) {
+    @error "The breakpoint for #{$name} (#{$breakpoint}) does not exist.";
+    @return false;
+  }
+
+  @return true;
+}
+
+@function _resolve-breakpoint($breakpoint) {
+  @if meta.type-of($breakpoint) == number {
+    @return $breakpoint;
+  } @else {
+    @return map.get($breakpoints, $breakpoint);
+  }
+}
+
+@function prepare-query($from: null, $until: null) {
+  $conditions: [];
+
+  // check that either $until or $from is set
+  @if not $until and not $from {
+    @error "Either $until or $from (the default) must be set.";
+  }
+
+  // check breakpoints if given
+  @if $from != null and _check-given-breakpoint($from, '$from') == true {
+    // determine the breakpoint value
+    $breakpoint: _resolve-breakpoint($from);
+    $conditions: list.append($conditions, '(min-width: #{$breakpoint})');
+  }
+
+  @if $until != null and _check-given-breakpoint($until, '$until') == true {
+    // determine the breakpoint value
+    $breakpoint: _resolve-breakpoint($until);
+    $conditions: list.append($conditions, '(max-width: #{$breakpoint - 1px})');
+  }
+
+  @return implode($conditions, ' and ');
+}
