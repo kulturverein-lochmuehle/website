@@ -10,7 +10,10 @@
 :host {
   position: relative;
   display: flex;
-  min-height: calc(100svh - var(---kvlm-layout-header-offset));
+
+  box-sizing: border-box;
+  min-height: 100svh;
+  padding-top: var(---kvlm-layout-header-offset);
 
   container-type: inline-size;
   overflow: hidden;
@@ -20,8 +23,8 @@
     var(---kvlm-section-background-from) 0svh,
     var(---kvlm-section-background-to) 100svh
   );
-  background-position-y: calc(var(---kvlm-layout-header-offset) * -1);
-  background-size: 100svw calc(100svh + var(---kvlm-layout-header-offset));
+  background-position: center top;
+  background-size: 100svw 100svh;
   color: var(---kvlm-section-color);
 }
 

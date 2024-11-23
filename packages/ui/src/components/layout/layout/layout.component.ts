@@ -1,11 +1,5 @@
 import { html, isServer, LitElement, unsafeCSS } from 'lit';
-import {
-  customElement,
-  eventOptions,
-  property,
-  query,
-  queryAssignedElements,
-} from 'lit/decorators.js';
+import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 
 import {
   changeLocationInline,
@@ -35,9 +29,6 @@ export class Layout extends LitElement {
   private readonly intersectionOptions: IntersectionObserverInit = { threshold: 0.5 };
   private readonly intersectionObserver =
     !isServer && new IntersectionObserver(this.handleIntersections, this.intersectionOptions);
-
-  @query('header')
-  private readonly header!: HTMLElement;
 
   @queryAssignedElements()
   private readonly assignedElements!: HTMLElement[];
@@ -147,9 +138,8 @@ export class Layout extends LitElement {
     if (target === undefined) return;
 
     // use built-in scroll behavior
-    const headerOffset = this.header?.offsetHeight ?? 0;
     window.scrollTo({
-      top: Math.max(target.offsetTop - headerOffset, 0),
+      top: Math.max(target.offsetTop, 0),
       behavior: animate ? 'smooth' : undefined,
     });
   }

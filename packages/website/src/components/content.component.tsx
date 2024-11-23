@@ -12,7 +12,7 @@ export const Content: React.FC<ContentProps> = props => {
       return (
         <kvlm-typo>
           <Headline className={props.heading.style}>{props.heading.text}</Headline>
-          {props.text && <p className={props.text.style}>{props.text.text}</p>}
+          {props.text && <p className={props.text.style ?? ''}>{props.text.text}</p>}
         </kvlm-typo>
       );
 

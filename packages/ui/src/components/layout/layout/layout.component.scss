@@ -9,8 +9,7 @@
 }
 
 :host {
-  display: flex;
-  flex-direction: column;
+  display: block;
   min-height: var(---kvlm-layout-min-height);
 
   color: var(---kvlm-layout-color-typo);
@@ -30,7 +29,7 @@ main {
 }
 
 header {
-  position: sticky;
+  position: fixed;
   inset: 0 0 auto;
   container-type: inline-size;
   z-index: 10;
@@ -40,6 +39,4 @@ main {
   display: flex;
   flex-direction: column;
   container-type: inline-size;
-
-  flex: 1 0 auto;
 }
