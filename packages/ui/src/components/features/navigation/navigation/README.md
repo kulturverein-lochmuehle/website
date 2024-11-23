@@ -18,6 +18,7 @@
 | `handleClick`     | `(event: Event): void` |
 | `handleLogoClick` | `(event: Event): void` |
 | `handleScroll`    | `(): void`             |
+| `toggle`          | `(): void`             |
 
 ## Slots
 

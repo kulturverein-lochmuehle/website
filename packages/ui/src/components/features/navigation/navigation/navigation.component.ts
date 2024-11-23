@@ -4,8 +4,10 @@ import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
 import { changeLocationInline } from '@/utils/event.utils.js';
+import { injectGlobalStyle } from '@/utils/style.utils.js';
 
 import styles from './navigation.component.scss';
+import globalStyles from './navigation.global.scss';
 
 /**
  * @slot - Receives the navigation items.
@@ -53,6 +55,11 @@ export class Navigation extends LitElement {
   @property({ reflect: true, type: Boolean })
   opened = false;
 
+  constructor() {
+    super();
+    injectGlobalStyle(unsafeCSS(globalStyles));
+  }
+
   override connectedCallback() {
     super.connectedCallback();
 
@@ -75,6 +82,7 @@ export class Navigation extends LitElement {
     window.removeEventListener('scroll', this.#handleScroll, false);
   }
 
+  @eventOptions({ passive: true })
   handleScroll() {
     requestAnimationFrame(() => {
       const distance = Math.min(1, document.documentElement.scrollTop / this.scrollFadeDistance);
@@ -86,7 +94,7 @@ export class Navigation extends LitElement {
   handleClick(event: Event) {
     if (!this.#isMobile) return;
     if (!event.defaultPrevented) return;
-    this.opened = !this.opened;
+    this.toggle();
   }
 
   @eventOptions({ capture: true })
@@ -100,6 +108,11 @@ export class Navigation extends LitElement {
       event.preventDefault();
       changeLocationInline(this.href, true);
     }
+  }
+
+  toggle() {
+    this.opened = !this.opened;
+    document.documentElement.classList.toggle('no-scroll', this.opened);
   }
 
   render() {

@@ -1,0 +1,7 @@
+@use '@/styles/utils' as utils;
+
+@include utils.media($until: lg) {
+  html.no-scroll {
+    overflow: hidden;
+  }
+}
