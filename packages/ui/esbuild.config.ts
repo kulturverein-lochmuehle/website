@@ -48,7 +48,7 @@ const transform = async (source: string): Promise<string> => {
 // will load suffixed paths as strings inline to be used in web components
 export const inlineOptions: SassPluginOptions = {
   type: 'css-text',
-  filter: /\.component\.scss$/,
+  filter: /\.(component|global)\.s?css$/,
   precompile,
   importMapper,
   transform,
