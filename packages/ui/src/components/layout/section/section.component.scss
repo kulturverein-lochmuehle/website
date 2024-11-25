@@ -9,28 +9,50 @@
 
 :host {
   position: relative;
-  display: flex;
+  display: block;
 
   box-sizing: border-box;
-  min-height: 100svh;
-  padding-top: var(---kvlm-layout-header-offset);
-
   container-type: inline-size;
-  overflow: hidden;
-
-  background: linear-gradient(
-    150deg,
-    var(---kvlm-section-background-from) 0svh,
-    var(---kvlm-section-background-to) 100svh
-  );
-  background-position: center top;
-  background-size: 100svw 100svh;
   color: var(---kvlm-section-color);
+}
+
+[role='figure'] {
+  position: sticky;
+  top: var(---kvlm-layout-header-offset);
+  z-index: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(100svh - var(---kvlm-layout-header-offset));
+    width: 100svw;
+
+    background: linear-gradient(
+      150deg,
+      var(---kvlm-section-background-from) 0svh,
+      var(---kvlm-section-background-to) 100svh
+    );
+    background-position: center calc(var(---kvlm-layout-header-offset) * -1);
+    background-size: 100svw 100svh;
+    background-repeat: no-repeat;
+  }
+}
+
+kvlm-brook {
+  position: absolute;
+  inset: 50svh 0 auto;
+  transform: translateY(-50%);
+
+  width: 100%;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 section {
   position: relative;
-  z-index: 1;
+  min-height: calc(100svh - var(---kvlm-layout-header-offset));
   box-sizing: border-box;
 
   @include utils.wrapper($padding: utils.size(4));
@@ -42,16 +64,4 @@ section {
     flex-direction: column;
     justify-content: center;
   }
-}
-
-kvlm-brook {
-  position: absolute;
-  inset: 50% 0 auto auto;
-  transform: translateY(-50%);
-
-  width: 100%;
-  min-width: 1400px;
-
-  pointer-events: none;
-  user-select: none;
 }

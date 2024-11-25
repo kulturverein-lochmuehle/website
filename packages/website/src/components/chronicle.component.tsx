@@ -1,14 +1,13 @@
 import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
-import { Block } from './block.component.jsx';
 
-export type ChronicleProps = {
-  slug: string;
-  data: CollectionEntry<'chronicle'>['data'];
-};
+export type ChronicleProps = CollectionEntry<'chronicle'>['data'];
 
-export const Chronicle: React.FC<ChronicleProps> = ({ data: {  }, slug }) => {
+export const Chronicle: React.FC<ChronicleProps> = ({ scope, title, type }) => {
+  console.log({ scope, title, type });
   return (
-    <>{blocks?.map((data, index) => <Block key={`block-${index}`} page={slug} {...data} />)}</>
+    <kvlm-typo>
+      <h2 className="title">{title}</h2>
+    </kvlm-typo>
   );
 };

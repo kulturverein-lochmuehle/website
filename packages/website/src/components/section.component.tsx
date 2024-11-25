@@ -2,11 +2,11 @@ import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
 import { Content } from './content.component.jsx';
 
-export type BlockProps = NonNullable<CollectionEntry<'pages'>['data']['blocks']>[number] & {
+export type SectionProps = NonNullable<CollectionEntry<'pages'>['data']['sections']>[number] & {
   page: string;
 };
 
-export const Block: React.FC<BlockProps> = props => {
+export const Section: React.FC<SectionProps> = props => {
   switch (props.type) {
     case 'section':
       const { theme, page, slug, contents } = props;
@@ -18,6 +18,7 @@ export const Block: React.FC<BlockProps> = props => {
               '--kvlm-section-background-from': theme === 'light' ? '#75f0de' : '#525252',
               '--kvlm-section-background-to': theme === 'light' ? '#6fbad9' : '#101010',
               '--kvlm-section-color': `var(--kvlm-color-grey-${theme === 'light' ? 'dark' : 'light'})`,
+              '--kvlm-brook-color': theme === 'light' ? '#fff' : '#52bcdd',
             } as any
           }
         >

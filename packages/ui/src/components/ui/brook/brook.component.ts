@@ -6,8 +6,8 @@ import styles from './brook.component.scss';
 /**
  * Graphic of a brook used as visual signature.
  *
+ * @cssprop --kvlm-brook-color - Color of the brook's stroke.
  * @cssprop --kvlm-brook-opacity - Opacity of the brook.
- * @cssprop --kvlm-brook-stroke-color - Color of the brook's stroke.
  * @cssprop --kvlm-brook-stroke-width - Width of the brook's stroke.
  */
 @customElement('kvlm-brook')

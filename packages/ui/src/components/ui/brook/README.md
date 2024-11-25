@@ -8,6 +8,6 @@ Graphic of a brook used as visual signature.
 
 | Property                    | Description                  |
 |-----------------------------|------------------------------|
+| `--kvlm-brook-color`        | Color of the brook's stroke. |
 | `--kvlm-brook-opacity`      | Opacity of the brook.        |
-| `--kvlm-brook-stroke-color` | Color of the brook's stroke. |
 | `--kvlm-brook-stroke-width` | Width of the brook's stroke. |
