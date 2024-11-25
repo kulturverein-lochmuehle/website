@@ -1,8 +1,9 @@
 import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
+import { Chronicle } from './chronicle.component.jsx';
 
 export type ContentProps = NonNullable<
-  CollectionEntry<'pages'>['data']['blocks']
+  CollectionEntry<'pages'>['data']['sections']
 >[number]['contents'][number];
 
 export const Content: React.FC<ContentProps> = props => {
@@ -17,7 +18,7 @@ export const Content: React.FC<ContentProps> = props => {
       );
 
     case 'teaser':
-      return <kvlm-typo>Teaser</kvlm-typo>;
+      return <Chronicle {...props} />;
 
     default:
       return null;

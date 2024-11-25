@@ -18,7 +18,9 @@ export class Section extends LitElement {
 
   render() {
     return html`
-      <kvlm-brook></kvlm-brook>
+      <div role="figure">
+        <kvlm-brook></kvlm-brook>
+      </div>
       <section>
         <slot></slot>
       </section>

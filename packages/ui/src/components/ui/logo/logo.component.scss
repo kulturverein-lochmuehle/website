@@ -10,8 +10,10 @@ svg {
 
 path {
   fill: var(---kvlm-logo-typo-color);
+  transition: fill 0.3s ease-in-out;
 
   &.brook {
     fill: var(---kvlm-logo-brook-color);
+    transition: fill 0.3s ease-in-out;
   }
 }

@@ -42,10 +42,10 @@ export async function prepareItems(
 
       // do not use the page itself but its sections
       if (item.useSections) {
-        if (!page.data.blocks) return all;
+        if (!page.data.sections) return all;
         return [
           ...(await all),
-          ...page.data.blocks.reduce((subs, section) => {
+          ...page.data.sections.reduce((subs, section) => {
             if (!section) return subs;
             return [
               ...subs,
@@ -88,7 +88,7 @@ export async function getDefaultRoute(): Promise<string> {
   const sectioned = await getEntry('pages', page);
   if (sectioned === undefined) return page;
 
-  const slug = sectioned.data.blocks[0]?.slug;
+  const slug = sectioned.data.sections[0]?.slug;
   if (slug === undefined) return page;
 
   return `/${page}/${slug}`;

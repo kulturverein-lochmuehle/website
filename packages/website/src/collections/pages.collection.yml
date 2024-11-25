@@ -60,6 +60,9 @@ teaser: &teaser
         - { label: "Nächste Veranstaltung", value: next }
         - { label: "Bisherige Veranstaltungen", value: past }
         - { label: "Alle Veranstaltungen", value: all }
+    - name: title
+      label: Titel
+      widget: string
 
 # section type
 section: &section
@@ -100,9 +103,9 @@ collections:
       - name: title
         label: Titel
         widget: string
-      - name: blocks
-        label: Blöcke
-        label_singular: Block
+      - name: sections
+        label: Abschnitte
+        label_singular: Abschnitt
         widget: list
         types:
           - <<: *section

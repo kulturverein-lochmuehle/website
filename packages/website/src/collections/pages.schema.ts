@@ -2,7 +2,7 @@ import { z } from 'astro:content';
 
 export const schema = z.object({
   title: z.string().describe('Titel'),
-  blocks: z
+  sections: z
     .array(
       z.discriminatedUnion('type', [
         z
@@ -14,7 +14,10 @@ export const schema = z.object({
               .array(
                 z.discriminatedUnion('type', [
                   z
-                    .object({ scope: z.enum(['next', 'past', 'all']).describe('Umfang') })
+                    .object({
+                      scope: z.enum(['next', 'past', 'all']).describe('Umfang'),
+                      title: z.string().describe('Titel'),
+                    })
                     .extend({ type: z.literal('teaser') }),
                   z
                     .object({
@@ -52,5 +55,5 @@ export const schema = z.object({
           .extend({ type: z.literal('section') }),
       ]),
     )
-    .describe('Blöcke'),
+    .describe('Abschnitte'),
 });

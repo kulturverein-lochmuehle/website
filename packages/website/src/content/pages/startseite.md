@@ -1,6 +1,6 @@
 ---
 title: Startseite
-blocks:
+sections:
   - type: section
     slug: willkommen
     title: Willkommen
@@ -35,10 +35,11 @@ blocks:
           style: lead
           text: Jetzt [Mitgliedsantrag ausfüllen](/mitgliedsantrag).
   - type: section
-    title: Was bisher geschah
+    title: Bisher
     slug: bisher
     theme: dark
     contents:
       - type: teaser
+        title: Was bisher geschah
         scope: next
 ---

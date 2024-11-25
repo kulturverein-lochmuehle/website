@@ -31,8 +31,8 @@
 
   height: var(---kvlm-layout-header-offset);
 
-  transition: 0.3s ease;
-  transition-property: color, height;
+  transition: var(--kvlm-fx-transition);
+  transition-property: color, background, height;
 
   @include utils.container($until: lg) {
     ---kvlm-navigation-desktop: 0;
@@ -51,6 +51,9 @@
 
 :host([opened]) {
   @include utils.container($until: lg) {
+    ---kvlm-navigation-background-from: #fff;
+    ---kvlm-navigation-background-to: #fff;
+
     height: 100vh;
     height: 100svh;
   }
@@ -97,10 +100,15 @@ a:first-child {
     // offset the logo to align with the typo with the content
     // the first letter is set to 7.8 in a container with 246.2 width
     transform: translateX(#{math.div(7.8, 246.2) * 10 - 1%});
-    transition: color 0.3s ease;
+    transition: var(--kvlm-fx-transition);
+    transition-property: color;
 
     @include utils.container($until: lg) {
       margin-right: auto;
+
+      :host([opened]) & {
+        --kvlm-logo-brook-color: var(--kvlm-color-spray);
+      }
     }
   }
 
@@ -109,16 +117,12 @@ a:first-child {
     stroke: var(---kvlm-navigation-stroke-color);
     stroke-width: var(---kvlm-navigation-stroke-width);
 
-    transition: height 0.3s ease;
+    transition: var(--kvlm-fx-transition);
+    transition-property: height;
     overflow: visible;
 
     @include utils.container($from: lg) {
       display: none;
-    }
-
-    path:nth-child(1n + 2) {
-      stroke-dasharray: 25;
-      transition: stroke-dashoffset 0.3s ease;
     }
 
     :host(:not([opened])) & {
@@ -132,8 +136,13 @@ a:first-child {
     }
 
     path {
-      transition: d 0.3s ease;
+      transition: var(--kvlm-fx-transition);
+      transition-property: d, stroke-dashoffset;
       vector-effect: non-scaling-stroke;
+
+      &:nth-child(1n + 2) {
+        stroke-dasharray: 25;
+      }
     }
   }
 }

@@ -32,3 +32,5 @@ export function getCollectionParams(path = ''): CollectionParams {
   // deliver the result
   return result;
 }
+
+// export async function resolveRelation(collection: string)

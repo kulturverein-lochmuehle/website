@@ -1,6 +1,6 @@
 ---
 title: Kontakt
-blocks:
+sections:
   - type: section
     title: Adresse
     slug: adresse

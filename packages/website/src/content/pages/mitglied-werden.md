@@ -1,6 +1,6 @@
 ---
 title: Mitglied werden
-blocks:
+sections:
   - type: section
     slug: test
     title: Mitglied werden
