@@ -9,7 +9,7 @@ sections:
       - type: typo
         heading:
           level: 1
-          style: title
+          isTitle: true
           text: |-
             Du hast uns
             gerade noch
@@ -27,7 +27,7 @@ sections:
         heading:
           type: heading
           level: 1
-          style: title
+          isTitle: true
           text: |-
             Unterschreiben, mitwirken
             und unterstützen
@@ -41,5 +41,5 @@ sections:
     contents:
       - type: teaser
         title: Was bisher geschah
-        scope: next
+        scope: chronicle:past
 ---

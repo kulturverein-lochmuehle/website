@@ -1,3 +1,12 @@
+import type {
+  AnyEntryMap,
+  CollectionEntry,
+  ContentEntryMap,
+  getCollection,
+  getEntry,
+  ValidContentEntrySlug,
+} from 'astro:content';
+
 export type CollectionParams = {
   page?: string;
   slug?: string;
@@ -33,4 +42,10 @@ export function getCollectionParams(path = ''): CollectionParams {
   return result;
 }
 
-// export async function resolveRelation(collection: string)
+export type ResolveSingle<K extends keyof AnyEntryMap> = (
+  slug: string,
+) => Promise<CollectionEntry<K> | undefined>;
+
+export type ResolveMultiple<K extends keyof AnyEntryMap> = (
+  filter?: (entry: CollectionEntry<K>) => boolean,
+) => Promise<CollectionEntry<K>[]>;

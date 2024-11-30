@@ -8,8 +8,8 @@ Displays a single timeline item with its given title, timestamp and text.
 
 | Property   | Attribute  | Modifiers | Type         | Default    |
 |------------|------------|-----------|--------------|------------|
-| `date`     | `date`     | readonly  | `Date`       |            |
-| `leading`  | `leading`  | readonly  | `false`      | false      |
+| `date`     | `date`     |           | `Date`       |            |
+| `leading`  | `leading`  |           | `boolean`    | false      |
 | `role`     | `role`     | readonly  | `"listitem"` | "listitem" |
 | `title`    | `title`    | readonly  | `string`     |            |
-| `trailing` | `trailing` | readonly  | `false`      | false      |
+| `trailing` | `trailing` |           | `boolean`    | false      |

@@ -1,10 +1,8 @@
-import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
-import { Chronicle } from './chronicle.component.jsx';
+import type { ResolvedPage } from '@/utils/page.utils.js';
+import { Teaser } from './teaser.component.jsx';
 
-export type ContentProps = NonNullable<
-  CollectionEntry<'pages'>['data']['sections']
->[number]['contents'][number];
+export type ContentProps = ResolvedPage['data']['sections'][number]['contents'][number] & {};
 
 export const Content: React.FC<ContentProps> = props => {
   switch (props.type) {
@@ -12,13 +10,23 @@ export const Content: React.FC<ContentProps> = props => {
       const Headline = `h${props.heading.level}` as any;
       return (
         <kvlm-typo>
-          <Headline className={props.heading.style}>{props.heading.text}</Headline>
+          <Headline
+            className={[
+              props.heading.isTitle && 'title',
+              props.heading.isSticky && 'sticky',
+              props.heading.isRightAligned && 'right-aligned',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            {props.heading.text}
+          </Headline>
           {props.text && <p className={props.text.style ?? ''}>{props.text.text}</p>}
         </kvlm-typo>
       );
 
     case 'teaser':
-      return <Chronicle {...props} />;
+      return <Teaser {...props} />;
 
     default:
       return null;

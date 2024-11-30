@@ -5,8 +5,10 @@ import DefaultLayout from '@/layouts/default.layout.astro';
 import { getCollectionParams } from '@/utils/collection.utils.js';
 import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
 
-import { Navigation } from '@/components/navigation.component';
-import { Page } from '@/components/page.component';
+import { Navigation } from '@/components/navigation.component.jsx';
+import { Page } from '@/components/page.component.jsx';
+import { preparePage } from '@/utils/page.utils.js';
+import { getCollection } from 'astro:content';
 
 const { slug, isAdmin } = getCollectionParams(Astro.params.path as string);
 const home = await getDefaultRoute();
@@ -16,7 +18,12 @@ if (slug === undefined) {
   return Astro.redirect(home, 301);
 }
 
-const page = await getEntry('pages', slug);
+// resolve current page using the astro entry resolver
+const page = await preparePage(
+  slug,
+  slug => getEntry('pages', slug),
+  filter => getCollection('chronicle', filter),
+);
 
 // check if collection and page exists and, due to browsers
 // looking up some convenient files, handle requests with a 404
@@ -29,7 +36,8 @@ if (page === undefined) {
   });
 }
 
-const items = await prepareNavigation((slug: string) => getEntry('pages', slug), Astro.params.path);
+// resolve navigation items using the astro entry resolver
+const items = await prepareNavigation(slug => getEntry('pages', slug), Astro.params.path);
 ---
 
 <DefaultLayout pageTitle={page.data?.title} observeScroll={!isAdmin}>

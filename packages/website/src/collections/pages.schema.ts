@@ -15,7 +15,14 @@ export const schema = z.object({
                 z.discriminatedUnion('type', [
                   z
                     .object({
-                      scope: z.enum(['next', 'past', 'all']).describe('Umfang'),
+                      scope: z
+                        .enum([
+                          'chronicle:all',
+                          'chronicle:past',
+                          'chronicle:upcoming',
+                          'chronicle:next',
+                        ])
+                        .describe('Umfang'),
                       title: z.string().describe('Titel'),
                     })
                     .extend({ type: z.literal('teaser') }),
@@ -32,7 +39,12 @@ export const schema = z.object({
                             .max(6)
                             .default(1)
                             .describe('Ebene'),
-                          style: z.enum(['none', 'title']).default('none').describe('Variante'),
+                          isTitle: z.boolean().default(false).describe('Als Titel'),
+                          isRightAligned: z
+                            .boolean()
+                            .default(false)
+                            .describe('Rechts ausgerichtet'),
+                          isSticky: z.boolean().default(false).describe('Fixiert'),
                         })
                         .describe('Überschrift'),
                       text: z

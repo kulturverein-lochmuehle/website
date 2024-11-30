@@ -21,13 +21,18 @@ typo: &typo
           default: 1
           min: 1
           max: 6
-        - name: style
-          label: Variante
-          widget: select
-          default: none
-          options:
-            - { label: Ohne, value: none }
-            - { label: Titel, value: title }
+        - name: isTitle
+          label: Als Titel
+          widget: boolean
+          default: false
+        - name: isRightAligned
+          label: Rechts ausgerichtet
+          widget: boolean
+          default: false
+        - name: isSticky
+          label: Fixiert
+          widget: boolean
+          default: false
     - name: text
       label: Text
       widget: object
@@ -57,9 +62,10 @@ teaser: &teaser
       label: Umfang
       widget: select
       options:
-        - { label: "Nächste Veranstaltung", value: next }
-        - { label: "Bisherige Veranstaltungen", value: past }
-        - { label: "Alle Veranstaltungen", value: all }
+        - { label: "Alle Veranstaltungen", value: chronicle:all }
+        - { label: "Bisherige Veranstaltungen", value: chronicle:past }
+        - { label: "Kommende Veranstaltungen", value: chronicle:upcoming }
+        - { label: "Nächste Veranstaltung", value: chronicle:next }
     - name: title
       label: Titel
       widget: string

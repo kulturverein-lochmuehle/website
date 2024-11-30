@@ -33,6 +33,16 @@ kvlm-typo {
     text-decoration: underline;
   }
 
+  .right-aligned {
+    text-align: right;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
   .title {
     @extend %title;
   }

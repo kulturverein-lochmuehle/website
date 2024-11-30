@@ -43,14 +43,14 @@ export class Navigation extends LitElement {
    * That means that the page will be scrolled to the related content.
    */
   @property({ reflect: true, type: Boolean, attribute: 'href-inline' })
-  readonly hrefInline = false;
+  hrefInline = false;
 
   /**
    * The amount of pixels the user has to scroll to fully fade the navigation bar shadow.
    * This maybe is the most detailed option you'll configure today.
    */
   @property({ reflect: true, attribute: 'scroll-fade-distance', type: Number })
-  readonly scrollFadeDistance = 100;
+  scrollFadeDistance = 100;
 
   @property({ reflect: true, type: Boolean })
   opened = false;
