@@ -7,9 +7,9 @@
 | Property             | Attribute              | Modifiers | Type      | Default | Description                                      |
 |----------------------|------------------------|-----------|-----------|---------|--------------------------------------------------|
 | `href`               | `href`                 | readonly  | `"/"`     | "/"     | The href of the logo link.                       |
-| `hrefInline`         | `href-inline`          | readonly  | `false`   | false   | Whether the logo link should be handled as inline.<br />That means that the page will be scrolled to the related content. |
+| `hrefInline`         | `href-inline`          |           | `boolean` | false   | Whether the logo link should be handled as inline.<br />That means that the page will be scrolled to the related content. |
 | `opened`             | `opened`               |           | `boolean` | false   |                                                  |
-| `scrollFadeDistance` | `scroll-fade-distance` | readonly  | `100`     | 100     | The amount of pixels the user has to scroll to fully fade the navigation bar shadow.<br />This maybe is the most detailed option you'll configure today. |
+| `scrollFadeDistance` | `scroll-fade-distance` |           | `number`  | 100     | The amount of pixels the user has to scroll to fully fade the navigation bar shadow.<br />This maybe is the most detailed option you'll configure today. |
 
 ## Methods
 

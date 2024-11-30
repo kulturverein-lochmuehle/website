@@ -9,7 +9,7 @@ sections:
       - type: typo
         heading:
           level: 1
-          style: title
+          isTitle: true
           text: |-
             Du hast uns
             gerade noch

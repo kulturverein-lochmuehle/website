@@ -1,4 +1,5 @@
 import { type CollectionEntry, getEntry } from 'astro:content';
+import type { ResolveSingle } from './collection.utils.js';
 
 export type NavigationItem = {
   active: boolean;
@@ -6,8 +7,6 @@ export type NavigationItem = {
   href: string;
   label: string;
 };
-
-export type PageResolver = (slug: string) => Promise<CollectionEntry<'pages'> | undefined>;
 
 export function prepareLink(
   path: string,
@@ -29,7 +28,7 @@ export function prepareLink(
 
 export async function prepareItems(
   items: CollectionEntry<'navigation'>['data']['pages'],
-  resolvePage: PageResolver,
+  resolve: ResolveSingle<'pages'>,
   current?: string,
 ): Promise<NavigationItem[]> {
   return items.reduce(
@@ -37,7 +36,7 @@ export async function prepareItems(
       if (!item) return all;
 
       // lazy load the page
-      const page = await resolvePage(item.page);
+      const page = await resolve(item.page);
       if (!page) return all;
 
       // do not use the page itself but its sections
@@ -72,12 +71,12 @@ export async function prepareItems(
 }
 
 export async function prepareNavigation(
-  resolvePage: PageResolver,
+  resolve: ResolveSingle<'pages'>,
   current?: string,
 ): Promise<NavigationItem[]> {
   const navigation = await getEntry('navigation', 'main');
   if (!navigation) return [];
-  return prepareItems(navigation.data.pages, resolvePage, current);
+  return prepareItems(navigation.data.pages, resolve, current);
 }
 
 export async function getDefaultRoute(): Promise<string> {

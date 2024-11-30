@@ -1,10 +1,8 @@
-import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
+import type { ResolvedPage } from '@/utils/page.utils.js';
 import { Content } from './content.component.jsx';
 
-export type SectionProps = NonNullable<CollectionEntry<'pages'>['data']['sections']>[number] & {
-  page: string;
-};
+export type SectionProps = ResolvedPage['data']['sections'][number];
 
 export const Section: React.FC<SectionProps> = props => {
   switch (props.type) {

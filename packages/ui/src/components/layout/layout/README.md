@@ -6,9 +6,9 @@ A component to introduce the application layout.
 
 ## Properties
 
-| Property                | Attribute                 | Type                  |
-|-------------------------|---------------------------|-----------------------|
-| `scrollObserveSelector` | `scroll-observe-selector` | `string \| undefined` |
+| Property                | Attribute                 | Modifiers | Type                  |
+|-------------------------|---------------------------|-----------|-----------------------|
+| `scrollObserveSelector` | `scroll-observe-selector` | readonly  | `string \| undefined` |
 
 ## Methods
 

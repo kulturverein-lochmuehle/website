@@ -1,14 +1,9 @@
-import type { CollectionEntry } from 'astro:content';
 import * as React from 'react';
+import type { ResolvedPage } from '@/utils/page.utils.js';
 import { Section } from './section.component.jsx';
 
-export type PageProps = {
-  slug: string;
-  data: CollectionEntry<'pages'>['data'];
-};
-
-export const Page: React.FC<PageProps> = ({ data: { sections }, slug }) => {
+export const Page: React.FC<ResolvedPage> = ({ data: { sections } }) => {
   return (
-    <>{sections?.map((data, index) => <Section key={`block-${index}`} page={slug} {...data} />)}</>
+    <>{sections?.map((data, index) => <Section key={`block-${index}`} {...data} />)}</>
   );
 };

@@ -18,13 +18,13 @@ export class TimelineItem extends LitElement {
   readonly role = 'listitem';
 
   @property({ reflect: true, type: Boolean })
-  readonly trailing = false;
+  trailing = false;
 
   @property({ reflect: true, type: Boolean })
-  readonly leading = false;
+  leading = false;
 
   @property({ reflect: true, converter: DateConverter() })
-  readonly date!: Date;
+  date!: Date;
 
   @property({ reflect: true, type: String })
   readonly title!: string;

@@ -43,7 +43,7 @@ export class Layout extends LitElement {
   private readonly assignedElements!: HTMLElement[];
 
   @property({ reflect: true, attribute: 'scroll-observe-selector', type: String })
-  scrollObserveSelector?: string;
+  readonly scrollObserveSelector?: string;
 
   readonly #handleInlineLocationChanged = this.handleInlineLocationChanged.bind(this);
 

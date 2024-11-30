@@ -19,9 +19,6 @@ export class NavigationItem extends LitElement {
   readonly role = 'listitem';
 
   @property({ reflect: true, type: Boolean })
-  active = false;
-
-  @property({ reflect: true, type: Boolean })
   inline = false;
 
   @property({ reflect: true, type: String })
@@ -29,6 +26,9 @@ export class NavigationItem extends LitElement {
 
   @property({ reflect: true, type: String })
   label!: string;
+
+  @property({ reflect: true, type: Boolean })
+  active = false;
 
   override connectedCallback() {
     super.connectedCallback();
