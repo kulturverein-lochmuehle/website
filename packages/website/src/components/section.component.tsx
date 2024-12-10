@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ResolvedPage } from '@/utils/page.utils.js';
-import { Content } from './content.component.jsx';
+import { Content } from '@/components/content.component.jsx';
 
 export type SectionProps = ResolvedPage['data']['sections'][number];
 
