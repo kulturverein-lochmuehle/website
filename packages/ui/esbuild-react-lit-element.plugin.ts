@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 
 import type { Plugin } from 'esbuild';
 
-import pkg from './package.json' assert { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
 
 export type ReactCustomElementsPluginOptions = {
   fileName: string;

@@ -14,9 +14,9 @@ import postcssPresetEnv from 'postcss-preset-env';
 import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';
 import { reactLitElementPlugin } from './esbuild-react-lit-element.plugin.js';
 
-import BREAKPOINTS from './breakpoints.json' assert { type: 'json' };
-import MANIFEST from './package.json' assert { type: 'json' };
-import TSCONFIG from './tsconfig.json' assert { type: 'json' };
+import BREAKPOINTS from './breakpoints.json' with { type: 'json' };
+import MANIFEST from './package.json' with { type: 'json' };
+import TSCONFIG from './tsconfig.json' with { type: 'json' };
 
 // inject some global sass variables
 const precompile = (source: string, path: string): string => {
