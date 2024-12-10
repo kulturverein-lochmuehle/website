@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ResolvedPage } from '@/utils/page.utils.js';
-import { Chronicle } from './chronicle.component.jsx';
+import { Chronicle } from '@/components/chronicle.component.jsx';
 
 // expand type as union if other teaser types are added in the future,
 // as for now we only have chronicle teasers

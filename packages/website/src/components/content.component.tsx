@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ResolvedPage } from '@/utils/page.utils.js';
-import { Teaser } from './teaser.component.jsx';
+import { Teaser } from '@/components/teaser.component.jsx';
 
 export type ContentProps = ResolvedPage['data']['sections'][number]['contents'][number] & {};
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ResolvedPage } from '@/utils/page.utils.js';
-import { Section } from './section.component.jsx';
+import { Section } from '@/components/section.component.jsx';
 
 export const Page: React.FC<ResolvedPage> = ({ data: { sections } }) => {
   return (

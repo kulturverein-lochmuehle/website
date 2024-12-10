@@ -1,14 +1,12 @@
 ---
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 import DefaultLayout from '@/layouts/default.layout.astro';
+import { Navigation } from '@/components/navigation.component';
+import { Page } from '@/components/page.component';
 import { getCollectionParams } from '@/utils/collection.utils.js';
 import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
-
-import { Navigation } from '@/components/navigation.component.jsx';
-import { Page } from '@/components/page.component.jsx';
 import { preparePage } from '@/utils/page.utils.js';
-import { getCollection } from 'astro:content';
 
 const { slug, isAdmin } = getCollectionParams(Astro.params.path as string);
 const home = await getDefaultRoute();

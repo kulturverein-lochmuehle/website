@@ -1,11 +1,4 @@
-import type {
-  AnyEntryMap,
-  CollectionEntry,
-  ContentEntryMap,
-  getCollection,
-  getEntry,
-  ValidContentEntrySlug,
-} from 'astro:content';
+import type { AnyEntryMap, CollectionEntry } from 'astro:content';
 
 export type CollectionParams = {
   page?: string;
