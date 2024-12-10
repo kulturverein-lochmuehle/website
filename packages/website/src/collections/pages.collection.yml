@@ -79,7 +79,7 @@ section: &section
     - name: title
       label: Titel
       widget: string
-    - name: slug
+    - name: id
       label: URL-Slug
       widget: string
     - name: theme

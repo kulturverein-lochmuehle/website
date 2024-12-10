@@ -10,11 +10,11 @@ export type ResolvedPage = NonNullable<Awaited<ReturnType<typeof preparePage>>>;
 // with a given function - thus, the data resolution can be replaced, as long
 // as it returns the same shape (in our case Astro's collection definition)
 export async function preparePage(
-  slug: string,
+  id: string,
   resolvePage: ResolveSingle<'pages'>,
   resolveChronicle: ResolveMultiple<'chronicle'>,
 ) {
-  const page = await resolvePage(slug);
+  const page = await resolvePage(id);
   if (page === undefined) return;
 
   // resolve references
@@ -26,7 +26,7 @@ export async function preparePage(
         page.data.sections.map(async section => {
           return {
             ...section,
-            page: page.slug,
+            page: page.id,
             contents: await Promise.all(
               section.contents.map(async content => {
                 switch (content.type) {

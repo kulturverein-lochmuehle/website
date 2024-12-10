@@ -2,7 +2,7 @@
 title: Mitglied werden
 sections:
   - type: section
-    slug: test
+    id: mitglied-werden
     title: Mitglied werden
     theme: dark
     contents:

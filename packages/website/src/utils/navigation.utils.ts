@@ -49,7 +49,7 @@ export async function prepareItems(
             return [
               ...subs,
               {
-                ...prepareLink(`${page.slug}/${section.slug}`, current),
+                ...prepareLink(`${page.id}/${section.id}`, current),
                 label: section.title,
               },
             ];
@@ -61,7 +61,7 @@ export async function prepareItems(
       return [
         ...(await all),
         {
-          ...prepareLink(page.slug, current),
+          ...prepareLink(page.id, current),
           label: page.data.title,
         },
       ];
@@ -87,7 +87,7 @@ export async function getDefaultRoute(): Promise<string> {
   const sectioned = await getEntry('pages', page);
   if (sectioned === undefined) return page;
 
-  const slug = sectioned.data.sections[0]?.slug;
+  const slug = sectioned.data.sections[0]?.id;
   if (slug === undefined) return page;
 
   return `/${page}/${slug}`;

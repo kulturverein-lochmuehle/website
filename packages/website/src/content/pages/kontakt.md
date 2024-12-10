@@ -3,7 +3,7 @@ title: Kontakt
 sections:
   - type: section
     title: Adresse
-    slug: adresse
+    id: adresse
     theme: dark
     contents:
       - type: typo
