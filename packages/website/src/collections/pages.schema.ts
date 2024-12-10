@@ -8,7 +8,7 @@ export const schema = z.object({
         z
           .object({
             title: z.string().describe('Titel'),
-            slug: z.string().describe('URL-Slug'),
+            id: z.string().describe('URL-Slug'),
             theme: z.enum(['dark', 'light']).describe('Farbschema'),
             contents: z
               .array(

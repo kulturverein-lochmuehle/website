@@ -2,7 +2,7 @@
 title: Startseite
 sections:
   - type: section
-    slug: willkommen
+    id: willkommen
     title: Willkommen
     theme: light
     contents:
@@ -19,7 +19,7 @@ sections:
           text: Jetzt Mitglied werden und ein Stück Kulturlandschaft im Dresdner Westen
             mitprägen.
   - type: section
-    slug: mitglied-werden
+    id: mitglied-werden
     title: Mitglied werden
     theme: dark
     contents:
@@ -36,7 +36,7 @@ sections:
           text: Jetzt [Mitgliedsantrag ausfüllen](/mitgliedsantrag).
   - type: section
     title: Bisher
-    slug: bisher
+    id: bisher
     theme: dark
     contents:
       - type: teaser
