@@ -10,6 +10,7 @@
   flex-direction: column;
   container-type: inline-size;
   gap: var(---kvlm-timeline-gap);
+  margin-top: var(---kvlm-timeline-gap);
 
   @include utils.container(sm) {
     ---kvlm-timeline-item-date-font-size: #{utils.rem(7.5)};
