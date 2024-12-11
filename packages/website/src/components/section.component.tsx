@@ -7,10 +7,10 @@ export type SectionProps = ResolvedPage['data']['sections'][number];
 export const Section: React.FC<SectionProps> = props => {
   switch (props.type) {
     case 'section':
-      const { theme, page, slug, contents } = props;
+      const { theme, page, id, contents } = props;
       return (
         <kvlm-section
-          id={`/${page}/${slug}`}
+          id={`/${page}/${id}`}
           style={
             {
               '--kvlm-section-background-from': theme === 'light' ? '#75f0de' : '#525252',

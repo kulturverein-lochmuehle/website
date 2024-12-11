@@ -16,8 +16,11 @@ sections:
             gefehlt
         text:
           style: lead
-          text: Jetzt Mitglied werden und ein Stück Kulturlandschaft im Dresdner Westen
-            mitprägen.
+          text: |-
+            Jetzt Mitglied werden und ein
+
+            Stück Kulturlandschaft im Dresdner\
+            Westen mitprägen.
   - type: section
     id: mitglied-werden
     title: Mitglied werden

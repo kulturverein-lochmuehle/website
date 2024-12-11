@@ -25,14 +25,17 @@ typo: &typo
           label: Als Titel
           widget: boolean
           default: false
+          required: false
         - name: isRightAligned
           label: Rechts ausgerichtet
           widget: boolean
           default: false
+          required: false
         - name: isSticky
           label: Fixiert
           widget: boolean
           default: false
+          required: false
     - name: text
       label: Text
       widget: object

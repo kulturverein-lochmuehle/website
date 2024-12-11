@@ -39,12 +39,13 @@ export const schema = z.object({
                             .max(6)
                             .default(1)
                             .describe('Ebene'),
-                          isTitle: z.boolean().default(false).describe('Als Titel'),
+                          isTitle: z.boolean().nullish().default(false).describe('Als Titel'),
                           isRightAligned: z
                             .boolean()
+                            .nullish()
                             .default(false)
                             .describe('Rechts ausgerichtet'),
-                          isSticky: z.boolean().default(false).describe('Fixiert'),
+                          isSticky: z.boolean().nullish().default(false).describe('Fixiert'),
                         })
                         .describe('Überschrift'),
                       text: z

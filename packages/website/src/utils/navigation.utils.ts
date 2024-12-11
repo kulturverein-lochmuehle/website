@@ -49,7 +49,7 @@ export async function prepareItems(
             return [
               ...subs,
               {
-                ...prepareLink(`${page.id}/${section.id}`, current),
+                ...prepareLink(`${page.slug}/${section.id}`, current),
                 label: section.title,
               },
             ];
@@ -61,7 +61,7 @@ export async function prepareItems(
       return [
         ...(await all),
         {
-          ...prepareLink(page.id, current),
+          ...prepareLink(page.slug, current),
           label: page.data.title,
         },
       ];

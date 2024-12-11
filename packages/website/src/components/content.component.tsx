@@ -18,10 +18,14 @@ export const Content: React.FC<ContentProps> = props => {
             ]
               .filter(Boolean)
               .join(' ')}
-          >
-            {props.heading.text}
-          </Headline>
-          {props.text && <p className={props.text.style ?? ''}>{props.text.text}</p>}
+            dangerouslySetInnerHTML={{ __html: props.heading.text }}
+          />
+          {props.text && (
+            <div
+              className={props.text.style ?? ''}
+              dangerouslySetInnerHTML={{ __html: props.text.text! }}
+            />
+          )}
         </kvlm-typo>
       );
 
