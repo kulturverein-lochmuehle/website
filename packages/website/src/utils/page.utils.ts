@@ -26,15 +26,14 @@ export async function preparePage(
         page.data.sections.map(async section => {
           return {
             ...section,
-            page: page.id,
+            page: page.slug,
             contents: await Promise.all(
               section.contents.map(async content => {
                 switch (content.type) {
-                  case 'teaser': {
+                  case 'teaser':
                     return await prepareTeaser(content, resolveChronicle);
-                  }
-                  default:
-                    return content;
+                  case 'typo':
+                    return await prepareContent(content);
                 }
               }),
             ),
@@ -43,6 +42,31 @@ export async function preparePage(
       ),
     },
   };
+}
+
+export async function prepareText(md: string, preferInline = true): Promise<string> {
+  const text = preferInline ? markdown.inline(md) : markdown(md);
+  return (await text).replaceAll('\n', '<br>');
+}
+
+export async function prepareContent(
+  content: Extract<
+    CollectionEntry<'pages'>['data']['sections'][number]['contents'][number],
+    { type: 'typo' }
+  >,
+) {
+  const result = {
+    ...content,
+    heading: {
+      ...content.heading,
+      text: await prepareText(content.heading.text),
+    },
+    text: { ...content.text },
+  };
+  if (content.text) {
+    result.text.text = await prepareText(content.text.text ?? '', false);
+  }
+  return result;
 }
 
 // enriches the teaser data with the resolved items from configured relation
@@ -81,7 +105,7 @@ export async function prepareTeaser(
   const items = await Promise.all(
     entries.map(async entry => ({
       ...entry,
-      teaser: await markdown(entry.data.teaser),
+      teaser: await prepareText(entry.data.teaser),
     })),
   );
 
