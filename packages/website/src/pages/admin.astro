@@ -48,101 +48,129 @@ export const prerender = true;
     import type { CollectionEntry } from 'astro:content';
     import CMS from 'decap-cms-app';
     import { createElement as h, useEffect, useState } from 'react';
-    import { config } from '../../decap.config.js';
     import { CmsPreview } from '@/components/cms-preview.component.jsx';
     import { Navigation } from '@/components/navigation.component.jsx';
     import { Page } from '@/components/page.component.jsx';
     import { prepareItems, type NavigationItem } from '@/utils/navigation.utils.js';
+    import { preparePage } from '../utils/page.utils';
 
-    // reduce the noise in the console
-    // https://github.com/facebook/react/issues/5632
-    const { error } = console;
-    console.error = (s, ...args) => {
-      if (typeof s === 'string' && s.startsWith('Warning: ')) {
-        return console.warn(s, ...args);
-      }
-      return error(s, ...args);
-    };
+    (async () => {
+      // reduce the noise in the console
+      // https://github.com/facebook/react/issues/5632
+      const { error } = console;
+      console.error = (s, ...args) => {
+        if (typeof s === 'string' && s.startsWith('Warning: ')) {
+          return console.warn(s, ...args);
+        }
+        return error(s, ...args);
+      };
 
-    // load ui components from dev server in development
-    const uiRoot = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
-    const uiData = await fetch(`${uiRoot}/index.js`).then(res => res.text());
-    const uiSrc = URL.createObjectURL(new Blob([uiData], { type: 'text/javascript' }));
+      // load ui components from dev server in development
+      const uiRoot = import.meta.env.MODE === 'development' ? 'http://localhost:3500' : '/ui';
+      const uiData = await fetch(`${uiRoot}/index.js`).then(res => res.text());
+      const uiSrc = URL.createObjectURL(new Blob([uiData], { type: 'text/javascript' }));
 
-    // initialize the CMS
-    CMS.init({ config });
+      // initialize the CMS
+      const { config } = await import('../../decap.config.js');
+      CMS.init({ config });
 
-    // add preview styles
-    CMS.registerPreviewStyle(`${uiRoot}/fonts.css`);
-    CMS.registerPreviewStyle(`${uiRoot}/globals.css`);
+      // add preview styles
+      CMS.registerPreviewStyle(`${uiRoot}/fonts.css`);
+      CMS.registerPreviewStyle(`${uiRoot}/globals.css`);
 
-    // inline some adhoc styles
-    const styles = `
-      body {
-        margin: 0;
-        font-family: var(--kvlm-font-family-body);
-        background: repeating-conic-gradient(#dfdfe3 0% 25%, transparent 0% 50%) 50%;
-        background-position: 0 0;
-        background-size: 20px 20px;
-      }
-    `;
-    CMS.registerPreviewStyle(styles, { raw: true });
+      // inline some adhoc styles
+      const styles = `
+        body {
+          margin: 0;
+          font-family: var(--kvlm-font-family-body);
+          background: repeating-conic-gradient(#dfdfe3 0% 25%, transparent 0% 50%) 50%;
+          background-position: 0 0;
+          background-size: 20px 20px;
+        }
+      `;
+      CMS.registerPreviewStyle(styles, { raw: true });
 
-    // register our previews, wrapped in a mapping convenience component
-    CMS.registerPreviewTemplate('main', ({ entry, getCollection }) => {
-      const [items, setItems] = useState([] as NavigationItem[]);
+      // register our previews, wrapped in a mapping convenience component
+      CMS.registerPreviewTemplate('main', ({ entry, getCollection }) => {
+        const [items, setItems] = useState([] as NavigationItem[]);
 
-      useEffect(() => {
-        const { data } = entry.toJS() as CollectionEntry<'navigation'>;
-        prepareItems(data.pages, async slug => {
-          const collection = await getCollection('pages', slug);
-          return { slug, data: (collection as any).first() } as CollectionEntry<'pages'>;
-        }).then(setItems);
-      }, [entry]);
+        useEffect(() => {
+          const { data } = entry.toJS() as CollectionEntry<'navigation'>;
+          prepareItems(data.pages, async slug => {
+            const collection = await getCollection('pages', slug);
+            return { slug, data: (collection as any).first() } as CollectionEntry<'pages'>;
+          }).then(setItems);
+        }, [entry]);
 
-      return h(
-        CmsPreview,
-        { uiSrc },
-        h('kvlm-layout', null, h(Navigation, { items, slot: 'header' })),
-      );
-    });
+        return h(
+          CmsPreview,
+          { uiSrc },
+          h('kvlm-layout', null, h(Navigation, { items, slot: 'header' })),
+        );
+      });
 
-    CMS.registerPreviewTemplate('pages', ({ entry }) => {
-      const { data, slug } = entry.toJS() as CollectionEntry<'pages'>;
-      return h(
-        CmsPreview,
-        { uiSrc },
-        h('kvlm-layout', null, [
-          h('div', { style: { height: 'var(---kvlm-layout-header-offset)' } }),
-          h(Page, { data, slug }),
-        ]),
-      );
-    });
+      CMS.registerPreviewTemplate('pages', ({ entry, getCollection }) => {
+        const [data, setData] = useState({} as CollectionEntry<'pages'>);
+        const [slug, setSlug] = useState<string | undefined>();
 
-    // TODO preview detail page, not the teaser
-    CMS.registerPreviewTemplate('chronicle', ({ entry }) => {
-      const { data } = entry.toJS() as CollectionEntry<'chronicle'>;
-      const { date, title, teaser } = data;
-      return h(
-        CmsPreview,
-        { uiSrc },
-        h(
-          'kvlm-section',
-          {
-            style: {
-              '--kvlm-section-background-from': '#75f0de',
-              '--kvlm-section-background-to': '#6fbad9',
-              '--kvlm-section-color': 'var(--kvlm-color-grey-dark)',
-              'padding-top': '85px',
+        useEffect(() => {
+          const { slug } = entry.toJS() as CollectionEntry<'pages'>;
+          setSlug(slug);
+          preparePage(
+            slug,
+            async slug => {
+              const collection = (await getCollection('pages', slug)) as any;
+              const data = collection.first();
+              return { slug, data } as CollectionEntry<'pages'>;
             },
-          },
+            async filter => {
+              const collection = await getCollection('chronicle');
+              return collection
+                .map(raw => {
+                  const entry = raw.toJS();
+                  entry.data.date = new Date(entry.data.date);
+                  return entry;
+                })
+                .filter(filter as any);
+            },
+          ).then(({ data }) => setData(data));
+        }, [entry]);
+        // const { data, slug } = entry.toJS() as CollectionEntry<'pages'>;
+
+        return h(
+          CmsPreview,
+          { uiSrc },
+          h('kvlm-layout', null, [
+            h('div', { style: { height: 'var(---kvlm-layout-header-offset)' } }),
+            h(Page, { data, slug }),
+          ]),
+        );
+      });
+
+      // TODO preview detail page, not the teaser
+      CMS.registerPreviewTemplate('chronicle', ({ entry }) => {
+        const { data } = entry.toJS() as CollectionEntry<'chronicle'>;
+        const { date, title, teaser } = data;
+        return h(
+          CmsPreview,
+          { uiSrc },
           h(
-            'kvlm-timeline',
-            null,
-            h('kvlm-timeline-item', { date, title, leading: true, trailing: true }, teaser),
+            'kvlm-section',
+            {
+              style: {
+                '--kvlm-section-background-from': '#75f0de',
+                '--kvlm-section-background-to': '#6fbad9',
+                '--kvlm-section-color': 'var(--kvlm-color-grey-dark)',
+              },
+            },
+            h(
+              'kvlm-timeline',
+              null,
+              h('kvlm-timeline-item', { date, title, leading: true, trailing: true }, teaser),
+            ),
           ),
-        ),
-      );
-    });
+        );
+      });
+    })();
   </script>
 </BaseLayout>
