@@ -1,9 +1,7 @@
 import { defineConfig } from 'astro/config';
-
 import mdx from '@astrojs/mdx';
 import netlify from '@astrojs/netlify';
 import react from '@astrojs/react';
-
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 import { clientSlot } from './src/integrations/client-slot.integration.js';

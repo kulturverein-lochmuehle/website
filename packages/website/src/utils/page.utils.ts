@@ -1,4 +1,3 @@
-import { markdown } from '@astropub/md';
 import type { CollectionEntry } from 'astro:content';
 import type { ResolveMultiple, ResolveSingle } from './collection.utils.js';
 
@@ -45,7 +44,9 @@ export async function preparePage(
 }
 
 export async function prepareText(md: string, preferInline = true): Promise<string> {
-  const text = preferInline ? markdown.inline(md) : markdown(md);
+  // const { markdown } = await import('@astropub/md');
+  // const text = preferInline ? markdown.inline(md) : markdown(md);
+  const text = preferInline ? md : md;
   return (await text).replaceAll('\n', '<br>');
 }
 

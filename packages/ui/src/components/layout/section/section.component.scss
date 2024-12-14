@@ -18,14 +18,14 @@
 
 [role='figure'] {
   position: sticky;
-  top: var(---kvlm-layout-header-offset);
+  top: var(---kvlm-layout-header-offset, 0px);
   z-index: 0;
 
   &::before {
     content: '';
     position: absolute;
     inset: 0 0 auto;
-    height: calc(100svh - var(---kvlm-layout-header-offset));
+    height: calc(100svh - var(---kvlm-layout-header-offset, 0px));
     width: 100svw;
 
     background: linear-gradient(
@@ -33,7 +33,7 @@
       var(---kvlm-section-background-from) 0svh,
       var(---kvlm-section-background-to) 100svh
     );
-    background-position: center calc(var(---kvlm-layout-header-offset) * -1);
+    background-position: center calc(var(---kvlm-layout-header-offset, 0px) * -1);
     background-size: 100svw 100svh;
     background-repeat: no-repeat;
   }
@@ -52,7 +52,7 @@ kvlm-brook {
 
 section {
   position: relative;
-  min-height: calc(100svh - var(---kvlm-layout-header-offset));
+  min-height: calc(100svh - var(---kvlm-layout-header-offset, 0px));
   box-sizing: border-box;
 
   @include utils.wrapper($padding: utils.size(4));
