@@ -1,3 +1,4 @@
+import { marked } from 'marked';
 import type { CollectionEntry } from 'astro:content';
 import type { ResolveMultiple, ResolveSingle } from './collection.utils.js';
 
@@ -43,11 +44,8 @@ export async function preparePage(
   };
 }
 
-export async function prepareText(md: string, preferInline = true): Promise<string> {
-  // const { markdown } = await import('@astropub/md');
-  // const text = preferInline ? markdown.inline(md) : markdown(md);
-  const text = preferInline ? md : md;
-  return (await text).replaceAll('\n', '<br>');
+export async function prepareText(md: string): Promise<string> {
+  return marked(md, { breaks: true });
 }
 
 export async function prepareContent(
@@ -65,7 +63,7 @@ export async function prepareContent(
     text: { ...content.text },
   };
   if (content.text) {
-    result.text.text = await prepareText(content.text.text ?? '', false);
+    result.text.text = await prepareText(content.text.text ?? '');
   }
   return result;
 }

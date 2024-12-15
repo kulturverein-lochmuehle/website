@@ -207,6 +207,9 @@ importers:
       decap-cms-widget-list:
         specifier: 3.2.2
         version: 3.2.2(u7g5p2n3jfrxoj4k5vd7aylkye)
+      marked:
+        specifier: 15.0.3
+        version: 15.0.3
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -4821,6 +4824,11 @@ packages:
 
   marked@12.0.1:
     resolution: {integrity: sha512-Y1/V2yafOcOdWQCX0XpAKXzDakPOpn6U0YLxTJs3cww6VxOzZV1BTOOYWLvH3gX38cq+iLwljHHTnMtlDfg01Q==}
+    engines: {node: '>= 18'}
+    hasBin: true
+
+  marked@15.0.3:
+    resolution: {integrity: sha512-Ai0cepvl2NHnTcO9jYDtcOEtVBNVYR31XnEA3BndO7f5As1wzpcOceSUM8FDkNLJNIODcLpDTWay/qQhqbuMvg==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -13206,6 +13214,8 @@ snapshots:
       marked: 12.0.1
 
   marked@12.0.1: {}
+
+  marked@15.0.3: {}
 
   marky@1.2.5: {}
 

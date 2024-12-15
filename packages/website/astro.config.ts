@@ -25,7 +25,9 @@ export default defineConfig({
         ],
       }),
     ],
+    // resolve aliases
     resolve: { alias: { '@': new URL('./src', import.meta.url).pathname } },
+    // proxy dev server
     server: {
       proxy:
         import.meta.env.MODE === 'development'
