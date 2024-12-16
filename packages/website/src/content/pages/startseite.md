@@ -6,21 +6,9 @@ sections:
     title: Willkommen
     theme: light
     contents:
-      - type: typo
-        heading:
-          level: 1
-          isTitle: true
-          text: |-
-            Du hast uns
-            gerade noch
-            gefehlt
-        text:
-          style: lead
-          text: |-
-            Jetzt Mitglied werden und ein
-
-            Stück Kulturlandschaft im Dresdner\
-            Westen mitprägen.
+      - type: teaser
+        scope: chronicle:upcoming
+        title: Und nun?
   - type: section
     id: mitglied-werden
     title: Mitglied werden
@@ -32,11 +20,13 @@ sections:
           level: 1
           isTitle: true
           text: |-
-            Unterschreiben, mitwirken
-            und unterstützen
+            Du hast uns
+            gerade noch
+            gefehlt
         text:
           style: lead
-          text: Jetzt [Mitgliedsantrag ausfüllen](/mitgliedsantrag).
+          text: Jetzt [Mitgliedsantrag ausfüllen](/mitgliedsantrag) und ein Stück
+            Kulturlandschaft im Dresdner Westen mitprägen.
   - type: section
     title: Bisher
     id: bisher
