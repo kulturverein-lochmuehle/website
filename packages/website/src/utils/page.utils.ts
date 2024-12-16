@@ -94,7 +94,7 @@ export async function prepareTeaser(
 
     case 'chronicle:next':
       const [next] = await resolve(({ data }) => data.date > Date.now());
-      entries = [next];
+      entries = next !== undefined ? [next] : [];
       break;
 
     default:
@@ -104,7 +104,7 @@ export async function prepareTeaser(
   const items = await Promise.all(
     entries.map(async entry => ({
       ...entry,
-      teaser: await prepareText(entry.data.teaser),
+      teaser: await prepareText(entry?.data?.teaser),
     })),
   );
 
