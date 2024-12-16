@@ -6,12 +6,12 @@ export type ChronicleProps = Extract<
   { type: 'teaser' }
 >;
 
-export const Chronicle: React.FC<ChronicleProps> = ({ items, title }) => (
+export const Chronicle: React.FC<ChronicleProps> = ({ items, title, scope }) => (
   <>
     <kvlm-typo>
       <h2 className="title right-aligned sticky">{title}</h2>
     </kvlm-typo>
-    <kvlm-timeline>
+    <kvlm-timeline direction={scope === 'chronicle:upcoming' ? 'forward' : 'backward'}>
       {items.map(({ data, teaser }, index) => (
         <kvlm-timeline-item
           key={index}

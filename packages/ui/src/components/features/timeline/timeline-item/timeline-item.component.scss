@@ -46,12 +46,10 @@ time {
   border-radius: 50%;
 }
 
-:host(:not([trailing]))::after {
+:host(:not([trailing]))::after,
+:host([trailing][data-forward])::after {
   position: absolute;
   top: calc(max(calc(var(---kvlm-timeline-item-date-size) / 2), 8px) + 26px / 2 + 8px);
-  bottom: calc(
-    var(---kvlm-timeline-gap) * -1 - (var(---kvlm-timeline-item-date-size) - 26px) / 2 + 8px
-  );
   left: calc((26px - 8px) / 2);
 
   content: '';
@@ -59,4 +57,14 @@ time {
   width: 8px;
 
   background-color: currentcolor;
+}
+
+:host(:not([trailing]))::after {
+  bottom: calc(
+    var(---kvlm-timeline-gap) * -1 - (var(---kvlm-timeline-item-date-size) - 26px) / 2 + 8px
+  );
+}
+
+:host([trailing][data-forward])::after {
+  bottom: 8px;
 }
