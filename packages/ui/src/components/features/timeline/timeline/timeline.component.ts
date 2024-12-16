@@ -1,5 +1,5 @@
 import { html, LitElement, unsafeCSS } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 
 import styles from './timeline.component.scss';
 
@@ -10,11 +10,24 @@ import styles from './timeline.component.scss';
 export class Timeline extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
+  @queryAssignedElements({ selector: 'kvlm-timeline-item' })
+  private readonly items!: HTMLElement[];
+
   @property({ type: String, reflect: true })
   readonly role = 'list';
 
+  @property({ type: String, reflect: true })
+  direction: 'forward' | 'backward' = 'backward';
+
+  @eventOptions({ passive: true })
+  private handleSlotChange() {
+    this.items.forEach(item => {
+      item.dataset[this.direction] = '';
+    });
+  }
+
   render() {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange="${this.handleSlotChange}"></slot>`;
   }
 }
 

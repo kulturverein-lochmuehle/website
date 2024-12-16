@@ -10,25 +10,47 @@
   flex-direction: column;
   container-type: inline-size;
   gap: var(---kvlm-timeline-gap);
-  margin-top: var(---kvlm-timeline-gap);
 
   @include utils.container(sm) {
     ---kvlm-timeline-item-date-font-size: #{utils.rem(7.5)};
     ---kvlm-timeline-gap: #{utils.size(13)};
   }
+}
+
+:host([direction='forward'])::after,
+:host([direction='backward'])::before {
+  position: absolute;
+  left: calc((26px - 8px) / 2);
+  height: utils.size(12.5);
+
+  content: '';
+  display: block;
+  width: 8px;
+}
+
+:host([direction='backward']) {
+  margin-top: var(---kvlm-timeline-gap);
 
   &::before {
-    position: absolute;
-    left: calc((26px - 8px) / 2);
     bottom: calc(100% - max(calc(var(---kvlm-timeline-item-date-size) / 2), 8px) + 26px / 2 + 8px);
-    height: utils.size(12.5);
-
-    content: '';
-    display: block;
-    width: 8px;
 
     background: linear-gradient(
       to top,
+      currentcolor,
+      color-mix(in srgb, currentcolor, transparent 100%)
+    );
+  }
+}
+
+:host([direction='forward']) {
+  margin-bottom: var(---kvlm-timeline-gap);
+  margin-top: calc(var(---kvlm-timeline-gap) / 2);
+
+  &::after {
+    top: calc(100% - 8px);
+
+    background: linear-gradient(
+      to bottom,
       currentcolor,
       color-mix(in srgb, currentcolor, transparent 100%)
     );
