@@ -10,17 +10,13 @@ sections:
         heading:
           level: 1
           isTitle: true
-          text: |-
-            Du hast uns
-            gerade noch
-            gefehlt
+          text: Und nun?
         text:
           style: lead
-          text: |-
-            Jetzt Mitglied werden und ein
-
-            Stück Kulturlandschaft im Dresdner\
-            Westen mitprägen.
+          text: ""
+      - type: teaser
+        scope: chronicle:next
+        title: Und nun?
   - type: section
     id: mitglied-werden
     title: Mitglied werden
@@ -37,7 +33,8 @@ sections:
             gefehlt
         text:
           style: lead
-          text: Jetzt [Mitgliedsantrag ausfüllen](/mitgliedsantrag).
+          text: Jetzt [Mitgliedsantrag ausfüllen](/mitgliedsantrag) und ein Stück
+            Kulturlandschaft im Dresdner Westen mitprägen.
   - type: section
     title: Bisher
     id: bisher
