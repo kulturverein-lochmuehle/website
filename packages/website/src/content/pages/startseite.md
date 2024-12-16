@@ -6,14 +6,6 @@ sections:
     title: Willkommen
     theme: light
     contents:
-      - type: typo
-        heading:
-          level: 1
-          isTitle: true
-          text: Und nun?
-        text:
-          style: lead
-          text: ""
       - type: teaser
         scope: chronicle:next
         title: Und nun?
