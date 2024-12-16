@@ -32,8 +32,9 @@ sections:
           level: 1
           isTitle: true
           text: |-
-            Unterschreiben, mitwirken
-            und unterstützen
+            Du hast uns
+            gerade noch
+            gefehlt
         text:
           style: lead
           text: Jetzt [Mitgliedsantrag ausfüllen](/mitgliedsantrag).
