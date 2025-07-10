@@ -1,4 +1,3 @@
-/* eslint-disable import/no-nodejs-modules */
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -6,10 +5,10 @@ import type { Plugin } from 'esbuild';
 
 import pkg from './package.json' with { type: 'json' };
 
-export type ReactCustomElementsPluginOptions = {
+export interface ReactCustomElementsPluginOptions {
   fileName: string;
   importModule: string;
-};
+}
 
 const pluginName = 'esbuild-plugin-react-lit-element';
 const pattern = /@customElement\(['"](.+)['"]\)[\n\s\S]*class\s+(\w+)\s+extends\s+LitElement/m;

@@ -1,20 +1,20 @@
-/* eslint-disable import/no-nodejs-modules */
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 
 import autoprefixer from 'autoprefixer';
-import { build, type BuildOptions, context } from 'esbuild';
+import type { BuildOptions } from 'esbuild';
+import { build, context } from 'esbuild';
 import copyStaticFiles from 'esbuild-copy-static-files';
 import { dtsPlugin } from 'esbuild-plugin-d.ts';
-import { sassPlugin, type SassPluginOptions } from 'esbuild-sass-plugin';
+import type { SassPluginOptions } from 'esbuild-sass-plugin';
+import { sassPlugin } from 'esbuild-sass-plugin';
 import postcss from 'postcss';
 // @ts-expect-error -- types are present, but not working
 import postcssPresetEnv from 'postcss-preset-env';
 
+import BREAKPOINTS from './breakpoints.json' with { type: 'json' };
 import { barrelsbyPlugin } from './esbuild-barrelsby.plugin.js';
 import { reactLitElementPlugin } from './esbuild-react-lit-element.plugin.js';
-
-import BREAKPOINTS from './breakpoints.json' with { type: 'json' };
 import MANIFEST from './package.json' with { type: 'json' };
 import TSCONFIG from './tsconfig.json' with { type: 'json' };
 

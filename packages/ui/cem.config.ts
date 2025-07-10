@@ -1,5 +1,4 @@
 #!/usr/bin/env ts-node
-/* eslint-disable import/no-nodejs-modules */
 
 import { dirname, resolve } from 'node:path';
 

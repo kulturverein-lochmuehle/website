@@ -7,12 +7,8 @@ import {
   queryAssignedElements,
 } from 'lit/decorators.js';
 
-import {
-  changeLocationInline,
-  type InlineLocationChangedEvent,
-  RoutingEvent,
-} from '../../../utils/event.utils';
-
+import type { InlineLocationChangedEvent } from '../../../utils/event.utils.js';
+import { changeLocationInline, RoutingEvent } from '../../../utils/event.utils.js';
 import styles from './layout.component.scss';
 
 /**

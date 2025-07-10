@@ -1,4 +1,7 @@
-export type InlineLocationChangedEventDetail = { href: string; scroll: boolean };
+export interface InlineLocationChangedEventDetail {
+  href: string;
+  scroll: boolean;
+}
 export type InlineLocationChangedEvent = CustomEvent<InlineLocationChangedEventDetail>;
 
 declare global {

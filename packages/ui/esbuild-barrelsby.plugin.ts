@@ -1,5 +1,3 @@
-/* eslint-disable import/no-nodejs-modules */
-
 import { exec } from 'node:child_process';
 import { existsSync, watchFile } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
@@ -9,7 +7,7 @@ import { promisify } from 'node:util';
 
 import type { OnResolveResult, Plugin } from 'esbuild';
 
-export type BarrelsbyPluginOptions = {
+export interface BarrelsbyPluginOptions {
   /**
    * Path to barrelsby config file
    */
@@ -19,7 +17,7 @@ export type BarrelsbyPluginOptions = {
    * Optionally add `*.js` extensions to generated barrels if missing
    */
   addMissingJsExtensions?: boolean;
-};
+}
 
 export function barrelsbyPlugin({
   configPath,

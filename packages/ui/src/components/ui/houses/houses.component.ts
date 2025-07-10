@@ -1,9 +1,8 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import placeholder from './placeholder.png';
-
 import styles from './houses.component.scss';
+import placeholder from './placeholder.png';
 
 @customElement('kvlm-houses')
 export class Houses extends LitElement {
