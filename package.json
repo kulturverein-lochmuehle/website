@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "preinstall": "npx -y only-allow pnpm",
     "dev": "pnpm -r --parallel dev"
   },
   "devDependencies": {
