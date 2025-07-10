@@ -137,14 +137,7 @@ export const prerender = true;
         }, [entry]);
         // const { data, slug } = entry.toJS() as CollectionEntry<'pages'>;
 
-        return h(
-          CmsPreview,
-          { uiSrc },
-          h('kvlm-layout', null, [
-            h('div', { style: { height: 'var(---kvlm-layout-header-offset)' } }),
-            h(Page, { data, slug }),
-          ]),
-        );
+        return h(CmsPreview, { uiSrc }, h('kvlm-layout', null, h(Page, { data, slug })));
       });
 
       // TODO preview detail page, not the teaser
