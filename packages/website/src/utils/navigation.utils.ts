@@ -36,7 +36,7 @@ export async function prepareItems(
       if (!item) return all;
 
       // lazy load the page
-      const page = await resolve(item.page);
+      const page = await resolve(item.page.id);
       if (!page) return all;
 
       // do not use the page itself but its sections
@@ -80,15 +80,15 @@ export async function prepareNavigation(
 }
 
 export async function getDefaultRoute(): Promise<string> {
-  const { data } = await getEntry('navigation', 'main');
+  const { data } = await getEntry('navigation', 'main')!;
   const [{ page, useSections }] = data.pages;
-  if (!useSections) return page;
+  if (!useSections) return page.id;
 
-  const sectioned = await getEntry('pages', page);
-  if (sectioned === undefined) return page;
+  const sectioned = await getEntry('pages', page.id);
+  if (sectioned === undefined) return page.id;
 
   const slug = sectioned.data.sections[0]?.id;
-  if (slug === undefined) return page;
+  if (slug === undefined) return page.id;
 
-  return `/${page}/${slug}`;
+  return `/${page.id}/${slug}`;
 }
