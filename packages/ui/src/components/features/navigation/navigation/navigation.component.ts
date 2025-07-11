@@ -6,8 +6,8 @@ import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { changeLocationInline } from '@/utils/event.utils.js';
 import { injectGlobalStyle } from '@/utils/style.utils.js';
 
-import styles from './navigation.component.scss';
-import globalStyles from './navigation.global.scss';
+import styles from './navigation.component.scss?inline';
+import globalStyles from './navigation.global.scss?inline';
 
 /**
  * @slot - Receives the navigation items.

@@ -1,14 +1,15 @@
-import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
-import { esbuildPlugin } from '@web/dev-server-esbuild';
+import { vitePlugin } from '@remcovaes/web-test-runner-vite-plugin';
 import type { TestRunnerConfig } from '@web/test-runner';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+
+import viteConfig from './vite.config.js';
+
+// we just pick the necessary parts from the vite config to make the test runner work
+const { resolve } = viteConfig;
 
 export default {
   browsers: [playwrightLauncher({ product: 'chromium' })],
   files: ['./src/**/*.spec.ts'],
-  nodeResolve: true,
-  plugins: [esbuildPlugin({ ts: true }), litSsrPlugin()],
-  preserveSymlinks: true,
-  staticLogging: true,
-  testFramework: { config: { timeout: 60000 } },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  plugins: [vitePlugin({ resolve }) as any],
 } satisfies TestRunnerConfig;

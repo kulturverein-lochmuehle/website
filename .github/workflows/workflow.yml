@@ -45,7 +45,7 @@ jobs:
         run: pnpm dlx playwright@$PW_VERSION install chromium --only-shell
 
       - name: Lint
-        run: pnpm -r --parallel lint
+        run: pnpm -r --parallel lint -f ./node_modules/eslint-junit/index.js
       - name: Test
         run: pnpm -r test -- --ci --reporters=default --reporters=jest-junit
       - name: Report

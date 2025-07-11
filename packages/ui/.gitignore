@@ -11,9 +11,9 @@
 .DS_Store
 
 # generated files
+/public/custom-elements.json
 /dist
-/src/custom-elements.json
-/src/index.ts
+/src/styles/variables/breakpoint.variables.scss
 /reports
 
 # ignore compressed dist files

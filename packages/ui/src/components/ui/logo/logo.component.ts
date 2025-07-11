@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './logo.component.scss';
+import styles from './logo.component.scss?inline';
 
 /**
  * @cssprop --kvlm-logo-brook-color - Color of the brook

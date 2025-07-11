@@ -4,7 +4,7 @@ import type { Linter } from 'eslint';
 export default [
   ...config,
   {
-    ignores: ['src/index.ts', 'src(custom-elements.json'],
+    ignores: ['public', 'src/esbuild.config.ts'],
   },
   {
     files: ['**/*.spec.ts'],

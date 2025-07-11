@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './brook.component.scss';
+import styles from './brook.component.scss?inline';
 
 /**
  * Graphic of a brook used as visual signature.

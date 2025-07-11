@@ -1,12 +1,9 @@
-declare interface Window {
-  kvlm: {
-    breakpoints: Record<string, number>;
-    version: string;
-  };
-}
+/// <reference types="vite/client" />
 
-declare module 'eslint-plugin-import' {
-  export default { flatConfigs: { recommended: any, typescript: any } };
+declare module '@remcovaes/web-test-runner-vite-plugin' {
+  import type { TestRunnerCoreConfig, TestRunnerPlugin } from '@web/test-runner-core';
+  import type { UserConfig } from 'vite';
+
+  export function vitePlugin(config?: UserConfig): TestRunnerPlugin;
+  export const removeViteLogging: TestRunnerCoreConfig['filterBrowserLogs'];
 }
-declare module 'eslint-plugin-lit-a11y' {}
-declare module 'eslint-plugin-file-extension-in-import-ts' {}
