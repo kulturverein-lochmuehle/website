@@ -1,0 +1,107 @@
+name: Workflow
+on:
+  push:
+    branches:
+      - main
+      - next
+  pull_request:
+    branches:
+      - main
+      - next
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Determine Playwright version
+        # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions?tool=bash#setting-an-output-parameter
+        id: playwright
+        run: echo "version=$(pnpm why playwright --json --filter @kvlm/ui | jq -r '.[0].devDependencies."@web/test-runner-playwright".dependencies.playwright.version')" >> "$GITHUB_OUTPUT"
+      - name: Install Playwright browsers
+        env:
+          PW_VERSION: ${{ steps.playwright.outputs.version }}
+        run: pnpm dlx playwright@$PW_VERSION install chromium --only-shell
+
+      - name: Lint
+        run: pnpm -r --parallel lint
+      - name: Test
+        run: pnpm -r test -- --ci --reporters=default --reporters=jest-junit
+      - name: Report
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure()
+        with:
+          check_name: Report
+          include_passed: true
+          report_paths: junit.xml
+
+  build:
+    needs: test
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm -r --parallel lint
+
+      - name: Build
+        run: pnpm -r --filter @kvlm/ui... build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: next
+          path: packages/ui/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: next
+          path: packages/ui/dist
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: packages/ui/dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - run: echo "Deployed component preview :tada:" >> $GITHUB_STEP_SUMMARY
