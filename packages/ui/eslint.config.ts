@@ -10,6 +10,7 @@ export default [
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unused-expressions': ['off'],
+      'import/no-unresolved': ['off'],
     },
   },
 ] satisfies Linter.Config[];
