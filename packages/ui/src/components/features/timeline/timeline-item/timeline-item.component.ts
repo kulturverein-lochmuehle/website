@@ -1,8 +1,8 @@
+import { DateIsoConverter } from '@enke.dev/lit-utils/lib/converters/date-iso.converter.js';
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-import { DateConverter } from '@/utils/converter.utils.js';
 import { formatDate } from '@/utils/format.utils.js';
 
 import styles from './timeline-item.component.scss?inline';
@@ -23,7 +23,7 @@ export class TimelineItem extends LitElement {
   @property({ reflect: true, type: Boolean })
   leading = false;
 
-  @property({ reflect: true, converter: DateConverter() })
+  @property({ reflect: true, converter: DateIsoConverter(true) })
   date!: Date;
 
   @property({ reflect: true, type: String })
