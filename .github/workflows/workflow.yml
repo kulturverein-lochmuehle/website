@@ -23,6 +23,9 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      ESLINT_JUNIT_OUTPUT_FILE: reports/lint.junit.xml
+      JEST_JUNIT_OUTPUT_FILE: reports/test.junit.xml
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,16 +48,16 @@ jobs:
         run: pnpm dlx playwright@$PW_VERSION install chromium --only-shell
 
       - name: Lint
-        run: pnpm -r --parallel lint -f ./node_modules/eslint-junit/index.js
+        run: pnpm -r --parallel lint --format junit --output-file ${ESLINT_JUNIT_OUTPUT_FILE}
       - name: Test
-        run: pnpm -r test -- --ci --reporters=default --reporters=jest-junit
+        run: pnpm -r test --ci --reporters=default --reporters=jest-junit
       - name: Report
         uses: mikepenz/action-junit-report@v4
         if: success() || failure()
         with:
           check_name: Report
           include_passed: true
-          report_paths: junit.xml
+          report_paths: reports/*.junit.xml
 
   build:
     needs: test
