@@ -52,7 +52,6 @@ export default defineConfig({
         },
       ],
     }),
-    // @ts-expect-error -- types are incorrect
     banner(`// prepare global namespace
 if (!window.kvlm) window.kvlm = {};
 
@@ -65,7 +64,7 @@ if (window.kvlm.version !== undefined && window.kvlm.version !== '${MANIFEST.ver
 
 // set breakpoints globally
 ${jsBreakpoints}
-`),
+`) as never,
   ],
   server: {
     proxy: {
