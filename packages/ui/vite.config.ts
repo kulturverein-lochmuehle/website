@@ -15,9 +15,7 @@ import MANIFEST from './package.json' with { type: 'json' };
 const sassBreakpoints = `$breakpoints: (
 ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${value}px,\n`, '')});
 `;
-const jsBreakpoints = `window.kvlm.breakpoints = {
-${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}  ${key}: ${value},\n`, '')}};
-`;
+const jsBreakpoints = `window.kvlm.breakpoints = { ${Object.entries(BREAKPOINTS).reduce((acc, [key, value]) => `${acc}${key}: ${value}, `, '')}};`;
 
 await writeFile(
   './src/styles/variables/breakpoint.variables.scss',
@@ -52,18 +50,25 @@ export default defineConfig({
         },
       ],
     }),
-    banner(`// prepare global namespace
+    banner(`/*
+ * START GENERIC KVLM BANNER
+ */
+// prepare global namespace
 if (!window.kvlm) window.kvlm = {};
+if (!window.kvlm.ui) window.kvlm.ui = {};
 
 // set kvlm version globally
-if (window.kvlm.version !== undefined && window.kvlm.version !== '${MANIFEST.version}') {
-  console.warn('[kvlm] ${
+if (window.kvlm.ui.version !== undefined && window.kvlm.ui.version !== '${MANIFEST.version}') {
+  console.warn(\`[kvlm] ${
     MANIFEST.version
-  }: Another version (' + window.kvlm.version + ') has already been loaded.');
-} else window.kvlm.version = '${MANIFEST.version}';
+  }: Another version (\${window.kvlm.ui.version}) has already been loaded.\`);
+} else window.kvlm.ui.version = '${MANIFEST.version}';
 
 // set breakpoints globally
 ${jsBreakpoints}
+/*
+ * END GENERIC KVLM BANNER
+ */
 `) as never,
   ],
   server: {
