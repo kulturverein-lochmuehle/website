@@ -1,0 +1,42 @@
+{
+  "name": "@kvlm/website",
+  "description": "Website kvlm.de",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "David Enke",
+    "email": "david@kvlm.de"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "lit": "3.3.1",
+    "lodash-es": "4.17.21",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.3.5",
+    "urlpattern-polyfill": "10.1.0"
+  },
+  "devDependencies": {
+    "@enke.dev/lint": "0.6.4",
+    "@eslint/eslintrc": "3.3.1",
+    "@lit-labs/nextjs": "0.2.4",
+    "@types/node": "22.16.3",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "eslint": "9.31.0",
+    "eslint-config-next": "15.3.5",
+    "jiti": "2.4.2",
+    "prettier": "3.6.2",
+    "typescript": "5.8.3"
+  }
+}
