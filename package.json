@@ -10,7 +10,9 @@
     "dev": "pnpm -r --parallel dev"
   },
   "devDependencies": {
-    "prettier": "3.6.2"
+    "eslint": "9.31.0",
+    "prettier": "3.6.2",
+    "typescript": "5.8.3"
   },
   "author": {
     "name": "David Enke",
