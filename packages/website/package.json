@@ -10,7 +10,9 @@
   },
   "type": "module",
   "files": [
-    "dist"
+    ".next",
+    "public",
+    "out"
   ],
   "scripts": {
     "build": "next build",

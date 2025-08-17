@@ -1,11 +1,19 @@
-import { join } from 'node:path';
-
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
-  outputFileTracingRoot: join(__dirname, '../../'),
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.devServer = {
+        ...config.devServer,
+        devMiddleware: {
+          ...config.devServer?.devMiddleware,
+          writeToDisk: true,
+        },
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;
