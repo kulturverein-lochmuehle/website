@@ -3,7 +3,6 @@ import { fileURLToPath } from 'node:url';
 
 import autoprefixer from 'autoprefixer';
 import { defineConfig } from 'vite';
-import banner from 'vite-plugin-banner';
 import { checker } from 'vite-plugin-checker';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import topLevelAwait from 'vite-plugin-top-level-await';
@@ -30,6 +29,27 @@ export default defineConfig({
   base: './',
   // CSS vendor prefixes
   css: { postcss: { plugins: [autoprefixer] } },
+  build: {
+    rollupOptions: {
+      output: {
+        intro: `
+// prepare global namespace
+if (!window.kvlm) window.kvlm = {};
+if (!window.kvlm.ui) window.kvlm.ui = {};
+
+// set kvlm version globally
+if (window.kvlm.ui.version !== undefined && window.kvlm.ui.version !== '${MANIFEST.version}') {
+  console.warn(\`[kvlm] ${
+    MANIFEST.version
+  }: Another version (\${window.kvlm.ui.version}) has already been loaded.\`);
+} else window.kvlm.ui.version = '${MANIFEST.version}';
+
+// set breakpoints globally
+${jsBreakpoints}
+`,
+      },
+    },
+  },
   plugins: [
     // lint and type check
     checker({
@@ -50,26 +70,6 @@ export default defineConfig({
         },
       ],
     }),
-    banner(`/*
- * START GENERIC KVLM BANNER
- */
-// prepare global namespace
-if (!window.kvlm) window.kvlm = {};
-if (!window.kvlm.ui) window.kvlm.ui = {};
-
-// set kvlm version globally
-if (window.kvlm.ui.version !== undefined && window.kvlm.ui.version !== '${MANIFEST.version}') {
-  console.warn(\`[kvlm] ${
-    MANIFEST.version
-  }: Another version (\${window.kvlm.ui.version}) has already been loaded.\`);
-} else window.kvlm.ui.version = '${MANIFEST.version}';
-
-// set breakpoints globally
-${jsBreakpoints}
-/*
- * END GENERIC KVLM BANNER
- */
-`) as never,
   ],
   server: {
     proxy: {
