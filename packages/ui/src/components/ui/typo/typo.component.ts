@@ -7,7 +7,10 @@ import styles from './typo.component.scss?inline';
 export class Typo extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
-  // disable shadow DOM
+  /**
+   * Disable shadow DOM
+   * @private
+   */
   override createRenderRoot() {
     return this;
   }
