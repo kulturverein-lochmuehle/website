@@ -32,7 +32,7 @@
     "docs": "cross-env NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 cem analyze --config cem.config.ts",
     "test": "cross-env NODE_OPTIONS='--loader ts-node/esm' NODE_NO_WARNINGS=1 wtr --config web-test-runner.config.ts",
     "test:watch": "npm test -- --watch",
-    "bundle": "vite build",
+    "bundle": "vite build --base=/demo/",
     "build": "run-s -ns docs bundle",
     "dev:docs": "npm run docs -- --watch",
     "dev:components": "vite dev --port 3500",
