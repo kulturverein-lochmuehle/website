@@ -16,7 +16,7 @@ export const Chronicle: React.FC<ChronicleProps> = ({ items, title, scope }) => 
         <kvlm-timeline-item
           key={index}
           date={data.date}
-          title={data.title}
+          label={data.title}
           leading={index === 0 ? true : undefined}
           trailing={index === items.length - 1 ? true : undefined}
           dangerouslySetInnerHTML={{ __html: teaser }}

@@ -26,15 +26,15 @@ export class TimelineItem extends LitElement {
   @property({ reflect: true, converter: DateIsoConverter(true) })
   date!: Date;
 
-  @property({ reflect: true, type: String })
-  readonly title!: string;
+  @property({ reflect: true, type: String, attribute: 'aria-label' })
+  readonly label!: string;
 
   render() {
     return html`
       <time datetime="${ifDefined(this.getAttribute('date')) as string}">
         ${formatDate(this.date)}
       </time>
-      <h2>${this.title}</h2>
+      <h2>${this.label}</h2>
       <slot></slot>
     `;
   }
