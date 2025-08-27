@@ -47,6 +47,6 @@
     "puppeteer": "21.3.6",
     "rollup-plugin-node-polyfills": "0.2.1",
     "ts-node": "10.9.1",
-    "typescript": "5.2.2"
+    "typescript": "5.9.2"
   }
 }
