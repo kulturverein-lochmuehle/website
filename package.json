@@ -26,7 +26,7 @@
   "devDependencies": {
     "@netlify/functions": "2.1.0",
     "@stencil/core": "4.3.0",
-    "@stencil/postcss": "2.0.0",
+    "@stencil/postcss": "2.1.0",
     "@stencil/router": "2.0.0-2",
     "@stencil/sass": "3.0.5",
     "@types/ical": "0.8.1",
