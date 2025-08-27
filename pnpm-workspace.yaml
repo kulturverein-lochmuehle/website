@@ -1,6 +1,7 @@
 packages:
   - packages/ui
   - packages/website
+  - packages/website.bkp
 
 onlyBuiltDependencies:
   - '@parcel/watcher'
@@ -10,5 +11,5 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 syncInjectedDepsAfterScripts:
-- build
+  - build
 injectWorkspacePackages: true

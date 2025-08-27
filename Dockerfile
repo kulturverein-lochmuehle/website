@@ -19,7 +19,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 # Build all packages
 RUN pnpm run -r build
 RUN pnpm deploy --filter=@kvlm/ui --prod /prod/demo
-RUN pnpm deploy --filter=@kvlm/website --prod /prod/website
+RUN pnpm deploy --filter=@kvlm/website.bkp --prod /prod/website
 
 # RUNNER UI DEMO -------------------------------------------------------------------------------------
 FROM nginx:1.26-alpine-slim AS demo

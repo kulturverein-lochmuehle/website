@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.15.0",
   "scripts": {
     "preinstall": "npx -y only-allow pnpm",
     "bootstrap": "NODE_VERSION=$(cat .nvmrc) docker compose up -d --wait --build",
