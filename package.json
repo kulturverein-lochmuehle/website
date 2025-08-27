@@ -24,7 +24,7 @@
     "typeface-muli": "1.1.13"
   },
   "devDependencies": {
-    "@netlify/functions": "2.1.0",
+    "@netlify/functions": "2.8.2",
     "@stencil/core": "4.3.0",
     "@stencil/postcss": "2.0.0",
     "@stencil/router": "2.0.0-2",
