@@ -31,7 +31,7 @@
     "@stencil/sass": "3.0.5",
     "@types/ical": "0.8.1",
     "@types/jest": "29.5.5",
-    "@types/marked": "5.0.2",
+    "@types/marked": "6.0.0",
     "@types/node": "20.7.1",
     "@types/node-fetch": "2.6.6",
     "@types/puppeteer": "5.4.7",
