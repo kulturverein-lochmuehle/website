@@ -1,6 +1,6 @@
 import type { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-import { postcss } from '@stencil/postcss';
+import { postcss } from '@stencil-community/postcss';
 import autoprefixer from 'autoprefixer';
 // import nodePolyfills from 'rollup-plugin-node-polyfills';
 

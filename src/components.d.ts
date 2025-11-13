@@ -16,21 +16,36 @@ export namespace Components {
         "preview": string;
     }
     interface KvlmButton {
+        /**
+          * @default false
+         */
         "block": boolean;
+        /**
+          * @default false
+         */
         "disabled": boolean;
         "download"?: string;
         "forzeBlock"?: boolean;
         "href"?: string;
         "target"?: string;
+        /**
+          * @default 'button'
+         */
         "type": HTMLButtonElement['type'];
     }
     interface KvlmButtons {
+        /**
+          * @default 'horizontal'
+         */
         "direction": 'horizontal' | 'vertical';
         "forzeDirection"?: 'horizontal' | 'vertical';
     }
     interface KvlmCalendar {
     }
     interface KvlmContent {
+        /**
+          * @default false
+         */
         "visible": boolean;
     }
     interface KvlmFooter {
@@ -75,7 +90,18 @@ declare global {
         prototype: HTMLKvlmAuthenticateElement;
         new (): HTMLKvlmAuthenticateElement;
     };
+    interface HTMLKvlmBackgroundElementEventMap {
+        "loaded": string;
+    }
     interface HTMLKvlmBackgroundElement extends Components.KvlmBackground, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLKvlmBackgroundElementEventMap>(type: K, listener: (this: HTMLKvlmBackgroundElement, ev: KvlmBackgroundCustomEvent<HTMLKvlmBackgroundElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLKvlmBackgroundElementEventMap>(type: K, listener: (this: HTMLKvlmBackgroundElement, ev: KvlmBackgroundCustomEvent<HTMLKvlmBackgroundElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLKvlmBackgroundElement: {
         prototype: HTMLKvlmBackgroundElement;
@@ -208,21 +234,36 @@ declare namespace LocalJSX {
         "preview": string;
     }
     interface KvlmButton {
+        /**
+          * @default false
+         */
         "block"?: boolean;
+        /**
+          * @default false
+         */
         "disabled"?: boolean;
         "download"?: string;
         "forzeBlock"?: boolean;
         "href"?: string;
         "target"?: string;
+        /**
+          * @default 'button'
+         */
         "type"?: HTMLButtonElement['type'];
     }
     interface KvlmButtons {
+        /**
+          * @default 'horizontal'
+         */
         "direction"?: 'horizontal' | 'vertical';
         "forzeDirection"?: 'horizontal' | 'vertical';
     }
     interface KvlmCalendar {
     }
     interface KvlmContent {
+        /**
+          * @default false
+         */
         "visible"?: boolean;
     }
     interface KvlmFooter {

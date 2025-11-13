@@ -1,3 +1,9 @@
 {
-  "extends": ["group:allNonMajor"]
+  "extends": ["group:allNonMajor", "group:nodeJs"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["node"],
+      "ignoreUnstable": false
+    }
+  ]
 }
