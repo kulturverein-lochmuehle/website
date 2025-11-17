@@ -1,6 +1,6 @@
 import { env } from 'node:process';
 import { parse } from 'node:path';
-import { readFile, writeFile } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFile, writeFile } from 'node:fs';
 import { createInterface } from 'node:readline';
 
 import { drive_v3, google } from 'googleapis';
@@ -27,6 +27,7 @@ readFile(CREDENTIALS_PATH, (err, content) => {
   authorize(credentials, auth => {
     const drive = google.drive({ version: 'v3', auth });
     listFiles(folder, drive);
+    generateIndex();
   });
 });
 
@@ -79,20 +80,24 @@ function getAccessToken(oAuth2Client, callback) {
   });
 }
 
-function generateIndex(files: drive_v3.Schema$File[]) {
-  const data = files.reduce((all, { name }) => ({ ...all, [parse(name).name]: `/pages/protokolle/${name}` }), {});
+function generateIndex() {
+  const parent = new URL(`../src/pages/protokolle`, import.meta.url).pathname;
+  const files = readdirSync(parent, { recursive: true, encoding: 'utf-8' });
+  const data = files.reduce((all, name) => ({ ...all, [name]: `/pages/protokolle/${name}` }), {});
   writeFile(PROTOCOLS_PATH, JSON.stringify(data), err => {
     if (err) return console.error(err);
-    console.log('List stored');
   });
 }
 
-function getFileContent({ id, name }: drive_v3.Schema$File, drive: drive_v3.Drive) {
+function getFileContent({ id, name }: drive_v3.Schema$File, drive: drive_v3.Drive, dir = '') {
   const path = encodeURIComponent(name);
-  const target = new URL(`../src/pages/protokolle/${path}`, import.meta.url).pathname;
+  const parent = new URL(`../src/pages/protokolle${dir}`, import.meta.url).pathname;
+  const target = new URL(`${parent}/${path}`, import.meta.url).pathname;
+
   drive.files.get({ fileId: id, alt: 'media' }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     if (res.data) {
+      if (!existsSync(parent)) mkdirSync(parent, { recursive: true });
       writeFile(target, res.data.toString() as string, err => {
         if (err) console.error(err);
       });
@@ -105,10 +110,10 @@ function getFileContent({ id, name }: drive_v3.Schema$File, drive: drive_v3.Driv
  * @param folder
  * @param {google.auth.OAuth2} drive An authorized OAuth2 client.
  */
-function listFiles(folder: string, drive: drive_v3.Drive) {
+function listFiles(folder: string, drive: drive_v3.Drive, dir = '') {
   drive.files.list(
     {
-      fields: 'files(id, name)',
+      fields: 'files(id, name, kind, mimeType)',
       q: `'${folder}' in parents`,
     },
     (err, res) => {
@@ -116,15 +121,22 @@ function listFiles(folder: string, drive: drive_v3.Drive) {
       const files = res.data.files;
       if (files.length) {
         files.map(async file => {
-          console.log(`- ${file.name} (${file.id})`);
-          getFileContent(file, drive);
-          // const target = resolve(__dirname, '../src/pages/protokolle', name);
-          // const content = await fetch(webContentLink, { redirect: 'follow' });
-          // writeFile(target, await content.text(), (err) => {
-          //   if (err) return console.error(err);
-          // });
+          if (file.name === '.gitignore') return;
+          if (file.name === 'PW') return;
+
+          if (file.mimeType === 'application/vnd.google-apps.folder') {
+            console.log(`> ${dir}/${file.name} (${file.id})`);
+            listFiles(file.id as string, drive, `${dir}/${file.name}`);
+          } else {
+            console.log(`- ${dir}/${file.name} (${file.id})`);
+            getFileContent(file, drive, dir);
+            // const target = resolve(__dirname, '../src/pages/protokolle', name);
+            // const content = await fetch(webContentLink, { redirect: 'follow' });
+            // writeFile(target, await content.text(), (err) => {
+            //   if (err) return console.error(err);
+            // });
+          }
         });
-        generateIndex(files);
       } else {
         console.log('No files found.');
       }

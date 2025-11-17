@@ -6,7 +6,7 @@
   "description": "Kulturverein Lochmühle e.V.",
   "license": "MIT",
   "scripts": {
-    "build:protocols": "node --env-file=.env --loader ts-node/esm scripts/fetch-protocols.ts",
+    "build:protocols": "node --env-file-if-exists=.env --import tsx scripts/fetch-protocols.ts",
     "build:functions": "tsc --project tsconfig.functions.json",
     "build:www": "cross-env NODE_ENV=production stencil build",
     "build": "run-s build:*",
@@ -44,7 +44,7 @@
     "prettier": "3.6.2",
     "puppeteer": "24.30.0",
     "rollup-plugin-node-polyfills": "0.2.1",
-    "ts-node": "10.9.2",
+    "tsx": "4.20.6",
     "typescript": "5.9.3"
   }
 }
