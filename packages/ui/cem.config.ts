@@ -17,7 +17,9 @@ export default {
       addInlineReadme: true,
       transformer: 'wca',
       outputPath(path) {
-        if (path === undefined) return '';
+        if (path === undefined) {
+          return '';
+        }
         return resolve(dirname(path), 'README.md');
       },
     }),

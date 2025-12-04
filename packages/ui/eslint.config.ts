@@ -1,10 +1,13 @@
-import config from '@enke.dev/lint';
-import type { Linter } from 'eslint';
+import config, { setTsConfigRootDir } from '@enke.dev/lint';
+import { defineConfig } from 'eslint/config';
 
-export default [
+export default defineConfig([
+  // extend the base config
   ...config,
+  // configure typescript parser to your needs
+  setTsConfigRootDir(import.meta.dirname),
   {
-    ignores: ['public', 'src/esbuild.config.ts'],
+    ignores: ['public'],
   },
   {
     files: ['**/*.spec.ts'],
@@ -13,4 +16,10 @@ export default [
       'import/no-unresolved': ['off'],
     },
   },
-] satisfies Linter.Config[];
+  {
+    files: ['**/*.ts'],
+    rules: {
+      'html/no-extra-spacing-attrs': ['error', { enforceBeforeSelfClose: true }],
+    },
+  },
+]);

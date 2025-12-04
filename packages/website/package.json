@@ -1,47 +1,59 @@
 {
   "name": "@kvlm/website",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Website kvlm.de",
+  "description": "kvlm.de website",
+  "version": "0.0.1",
   "license": "MIT",
+  "private": true,
   "author": {
     "name": "David Enke",
     "email": "david@kvlm.de"
   },
   "type": "module",
-  "files": [
-    ".next",
-    "public",
-    "out"
-  ],
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
-    "lint": "eslint",
-    "start": "next start"
+    "sync:decap": "adc -t ./src/collections -n %%name%%.schema.ts ./src/collections/*.collection.yml",
+    "sync:astro": "astro sync",
+    "sync": "cross-env FORCE_COLOR=1 run-s -lns sync:*",
+    "dev:proxy": "cross-env PORT=4320 GIT_REPO_DIRECTORY=../../ netlify-cms-proxy-server",
+    "dev:sync": "run-s \"sync:decap -w\"",
+    "dev:start": "astro dev --host",
+    "dev": "cross-env FORCE_COLOR=1 run-p -lns dev:*",
+    "build:sync": "run-s sync:decap",
+    "build:build": "astro build",
+    "build": "cross-env FORCE_COLOR=1 run-s -lns build:*"
   },
   "dependencies": {
-    "lit": "3.3.1",
-    "lodash-es": "4.17.21",
-    "next": "15.4.6",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
-    "urlpattern-polyfill": "10.1.0"
+    "@kvlm/ui": "workspace:*",
+    "decap-cms-app": "3.9.0",
+    "decap-cms-lib-widgets": "3.2.1",
+    "decap-cms-widget-list": "3.5.0",
+    "marked": "17.0.1",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "react-redux": "9.2.0"
   },
   "devDependencies": {
-    "@enke.dev/lint": "0.6.4",
-    "@eslint/compat": "1.3.2",
-    "@eslint/eslintrc": "3.3.1",
-    "@lit-labs/nextjs": "0.2.4",
-    "@next/eslint-plugin-next": "15.4.6",
-    "@types/node": "22.17.2",
-    "@types/react": "19.1.10",
-    "@types/react-dom": "19.1.7",
-    "eslint": "9.31.0",
-    "eslint-config-next": "15.4.6",
-    "eslint-plugin-react-hooks": "5.2.0",
-    "jiti": "2.5.1",
-    "prettier": "3.6.2",
-    "typescript": "5.8.3"
+    "@astrojs/check": "0.9.6",
+    "@astrojs/mdx": "4.3.12",
+    "@astrojs/netlify": "6.6.3",
+    "@astrojs/react": "4.4.2",
+    "@astropub/md": "1.0.0",
+    "@types/node": "24.10.1",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.1.1",
+    "astro": "5.16.4",
+    "astro-decap-collection": "0.4.0",
+    "cross-env": "10.1.0",
+    "decap-cms-core": "3.9.0",
+    "immutable": "5.1.4",
+    "netlify-cms-proxy-server": "1.3.24",
+    "npm-run-all": "4.1.5",
+    "shx": "0.4.0",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3",
+    "vite-plugin-static-copy": "3.1.4"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.53.3"
   }
 }

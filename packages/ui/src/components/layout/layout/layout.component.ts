@@ -49,13 +49,19 @@ export class Layout extends LitElement {
    */
   get #observableElements() {
     return this.assignedElements.reduce((observed, element) => {
-      if (this.scrollObserveSelector === undefined) return observed;
+      if (this.scrollObserveSelector === undefined) {
+        return observed;
+      }
 
       const itself = element.matches(this.scrollObserveSelector);
-      if (itself) return [...observed, element];
+      if (itself) {
+        return [...observed, element];
+      }
 
       const within = element.querySelectorAll<HTMLElement>(this.scrollObserveSelector);
-      if (within.length) return [...observed, ...within];
+      if (within.length) {
+        return [...observed, ...within];
+      }
 
       return observed;
     }, [] as HTMLElement[]);
@@ -81,14 +87,18 @@ export class Layout extends LitElement {
     return this.assignedElements.reduce(
       (_, element) => {
         // either the element itself has the id
-        if (element.id === id) return element;
+        if (element.id === id) {
+          return element;
+        }
         // or one of the nested elements
         const child = element.querySelector<HTMLElement>(`[id="${id}"]`);
-        if (child !== null) return child;
+        if (child !== null) {
+          return child;
+        }
         // if not, deliver previous result (or undefined)
         return _;
       },
-      undefined as HTMLElement | undefined,
+      undefined as HTMLElement | undefined
     );
   }
 
@@ -99,7 +109,7 @@ export class Layout extends LitElement {
     window.addEventListener(
       RoutingEvent.InlineLocationChanged,
       this.#handleInlineLocationChanged,
-      false,
+      false
     );
 
     // observe contents once scrolled
@@ -116,7 +126,7 @@ export class Layout extends LitElement {
     window.removeEventListener(
       RoutingEvent.InlineLocationChanged,
       this.#handleInlineLocationChanged,
-      false,
+      false
     );
     super.disconnectedCallback();
   }
@@ -132,7 +142,9 @@ export class Layout extends LitElement {
 
   @eventOptions({ passive: true })
   handleInlineLocationChanged({ detail }: InlineLocationChangedEvent) {
-    if (!detail.scroll) return;
+    if (!detail.scroll) {
+      return;
+    }
 
     // scroll to target section
     this.scrollToContent(detail.href, true);
@@ -141,7 +153,9 @@ export class Layout extends LitElement {
   scrollToContent(id: string, animate: boolean) {
     // get active target for id
     const target = this.#getActiveElement(id);
-    if (target === undefined) return;
+    if (target === undefined) {
+      return;
+    }
 
     // use built-in scroll behavior
     const headerOffset = this.header?.offsetHeight ?? 0;

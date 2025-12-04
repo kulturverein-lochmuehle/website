@@ -20,6 +20,6 @@ export const changeLocationInline = (href: string, scroll: boolean) => {
   window.dispatchEvent(
     new CustomEvent<InlineLocationChangedEventDetail>(RoutingEvent.InlineLocationChanged, {
       detail: { href, scroll },
-    }),
+    })
   );
 };

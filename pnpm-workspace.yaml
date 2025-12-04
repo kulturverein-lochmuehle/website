@@ -3,13 +3,15 @@ packages:
   - packages/website
   - packages/website.bkp
 
+injectWorkspacePackages: true
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'
   - esbuild
+  - rs-module-lexer
   - sharp
   - unrs-resolver
 
 syncInjectedDepsAfterScripts:
   - build
-injectWorkspacePackages: true

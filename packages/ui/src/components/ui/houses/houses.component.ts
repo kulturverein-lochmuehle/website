@@ -10,7 +10,7 @@ export class Houses extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
   render() {
-    return html`<img src="${placeholder}" alt="Willkommen" />`;
+    return html`<img src="${placeholder}" alt="Willkommen">`;
   }
 }
 

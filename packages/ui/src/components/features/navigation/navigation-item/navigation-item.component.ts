@@ -12,7 +12,7 @@ export class NavigationItem extends LitElement {
 
   private readonly handleLocationChangedBound = _debounce(
     this.handleLocationChanged.bind(this),
-    300,
+    300
   );
 
   @property({ reflect: true, type: String })
@@ -36,17 +36,19 @@ export class NavigationItem extends LitElement {
     // ssr does not support `window` global, but calls this hook
     // https://lit.dev/docs/ssr/authoring/#browser-only-code
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
-    if (isServer) return;
+    if (isServer) {
+      return;
+    }
 
     window.addEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleLocationChangedBound,
-      false,
+      false
     );
     window.addEventListener(
       RoutingEvent.RouterLocationChanged,
       this.handleLocationChangedBound,
-      false,
+      false
     );
   }
 
@@ -56,17 +58,19 @@ export class NavigationItem extends LitElement {
     // ssr does not support `window` global, but calls this hook
     // https://lit.dev/docs/ssr/authoring/#browser-only-code
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
-    if (isServer) return;
+    if (isServer) {
+      return;
+    }
 
     window.removeEventListener(
       RoutingEvent.InlineLocationChanged,
       this.handleLocationChangedBound,
-      false,
+      false
     );
     window.removeEventListener(
       RoutingEvent.RouterLocationChanged,
       this.handleLocationChangedBound,
-      false,
+      false
     );
   }
 

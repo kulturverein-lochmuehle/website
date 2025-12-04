@@ -66,7 +66,9 @@ export class Navigation extends LitElement {
     // ssr does not support `window` global, but calls this hook
     // https://lit.dev/docs/ssr/authoring/#browser-only-code
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
-    if (isServer) return;
+    if (isServer) {
+      return;
+    }
 
     window.addEventListener('scroll', this.#handleScroll, false);
   }
@@ -77,7 +79,9 @@ export class Navigation extends LitElement {
     // ssr does not support `window` global, but calls this hook
     // https://lit.dev/docs/ssr/authoring/#browser-only-code
     // https://github.com/lit/lit/tree/main/packages/labs/ssr#notes-and-limitations
-    if (isServer) return;
+    if (isServer) {
+      return;
+    }
 
     window.removeEventListener('scroll', this.#handleScroll, false);
   }
@@ -92,8 +96,12 @@ export class Navigation extends LitElement {
 
   @eventOptions({ passive: true })
   handleClick(event: Event) {
-    if (!this.#isMobile) return;
-    if (!event.defaultPrevented) return;
+    if (!this.#isMobile) {
+      return;
+    }
+    if (!event.defaultPrevented) {
+      return;
+    }
     this.toggle();
   }
 

@@ -1,3 +1,4 @@
+import { globSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
@@ -22,7 +23,7 @@ await writeFile(
 // TO FEED IN THE GLOBALLY DEFINED BREAKPOINTS!
 ${sassBreakpoints}
 `,
-  'utf-8',
+  'utf-8'
 );
 
 export default defineConfig({
@@ -47,7 +48,21 @@ if (window.kvlm.ui.version !== undefined && window.kvlm.ui.version !== '${MANIFE
 // set breakpoints globally
 ${jsBreakpoints}
 `,
+        // organize output
+        chunkFileNames: 'chunks/[name].js',
+        assetFileNames: () => '[name][extname]',
+        entryFileNames: () => '[name].js',
       },
+    },
+    lib: {
+      entry: [
+        ...globSync('./src/components/**/*.component.ts'),
+        './index.html',
+        './src/fonts.scss',
+        './src/globals.scss',
+      ],
+      formats: ['es'],
+      fileName: () => 'index.js',
     },
   },
   plugins: [

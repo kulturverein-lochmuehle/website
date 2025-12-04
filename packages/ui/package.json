@@ -35,7 +35,8 @@
     "bundle": "vite build --base=/demo/",
     "build": "run-s -ns docs bundle",
     "dev:docs": "npm run docs -- --watch",
-    "dev:components": "vite dev --port 3500",
+    "dev:build": "vite build --watch",
+    "dev:serve": "vite preview --port 3500",
     "dev": "npm-run-all docs --parallel --silent -ln dev:*"
   },
   "dependencies": {
