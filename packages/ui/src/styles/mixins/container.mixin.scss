@@ -1,5 +1,5 @@
 @use 'sass:string' as string;
-@use '@/styles/functions/prepare-query.function.scss' as *;
+@use '../functions/prepare-query.function.scss' as *;
 
 /// Mixin for @container queries with a fallback to @media queries for elderly browsers.
 /// For the container queries to work, a container name must be provided. In our case,

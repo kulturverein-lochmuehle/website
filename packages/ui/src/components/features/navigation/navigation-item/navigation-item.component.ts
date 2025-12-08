@@ -2,9 +2,8 @@ import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 import _debounce from 'lodash-es/debounce.js';
 
-import { changeLocationInline, RoutingEvent } from '@/utils/event.utils.js';
-
-import styles from './navigation-item.component.scss?inline';
+import { changeLocationInline, RoutingEvent } from '../../../../utils/event.utils.js';
+import styles from './navigation-item.component.scss';
 
 @customElement('kvlm-navigation-item')
 export class NavigationItem extends LitElement {
@@ -16,7 +15,7 @@ export class NavigationItem extends LitElement {
   );
 
   @property({ reflect: true, type: String })
-  readonly role = 'listitem';
+  override readonly role = 'listitem';
 
   @property({ reflect: true, type: Boolean })
   inline = false;
@@ -91,7 +90,7 @@ export class NavigationItem extends LitElement {
     }
   }
 
-  render() {
+  override render() {
     return html`<a href="${this.href}" @click="${this.handleClick}">${this.label}</a>`;
   }
 }

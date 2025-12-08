@@ -1,6 +1,6 @@
 @use 'sass:math';
-@use '@/styles/functions/relative-font-size.function.scss' as *;
-@use '@/styles/functions/rem.function.scss' as *;
+@use '../functions/relative-font-size.function.scss' as *;
+@use '../functions/rem.function.scss' as *;
 
 %title {
   font-family: var(--kvlm-font-family-title);

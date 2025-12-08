@@ -9,8 +9,7 @@ import {
 
 import type { InlineLocationChangedEvent } from '../../../utils/event.utils.js';
 import { changeLocationInline, RoutingEvent } from '../../../utils/event.utils.js';
-
-import styles from './layout.component.scss?inline';
+import styles from './layout.component.scss';
 
 /**
  * A component to introduce the application layout.
@@ -161,11 +160,11 @@ export class Layout extends LitElement {
     const headerOffset = this.header?.offsetHeight ?? 0;
     window.scrollTo({
       top: Math.max(target.offsetTop - headerOffset, 0),
-      behavior: animate ? 'smooth' : undefined,
+      behavior: animate ? 'smooth' : 'instant',
     });
   }
 
-  render() {
+  override render() {
     return html`
       <header>
         <slot name="header"></slot>

@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './brook.component.scss?inline';
+import styles from './brook.component.scss';
 
 /**
  * Graphic of a brook used as visual signature.
@@ -14,7 +14,7 @@ import styles from './brook.component.scss?inline';
 export class Brook extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
-  render() {
+  override render() {
     return html`
       <svg
         xmlns="http://www.w3.org/2000/svg"

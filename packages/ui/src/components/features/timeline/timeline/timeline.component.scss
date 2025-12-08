@@ -1,4 +1,4 @@
-@use '@/styles/utils' as utils;
+@use '../../../../styles/utils' as utils;
 
 :host {
   ---kvlm-timeline-gap: #{utils.size(4)};

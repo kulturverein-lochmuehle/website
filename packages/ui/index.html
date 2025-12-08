@@ -12,6 +12,7 @@
 
     <title>Kulturverein Lochmühle e.V.</title>
     <link rel="stylesheet" href="./src/globals.scss">
+    <link rel="stylesheet" href="./src/fonts.scss">
     <style>
       :root {
         --wcp-title-spacing: 0 10px;
@@ -27,6 +28,28 @@
         --wcp-layout-flowing-width: 1200px;
       }
     </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "element-internals-polyfill": "./libs/element-internals-polyfill/dist/index.js",
+          "urlpattern-polyfill": "./libs/urlpattern-polyfill/index.js",
+          "@lit/reactive-element": "./libs/@lit/reactive-element/reactive-element.js",
+          "@lit/reactive-element/": "./libs/@lit/reactive-element/",
+          "lit": "./libs/lit/index.js",
+          "lit/": "./libs/lit/",
+          "lit-element/": "./libs/lit-element/",
+          "lit-html": "./libs/lit-html/lit-html.js",
+          "lit-html/": "./libs/lit-html/",
+          "lodash-es/": "./libs/lodash-es/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import '@webcomponents-preview/client';
+      import.meta.glob('./src/components/**/*.component.ts', { eager: true });
+    </script>
   </head>
 
   <body ontouchstart>
@@ -37,10 +60,5 @@
     >
       <kvlm-logo slot="logo" style="width: 100%; ---kvlm-logo-brook-color: #6fbad9"></kvlm-logo>
     </wcp-root>
-
-    <script type="module">
-      import '@webcomponents-preview/client';
-      import.meta.glob('./src/components/**/*.component.ts', { eager: true });
-    </script>
   </body>
 </html>

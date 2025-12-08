@@ -1,5 +1,5 @@
 @use 'sass:string';
-@use '@/styles/utils' as utils;
+@use './styles/utils' as utils;
 
 $fonts: (
   'Fundamental Brigade': (
@@ -16,9 +16,9 @@ $fonts: (
     @font-face {
       font-family: $family;
       src:
-        url('@/assets/fonts/#{$file-name}-#{$weight}.woff2') format('woff2'),
-        url('@/assets/fonts/#{$file-name}-#{$weight}.woff') format('woff'),
-        url('@/assets/fonts/#{$file-name}-#{$weight}.ttf') format('truetype');
+        url('./assets/fonts/#{$file-name}-#{$weight}.woff2') format('woff2'),
+        url('./assets/fonts/#{$file-name}-#{$weight}.woff') format('woff'),
+        url('./assets/fonts/#{$file-name}-#{$weight}.ttf') format('truetype');
       font-weight: $weight;
       font-style: normal;
       font-display: swap;

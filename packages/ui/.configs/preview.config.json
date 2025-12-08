@@ -1,0 +1,12 @@
+{
+  "$schema": "../node_modules/@webcomponents-preview/client/dist/config.schema.json",
+  "initialCodePreviewTab": "preview",
+  "initialStageTab": "readme",
+  "logging": {
+    "severity": "none"
+  },
+  "labels": {
+    "additionalReadmeGroupName": "Documentation",
+    "title": " "
+  }
+}

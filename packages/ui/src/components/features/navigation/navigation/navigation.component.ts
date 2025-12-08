@@ -1,13 +1,12 @@
-import '@/components/ui/logo/logo.component.js';
+import '../../../../components/ui/logo/logo.component.js';
 
 import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 
-import { changeLocationInline } from '@/utils/event.utils.js';
-import { injectGlobalStyle } from '@/utils/style.utils.js';
-
-import styles from './navigation.component.scss?inline';
-import globalStyles from './navigation.global.scss?inline';
+import { changeLocationInline } from '../../../../utils/event.utils.js';
+import { injectGlobalStyle } from '../../../../utils/style.utils.js';
+import styles from './navigation.component.scss';
+import globalStyles from './navigation.global.scss';
 
 /**
  * @slot - Receives the navigation items.
@@ -123,7 +122,7 @@ export class Navigation extends LitElement {
     document.documentElement.classList.toggle('no-scroll', this.opened);
   }
 
-  render() {
+  override render() {
     return html`
       <nav @click="${this.handleClick}" @keydown="${this.handleClick}">
         <a @click="${this.handleLogoClick}" href="${this.href}">

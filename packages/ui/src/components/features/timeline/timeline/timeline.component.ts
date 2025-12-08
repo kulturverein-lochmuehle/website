@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 
-import styles from './timeline.component.scss?inline';
+import styles from './timeline.component.scss';
 
 /**
  * Wraps a timeline items.
@@ -14,7 +14,7 @@ export class Timeline extends LitElement {
   private readonly items!: HTMLElement[];
 
   @property({ type: String, reflect: true })
-  readonly role = 'list';
+  override readonly role = 'list';
 
   @property({ type: String, reflect: true })
   direction: 'forward' | 'backward' = 'backward';
@@ -26,7 +26,7 @@ export class Timeline extends LitElement {
     });
   }
 
-  render() {
+  override render() {
     return html`<slot @slotchange="${this.handleSlotChange}"></slot>`;
   }
 }

@@ -2,8 +2,8 @@
 @use 'sass:map' as map;
 @use 'sass:meta' as meta;
 
-@use '@/styles/functions/implode.function.scss' as *;
-@use '@/styles/variables/breakpoint.variables.scss' as *;
+@use './implode.function.scss' as *;
+@use '../variables/breakpoint.variables.scss' as *;
 
 // utility function to check breakpoints given to the mixin
 @function _check-given-breakpoint($breakpoint, $name) {

@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './logo.component.scss?inline';
+import styles from './logo.component.scss';
 
 /**
  * @cssprop --kvlm-logo-brook-color - Color of the brook
@@ -11,7 +11,7 @@ import styles from './logo.component.scss?inline';
 export class Logo extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
-  render() {
+  override render() {
     return html`
       <svg
         xmlns="http://www.w3.org/2000/svg"

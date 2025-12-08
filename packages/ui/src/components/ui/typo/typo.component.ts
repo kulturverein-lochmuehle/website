@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './typo.component.scss?inline';
+import styles from './typo.component.scss';
 
 @customElement('kvlm-typo')
 export class Typo extends LitElement {
@@ -15,7 +15,7 @@ export class Typo extends LitElement {
     return this;
   }
 
-  render() {
+  override render() {
     return html`
       <style>
         ${Typo.styles}

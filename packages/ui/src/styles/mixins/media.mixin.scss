@@ -1,5 +1,5 @@
 @use 'sass:string' as string;
-@use '@/styles/functions/prepare-query.function.scss' as *;
+@use '../functions/prepare-query.function.scss' as *;
 
 /// Mixin for @media queries based on breakpoints.
 ///

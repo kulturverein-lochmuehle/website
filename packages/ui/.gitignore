@@ -11,7 +11,6 @@
 .DS_Store
 
 # generated files
-/public/custom-elements.json
 /dist
 /src/styles/variables/breakpoint.variables.scss
 /reports

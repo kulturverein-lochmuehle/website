@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './content.component.scss?inline';
+import styles from './content.component.scss';
 
 /**
  * A layout component to wrap contents of the page.
@@ -15,7 +15,7 @@ import styles from './content.component.scss?inline';
 export class Content extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
-  render() {
+  override render() {
     return html`
       <article>
         <slot></slot>
