@@ -48,7 +48,7 @@ export default defineConfig(({ command }) => {
       minify: false,
       target: 'esnext',
       cssCodeSplit: true,
-      rollupOptions: {
+      rolldownOptions: {
         external: [/^@?lit(-\w+)?($|\/.+)/],
         treeshake: false,
         output: {

@@ -5,5 +5,12 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 export default {
   browsers: [playwrightLauncher({ product: 'chromium' })],
   files: ['./src/**/*.spec.ts'],
-  plugins: [vitePlugin()],
+  plugins: [
+    vitePlugin({
+      optimizeDeps: {
+        entries: ['src/**/*.test.ts'],
+        exclude: ['@web/test-runner-commands'],
+      },
+    }),
+  ],
 } satisfies TestRunnerConfig;
