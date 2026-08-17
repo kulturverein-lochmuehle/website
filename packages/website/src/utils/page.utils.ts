@@ -26,7 +26,7 @@ export async function preparePage(
         page.data.sections.map(async section => {
           return {
             ...section,
-            page,
+            page: page.id,
             contents: await Promise.all(
               section.contents.map(async content => {
                 switch (content.type) {

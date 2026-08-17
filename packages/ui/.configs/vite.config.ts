@@ -14,7 +14,6 @@ import createManifestPlugin from 'vite-plugin-cem';
 import { checker } from 'vite-plugin-checker';
 import litCss from 'vite-plugin-lit-css';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-import topLevelAwait from 'vite-plugin-top-level-await';
 
 import MANIFEST from '../package.json' with { type: 'json' };
 import BREAKPOINTS from './breakpoints.json' with { type: 'json' };
@@ -134,8 +133,6 @@ ${jsBreakpoints}
       }),
       // ssl for local dev server to use secure APIs
       // mkcert() // wont work for netlify dev reverse proxy
-      // netlify environment uses a target not supporting tla
-      topLevelAwait(),
       // generate typings for entry points
       dts({
         entryRoot: 'src',
@@ -152,24 +149,23 @@ ${jsBreakpoints}
             dest: './docs/',
             rename: 'introduction.md',
           },
-          // copy preview config
+          // copy preview config, but drop the `.configs` folder
           {
             src: './.configs/preview.config.json',
-            rename: (...[, , filePath]) => filePath.split('.configs/')[1] as string,
+            rename: { stripBase: 1 },
             dest: './',
           },
-          // copy runtime dependencies
+          // copy runtime dependencies, but drop the `node_modules` folder
           {
             dereference: true,
             src: globSync(
               `./node_modules/{${Object.keys(MANIFEST.peerDependencies).concat(['@lit', 'lit-element', 'lit-html']).join(',')}}/**/*`
             ),
-            rename: (...[, , filePath]) => filePath.split('node_modules/')[1] as string,
+            rename: { stripBase: 1 },
             dest: './libs/',
           },
         ],
       }),
     ],
-    optimizeDeps: { esbuildOptions: { target: 'esnext' } },
   };
 });
