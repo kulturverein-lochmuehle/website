@@ -15,30 +15,30 @@
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
-    "marked": "17.0.5",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-redux": "9.2.0"
+    "marked": "18.0.9",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-redux": "9.3.0"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.8",
-    "@astrojs/mdx": "5.0.2",
-    "@astrojs/node": "10.0.3",
+    "@astrojs/check": "0.9.10",
+    "@astrojs/mdx": "7.0.5",
+    "@astrojs/node": "11.1.2",
     "@astropub/md": "1.0.0",
-    "@sveltia/cms": "0.150.0",
-    "@types/node": "24.12.0",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.1",
+    "@sveltia/cms": "0.191.2",
+    "@types/node": "24.13.3",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
     "astro": "6.0.8",
     "astro-loader-sveltia-cms": "0.1.5",
     "cross-env": "10.1.0",
-    "immutable": "5.1.5",
+    "immutable": "5.1.9",
     "netlify-cms-proxy-server": "1.3.24",
-    "prettier": "3.8.1",
+    "prettier": "3.9.6",
     "shx": "0.4.0",
-    "tsx": "4.21.0",
-    "typescript": "6.0.2",
-    "vite-plugin-static-copy": "4.0.0"
+    "tsx": "4.23.12",
+    "typescript": "6.0.3",
+    "vite-plugin-static-copy": "4.1.1"
   }
 }

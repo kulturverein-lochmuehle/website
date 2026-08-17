@@ -1,5 +1,5 @@
 # BASE -----------------------------------------------------------------------------------------------
-ARG NODE_VERSION=24.11.1
+ARG NODE_VERSION=24.19.0
 FROM node:${NODE_VERSION}-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -22,7 +22,7 @@ RUN pnpm deploy --filter=@kvlm/ui --prod /prod/demo
 RUN pnpm deploy --filter=@kvlm/website.bkp --prod /prod/website
 
 # RUNNER UI DEMO -------------------------------------------------------------------------------------
-FROM nginx:1.26-alpine-slim AS demo
+FROM nginx:1.31-alpine-slim AS demo
 COPY packages/ui/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /prod/demo/dist /usr/share/nginx/html/demo
 CMD ["nginx", "-g", "daemon off;"]
