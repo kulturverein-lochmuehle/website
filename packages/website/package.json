@@ -10,22 +10,11 @@
   },
   "type": "module",
   "scripts": {
-    "sync:decap": "adc -t ./src/collections -n %%name%%.schema.ts ./src/collections/*.collection.yml",
-    "sync:astro": "astro sync",
-    "sync": "cross-env FORCE_COLOR=1 run-s -lns sync:*",
-    "dev:proxy": "cross-env PORT=4320 GIT_REPO_DIRECTORY=../../ netlify-cms-proxy-server",
-    "dev:sync": "run-s \"sync:decap -w\"",
-    "dev:start": "astro dev --host",
-    "dev": "cross-env FORCE_COLOR=1 run-p -lns dev:*",
-    "build:sync": "run-s sync:decap",
-    "build:build": "astro build",
-    "build": "cross-env FORCE_COLOR=1 run-s -lns build:*"
+    "dev": "astro dev --host",
+    "build": "astro build"
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
-    "decap-cms-app": "3.10.1",
-    "decap-cms-lib-widgets": "3.3.0",
-    "decap-cms-widget-list": "3.5.0",
     "marked": "17.0.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -34,27 +23,22 @@
   "devDependencies": {
     "@astrojs/check": "0.9.8",
     "@astrojs/mdx": "5.0.2",
-    "@astrojs/netlify": "7.0.4",
-    "@astrojs/react": "5.0.1",
+    "@astrojs/node": "10.0.3",
     "@astropub/md": "1.0.0",
+    "@sveltia/cms": "0.150.0",
     "@types/node": "24.12.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
     "astro": "6.0.8",
-    "astro-decap-collection": "0.4.0",
+    "astro-loader-sveltia-cms": "0.1.5",
     "cross-env": "10.1.0",
-    "decap-cms-core": "3.10.1",
     "immutable": "5.1.5",
     "netlify-cms-proxy-server": "1.3.24",
-    "npm-run-all": "4.1.5",
     "prettier": "3.8.1",
     "shx": "0.4.0",
     "tsx": "4.21.0",
     "typescript": "6.0.2",
     "vite-plugin-static-copy": "4.0.0"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "4.60.0"
   }
 }

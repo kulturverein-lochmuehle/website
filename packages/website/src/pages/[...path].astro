@@ -2,11 +2,13 @@
 import { getCollection, getEntry } from 'astro:content';
 
 import DefaultLayout from '@/layouts/default.layout.astro';
-import { Navigation } from '@/components/navigation.component';
-import { Page } from '@/components/page.component';
+import Navigation from '@/components/navigation.component.astro';
+import Page from '@/components/page.component.astro';
 import { getCollectionParams } from '@/utils/collection.utils.js';
 import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
 import { preparePage } from '@/utils/page.utils.js';
+
+export const prerender = false;
 
 const { slug, isAdmin } = getCollectionParams(Astro.params.path as string);
 const home = await getDefaultRoute();
@@ -19,8 +21,8 @@ if (slug === undefined) {
 // resolve current page using the astro entry resolver
 const page = await preparePage(
   slug,
-  slug => getEntry('pages', slug),
-  filter => getCollection('chronicle', filter),
+  async slug => await getEntry('pages', slug),
+  async filter => await getCollection('chronicle', filter),
 );
 
 // check if collection and page exists and, due to browsers
@@ -35,17 +37,13 @@ if (page === undefined) {
 }
 
 // resolve navigation items using the astro entry resolver
-const items = await prepareNavigation(slug => getEntry('pages', slug), Astro.params.path);
+const items = await prepareNavigation(
+  async slug => await getEntry('pages', slug),
+  Astro.params.path,
+);
 ---
 
 <DefaultLayout pageTitle={page.data?.title} observeScroll={!isAdmin}>
-  <Navigation
-    client:load
-    client:slot="header"
-    current={Astro.params.path as string}
-    href={home}
-    items={items}
-    slot="header"
-  />
+  <Navigation slot="header" current={Astro.params.path as string} href={home} items={items} />
   <Page {...page} />
 </DefaultLayout>

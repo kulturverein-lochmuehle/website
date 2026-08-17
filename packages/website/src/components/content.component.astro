@@ -1,0 +1,33 @@
+---
+import type { ResolvedPage } from '@/utils/page.utils.js';
+import Teaser from '@/components/teaser.component.astro';
+
+export type Props = ResolvedPage['data']['sections'][number]['contents'][number] & {};
+
+const { type } = Astro.props;
+---
+
+{
+  type === 'typo' &&
+    (() => {
+      const { heading, text } = Astro.props;
+      const Headline = `h${heading.level}` as any;
+      return (
+        <kvlm-typo>
+          <Headline
+            class={[
+              heading.isTitle && 'title',
+              heading.isSticky && 'sticky',
+              heading.isRightAligned && 'right-aligned',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            set:html={heading.text}
+          />
+          {text && <div class={text.style ?? ''} set:html={text.text} />}
+        </kvlm-typo>
+      );
+    })()
+}
+
+<!-- {type === 'teaser' && <Teaser {...Astro.props} />} -->

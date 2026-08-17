@@ -1,0 +1,31 @@
+---
+import { prepareLink, type NavigationItem } from '@/utils/navigation.utils.js';
+
+export type Props = {
+  items: NavigationItem[];
+  current?: string;
+  href?: string;
+  slot?: string;
+};
+
+const { href = '/', current, items, slot } = Astro.props;
+const { inline } = prepareLink(href, current);
+---
+
+<kvlm-navigation
+  scroll-fade-distance="100"
+  slot={slot}
+  href={href}
+  href-inline={inline ? true : undefined}
+>
+  {
+    items?.map(({ active, inline, ...item }, index) => (
+      <kvlm-navigation-item
+        {...(item as any)}
+        key={index}
+        active={active ? true : undefined}
+        inline={inline ? true : undefined}
+      />
+    ))
+  }
+</kvlm-navigation>

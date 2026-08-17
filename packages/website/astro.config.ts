@@ -1,17 +1,39 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
-import netlify from '@astrojs/netlify';
-import react from '@astrojs/react';
+import sveltia from 'astro-loader-sveltia-cms';
+import node from '@astrojs/node';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 import { clientSlot } from './src/integrations/client-slot.integration.js';
-import type { AstroUserConfig, ViteUserConfig } from 'astro';
+import type { ViteUserConfig } from 'astro';
+import { chronicle } from './src/collections/chronicle.collection.js';
+import { pages } from './src/collections/pages.collection.js';
+import { navigation } from './src/collections/navigation.singleton.js';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), react({ experimentalReactChildren: true }), clientSlot()],
-  output: 'server',
-  adapter: netlify(),
+  integrations: [
+    mdx(),
+    clientSlot(),
+    sveltia({
+      config: {
+        backend: {
+          name: 'github',
+          repo: 'kulturverein-lochmuehle/website',
+          branch: 'next',
+        },
+        media_folder: 'packages/website/public',
+        public_folder: '/',
+        collections: [chronicle, pages].map(collection => ({
+          ...collection,
+          folder: `packages/website/${collection.folder}`,
+        })),
+        singletons: [{ ...navigation, file: `packages/website/${navigation.file}` }],
+      },
+    }),
+  ],
+  output: 'static',
+  adapter: node({ mode: 'standalone' }),
   devToolbar: { enabled: false },
   server: { port: 4321 },
   vite: {

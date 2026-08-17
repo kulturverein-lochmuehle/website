@@ -1,4 +1,4 @@
-import { type CollectionEntry, getEntry } from 'astro:content';
+import { getEntry, type CollectionEntry } from 'astro:content';
 import type { ResolveSingle } from './collection.utils.js';
 
 export type NavigationItem = {
@@ -27,7 +27,7 @@ export function prepareLink(
 }
 
 export async function prepareItems(
-  items: CollectionEntry<'navigation'>['data']['pages'],
+  items: CollectionEntry<'navigation'>['data'],
   resolve: ResolveSingle<'pages'>,
   current?: string,
 ): Promise<NavigationItem[]> {
@@ -36,7 +36,7 @@ export async function prepareItems(
       if (!item) return all;
 
       // lazy load the page
-      const page = await resolve(item.page.id);
+      const page = await resolve(item.page);
       if (!page) return all;
 
       // do not use the page itself but its sections
@@ -49,7 +49,7 @@ export async function prepareItems(
             return [
               ...subs,
               {
-                ...prepareLink(`${page.slug}/${section.id}`, current),
+                ...prepareLink(`${page.id}/${section.id}`, current),
                 label: section.title,
               },
             ];
@@ -61,7 +61,7 @@ export async function prepareItems(
       return [
         ...(await all),
         {
-          ...prepareLink(page.slug, current),
+          ...prepareLink(page.id, current),
           label: page.data.title,
         },
       ];
@@ -74,21 +74,23 @@ export async function prepareNavigation(
   resolve: ResolveSingle<'pages'>,
   current?: string,
 ): Promise<NavigationItem[]> {
-  const navigation = await getEntry('navigation', 'main');
+  const navigation = await getEntry('navigation', 'navigation');
   if (!navigation) return [];
-  return prepareItems(navigation.data.pages, resolve, current);
+  return prepareItems(navigation.data, resolve, current);
 }
 
 export async function getDefaultRoute(): Promise<string> {
-  const { data } = await getEntry('navigation', 'main')!;
-  const [{ page, useSections }] = data.pages;
-  if (!useSections) return page.id;
+  const navigation = await getEntry('navigation', 'navigation');
+  if (!navigation) return '/';
 
-  const sectioned = await getEntry('pages', page.id);
-  if (sectioned === undefined) return page.id;
+  const [{ page, useSections }] = navigation.data;
+  if (!useSections) return page;
+
+  const sectioned = await getEntry('pages', page);
+  if (sectioned === undefined) return page;
 
   const slug = sectioned.data.sections[0]?.id;
-  if (slug === undefined) return page.id;
+  if (slug === undefined) return page;
 
-  return `/${page.id}/${slug}`;
+  return `/${page}/${slug}`;
 }

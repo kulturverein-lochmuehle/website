@@ -26,7 +26,7 @@ export async function preparePage(
         page.data.sections.map(async section => {
           return {
             ...section,
-            page: page.slug,
+            page,
             contents: await Promise.all(
               section.contents.map(async content => {
                 switch (content.type) {
@@ -84,16 +84,16 @@ export async function prepareTeaser(
       break;
 
     case 'chronicle:past':
-      const past = await resolve(({ data }) => data.date < Date.now());
+      const past = await resolve(({ data }) => +data.date < Date.now());
       entries = past.reverse();
       break;
 
     case 'chronicle:upcoming':
-      entries = await resolve(({ data }) => data.date > Date.now());
+      entries = await resolve(({ data }) => +data.date > Date.now());
       break;
 
     case 'chronicle:next':
-      const [next] = await resolve(({ data }) => data.date > Date.now());
+      const [next] = await resolve(({ data }) => +data.date > Date.now());
       entries = next !== undefined ? [next] : [];
       break;
 

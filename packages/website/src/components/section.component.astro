@@ -1,0 +1,28 @@
+---
+import type { ResolvedPage } from '@/utils/page.utils.js';
+import Content from '@/components/content.component.astro';
+
+export type Props = ResolvedPage['data']['sections'][number];
+
+const { type, theme, page, id, contents } = Astro.props;
+---
+
+{
+  type === 'section' && (
+    <kvlm-section
+      id={`/${page}/${id}`}
+      style={
+        {
+          '--kvlm-section-background-from': theme === 'light' ? '#75f0de' : '#525252',
+          '--kvlm-section-background-to': theme === 'light' ? '#6fbad9' : '#101010',
+          '--kvlm-section-color': `var(--kvlm-color-grey-${theme === 'light' ? 'dark' : 'light'})`,
+          '--kvlm-brook-color': theme === 'light' ? '#fff' : '#52bcdd',
+        } as any
+      }
+    >
+      {contents?.map(data => (
+        <Content {...data} />
+      ))}
+    </kvlm-section>
+  )
+}
