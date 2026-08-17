@@ -5,12 +5,21 @@
   "license": "MIT",
   "private": true,
   "packageManager": "pnpm@11.22.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kulturverein-lochmuehle/website.git"
+  },
   "scripts": {
     "preinstall": "npx -y only-allow pnpm",
-    "bootstrap": "NODE_VERSION=$(cat .nvmrc) docker compose up -d --wait --build",
-    "dev": "pnpm -r --parallel dev"
+    "bootstrap": "NODE_VERSION=$(cat .node-version) docker compose up -d --wait --build",
+    "check": "pnpm -r --parallel --stream check",
+    "lint": "pnpm -r --parallel --stream lint",
+    "test": "pnpm -r --parallel --stream test",
+    "dev": "logbox pnpm -r --parallel --stream dev",
+    "build": "pnpm -r --stream build"
   },
   "devDependencies": {
+    "@enke.dev/logbox": "0.0.3",
     "eslint": "10.8.1",
     "prettier": "3.9.6",
     "typescript": "6.0.3"

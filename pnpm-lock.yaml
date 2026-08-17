@@ -9,6 +9,9 @@ importers:
 
   .:
     devDependencies:
+      '@enke.dev/logbox':
+        specifier: 0.0.3
+        version: 0.0.3
       eslint:
         specifier: 10.8.1
         version: 10.8.1(jiti@2.7.0)(supports-color@10.2.2)
@@ -869,6 +872,11 @@ packages:
       '@lit-labs/router': ^0.1.4
       lit: ^3
       urlpattern-polyfill: ^10
+
+  '@enke.dev/logbox@0.0.3':
+    resolution: {integrity: sha512-pe6eEYUmsaNRfqYLNHaMLZ4voSD+Vhpu/aX2wNaDqNC/CEjlpYFAYxbxrhAKCiCntBa6gROUdTfEsQrlfTR5lA==}
+    engines: {node: '>=22'}
+    hasBin: true
 
   '@epic-web/invariant@1.0.0':
     resolution: {integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==}
@@ -9049,6 +9057,8 @@ snapshots:
       '@lit-labs/router': 0.1.4
       lit: 3.3.3
       urlpattern-polyfill: 10.1.0
+
+  '@enke.dev/logbox@0.0.3': {}
 
   '@epic-web/invariant@1.0.0': {}
 

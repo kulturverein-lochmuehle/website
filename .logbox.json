@@ -1,0 +1,9 @@
+{
+  "$schema": "https://enke-dev.github.io/logbox/logbox.schema.json",
+  "title": "dev servers",
+  "content": [
+    ["components", "http://localhost:3500"],
+    ["website", "http://localhost:4321"],
+    ["cms", "http://localhost:4321/admin"]
+  ]
+}
