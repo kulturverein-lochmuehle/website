@@ -12,7 +12,8 @@
   "scripts": {
     "check": "astro check",
     "dev": "astro dev --host",
-    "build": "astro build"
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
