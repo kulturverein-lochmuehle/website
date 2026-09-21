@@ -12,7 +12,6 @@
 
 # generated files
 /dist
-/src/styles/variables/breakpoint.variables.scss
 /reports
 
 # ignore compressed dist files

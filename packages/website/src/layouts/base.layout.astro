@@ -19,8 +19,6 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
 
     <title>{pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
 
-    <link href="/ui/globals.css" rel="stylesheet" />
-    <link href="/ui/fonts.css" rel="stylesheet" />
     <style>
       html,
       body {
@@ -32,24 +30,6 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
       }
     </style>
 
-    <script is:inline type="importmap">
-      {
-        "imports": {
-          "element-internals-polyfill": "/ui/libs/element-internals-polyfill/dist/index.js",
-          "urlpattern-polyfill": "/ui/libs/urlpattern-polyfill/index.js",
-          "@lit/reactive-element": "/ui/libs/@lit/reactive-element/reactive-element.js",
-          "@lit/reactive-element/": "/ui/libs/@lit/reactive-element/",
-          "lit": "/ui/libs/lit/index.js",
-          "lit/": "/ui/libs/lit/",
-          "lit-element/": "/ui/libs/lit-element/",
-          "lit-html": "/ui/libs/lit-html/lit-html.js",
-          "lit-html/": "/ui/libs/lit-html/",
-          "lodash-es/": "/ui/libs/lodash-es/"
-        }
-      }
-    </script>
-
-    <script is:inline src="/ui/index.js" type="module"></script>
     <slot name="head" />
   </head>
   <body>

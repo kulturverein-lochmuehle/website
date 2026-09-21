@@ -11,7 +11,6 @@
   },
   "scripts": {
     "preinstall": "npx -y only-allow pnpm",
-    "bootstrap": "NODE_VERSION=$(cat .node-version) docker compose up -d --wait --build",
     "check": "pnpm -r --parallel --stream check",
     "lint": "pnpm -r --parallel --stream lint",
     "test": "pnpm -r --parallel --stream test",

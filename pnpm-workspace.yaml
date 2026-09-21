@@ -2,8 +2,6 @@ packages:
   - packages/ui
   - packages/website
 
-injectWorkspacePackages: true
-
 minimumReleaseAgeExclude:
   - "@enke.dev/lint@0.13.9"
   - "@enke.dev/lit-utils@0.4.7"
@@ -13,8 +11,4 @@ minimumReleaseAgeExclude:
   - "@html-eslint/template-parser@0.65.0"
   - "@html-eslint/template-syntax-parser@0.65.0"
   - "@html-eslint/types@0.65.0"
-  - "@sveltia/cms@0.191.2"
   - '@enke.dev/logbox@0.0.3'
-
-syncInjectedDepsAfterScripts:
-  - build

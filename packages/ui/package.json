@@ -9,30 +9,17 @@
     "email": "david@kvlm.de"
   },
   "type": "module",
-  "customElements": "public/custom-elements.json",
   "files": [
-    "dist"
+    "src"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./*.js": {
-      "import": "./dist/*.js",
-      "types": "./dist/*.d.ts"
-    },
-    "./fonts.css": "./dist/fonts.css",
-    "./globals.css": "./dist/globals.css"
+    ".": "./src/index.ts",
+    "./*": "./src/*"
   },
   "scripts": {
     "lint": "eslint",
     "test": "cross-env NODE_OPTIONS='--import tsx/esm' NODE_NO_WARNINGS=1 wtr --config .configs/web-test-runner.config.ts",
-    "test:watch": "npm test -- --watch",
-    "build": "vite --config .configs/vite.config.ts build",
-    "dev:build": "vite --config .configs/vite.config.ts build --watch",
-    "dev:serve": "vite --config .configs/vite.config.ts preview --port 3500",
-    "dev": "run-p -lns dev:*"
+    "test:watch": "npm test -- --watch"
   },
   "dependencies": {
     "@enke.dev/lit-utils": "0.4.7"
@@ -45,9 +32,6 @@
   },
   "devDependencies": {
     "@awmottaz/prettier-plugin-void-html": "2.2.1",
-    "@csstools/css-parser-algorithms": "4.0.0",
-    "@csstools/css-tokenizer": "4.0.0",
-    "@custom-elements-manifest/analyzer": "0.10.10",
     "@enke.dev/lint": "0.13.9",
     "@esm-bundle/chai": "4.3.4-fix.0",
     "@lit-labs/testing": "0.2.8",
@@ -57,52 +41,29 @@
     "@open-wc/testing-helpers": "3.0.1",
     "@remcovaes/web-test-runner-vite-plugin": "1.4.1",
     "@tsconfig/strictest": "2.0.8",
-    "@types/browser-sync": "2.29.1",
-    "@types/esbuild-copy-static-files": "0.1.4",
     "@types/lodash-es": "4.17.12",
     "@types/mocha": "10.0.10",
     "@types/node": "24.13.3",
     "@web/test-runner": "1.0.0",
     "@web/test-runner-commands": "1.0.1",
     "@web/test-runner-playwright": "1.0.0",
-    "@webcomponents-preview/cem-plugin-examples": "0.0.45",
-    "@webcomponents-preview/cem-plugin-generate-readmes": "0.0.45",
-    "@webcomponents-preview/cem-plugin-grouping": "0.0.45",
-    "@webcomponents-preview/client": "0.10.4",
-    "@webcomponents/template-shadowroot": "0.2.1",
-    "autoprefixer": "10.5.4",
     "axe-core": "4.13.0",
-    "barrelsby": "2.8.1",
     "chai-a11y-axe": "1.5.0",
     "cross-env": "10.1.0",
     "element-internals-polyfill": "3.0.2",
-    "esbuild": "0.28.2",
     "eslint": "10.8.1",
     "eslint-formatter-junit": "9.0.1",
-    "fast-glob": "3.3.3",
     "jiti": "2.7.0",
     "lit": "3.3.3",
     "lit-element": "4.2.2",
     "lit-html": "3.3.3",
     "lodash-es": "4.18.1",
-    "npm-run-all2": "9.0.3",
-    "postcss": "8.5.26",
-    "postcss-preset-env": "11.4.0",
     "prettier": "3.9.6",
-    "resolve": "1.22.12",
     "sass": "1.102.0",
-    "shx": "0.4.0",
     "tslib": "2.8.1",
     "tsx": "4.23.12",
-    "typedoc": "0.28.20",
     "typescript": "6.0.3",
-    "unplugin-dts": "1.0.3",
     "vite": "8.2.1",
-    "vite-plugin-cem": "0.8.5",
-    "vite-plugin-checker": "0.14.5",
-    "vite-plugin-lit-css": "3.1.0",
-    "vite-plugin-mkcert": "2.1.0",
-    "vite-plugin-node-polyfills": "0.28.0",
-    "vite-plugin-static-copy": "4.1.1"
+    "vite-plugin-lit-css": "3.1.0"
   }
 }

@@ -1,5 +1,4 @@
-// THIS LINE WILL BE REPLACED BY THE BUILD SCRIPT
-// TO FEED IN THE GLOBALLY DEFINED BREAKPOINTS!
+// Single source of the breakpoints, consumed by the media mixin.
 $breakpoints: (
   xs: 480px,
   sm: 768px,
