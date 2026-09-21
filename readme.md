@@ -8,7 +8,13 @@ Monorepo of the Kulturverein Lochmühle e.V. website.
 - Build all packages using `bun run build`.
 - Start the development servers using `bun run dev`.
 - Start the website development server using `bun run --filter @kvlm/website dev`.
-- Preview a build exactly as deployed using `bun run --filter @kvlm/website preview`.
+- Preview a build exactly as deployed using `bun run --filter @kvlm/website preview`,
+  which builds first - the preview server only ever serves `dist/`.
+
+The components are consumed as source, so the dev server picks up changes in
+`packages/ui` right away. Content loaders are different: they run once when
+the dev server starts, so restart it after changing one (`astro dev stop`,
+then start again, `--force` clears the content cache as well).
 
 The site is served from a project page, so it lives under `/website/`. Both
 `site` and `base` come from the deploy workflow (`SITE`/`BASE`), a build with
@@ -20,9 +26,15 @@ ESLint) still run on node — see `.node-version`.
 ## Google calendar
 
 The public ical feed of the association can feed an `events` collection, read
-at build time. It is opt in, set `KVLM_CALENDAR_URL` to the feed and use a
-teaser with the `events:upcoming` or `events:next` scope. Keeping it current
-needs a scheduled rebuild, the chronicle entries do not.
+at build time. It is opt in: copy `packages/website/.env.example` to `.env`
+(or set `KVLM_CALENDAR_URL` in the environment) and use a teaser with the
+`events:upcoming` or `events:next` scope. Keeping it current needs a scheduled
+rebuild, the chronicle entries do not.
+
+The `agenda:*` scopes join both: every upcoming event and every upcoming
+chronicle entry, collapsed into one item per day (german time). Where both know
+a day, the entry's title and teaser are shown with the event's start and its
+location appended. Without a feed the agenda is the upcoming chronicle.
 
 ## Updating dependencies
 
