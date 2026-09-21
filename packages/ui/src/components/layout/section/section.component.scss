@@ -37,13 +37,21 @@
     height: 100cqh;
     width: 100cqw;
 
-    background: linear-gradient(
+    // the same viewport sized gradient the navigation paints, moved up
+    // by the header, so the two are one continuous ramp while nothing
+    // is scrolled
+    background-image: linear-gradient(
       150deg,
       var(---kvlm-section-background-from) 0,
-      var(---kvlm-section-background-to) 100cqh
+      var(---kvlm-section-background-to) 100svh
     );
-    background-size: 100cqw 100cqh;
     background-repeat: no-repeat;
+    background-size: 100svw 100svh;
+    background-position: center calc(#{utils.$navigation-height-mobile} * -1);
+
+    @include utils.container(lg) {
+      background-position: center calc(#{utils.$navigation-height-desktop} * -1);
+    }
   }
 }
 

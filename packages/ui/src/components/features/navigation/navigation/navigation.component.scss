@@ -6,7 +6,7 @@
   ---kvlm-navigation-background-from: var(--kvlm-navigation-background-from, var(--kvlm-color-turquoise, #fff));
   ---kvlm-navigation-background-to: var(--kvlm-navigation-background-to, var(--kvlm-color-spray, #fff));
   ---kvlm-navigation-color-typo: var(--kvlm-navigation-color-typo, var(--kvlm-color-grey-dark, #000));
-  ---kvlm-navigation-height: var(--kvlm-navigation-height, #{utils.rem(12.6)});
+  ---kvlm-navigation-height: var(--kvlm-navigation-height, #{utils.$navigation-height-mobile});
   ---kvlm-navigation-stroke-color: var(--kvlm-navigation-stroke-color, currentColor);
   ---kvlm-navigation-stroke-width: var(--kvlm-navigation-stroke-width, #{utils.size(0.4)});
 }
@@ -16,11 +16,15 @@
   flex-direction: row;
 
   color: var(---kvlm-navigation-color-typo);
-  background: linear-gradient(
+  // the gradient covers the viewport, the bar shows its first slice -
+  // the sections continue it where it leaves off
+  background-image: linear-gradient(
     150deg,
-    var(---kvlm-navigation-background-from) 0svh,
+    var(---kvlm-navigation-background-from) 0,
     var(---kvlm-navigation-background-to) 100svh
   );
+  background-repeat: no-repeat;
+  background-size: 100svw 100svh;
   font-family: var(--kvlm-font-family-body);
 
   height: var(---kvlm-navigation-height);
@@ -41,7 +45,7 @@
   @include utils.container($from: lg) {
     ---kvlm-navigation-desktop: 1;
     ---kvlm-navigation-mobile: 0;
-    ---kvlm-navigation-height: var(--kvlm-navigation-height, #{utils.rem(16)});
+    ---kvlm-navigation-height: var(--kvlm-navigation-height, #{utils.$navigation-height-desktop});
 
     align-items: center;
   }
