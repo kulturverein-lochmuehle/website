@@ -44,6 +44,18 @@ header {
 }
 
 main {
+  // rubber band scrolling reveals the background of the scroll
+  // container beyond the content, so each end continues the chrome
+  // next to it instead of flashing the white page behind it
+  background-color: var(--kvlm-color-grey-dark, #161615);
+  background-image: linear-gradient(
+    150deg,
+    var(--kvlm-color-turquoise, #75f0de),
+    var(--kvlm-color-spray, #6fbad9)
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 50%;
+
   // the scroll container of the page, its size is what the sections
   // measure themselves against - in container query units
   // the decorations of a section may reach past its edges
