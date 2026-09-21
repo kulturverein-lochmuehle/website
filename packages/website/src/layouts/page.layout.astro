@@ -21,14 +21,19 @@ const page = await getEntry('pages', slug);
 if (page === undefined) throw new Error(`Unknown page "${slug}"`);
 
 const { Content } = await render(page);
+const sections = getSections(page);
 // a page without sections of its own is wrapped in a single implicit one
-const sectioned = getSections(page).length > 0;
+const sectioned = sections.length > 0;
+
+// a section deep link is its own history entry and deserves its own title
+const [, anchor] = current?.split('/') ?? [];
+const section = sections.find(({ id }) => id === anchor);
 const home = await getDefaultRoute();
 const items = await prepareNavigation('main', current);
 const legal = await prepareNavigation('footer', current);
 ---
 
-<DefaultLayout pageTitle={page.data.title} observeScroll>
+<DefaultLayout pageTitle={section?.title ?? page.data.title} observeScroll>
   <Navigation slot="header" current={current} href={home} items={items} />
   <Footer slot="footer" items={legal} />
   {

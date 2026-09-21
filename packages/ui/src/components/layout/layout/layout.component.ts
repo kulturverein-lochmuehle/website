@@ -12,6 +12,9 @@ import { changeLocationInline, RoutingEvent } from '../../../utils/event.utils.j
 
 import styles from './layout.component.scss?inline';
 
+/** The deployed pages are served with a trailing slash, the section ids are not. */
+const stripTrailingSlash = (path: string) => path.replace(/(.)\/$/, '$1');
+
 /**
  * A component to introduce the application layout.
  *
@@ -29,8 +32,12 @@ import styles from './layout.component.scss?inline';
 export class Layout extends LitElement {
   static override readonly styles = unsafeCSS(styles);
 
-  // ssr doesn't support IntersectionObserver
-  private readonly intersectionOptions: IntersectionObserverInit = { threshold: 0.5 };
+  // sections can be taller than the viewport and would never reach a
+  // ratio threshold, so the one crossing the middle of the screen wins
+  private readonly intersectionOptions: IntersectionObserverInit = {
+    threshold: 0,
+    rootMargin: '-50% 0px -50% 0px',
+  };
   private readonly intersectionObserver =
     !isServer && new IntersectionObserver(this.handleIntersections, this.intersectionOptions);
 
@@ -85,15 +92,18 @@ export class Layout extends LitElement {
    * @private
    */
   #getActiveElement(id: string): HTMLElement | undefined {
+    const wanted = stripTrailingSlash(id);
     return this.assignedElements.reduce(
       (_, element) => {
         // either the element itself has the id
-        if (element.id === id) {
+        if (stripTrailingSlash(element.id) === wanted) {
           return element;
         }
         // or one of the nested elements
-        const child = element.querySelector<HTMLElement>(`[id="${id}"]`);
-        if (child !== null) {
+        const child = [...element.querySelectorAll<HTMLElement>('[id]')].find(
+          nested => stripTrailingSlash(nested.id) === wanted
+        );
+        if (child !== undefined) {
           return child;
         }
         // if not, deliver previous result (or undefined)
@@ -134,7 +144,7 @@ export class Layout extends LitElement {
 
   @eventOptions({ passive: true })
   handleIntersections(entries: IntersectionObserverEntry[]) {
-    const entry = entries.find(entry => entry.intersectionRatio > 0.5);
+    const entry = entries.find(entry => entry.isIntersecting);
     if (entry) {
       const active = entry.target as HTMLElement;
       changeLocationInline(active.id, false);

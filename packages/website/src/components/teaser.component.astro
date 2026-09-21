@@ -35,7 +35,7 @@ const items = await Promise.all(
     items.map(({ data, teaser }, index) => (
       <kvlm-timeline-item
         date={data.date.toISOString()}
-        label={data.title}
+        aria-label={data.title}
         leading={index === 0 ? true : undefined}
         trailing={index === items.length - 1 ? true : undefined}
       >

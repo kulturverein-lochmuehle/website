@@ -48,6 +48,11 @@ main {
 }
 
 footer {
+  // the sticky section backgrounds paint a full viewport downwards,
+  // so the footer has to be lifted above them
+  position: relative;
+  z-index: 1;
+
   container-type: inline-size;
   background: var(--kvlm-color-grey-dark, #161615);
   color: var(--kvlm-color-grey-light, #eaeaea);

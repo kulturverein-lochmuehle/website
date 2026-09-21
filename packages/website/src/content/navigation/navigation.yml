@@ -1,6 +1,6 @@
 main:
   - page: startseite
-    useSections: false
+    useSections: true
   - page: kontakt
     useSections: false
 footer:

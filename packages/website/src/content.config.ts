@@ -13,7 +13,7 @@ const pages = defineCollection({
 });
 
 const chronicle = defineCollection({
-  loader: glob({ base: './src/content/chronicle', pattern: '**/*.md' }),
+  loader: glob({ base: './src/content/chronicle', pattern: '**/*.mdoc' }),
   schema: z.object({
     title: z.string(),
     date: z.date(),
