@@ -1,19 +1,12 @@
 ## Basic usage
 
+The layout fills the viewport: the header and the footer are rows of their
+own, only the content between them scrolls.
+
 ```html
-<section style="max-height: 400px">
-  <kvlm-layout>
-    <div
-      style="background: cyan; padding: 10px; height: var(---kvlm-layout-header-offset); box-sizing: border-box"
-      slot="header"
-    >
-      Header
-    </div>
-    <div
-      style="background: magenta; padding: calc(var(---kvlm-layout-header-offset) + 10px) 10px 10px; height: 480px"
-    >
-      Main
-    </div>
-  </kvlm-layout>
-</section>
+<kvlm-layout>
+  <div style="background: cyan; padding: 10px" slot="header">Header</div>
+  <div style="background: magenta; height: 480px">Main</div>
+  <div style="background: silver; padding: 10px" slot="footer">Footer</div>
+</kvlm-layout>
 ```

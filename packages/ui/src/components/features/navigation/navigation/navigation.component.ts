@@ -17,8 +17,7 @@ import globalStyles from './navigation.global.scss?inline';
  * @cssprop --kvlm-navigation-color-typo - Color of the navigation bar text.
  * @cssprop --kvlm-navigation-stroke-color - Color of the navigation bar stroke.
  * @cssprop --kvlm-navigation-stroke-width - Width of the navigation bar stroke.
- * @cssprop --kvlm-navigation-height - Height of the navigation bar. Will be computed based on layout.
- * @cssprop --kvlm-navigation-shadow-distance - Scroll distance over which the shadow fades in.
+ * @cssprop --kvlm-navigation-height - Height of the navigation bar.
  */
 @customElement('kvlm-navigation')
 export class Navigation extends LitElement {

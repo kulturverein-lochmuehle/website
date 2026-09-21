@@ -6,22 +6,9 @@
   ---kvlm-navigation-background-from: var(--kvlm-navigation-background-from, var(--kvlm-color-turquoise, #fff));
   ---kvlm-navigation-background-to: var(--kvlm-navigation-background-to, var(--kvlm-color-spray, #fff));
   ---kvlm-navigation-color-typo: var(--kvlm-navigation-color-typo, var(--kvlm-color-grey-dark, #000));
-  ---kvlm-navigation-height: var(--kvlm-navigation-height, var(---kvlm-layout-header-offset, 100px));
-  ---kvlm-navigation-shadow-distance: var(--kvlm-navigation-shadow-distance, 100px);
+  ---kvlm-navigation-height: var(--kvlm-navigation-height, #{utils.rem(12.6)});
   ---kvlm-navigation-stroke-color: var(--kvlm-navigation-stroke-color, currentColor);
   ---kvlm-navigation-stroke-width: var(--kvlm-navigation-stroke-width, #{utils.size(0.4)});
-}
-
-// the shadow fades in with the first scrolled pixels, driven by the
-// scroll timeline - without support the bar simply stays flat
-@keyframes shadow {
-  from {
-    box-shadow: 0 0 0 rgb(0 0 0 / 0%);
-  }
-
-  to {
-    box-shadow: 0 0 #{utils.size(5)} rgb(0 0 0 / 30%);
-  }
 }
 
 :host {
@@ -36,16 +23,10 @@
   );
   font-family: var(--kvlm-font-family-body);
 
-  height: var(---kvlm-layout-header-offset);
+  height: var(---kvlm-navigation-height);
 
   transition: var(--kvlm-fx-transition);
   transition-property: color, background, height;
-
-  @supports (animation-timeline: scroll()) {
-    animation: shadow linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0 var(---kvlm-navigation-shadow-distance);
-  }
 
   @include utils.container($until: lg) {
     ---kvlm-navigation-desktop: 0;
@@ -57,6 +38,7 @@
   @include utils.container($from: lg) {
     ---kvlm-navigation-desktop: 1;
     ---kvlm-navigation-mobile: 0;
+    ---kvlm-navigation-height: var(--kvlm-navigation-height, #{utils.rem(16)});
 
     align-items: center;
   }

@@ -22,11 +22,11 @@ const stripTrailingSlash = (path: string) => path.replace(/(.)\/$/, '$1');
  * @slot - The default slot
  * @slot footer - The footer slot
  *
+ * The layout is an app shell: header and footer are rows of their own and
+ * the content between them is the only scroll container. Its size is what
+ * the sections measure themselves against, in container query units.
+ *
  * @cssprop --kvlm-layout-color-typo - The color of the typography
- * @cssprop [--kvlm-layout-min-height=100svh] - The minimum height of the layout
- * @cssprop [--kvlm-layout-header-offset-mobile=utils.rem(12.6)] - The offset of the header on mobile devices
- * @cssprop [--kvlm-layout-header-offset-desktop=utils.rem(16)] - The offset of the header on desktop devices
- * @cssprop --kvlm-layout-header-offset - Sets the offset of the header for **all devices**.
  */
 @customElement('kvlm-layout')
 export class Layout extends LitElement {
@@ -38,11 +38,10 @@ export class Layout extends LitElement {
     threshold: 0,
     rootMargin: '-50% 0px -50% 0px',
   };
-  private readonly intersectionObserver =
-    !isServer && new IntersectionObserver(this.handleIntersections, this.intersectionOptions);
+  private intersectionObserver?: IntersectionObserver;
 
-  @query('header')
-  private readonly header!: HTMLElement;
+  @query('main')
+  private readonly main!: HTMLElement;
 
   @queryAssignedElements()
   private readonly assignedElements!: HTMLElement[];
@@ -79,12 +78,18 @@ export class Layout extends LitElement {
    * @private
    */
   #observeContents() {
+    // the content scroller is the root of the observation
+    this.intersectionObserver ??= new IntersectionObserver(this.handleIntersections, {
+      ...this.intersectionOptions,
+      root: this.main,
+    });
+
     // don't check for orphaned intersections any more
     this.intersectionObserver.disconnect();
 
     // add new intersection observations
     this.#observableElements.forEach(element => {
-      this.intersectionObserver.observe(element);
+      this.intersectionObserver?.observe(element);
     });
   }
 
@@ -122,9 +127,18 @@ export class Layout extends LitElement {
       this.#handleInlineLocationChanged,
       false
     );
+  }
+
+  override firstUpdated() {
+    if (isServer) {
+      return;
+    }
 
     // observe contents once scrolled
-    window.addEventListener('scroll', () => this.#observeContents(), { passive: true, once: true });
+    this.main.addEventListener('scroll', () => this.#observeContents(), {
+      passive: true,
+      once: true,
+    });
 
     // scroll to initial location
     window.setTimeout(() => this.scrollToContent(window.location.pathname, false), 100);
@@ -132,7 +146,7 @@ export class Layout extends LitElement {
 
   override disconnectedCallback() {
     // do not check for intersections any more
-    this.intersectionObserver.disconnect();
+    this.intersectionObserver?.disconnect();
 
     window.removeEventListener(
       RoutingEvent.InlineLocationChanged,
@@ -168,12 +182,13 @@ export class Layout extends LitElement {
       return;
     }
 
-    // use built-in scroll behavior
-    const headerOffset = this.header?.offsetHeight ?? 0;
-    window.scrollTo({
-      top: Math.max(target.offsetTop - headerOffset, 0),
-      behavior: animate ? 'smooth' : 'instant',
-    });
+    // the content scrolls, not the document, so the target is measured
+    // against the scroll container - the header is no part of it
+    const top =
+      this.main.scrollTop +
+      target.getBoundingClientRect().top -
+      this.main.getBoundingClientRect().top;
+    this.main.scrollTo({ top: Math.max(top, 0), behavior: animate ? 'smooth' : 'instant' });
   }
 
   override render() {

@@ -1,66 +1,63 @@
 @use '../../../styles/utils' as utils;
 
-// prettier-ignore
 :host {
-  ---kvlm-layout-color-typo: var(--kvlm-layout-color-typo, var(--kvlm-color-grey-dark, #000));
-  ---kvlm-layout-header-offset-mobile: var(--kvlm-layout-header-offset, var(--kvlm-layout-header-offset-mobile, #{utils.rem(12.6)}));
-  ---kvlm-layout-header-offset-desktop: var(--kvlm-layout-header-offset, var(--kvlm-layout-header-offset-desktop, #{utils.rem(16)}));
-}
+  // an app shell: the header and the footer are rows of their own, the
+  // content in between is the only thing that scrolls - no component has
+  // to know the height of another one
+  display: grid;
+  // the column is pinned, otherwise wide content would stretch the rows
+  // beyond the viewport
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  height: 100svh;
 
-:host {
-  display: block;
-  min-height: 100svh;
+  // lets the header animate along the scroll progress of the content
+  timeline-scope: --content;
 
-  color: var(---kvlm-layout-color-typo);
+  color: var(--kvlm-layout-color-typo, var(--kvlm-color-grey-dark, #000));
   font-family: var(--kvlm-font-family-body);
 
   container-type: inline-size;
   isolation: isolate;
 }
 
-header,
-main {
-  ---kvlm-layout-header-offset: var(---kvlm-layout-header-offset-mobile);
+// the shadow grows with the first scrolled pixels of the content
+@keyframes shadow {
+  from {
+    box-shadow: 0 0 0 rgb(0 0 0 / 0%);
+  }
 
-  @include utils.container(lg) {
-    ---kvlm-layout-header-offset: var(---kvlm-layout-header-offset-desktop);
+  to {
+    box-shadow: 0 0 #{utils.size(5)} rgb(0 0 0 / 30%);
   }
 }
 
 header {
-  position: sticky;
-  top: 0;
-  height: var(---kvlm-layout-header-offset);
-  z-index: 10;
+  position: relative;
+  z-index: 1;
 
-  slot {
-    position: absolute;
-    inset: 0 0 auto;
-    display: block;
-    container-type: inline-size;
+  @supports (animation-timeline: scroll()) {
+    animation: shadow linear both;
+    animation-timeline: --content;
+    animation-range: 0 #{utils.rem(10)};
   }
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  container-type: inline-size;
+  // the scroll container of the page, its size is what the sections
+  // measure themselves against - in container query units
+  // the decorations of a section may reach past its edges
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-timeline: --content block;
+
+  container-type: size;
 }
 
 footer {
-  // the sticky section backgrounds paint a full viewport downwards,
-  // so the footer has to be lifted above them
-  position: relative;
-  z-index: 1;
-
-  container-type: inline-size;
   background: var(--kvlm-color-grey-dark, #161615);
   color: var(--kvlm-color-grey-light, #eaeaea);
 
-  // on wide screens the footer stays at the bottom of the viewport,
-  // on small ones it would eat too much of the content
-  @include utils.container(lg) {
-    position: sticky;
-    bottom: 0;
-  }
+  container-type: inline-size;
 }

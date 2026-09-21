@@ -9,7 +9,10 @@
 
 :host {
   position: relative;
-  display: block;
+  // fills the scroll container of the layout, whatever is left of it
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 
   box-sizing: border-box;
   container-type: inline-size;
@@ -18,30 +21,31 @@
 
 [role='figure'] {
   position: sticky;
-  top: var(---kvlm-layout-header-offset, 0px);
+  top: 0;
   z-index: 0;
 
+  // `cq` units measure the scroll container of the layout, so the
+  // backdrop covers exactly what is on screen
   &::before {
     content: '';
     position: absolute;
     inset: 0 0 auto;
-    height: calc(100svh - var(---kvlm-layout-header-offset, 0px));
-    width: 100svw;
+    height: 100cqh;
+    width: 100cqw;
 
     background: linear-gradient(
       150deg,
-      var(---kvlm-section-background-from) 0svh,
-      var(---kvlm-section-background-to) 100svh
+      var(---kvlm-section-background-from) 0,
+      var(---kvlm-section-background-to) 100cqh
     );
-    background-position: center calc(var(---kvlm-layout-header-offset, 0px) * -1);
-    background-size: 100svw 100svh;
+    background-size: 100cqw 100cqh;
     background-repeat: no-repeat;
   }
 }
 
 kvlm-brook {
   position: absolute;
-  inset: 50svh 0 auto;
+  inset: 50cqh 0 auto;
   transform: translateY(-50%);
 
   width: 100%;
@@ -52,7 +56,9 @@ kvlm-brook {
 
 section {
   position: relative;
-  min-height: calc(100svh - var(---kvlm-layout-header-offset, 0px));
+  // the figure above is sticky and takes no space, so the content
+  // stretches over the whole section
+  flex: 1;
   box-sizing: border-box;
 
   @include utils.wrapper($padding: utils.size(4));
