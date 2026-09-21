@@ -21,7 +21,9 @@ const { items, slot } = Astro.props;
   </ul>
 </nav>
 
-<style>
+<style lang="scss">
+  @use '@kvlm/ui/styles/utils' as utils;
+
   nav {
     box-sizing: border-box;
     width: 100%;
@@ -47,5 +49,12 @@ const { items, slot } = Astro.props;
   a:hover,
   a:focus-visible {
     text-decoration: underline;
+  }
+
+  // in the footer row only, the mobile menu shows these itself
+  nav[slot='footer'] {
+    @include utils.container($until: lg) {
+      display: none;
+    }
   }
 </style>

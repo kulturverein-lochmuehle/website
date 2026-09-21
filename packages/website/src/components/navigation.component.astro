@@ -1,14 +1,17 @@
 ---
+import Footer from '@/components/footer.component.astro';
 import { prepareLink, type NavigationItem } from '@/utils/navigation.utils.js';
 
 export type Props = {
   items: NavigationItem[];
+  /** shown at the end of the mobile menu, where there is no footer */
+  secondary?: NavigationItem[];
   current?: string;
   href?: string;
   slot?: string;
 };
 
-const { href = '/', current, items, slot } = Astro.props;
+const { href = '/', current, items, secondary = [], slot } = Astro.props;
 const { inline } = prepareLink(href, current);
 ---
 
@@ -27,4 +30,5 @@ const { inline } = prepareLink(href, current);
       />
     ))
   }
+  {secondary.length > 0 && <Footer slot="secondary" items={secondary} />}
 </kvlm-navigation>

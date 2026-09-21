@@ -10,7 +10,7 @@ const legal = await prepareNavigation('footer');
 ---
 
 <DefaultLayout pageTitle="Seite nicht gefunden">
-  <Navigation slot="header" href={home} items={items} />
+  <Navigation slot="header" href={home} items={items} secondary={legal} />
   <Footer slot="footer" items={legal} />
   <kvlm-section>
     <kvlm-typo>

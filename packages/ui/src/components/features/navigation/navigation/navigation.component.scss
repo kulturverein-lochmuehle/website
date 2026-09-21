@@ -72,6 +72,17 @@ nav {
   }
 }
 
+// the footer has no room on small screens, its contents are shown
+// at the end of the opened menu instead
+slot[name='secondary'] {
+  display: block;
+  margin-top: auto;
+
+  @include utils.container($from: lg) {
+    display: none;
+  }
+}
+
 a:first-child {
   color: inherit;
 

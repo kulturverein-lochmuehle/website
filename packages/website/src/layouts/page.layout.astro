@@ -34,7 +34,7 @@ const legal = await prepareNavigation('footer', current);
 ---
 
 <DefaultLayout pageTitle={section?.title ?? page.data.title} observeScroll>
-  <Navigation slot="header" current={current} href={home} items={items} />
+  <Navigation slot="header" current={current} href={home} items={items} secondary={legal} />
   <Footer slot="footer" items={legal} />
   {
     sectioned ? (

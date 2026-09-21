@@ -11,6 +11,7 @@ import globalStyles from './navigation.global.scss?inline';
 
 /**
  * @slot - Receives the navigation items.
+ * @slot secondary - Receives secondary items, only shown in the mobile menu.
  *
  * @cssprop --kvlm-navigation-background-from - Background gradient start color of the navigation bar.
  * @cssprop --kvlm-navigation-background-to - Background gradient end color of the navigation bar.
@@ -90,6 +91,7 @@ export class Navigation extends LitElement {
           </svg>
         </a>
         <slot></slot>
+        <slot name="secondary"></slot>
       </nav>
     `;
   }
