@@ -1,0 +1,17 @@
+---
+import { classNames, type MarkdocClass } from '@/utils/class.utils.js';
+
+export type Props = {
+  level: number;
+  id?: string;
+  class?: MarkdocClass;
+};
+
+const { level, id, class: className } = Astro.props;
+const Tag = `h${Math.min(Math.max(level, 1), 6)}` as 'h1';
+
+// the typography component styles by class, not by element
+const classes = classNames('title', className);
+---
+
+<Tag id={id} class={classes}><slot /></Tag>

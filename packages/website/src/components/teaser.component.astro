@@ -1,19 +1,46 @@
 ---
-import type { ResolvedPage } from '@/utils/page.utils.js';
-import Chronicle from '@/components/chronicle.component.astro';
+import { getCollection } from 'astro:content';
 
-// expand type as union if other teaser types are added in the future,
-// as for now we only have chronicle teasers
-export type Props = Extract<
-  ResolvedPage['data']['sections'][number]['contents'][number],
-  { type: 'teaser' }
->;
+import { prepareText } from '@/utils/text.utils.js';
 
-const props = Astro.props;
+export type Props = {
+  title: string;
+  scope: 'chronicle:all' | 'chronicle:next' | 'chronicle:past' | 'chronicle:upcoming';
+};
+
+const { title, scope } = Astro.props;
+
+// drafts are skeletons for entries still to be written
+const published = await getCollection('chronicle', ({ data }) => !data.draft);
+const sorted = published.sort((a, b) => +a.data.date - +b.data.date);
+const past = sorted.filter(({ data }) => +data.date < Date.now());
+const upcoming = sorted.filter(({ data }) => +data.date >= Date.now());
+
+const scopes = {
+  'chronicle:all': () => [...sorted].reverse(),
+  'chronicle:past': () => [...past].reverse(),
+  'chronicle:upcoming': () => upcoming,
+  'chronicle:next': () => upcoming.slice(0, 1),
+};
+
+const entries = scopes[scope]?.() ?? [];
+const items = await Promise.all(
+  entries.map(async entry => ({ ...entry, teaser: await prepareText(entry.data.teaser) })),
+);
 ---
 
-{
-  ['chronicle:all', 'chronicle:next', 'chronicle:past', 'chronicle:upcoming'].includes(
-    props.scope,
-  ) && <Chronicle {...props} />
-}
+<h2 class="title right-aligned sticky">{title}</h2>
+<kvlm-timeline direction={scope === 'chronicle:upcoming' ? 'forward' : 'backward'}>
+  {
+    items.map(({ data, teaser }, index) => (
+      <kvlm-timeline-item
+        date={data.date.toISOString()}
+        label={data.title}
+        leading={index === 0 ? true : undefined}
+        trailing={index === items.length - 1 ? true : undefined}
+      >
+        <Fragment set:html={teaser} />
+      </kvlm-timeline-item>
+    ))
+  }
+</kvlm-timeline>

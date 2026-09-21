@@ -1,0 +1,15 @@
+---
+import { withBase } from '@/utils/base.utils.js';
+
+export type Props = {
+  href: string;
+  title?: string;
+};
+
+const { href, ...rest } = Astro.props;
+
+// only root-relative links belong to this site, everything else stays untouched
+const target = href.startsWith('/') ? withBase(href) : href;
+---
+
+<a href={target} {...rest}><slot /></a>

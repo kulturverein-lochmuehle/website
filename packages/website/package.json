@@ -10,6 +10,7 @@
   },
   "type": "module",
   "scripts": {
+    "check": "astro check",
     "dev": "astro dev --host",
     "build": "astro build"
   },

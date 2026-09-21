@@ -1,0 +1,12 @@
+---
+import { classNames, type MarkdocClass } from '@/utils/class.utils.js';
+
+export type Props = {
+  class?: MarkdocClass;
+};
+
+const { class: className } = Astro.props;
+const classes = classNames(className) || 'body';
+---
+
+<p class={classes}><slot /></p>

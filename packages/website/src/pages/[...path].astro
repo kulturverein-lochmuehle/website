@@ -2,13 +2,14 @@
 import { getCollection } from 'astro:content';
 
 import PageLayout from '@/layouts/page.layout.astro';
+import { getSections } from '@/utils/section.utils.js';
 
 // every page, plus one route per section so the deep links resolve statically
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
   return pages.flatMap(page => [
     { params: { path: page.id }, props: { slug: page.id } },
-    ...(page.data.sections ?? []).map((section: { id: string }) => ({
+    ...getSections(page).map(section => ({
       params: { path: `${page.id}/${section.id}` },
       props: { slug: page.id },
     })),

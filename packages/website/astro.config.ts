@@ -10,7 +10,8 @@ export default defineConfig({
   site,
   base,
   output: 'static',
-  integrations: [markdoc()],
+  // the title of the start page is set in three lines by design
+  integrations: [markdoc({ allowHTML: true })],
   devToolbar: { enabled: false },
   server: { port: 4321 },
   vite: {

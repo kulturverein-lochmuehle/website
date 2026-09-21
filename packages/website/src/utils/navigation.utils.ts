@@ -1,5 +1,7 @@
-import { getEntry, type CollectionEntry } from 'astro:content';
-import type { ResolveSingle } from './collection.utils.js';
+import { getCollection, getEntry } from 'astro:content';
+
+import { withBase } from './base.utils.js';
+import { getSections } from './section.utils.js';
 
 export type NavigationItem = {
   active: boolean;
@@ -8,17 +10,17 @@ export type NavigationItem = {
   label: string;
 };
 
+/**
+ * Both the navigation items and the scroll observer of the layout compare
+ * their targets against `location.pathname`, so every href carries the base.
+ */
 export function prepareLink(
   path: string,
   current?: string,
-): {
-  href: string;
-  active: boolean;
-  inline: boolean;
-} {
+): { href: string; active: boolean; inline: boolean } {
   path = path.replace(/^\//, '');
   current = current?.replace(/^\//, '');
-  const href = `/${path}`;
+  const href = withBase(path);
   const active = current === path;
   const isSectionLink = path.indexOf('/') !== -1;
   const isCurrentPage = current?.split('/')[0] === path.split('/')[0];
@@ -26,71 +28,41 @@ export function prepareLink(
   return { href, active, inline };
 }
 
-export async function prepareItems(
-  items: CollectionEntry<'navigation'>['data'],
-  resolve: ResolveSingle<'pages'>,
-  current?: string,
-): Promise<NavigationItem[]> {
-  return items.reduce(
-    async (all, item) => {
-      if (!item) return all;
-
-      // lazy load the page
-      const page = await resolve(item.page);
-      if (!page) return all;
-
-      // do not use the page itself but its sections
-      if (item.useSections) {
-        if (!page.data.sections) return all;
-        return [
-          ...(await all),
-          ...page.data.sections.reduce((subs, section) => {
-            if (!section) return subs;
-            return [
-              ...subs,
-              {
-                ...prepareLink(`${page.id}/${section.id}`, current),
-                label: section.title,
-              },
-            ];
-          }, [] as NavigationItem[]),
-        ];
-      }
-
-      // link to the page itself
-      return [
-        ...(await all),
-        {
-          ...prepareLink(page.id, current),
-          label: page.data.title,
-        },
-      ];
-    },
-    Promise.resolve([] as NavigationItem[]),
-  );
-}
-
-export async function prepareNavigation(
-  resolve: ResolveSingle<'pages'>,
-  current?: string,
-): Promise<NavigationItem[]> {
+export async function prepareNavigation(current?: string): Promise<NavigationItem[]> {
   const navigation = await getEntry('navigation', 'navigation');
   if (!navigation) return [];
-  return prepareItems(navigation.data, resolve, current);
+
+  const pages = await getCollection('pages');
+  return navigation.data.reduce((items, item) => {
+    const page = pages.find(({ id }) => id === item.page);
+    if (page === undefined) return items;
+
+    // do not link the page itself but each of its sections
+    if (item.useSections) {
+      return [
+        ...items,
+        ...getSections(page).map(section => ({
+          ...prepareLink(`${page.id}/${section.id}`, current),
+          label: section.title,
+        })),
+      ];
+    }
+
+    return [...items, { ...prepareLink(page.id, current), label: page.data.title }];
+  }, [] as NavigationItem[]);
 }
 
+/** The first navigation entry doubles as the landing page. */
 export async function getDefaultRoute(): Promise<string> {
   const navigation = await getEntry('navigation', 'navigation');
-  if (!navigation) return '/';
+  const [first] = navigation?.data ?? [];
+  if (first === undefined) return withBase('/');
 
-  const [{ page, useSections }] = navigation.data;
-  if (!useSections) return page;
+  if (!first.useSections) return withBase(first.page);
 
-  const sectioned = await getEntry('pages', page);
-  if (sectioned === undefined) return page;
+  const page = await getEntry('pages', first.page);
+  const [section] = page === undefined ? [] : getSections(page);
+  if (section === undefined) return withBase(first.page);
 
-  const slug = sectioned.data.sections[0]?.id;
-  if (slug === undefined) return page;
-
-  return `/${page}/${slug}`;
+  return withBase(`${first.page}/${section.id}`);
 }

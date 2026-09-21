@@ -1,11 +1,11 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 
 import Navigation from '@/components/navigation.component.astro';
-import PageContents from '@/components/page.component.astro';
+import Section from '@/components/section.component.astro';
 import DefaultLayout from '@/layouts/default.layout.astro';
 import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
-import { preparePage } from '@/utils/page.utils.js';
+import { getSections } from '@/utils/section.utils.js';
 
 export type Props = {
   /** id of the page collection entry */
@@ -16,16 +16,25 @@ export type Props = {
 
 const { slug, current } = Astro.props;
 
+const page = await getEntry('pages', slug);
+if (page === undefined) throw new Error(`Unknown page "${slug}"`);
+
+const { Content } = await render(page);
+// a page without sections of its own is wrapped in a single implicit one
+const sectioned = getSections(page).length > 0;
 const home = await getDefaultRoute();
-const page = await preparePage(
-  slug,
-  async slug => await getEntry('pages', slug),
-  async filter => await getCollection('chronicle', filter),
-);
-const items = await prepareNavigation(async slug => await getEntry('pages', slug), current);
+const items = await prepareNavigation(current);
 ---
 
-<DefaultLayout pageTitle={page?.data?.title} observeScroll>
+<DefaultLayout pageTitle={page.data.title} observeScroll>
   <Navigation slot="header" current={current} href={home} items={items} />
-  {page && <PageContents {...page} />}
+  {
+    sectioned ? (
+      <Content page={page.id} />
+    ) : (
+      <Section page={page.id} title={page.data.title} theme={page.data.theme}>
+        <Content page={page.id} />
+      </Section>
+    )
+  }
 </DefaultLayout>
