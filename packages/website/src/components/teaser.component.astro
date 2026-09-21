@@ -29,7 +29,7 @@ const items = await Promise.all(
 );
 ---
 
-<h2 class="title right-aligned sticky">{title}</h2>
+<h2 class="title right-aligned">{title}</h2>
 <kvlm-timeline direction={scope === 'chronicle:upcoming' ? 'forward' : 'backward'}>
   {
     items.map(({ data, teaser }, index) => (

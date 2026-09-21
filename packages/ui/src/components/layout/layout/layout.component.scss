@@ -56,4 +56,11 @@ footer {
   container-type: inline-size;
   background: var(--kvlm-color-grey-dark, #161615);
   color: var(--kvlm-color-grey-light, #eaeaea);
+
+  // on wide screens the footer stays at the bottom of the viewport,
+  // on small ones it would eat too much of the content
+  @include utils.container(lg) {
+    position: sticky;
+    bottom: 0;
+  }
 }
