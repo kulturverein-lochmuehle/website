@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property, queryAssignedElements } from 'lit/decorators.js';
 
-import styles from './timeline.component.scss';
+import styles from './timeline.component.scss?inline';
 
 /**
  * Wraps a timeline items.

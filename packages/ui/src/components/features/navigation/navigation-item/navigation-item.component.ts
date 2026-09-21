@@ -3,7 +3,8 @@ import { customElement, eventOptions, property } from 'lit/decorators.js';
 import _debounce from 'lodash-es/debounce.js';
 
 import { changeLocationInline, RoutingEvent } from '../../../../utils/event.utils.js';
-import styles from './navigation-item.component.scss';
+
+import styles from './navigation-item.component.scss?inline';
 
 @customElement('kvlm-navigation-item')
 export class NavigationItem extends LitElement {

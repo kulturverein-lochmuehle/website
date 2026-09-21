@@ -4,7 +4,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { formatDate } from '../../../../utils/format.utils.js';
-import styles from './timeline-item.component.scss';
+
+import styles from './timeline-item.component.scss?inline';
 
 /**
  * Displays a single timeline item with its given title, timestamp and text.

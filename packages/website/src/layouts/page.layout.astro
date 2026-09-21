@@ -1,0 +1,31 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+
+import Navigation from '@/components/navigation.component.astro';
+import PageContents from '@/components/page.component.astro';
+import DefaultLayout from '@/layouts/default.layout.astro';
+import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
+import { preparePage } from '@/utils/page.utils.js';
+
+export type Props = {
+  /** id of the page collection entry */
+  slug: string;
+  /** path the visitor came in on, used to mark the navigation */
+  current?: string;
+};
+
+const { slug, current } = Astro.props;
+
+const home = await getDefaultRoute();
+const page = await preparePage(
+  slug,
+  async slug => await getEntry('pages', slug),
+  async filter => await getCollection('chronicle', filter),
+);
+const items = await prepareNavigation(async slug => await getEntry('pages', slug), current);
+---
+
+<DefaultLayout pageTitle={page?.data?.title} observeScroll>
+  <Navigation slot="header" current={current} href={home} items={items} />
+  {page && <PageContents {...page} />}
+</DefaultLayout>

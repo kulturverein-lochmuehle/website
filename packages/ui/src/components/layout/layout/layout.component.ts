@@ -9,7 +9,8 @@ import {
 
 import type { InlineLocationChangedEvent } from '../../../utils/event.utils.js';
 import { changeLocationInline, RoutingEvent } from '../../../utils/event.utils.js';
-import styles from './layout.component.scss';
+
+import styles from './layout.component.scss?inline';
 
 /**
  * A component to introduce the application layout.

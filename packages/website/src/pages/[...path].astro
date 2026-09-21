@@ -1,49 +1,21 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-import DefaultLayout from '@/layouts/default.layout.astro';
-import Navigation from '@/components/navigation.component.astro';
-import Page from '@/components/page.component.astro';
-import { getCollectionParams } from '@/utils/collection.utils.js';
-import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
-import { preparePage } from '@/utils/page.utils.js';
+import PageLayout from '@/layouts/page.layout.astro';
 
-export const prerender = false;
-
-const { slug, isAdmin } = getCollectionParams(Astro.params.path as string);
-const home = await getDefaultRoute();
-
-// no slug, no problem - redirect to the first page
-if (slug === undefined) {
-  return Astro.redirect(home, 301);
+// every page, plus one route per section so the deep links resolve statically
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.flatMap(page => [
+    { params: { path: page.id }, props: { slug: page.id } },
+    ...(page.data.sections ?? []).map((section: { id: string }) => ({
+      params: { path: `${page.id}/${section.id}` },
+      props: { slug: page.id },
+    })),
+  ]);
 }
 
-// resolve current page using the astro entry resolver
-const page = await preparePage(
-  slug,
-  async slug => await getEntry('pages', slug),
-  async filter => await getCollection('chronicle', filter),
-);
-
-// check if collection and page exists and, due to browsers
-// looking up some convenient files, handle requests with a 404
-// https://github.com/withastro/astro/issues/6565#issuecomment-1477236472
-// https://docs.astro.build/en/guides/server-side-rendering/#response
-if (page === undefined) {
-  return new Response(null, {
-    status: 404,
-    statusText: 'Not found',
-  });
-}
-
-// resolve navigation items using the astro entry resolver
-const items = await prepareNavigation(
-  async slug => await getEntry('pages', slug),
-  Astro.params.path,
-);
+const { slug } = Astro.props;
 ---
 
-<DefaultLayout pageTitle={page.data?.title} observeScroll={!isAdmin}>
-  <Navigation slot="header" current={Astro.params.path as string} href={home} items={items} />
-  <Page {...page} />
-</DefaultLayout>
+<PageLayout slug={slug} current={Astro.params.path} />

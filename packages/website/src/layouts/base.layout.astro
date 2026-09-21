@@ -1,4 +1,9 @@
 ---
+import '@kvlm/ui/globals.scss';
+import '@kvlm/ui/fonts.scss';
+
+import { withBase } from '@/utils/base.utils.js';
+
 export interface Props {
   lang?: string;
   siteTitle?: string;
@@ -12,14 +17,14 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta content="IE=Edge" http-equiv="x-ua-compatible" />
 
     <title>{pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
 
-    <style>
+    <style is:global>
       html,
       body {
         margin: 0;
@@ -28,11 +33,19 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
       html {
         font-family: var(--kvlm-font-family-body);
       }
+
+      /* no SSR for the light DOM components, so hide the chrome until it upgrades */
+      kvlm-navigation:not(:defined) {
+        visibility: hidden;
+      }
     </style>
 
     <slot name="head" />
   </head>
   <body>
     <slot />
+    <script>
+      import '@kvlm/ui';
+    </script>
   </body>
 </html>

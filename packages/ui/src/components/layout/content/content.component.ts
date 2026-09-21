@@ -1,7 +1,7 @@
 import { html, LitElement, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './content.component.scss';
+import styles from './content.component.scss?inline';
 
 /**
  * A layout component to wrap contents of the page.

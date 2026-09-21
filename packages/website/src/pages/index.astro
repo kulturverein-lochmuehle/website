@@ -1,0 +1,11 @@
+---
+import { getEntry } from 'astro:content';
+
+import PageLayout from '@/layouts/page.layout.astro';
+
+// the first navigation entry doubles as the landing page
+const navigation = await getEntry('navigation', 'navigation');
+const [first] = navigation?.data ?? [];
+---
+
+<PageLayout slug={first!.page} current={first!.page} />
