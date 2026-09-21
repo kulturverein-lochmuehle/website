@@ -18,3 +18,9 @@
   // animations
   --kvlm-fx-transition: 0.3s ease-in-out;
 }
+
+html {
+  // no grey box flashing up when tapping around on touch devices,
+  // the property inherits into the components as well
+  -webkit-tap-highlight-color: transparent;
+}

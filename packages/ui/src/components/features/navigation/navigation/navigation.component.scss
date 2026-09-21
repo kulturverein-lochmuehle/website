@@ -25,6 +25,9 @@
 
   height: var(---kvlm-navigation-height);
 
+  // the labels are controls, not text to select
+  user-select: none;
+
   transition: var(--kvlm-fx-transition);
   transition-property: color, background, height;
 
@@ -103,6 +106,9 @@ a:first-child {
     flex-direction: row;
     align-items: center;
     margin-bottom: utils.size(5);
+
+    // it toggles the menu here, so no link callout on long press
+    -webkit-touch-callout: none;
 
     // stays reachable while a long menu scrolls underneath
     :host([opened]) & {
