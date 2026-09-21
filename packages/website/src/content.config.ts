@@ -2,6 +2,8 @@ import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+import { calendar, calendarEvent } from './loaders/calendar.loader.js';
+
 // Frontmatter stays flat and scalar, every structure lives in the body.
 const pages = defineCollection({
   loader: glob({ base: './src/content/pages', pattern: '**/*.mdoc' }),
@@ -36,4 +38,10 @@ const navigation = defineCollection({
   ),
 });
 
-export const collections = { chronicle, navigation, pages };
+// opt in with `KVLM_CALENDAR_URL`, the events stay empty otherwise
+const events = defineCollection({
+  loader: calendar({ url: process.env['KVLM_CALENDAR_URL'] }),
+  schema: calendarEvent,
+});
+
+export const collections = { chronicle, events, navigation, pages };

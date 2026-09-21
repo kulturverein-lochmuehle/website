@@ -5,7 +5,13 @@ import { prepareText } from '@/utils/text.utils.js';
 
 export type Props = {
   title: string;
-  scope: 'chronicle:all' | 'chronicle:next' | 'chronicle:past' | 'chronicle:upcoming';
+  scope:
+    | 'chronicle:all'
+    | 'chronicle:next'
+    | 'chronicle:past'
+    | 'chronicle:upcoming'
+    | 'events:next'
+    | 'events:upcoming';
 };
 
 const { title, scope } = Astro.props;
@@ -16,26 +22,47 @@ const sorted = published.sort((a, b) => +a.data.date - +b.data.date);
 const past = sorted.filter(({ data }) => +data.date < Date.now());
 const upcoming = sorted.filter(({ data }) => +data.date >= Date.now());
 
+// the loader keeps only upcoming events, the store does not promise an
+// order though - and it stays unread unless a teaser asks for it
+const events = (scope.startsWith('events:') ? await getCollection('events') : []).sort(
+  (a, b) => +a.data.start - +b.data.start,
+);
+
 const scopes = {
   'chronicle:all': () => [...sorted].reverse(),
   'chronicle:past': () => [...past].reverse(),
   'chronicle:upcoming': () => upcoming,
   'chronicle:next': () => upcoming.slice(0, 1),
+  'events:upcoming': () => events,
+  'events:next': () => events.slice(0, 1),
 };
 
 const entries = scopes[scope]?.() ?? [];
+// both collections boil down to a date, a title and a bit of text
 const items = await Promise.all(
-  entries.map(async entry => ({ ...entry, teaser: await prepareText(entry.data.teaser) })),
+  entries.map(async entry =>
+    'teaser' in entry.data
+      ? {
+          date: entry.data.date,
+          title: entry.data.title,
+          teaser: await prepareText(entry.data.teaser),
+        }
+      : {
+          date: entry.data.start,
+          title: entry.data.summary,
+          teaser: await prepareText(entry.data.location ?? ''),
+        },
+  ),
 );
 ---
 
 <h2 class="title right-aligned">{title}</h2>
-<kvlm-timeline direction={scope === 'chronicle:upcoming' ? 'forward' : 'backward'}>
+<kvlm-timeline direction={scope.endsWith(':past') || scope === 'chronicle:all' ? 'backward' : 'forward'}>
   {
-    items.map(({ data, teaser }, index) => (
+    items.map(({ date, title, teaser }, index) => (
       <kvlm-timeline-item
-        date={data.date.toISOString()}
-        aria-label={data.title}
+        date={date.toISOString()}
+        aria-label={title}
         leading={index === 0 ? true : undefined}
         trailing={index === items.length - 1 ? true : undefined}
       >

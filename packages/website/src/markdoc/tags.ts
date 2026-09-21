@@ -29,7 +29,14 @@ export const tags: AstroMarkdocConfig['tags'] = {
       scope: {
         type: String,
         required: true,
-        matches: ['chronicle:all', 'chronicle:next', 'chronicle:past', 'chronicle:upcoming'],
+        matches: [
+          'chronicle:all',
+          'chronicle:next',
+          'chronicle:past',
+          'chronicle:upcoming',
+          'events:next',
+          'events:upcoming',
+        ],
       },
     },
   },

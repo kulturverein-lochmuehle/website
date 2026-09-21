@@ -17,6 +17,13 @@ The site is served from a project page, so it lives under `/website/`. Both
 Bun installs and orchestrates, the tools themselves (Astro, web-test-runner,
 ESLint) still run on node — see `.node-version`.
 
+## Google calendar
+
+The public ical feed of the association can feed an `events` collection, read
+at build time. It is opt in, set `KVLM_CALENDAR_URL` to the feed and use a
+teaser with the `events:upcoming` or `events:next` scope. Keeping it current
+needs a scheduled rebuild, the chronicle entries do not.
+
 ## Updating dependencies
 
 ```bash
