@@ -51,6 +51,10 @@
 
     height: 100vh;
     height: 100svh;
+
+    // more entries than screen: the menu scrolls itself
+    overflow: hidden auto;
+    overscroll-behavior: contain;
   }
 }
 
@@ -61,7 +65,10 @@ nav {
     flex-direction: column;
     gap: utils.size(3);
     padding: utils.size(4);
-    width: 100vw;
+    box-sizing: border-box;
+    width: 100%;
+    // keeps the secondary entries at the bottom while the menu fits
+    min-height: 100%;
   }
 
   @include utils.container($from: lg) {
@@ -72,11 +79,16 @@ nav {
   }
 }
 
-// the footer has no room on small screens, its contents are shown
-// at the end of the opened menu instead
+// the footer has no room on small screens, its entries are shown at the
+// end of the opened menu instead, a little smaller than the main ones
 slot[name='secondary'] {
-  display: block;
+  --kvlm-navigation-item-font-size: #{utils.rem(2.4)};
+
+  display: flex;
+  flex-direction: column;
+  gap: utils.size(2);
   margin-top: auto;
+  padding-top: utils.size(4);
 
   @include utils.container($from: lg) {
     display: none;
@@ -91,6 +103,17 @@ a:first-child {
     flex-direction: row;
     align-items: center;
     margin-bottom: utils.size(5);
+
+    // stays reachable while a long menu scrolls underneath
+    :host([opened]) & {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+
+      padding-block: utils.size(2);
+      margin-block: utils.size(-2) utils.size(3);
+      background: var(---kvlm-navigation-background-from);
+    }
   }
 
   @include utils.container($from: lg) {

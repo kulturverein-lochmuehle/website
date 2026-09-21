@@ -3,6 +3,11 @@
 :host {
   ---kvlm-navigation-item-stroke-distance: var(--kvlm-navigation-item-stroke-distance, 0.175em);
   ---kvlm-navigation-item-stroke-width: var(--kvlm-navigation-item-stroke-width, 0.15em);
+  ---kvlm-navigation-item-font-size: var(--kvlm-navigation-item-font-size, #{utils.rem(4)});
+
+  @include utils.container(lg) {
+    ---kvlm-navigation-item-font-size: var(--kvlm-navigation-item-font-size, #{utils.rem(2)});
+  }
 }
 
 a {
@@ -18,11 +23,7 @@ a {
   transition: 0.3s ease;
   transition-property: color;
 
-  font-size: utils.rem(4);
-
-  @include utils.container(lg) {
-    font-size: utils.rem(2);
-  }
+  font-size: var(---kvlm-navigation-item-font-size);
 
   &::after {
     content: '';

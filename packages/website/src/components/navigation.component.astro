@@ -1,5 +1,4 @@
 ---
-import Footer from '@/components/footer.component.astro';
 import { prepareLink, type NavigationItem } from '@/utils/navigation.utils.js';
 
 export type Props = {
@@ -30,5 +29,15 @@ const { inline } = prepareLink(href, current);
       />
     ))
   }
-  {secondary.length > 0 && <Footer slot="secondary" items={secondary} />}
+  {
+    secondary.map(({ active, inline, ...item }, index) => (
+      <kvlm-navigation-item
+        {...(item as any)}
+        slot="secondary"
+        key={`secondary-${index}`}
+        active={active ? true : undefined}
+        inline={inline ? true : undefined}
+      />
+    ))
+  }
 </kvlm-navigation>
