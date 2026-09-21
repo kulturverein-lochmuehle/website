@@ -25,7 +25,7 @@ const chronicle = defineCollection({
 
 const navigation = defineCollection({
   loader: file('./src/content/navigation/navigation.yml'),
-  // the yaml keeps the list under a single `navigation` key
+  // one entry per group, e.g. `main` and `footer`
   schema: z.array(
     z.object({
       page: z.string(),

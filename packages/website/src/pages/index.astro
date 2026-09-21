@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content';
 import PageLayout from '@/layouts/page.layout.astro';
 
 // the first navigation entry doubles as the landing page
-const navigation = await getEntry('navigation', 'navigation');
+const navigation = await getEntry('navigation', 'main');
 const [first] = navigation?.data ?? [];
 if (first === undefined) throw new Error('The navigation has no entry to land on');
 ---

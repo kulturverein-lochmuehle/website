@@ -17,6 +17,7 @@ import styles from './layout.component.scss?inline';
  *
  * @slot header - The header slot
  * @slot - The default slot
+ * @slot footer - The footer slot
  *
  * @cssprop --kvlm-layout-color-typo - The color of the typography
  * @cssprop [--kvlm-layout-min-height=100svh] - The minimum height of the layout
@@ -173,6 +174,9 @@ export class Layout extends LitElement {
       <main>
         <slot></slot>
       </main>
+      <footer>
+        <slot name="footer"></slot>
+      </footer>
     `;
   }
 }

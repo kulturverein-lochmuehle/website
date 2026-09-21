@@ -28,8 +28,13 @@ export function prepareLink(
   return { href, active, inline };
 }
 
-export async function prepareNavigation(current?: string): Promise<NavigationItem[]> {
-  const navigation = await getEntry('navigation', 'navigation');
+export type NavigationGroup = 'main' | 'footer';
+
+export async function prepareNavigation(
+  group: NavigationGroup,
+  current?: string,
+): Promise<NavigationItem[]> {
+  const navigation = await getEntry('navigation', group);
   if (!navigation) return [];
 
   const pages = await getCollection('pages');
@@ -52,9 +57,9 @@ export async function prepareNavigation(current?: string): Promise<NavigationIte
   }, [] as NavigationItem[]);
 }
 
-/** The first navigation entry doubles as the landing page. */
+/** The first entry of the main navigation doubles as the landing page. */
 export async function getDefaultRoute(): Promise<string> {
-  const navigation = await getEntry('navigation', 'navigation');
+  const navigation = await getEntry('navigation', 'main');
   const [first] = navigation?.data ?? [];
   if (first === undefined) return withBase('/');
 

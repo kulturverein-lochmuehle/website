@@ -46,3 +46,9 @@ main {
   flex-direction: column;
   container-type: inline-size;
 }
+
+footer {
+  container-type: inline-size;
+  background: var(--kvlm-color-grey-dark, #161615);
+  color: var(--kvlm-color-grey-light, #eaeaea);
+}

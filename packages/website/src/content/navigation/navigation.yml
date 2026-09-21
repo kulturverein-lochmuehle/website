@@ -1,5 +1,10 @@
-navigation:
+main:
   - page: startseite
     useSections: false
   - page: kontakt
     useSections: false
+footer:
+  - page: satzung
+  - page: beitragsordnung
+  - page: datenschutz
+  - page: impressum
