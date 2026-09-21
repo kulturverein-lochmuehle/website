@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+
+import Footer from '@/components/footer.component.astro';
+import Navigation from '@/components/navigation.component.astro';
+import Section from '@/components/section.component.astro';
+import DefaultLayout from '@/layouts/default.layout.astro';
+import { withBase } from '@/utils/base.utils.js';
+import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
+
+// drafts are skeletons, they get no page
+export async function getStaticPaths() {
+  const entries = await getCollection('chronicle', ({ data }) => !data.draft);
+  return entries.map(entry => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const home = await getDefaultRoute();
+const items = await prepareNavigation('main');
+const legal = await prepareNavigation('footer');
+
+const date = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(entry.data.date);
+---
+
+<DefaultLayout pageTitle={entry.data.title}>
+  <Navigation slot="header" href={home} items={items} secondary={legal} />
+  <Footer slot="footer" items={legal} />
+  <Section page="chronik" id={entry.id} title={entry.data.title} theme="dark">
+    <h1 class="title">{entry.data.title}</h1>
+    <p class="lead"><time datetime={entry.data.date.toISOString()}>{date}</time></p>
+    {
+      entry.data.image && (
+        <img src={withBase(entry.data.image)} alt={entry.data.title} loading="lazy" />
+      )
+    }
+    <Content />
+  </Section>
+</DefaultLayout>
+
+<style>
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+  }
+</style>

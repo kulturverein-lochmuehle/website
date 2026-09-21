@@ -22,6 +22,8 @@ const chronicle = defineCollection({
     title: z.string(),
     date: z.date(),
     teaser: z.string(),
+    // lives in `public/uploads`, shown on the page of the entry
+    image: z.string().optional(),
     // skeletons of entries still to be written
     draft: z.boolean().default(false),
   }),

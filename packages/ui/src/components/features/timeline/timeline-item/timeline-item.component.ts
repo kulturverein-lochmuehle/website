@@ -9,6 +9,7 @@ import styles from './timeline-item.component.scss?inline';
 
 /**
  * Displays a single timeline item with its given title, timestamp and text.
+ * With an `href` the whole item becomes the link to its own page.
  */
 @customElement('kvlm-timeline-item')
 export class TimelineItem extends LitElement {
@@ -29,14 +30,26 @@ export class TimelineItem extends LitElement {
   @property({ reflect: true, type: String, attribute: 'aria-label' })
   readonly label!: string;
 
+  /**
+   * Page of the item, if it has one of its own.
+   */
+  @property({ reflect: true, type: String })
+  readonly href?: string;
+
   override render() {
-    return html`
+    const contents = html`
       <time datetime="${ifDefined(this.getAttribute('date')) as string}">
         ${formatDate(this.date)}
       </time>
       <h2>${this.label}</h2>
       <slot></slot>
     `;
+
+    if (this.href === undefined) {
+      return contents;
+    }
+
+    return html`<a href="${this.href}">${contents}</a>`;
   }
 }
 
