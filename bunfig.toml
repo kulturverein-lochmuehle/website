@@ -1,0 +1,15 @@
+[install]
+exact = true
+# Same supply-chain delay the pnpm setup enforced.
+minimumReleaseAge = 604800
+minimumReleaseAgeExcludes = [
+  "@enke.dev/lint",
+  "@enke.dev/lit-utils",
+  "@enke.dev/logbox",
+  "@html-eslint/core",
+  "@html-eslint/eslint-plugin",
+  "@html-eslint/parser",
+  "@html-eslint/template-parser",
+  "@html-eslint/template-syntax-parser",
+  "@html-eslint/types",
+]

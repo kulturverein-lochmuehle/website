@@ -4,18 +4,19 @@
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
-  "packageManager": "pnpm@11.22.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/kulturverein-lochmuehle/website.git"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "preinstall": "npx -y only-allow pnpm",
-    "check": "pnpm -r --parallel --stream check",
-    "lint": "pnpm -r --parallel --stream lint",
-    "test": "pnpm -r --parallel --stream test",
-    "dev": "logbox pnpm -r --parallel --stream dev",
-    "build": "pnpm -r --stream build"
+    "check": "bun run --filter '*' check",
+    "lint": "bun run --filter '*' lint",
+    "test": "bun run --filter '*' test",
+    "dev": "logbox bun run --filter '*' dev",
+    "build": "bun run --filter '*' build"
   },
   "devDependencies": {
     "@enke.dev/logbox": "0.0.3",
