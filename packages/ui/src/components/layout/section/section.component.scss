@@ -14,6 +14,10 @@
   flex-direction: column;
   min-height: 100%;
 
+  // the stream below is pinned to the screen, a section only shows the
+  // piece of it that it covers, like a fixed background image does
+  clip-path: inset(0);
+
   box-sizing: border-box;
   container-type: inline-size;
   color: var(---kvlm-section-color);
@@ -44,8 +48,8 @@
 }
 
 kvlm-brook {
-  position: absolute;
-  inset: 50cqh 0 auto;
+  position: fixed;
+  inset: 50% 0 auto;
   transform: translateY(-50%);
 
   width: 100%;
