@@ -12,6 +12,8 @@ const pages = defineCollection({
   }),
 });
 
+// entries are named `<yyyy>-<mm>-<dd>-<slug>`, the way the git based
+// CMSs generate them, and the slug avoids umlauts to stay url safe
 const chronicle = defineCollection({
   loader: glob({ base: './src/content/chronicle', pattern: '**/*.mdoc' }),
   schema: z.object({

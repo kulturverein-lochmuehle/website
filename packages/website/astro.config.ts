@@ -15,6 +15,9 @@ export default defineConfig({
   devToolbar: { enabled: false },
   server: { port: 4321 },
   vite: {
+    // lightningcss folds `animation-timeline` into the `animation`
+    // shorthand, which no browser accepts - esbuild leaves it alone
+    build: { cssMinify: 'esbuild' },
     // resolve aliases
     resolve: { alias: { '@': new URL('./src', import.meta.url).pathname } },
   },
