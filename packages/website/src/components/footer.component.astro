@@ -7,6 +7,9 @@ export type Props = {
 };
 
 const { items, slot } = Astro.props;
+
+// pages elsewhere open in their own tab, as they do within the content
+const isExternal = (href: string): boolean => /^https?:\/\//.test(href);
 ---
 
 <nav slot={slot} aria-label="Rechtliches">
@@ -14,7 +17,13 @@ const { items, slot } = Astro.props;
     {
       items.map(({ href, label }) => (
         <li>
-          <a href={href}>{label}</a>
+          <a
+            href={href}
+            target={isExternal(href) ? '_blank' : undefined}
+            rel={isExternal(href) ? 'noopener noreferrer' : undefined}
+          >
+            {label}
+          </a>
         </li>
       ))
     }

@@ -44,6 +44,12 @@ export async function prepareNavigation(
 
   const pages = await getCollection('pages');
   return navigation.data.reduce((items, item) => {
+    // an entry pointing elsewhere is a plain link, nothing of this site
+    // is ever active or scrolled inline by it
+    if ('href' in item) {
+      return [...items, { active: false, inline: false, href: item.href, label: item.label }];
+    }
+
     const page = pages.find(({ id }) => id === item.page);
     if (page === undefined) return items;
 
@@ -66,7 +72,8 @@ export async function prepareNavigation(
 export async function getDefaultRoute(): Promise<string> {
   const navigation = await getEntry('navigation', 'main');
   const [first] = navigation?.data ?? [];
-  if (first === undefined) return withBase('/');
+  // a link elsewhere is no page of this site, so it is no landing page either
+  if (first === undefined || !('page' in first)) return withBase('/');
 
   if (!first.useSections) return withBase(first.page);
 

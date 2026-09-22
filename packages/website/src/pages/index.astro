@@ -3,10 +3,13 @@ import { getEntry } from 'astro:content';
 
 import PageLayout from '@/layouts/page.layout.astro';
 
-// the first navigation entry doubles as the landing page
+// the first navigation entry doubles as the landing page - a link elsewhere
+// is no page of this site and cannot be landed on
 const navigation = await getEntry('navigation', 'main');
 const [first] = navigation?.data ?? [];
-if (first === undefined) throw new Error('The navigation has no entry to land on');
+if (first === undefined || !('page' in first)) {
+  throw new Error('The navigation has no page to land on');
+}
 ---
 
 <PageLayout slug={first.page} current={first.page} />

@@ -1,5 +1,6 @@
 import { html, isServer, LitElement, unsafeCSS } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import _debounce from 'lodash-es/debounce.js';
 
 import { changeLocationInline, RoutingEvent } from '../../../../utils/event.utils.js';
@@ -92,7 +93,16 @@ export class NavigationItem extends LitElement {
   }
 
   override render() {
-    return html`<a href="${this.href}" @click="${this.handleClick}">${this.label}</a>`;
+    // an item pointing to another site opens in its own tab
+    const external = /^https?:\/\//.test(this.href);
+
+    return html`<a
+      href="${this.href}"
+      target="${ifDefined(external ? '_blank' : undefined)}"
+      rel="${ifDefined(external ? 'noopener noreferrer' : undefined)}"
+      @click="${this.handleClick}"
+      >${this.label}</a
+    >`;
   }
 }
 

@@ -31,12 +31,19 @@ const chronicle = defineCollection({
 
 const navigation = defineCollection({
   loader: file('./src/content/navigation/navigation.yml'),
-  // one entry per group, e.g. `main` and `footer`
+  // one entry per group, e.g. `main` and `footer` - an entry is a page of
+  // this site or, with a `href` and a `label`, somewhere else entirely
   schema: z.array(
-    z.object({
-      page: z.string(),
-      useSections: z.boolean().default(false),
-    }),
+    z.union([
+      z.object({
+        page: z.string(),
+        useSections: z.boolean().default(false),
+      }),
+      z.object({
+        href: z.url(),
+        label: z.string(),
+      }),
+    ]),
   ),
 });
 
