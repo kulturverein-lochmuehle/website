@@ -1,0 +1,20 @@
+name: update dependencies
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # every Monday at 06:00 UTC
+  workflow_dispatch: # also allow manual runs
+
+# The pull request runs through the workflow of this repository like any
+# other, so lint, tests and both builds have to pass before it is merged.
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the update branch
+      pull-requests: write # open the PR
+    steps:
+      - uses: enke-dev/bumper@main
+        with:
+          skip: github-actions # GITHUB_TOKEN can't push .github/workflows/ changes
+          pr-labels: dependencies
