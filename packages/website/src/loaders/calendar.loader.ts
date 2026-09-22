@@ -44,10 +44,11 @@ export function calendar({ url }: { url?: string }): Loader {
         return;
       }
 
+      // a feed that is configured but unreachable is a broken build, not a
+      // page quietly missing its events
       const response = await fetch(url, { redirect: 'follow' });
       if (!response.ok) {
-        logger.warn(`Failed reading the calendar: ${response.status} ${response.statusText}`);
-        return;
+        throw new Error(`Failed reading the calendar: ${response.status} ${response.statusText}`);
       }
 
       const parsed = ical.sync.parseICS(await response.text());
