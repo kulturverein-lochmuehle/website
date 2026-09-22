@@ -4,6 +4,8 @@ import type { CollectionEntry } from 'astro:content';
 export type PageSection = {
   id: string;
   title: string;
+  /** scopes of the teasers the section shows, e.g. `chronicle:past` */
+  scopes: string[];
 };
 
 /**
@@ -16,6 +18,14 @@ export function getSections(entry: CollectionEntry<'pages'>): PageSection[] {
     if (node.type !== 'tag' || node.tag !== 'section') return sections;
     const { id, title } = node.attributes as Partial<PageSection>;
     if (id === undefined || title === undefined) return sections;
-    return [...sections, { id, title }];
+
+    // the teasers are nested in the section, their scope tells what it lists
+    const scopes = [...node.walk()].reduce((scopes, child) => {
+      if (child.type !== 'tag' || child.tag !== 'teaser') return scopes;
+      const { scope } = child.attributes as { scope?: string };
+      return scope === undefined ? scopes : [...scopes, scope];
+    }, [] as string[]);
+
+    return [...sections, { id, title, scopes }];
   }, [] as PageSection[]);
 }

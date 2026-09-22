@@ -17,11 +17,15 @@ export type NavigationItem = {
 export function prepareLink(
   path: string,
   current?: string,
+  marked?: string,
 ): { href: string; active: boolean; inline: boolean } {
   path = path.replace(/^\//, '');
   current = current?.replace(/^\//, '');
+  marked = marked?.replace(/^\//, '');
   const href = withBase(path);
-  const active = current === path;
+  // a page elsewhere may mark an item without being one of its sections,
+  // scrolling inline would leave the url behind on a page without them
+  const active = current === path || marked === path;
   const isSectionLink = path.indexOf('/') !== -1;
   const isCurrentPage = current?.split('/')[0] === path.split('/')[0];
   const inline = isSectionLink && isCurrentPage;
@@ -33,6 +37,7 @@ export type NavigationGroup = 'main' | 'footer';
 export async function prepareNavigation(
   group: NavigationGroup,
   current?: string,
+  marked?: string,
 ): Promise<NavigationItem[]> {
   const navigation = await getEntry('navigation', group);
   if (!navigation) return [];
@@ -47,13 +52,13 @@ export async function prepareNavigation(
       return [
         ...items,
         ...getSections(page).map(section => ({
-          ...prepareLink(`${page.id}/${section.id}`, current),
+          ...prepareLink(`${page.id}/${section.id}`, current, marked),
           label: section.title,
         })),
       ];
     }
 
-    return [...items, { ...prepareLink(page.id, current), label: page.data.title }];
+    return [...items, { ...prepareLink(page.id, current, marked), label: page.data.title }];
   }, [] as NavigationItem[]);
 }
 

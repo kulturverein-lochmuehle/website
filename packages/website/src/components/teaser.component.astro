@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 
 import { withBase } from '@/utils/base.utils.js';
+import { getChroniclePath } from '@/utils/chronicle.utils.js';
 import { prepareText } from '@/utils/text.utils.js';
 
 export type Props = {
@@ -22,7 +23,7 @@ type Item = {
   title: string;
   teaser: string;
   /** chronicle entries have a page of their own, calendar events do not */
-  href?: string;
+  entry?: (typeof sorted)[number];
 };
 
 const { title, scope } = Astro.props;
@@ -49,7 +50,7 @@ const fromChronicle = (entry: (typeof sorted)[number]): Item => ({
   date: entry.data.date,
   title: entry.data.title,
   teaser: entry.data.teaser,
-  href: withBase(`/chronik/${entry.id}`),
+  entry,
 });
 const fromEvent = ({ data }: (typeof events)[number]): Item => ({
   date: data.start,
@@ -89,10 +90,16 @@ const scopes = {
 };
 
 const items = await Promise.all(
-  (scopes[scope]?.() ?? []).map(async item => ({
-    ...item,
-    teaser: await prepareText(item.teaser),
-  })),
+  (scopes[scope]?.() ?? []).map(async ({ entry, ...item }) => {
+    // the entry's page lives below the section listing it, which is the
+    // one this teaser stands in
+    const path = entry === undefined ? undefined : await getChroniclePath(entry);
+    return {
+      ...item,
+      teaser: await prepareText(item.teaser),
+      href: path === undefined ? undefined : withBase(path),
+    };
+  }),
 );
 ---
 
