@@ -33,6 +33,33 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
 
       html {
         font-family: var(--kvlm-font-family-body);
+
+        /* every colour of a page is painted by an element, so the canvas
+           behind them is white - which is what shows while the next document
+           is on its way and wherever a scroll bounces past the content */
+        background-color: var(--kvlm-color-grey-dark);
+        background-image: linear-gradient(
+          150deg,
+          var(--kvlm-color-turquoise) 0,
+          var(--kvlm-color-spray) 100svh
+        );
+        background-repeat: no-repeat;
+        background-size: 100svw 100svh;
+        background-attachment: fixed;
+      }
+
+      /* the browser holds the old page until the next one has painted, so
+         nothing flashes in between - browsers without it just navigate */
+      @view-transition {
+        navigation: auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        ::view-transition-group(*),
+        ::view-transition-old(*),
+        ::view-transition-new(*) {
+          animation: none;
+        }
       }
     </style>
 

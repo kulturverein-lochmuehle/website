@@ -15,6 +15,9 @@ export default defineConfig({
   site,
   base,
   output: 'static',
+  // the styles are what a page needs before anything else, a request of
+  // their own would be a white screen long - they stay in the document
+  build: { inlineStylesheets: 'always' },
   // the title of the start page is set in three lines by design
   integrations: [markdoc({ allowHTML: true })],
   devToolbar: { enabled: false },
