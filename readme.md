@@ -36,7 +36,8 @@ Both branches deploy themselves, to two different places:
   for, `https://www.kulturverein-lochmuehle.de` by default.
 
 Netlify must not build the repository itself, the workflow ships a finished
-`dist` to it.
+`dist` to it. `public/_headers` travels with that build and tells netlify to
+keep the hashed assets forever, everything else stays revalidated.
 
 ## Google calendar
 

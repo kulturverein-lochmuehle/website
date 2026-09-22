@@ -1,0 +1,4 @@
+# Netlify revalidates everything by default. The bundled assets carry a hash
+# in their name, so a changed file is a new url - they can be kept forever.
+/_astro/*
+  cache-control: public, max-age=31536000, immutable
