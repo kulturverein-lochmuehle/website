@@ -133,14 +133,18 @@ jobs:
         run: bun run --filter @kvlm/website build
       - name: Deploy
         id: deployment
+        # the cli only uploads what the step above built: `--no-build` keeps it
+        # from looking for a framework to run, `--filter` tells it which of the
+        # two packages is the site
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           bunx netlify-cli@27 deploy \
             --prod \
+            --no-build \
             --filter @kvlm/website \
-            --dir packages/website/dist \
+            --dir "$GITHUB_WORKSPACE/packages/website/dist" \
             --message "${{ github.sha }}" \
             --json > deploy.json
           echo "url=$(jq -r '.url' deploy.json)" >> "$GITHUB_OUTPUT"
