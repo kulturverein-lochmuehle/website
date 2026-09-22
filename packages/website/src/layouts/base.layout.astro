@@ -1,6 +1,7 @@
 ---
 import '@kvlm/ui/globals.scss';
 import '@kvlm/ui/fonts.scss';
+import '@kvlm/ui/fallback.scss';
 
 import { withBase } from '@/utils/base.utils.js';
 
@@ -32,11 +33,6 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
 
       html {
         font-family: var(--kvlm-font-family-body);
-      }
-
-      /* no SSR for the light DOM components, so hide the chrome until it upgrades */
-      kvlm-navigation:not(:defined) {
-        visibility: hidden;
       }
     </style>
 

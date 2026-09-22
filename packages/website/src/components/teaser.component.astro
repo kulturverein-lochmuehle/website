@@ -30,6 +30,8 @@ const { title, scope } = Astro.props;
 
 // the site speaks of german days, wherever it is built
 const day = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' });
+// the same reading the timeline component renders once it is upgraded
+const readable = new Intl.DateTimeFormat('de', { year: 'numeric', month: 'long', day: 'numeric' });
 
 // drafts are skeletons for entries still to be written
 const published = await getCollection('chronicle', ({ data }) => !data.draft);
@@ -115,6 +117,13 @@ const items = await Promise.all(
         leading={index === 0 ? true : undefined}
         trailing={index === items.length - 1 ? true : undefined}
       >
+        {/* the component renders date and title itself, from its attributes -
+            these are what the page shows until it is upgraded, the unknown
+            slot drops them out of the rendering the moment it is */}
+        <time slot="pre-upgrade" datetime={date.toISOString()}>
+          {readable.format(date)}
+        </time>
+        <h2 slot="pre-upgrade">{title}</h2>
         <Fragment set:html={teaser} />
       </kvlm-timeline-item>
     ))
