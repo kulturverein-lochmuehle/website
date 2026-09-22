@@ -10,6 +10,8 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.md]
+# markdoc is markdown, and both keep the two trailing spaces that mean
+# a line break
+[*.{md,mdoc}]
 insert_final_newline = false
 trim_trailing_whitespace = false

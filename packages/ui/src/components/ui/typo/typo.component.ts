@@ -1,11 +1,11 @@
-import { html, isServer, LitElement, nothing, unsafeCSS } from 'lit';
+import { html, isServer, LitElement, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './typo.component.scss?inline';
+import styles from './typo.component.css?inline&lit';
 
 @customElement('kvlm-typo')
 export class Typo extends LitElement {
-  static override readonly styles = unsafeCSS(styles);
+  static override readonly styles = styles;
 
   /**
    * Disable shadow DOM

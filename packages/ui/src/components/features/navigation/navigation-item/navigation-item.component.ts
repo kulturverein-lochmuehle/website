@@ -1,15 +1,14 @@
-import { html, isServer, LitElement, unsafeCSS } from 'lit';
+import { html, isServer, LitElement } from 'lit';
 import { customElement, eventOptions, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import _debounce from 'lodash-es/debounce.js';
 
-import { changeLocationInline, RoutingEvent } from '../../../../utils/event.utils.js';
-
-import styles from './navigation-item.component.scss?inline';
+import { RoutingEvent, stripTrailingSlash } from '../../../../utils/router.utils.js';
+import styles from './navigation-item.component.css?inline&lit';
 
 @customElement('kvlm-navigation-item')
 export class NavigationItem extends LitElement {
-  static override readonly styles = unsafeCSS(styles);
+  static override readonly styles = styles;
 
   private readonly handleLocationChangedBound = _debounce(
     this.handleLocationChanged.bind(this),
@@ -18,9 +17,6 @@ export class NavigationItem extends LitElement {
 
   @property({ reflect: true, type: String })
   override readonly role = 'listitem';
-
-  @property({ reflect: true, type: Boolean })
-  inline = false;
 
   @property({ reflect: true, type: String })
   href!: string;
@@ -41,16 +37,7 @@ export class NavigationItem extends LitElement {
       return;
     }
 
-    window.addEventListener(
-      RoutingEvent.InlineLocationChanged,
-      this.handleLocationChangedBound,
-      false
-    );
-    window.addEventListener(
-      RoutingEvent.RouterLocationChanged,
-      this.handleLocationChangedBound,
-      false
-    );
+    window.addEventListener(RoutingEvent.LocationChanged, this.handleLocationChangedBound, false);
   }
 
   override disconnectedCallback() {
@@ -64,12 +51,7 @@ export class NavigationItem extends LitElement {
     }
 
     window.removeEventListener(
-      RoutingEvent.InlineLocationChanged,
-      this.handleLocationChangedBound,
-      false
-    );
-    window.removeEventListener(
-      RoutingEvent.RouterLocationChanged,
+      RoutingEvent.LocationChanged,
       this.handleLocationChangedBound,
       false
     );
@@ -78,18 +60,9 @@ export class NavigationItem extends LitElement {
   @eventOptions({ passive: true })
   handleLocationChanged() {
     // mark as active if the current location matches the href
-    this.active = window.location.pathname.startsWith(this.href);
-  }
-
-  @eventOptions({ capture: true })
-  handleClick(event: Event) {
-    // handle normal links with default router
-    if (this.inline) {
-      // prevent other listeners from handling this event
-      event.preventDefault();
-      // scroll to related section
-      changeLocationInline(this.href, true);
-    }
+    this.active = stripTrailingSlash(window.location.pathname).startsWith(
+      stripTrailingSlash(this.href)
+    );
   }
 
   override render() {
@@ -100,7 +73,6 @@ export class NavigationItem extends LitElement {
       href="${this.href}"
       target="${ifDefined(external ? '_blank' : undefined)}"
       rel="${ifDefined(external ? 'noopener noreferrer' : undefined)}"
-      @click="${this.handleClick}"
       >${this.label}</a
     >`;
   }

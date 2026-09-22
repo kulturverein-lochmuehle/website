@@ -1,12 +1,16 @@
-@use '../../../../styles/utils' as utils;
-
 :host {
   ---kvlm-navigation-item-stroke-distance: var(--kvlm-navigation-item-stroke-distance, 0.175em);
   ---kvlm-navigation-item-stroke-width: var(--kvlm-navigation-item-stroke-width, 0.15em);
-  ---kvlm-navigation-item-font-size: var(--kvlm-navigation-item-font-size, #{utils.rem(4)});
+  ---kvlm-navigation-item-font-size: var(
+    --kvlm-navigation-item-font-size,
+    calc(4 * var(--kvlm-base-size-typo))
+  );
 
-  @include utils.container(lg) {
-    ---kvlm-navigation-item-font-size: var(--kvlm-navigation-item-font-size, #{utils.rem(2)});
+  @container (--from-lg) {
+    ---kvlm-navigation-item-font-size: var(
+      --kvlm-navigation-item-font-size,
+      calc(2 * var(--kvlm-base-size-typo))
+    );
   }
 }
 
@@ -39,13 +43,16 @@ a {
     transition: 0.3s ease;
     transition-property: background-color, bottom, opacity;
   }
+}
 
-  :host([active]) & {
-    font-weight: 600;
+/* flat on purpose: nesting `&::after` below `:host([active]) &` would compile
+   to `:is(:host([active]) a)::after`, and a shadow host is featureless - it is
+   not reliably matched from inside an `:is()` */
+:host([active]) a {
+  font-weight: 600;
+}
 
-    &::after {
-      bottom: calc(var(---kvlm-navigation-item-stroke-distance) * -1);
-      opacity: 1;
-    }
-  }
+:host([active]) a::after {
+  bottom: calc(var(---kvlm-navigation-item-stroke-distance) * -1);
+  opacity: 1;
 }

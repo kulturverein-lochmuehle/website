@@ -1,0 +1,35 @@
+:root {
+  /* colors */
+  --kvlm-color-grey-dark: #161615;
+  --kvlm-color-grey-medium: #525252;
+  --kvlm-color-grey-light: #eaeaea;
+
+  --kvlm-color-spray: #6fbad9;
+  --kvlm-color-turquoise: #75f0de;
+
+  /* the tiles of the Lochmühle, and the warm counterpart the cool palette was
+     missing - the turquoise stays free for marking things out */
+  --kvlm-color-brick: #cf6a52;
+
+  /* fonts */
+  --kvlm-font-family-body: 'Fundamental Brigade', sans-serif;
+  --kvlm-font-family-title: 'Super Grotesk', sans-serif;
+
+  /* sizes */
+  --kvlm-base-size-layout: 10px;
+  --kvlm-base-size-typo: 10px;
+
+  /* the one measure the navigation and the sections share: their gradients
+     continue each other, so both have to know where the header ends */
+  --kvlm-navigation-height-mobile: calc(12.6 * var(--kvlm-base-size-typo));
+  --kvlm-navigation-height-desktop: calc(16 * var(--kvlm-base-size-typo));
+
+  /* animations */
+  --kvlm-fx-transition: 0.3s ease-in-out;
+}
+
+html {
+  /* no grey box flashing up when tapping around on touch devices,
+     the property inherits into the components as well */
+  -webkit-tap-highlight-color: transparent;
+}

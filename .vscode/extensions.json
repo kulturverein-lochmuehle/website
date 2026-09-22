@@ -1,0 +1,5 @@
+{
+  // the content collections are Markdoc (`.mdoc`), which no editor knows
+  // out of the box - this extension brings syntax, folding and tag hints
+  "recommendations": ["Stripe.markdoc-language-support"]
+}

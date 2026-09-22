@@ -1,11 +1,10 @@
 import { DateIsoConverter } from '@enke.dev/lit-utils/lib/converters/date-iso.converter.js';
-import { html, LitElement, unsafeCSS } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 import { formatDate } from '../../../../utils/format.utils.js';
-
-import styles from './timeline-item.component.scss?inline';
+import styles from './timeline-item.component.css?inline&lit';
 
 /**
  * Displays a single timeline item with its given title, timestamp and text.
@@ -13,7 +12,7 @@ import styles from './timeline-item.component.scss?inline';
  */
 @customElement('kvlm-timeline-item')
 export class TimelineItem extends LitElement {
-  static override readonly styles = unsafeCSS(styles);
+  static override readonly styles = styles;
 
   @property({ type: String, reflect: true })
   override readonly role = 'listitem';

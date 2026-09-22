@@ -17,12 +17,14 @@
     "./*": "./src/*"
   },
   "scripts": {
+    "data:houses": "bun run scripts/fetch-houses-data.ts",
     "lint": "eslint",
     "test": "cross-env NODE_OPTIONS='--import tsx/esm' NODE_NO_WARNINGS=1 wtr --config .configs/web-test-runner.config.ts",
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
-    "@enke.dev/lit-utils": "0.6.1"
+    "@enke.dev/lit-utils": "0.6.1",
+    "three": "0.186.0"
   },
   "peerDependencies": {
     "element-internals-polyfill": "^3",
@@ -44,6 +46,7 @@
     "@types/lodash-es": "4.17.12",
     "@types/mocha": "10.0.10",
     "@types/node": "24.13.4",
+    "@types/three": "0.186.0",
     "@web/test-runner": "1.0.0",
     "@web/test-runner-commands": "1.0.1",
     "@web/test-runner-playwright": "1.0.0",
@@ -53,13 +56,14 @@
     "element-internals-polyfill": "3.0.2",
     "eslint": "10.10.0",
     "eslint-formatter-junit": "9.0.1",
+    "fflate": "0.8.3",
+    "geotiff": "3.0.5",
     "jiti": "2.7.0",
     "lit": "3.3.3",
     "lit-element": "4.2.2",
     "lit-html": "3.3.3",
     "lodash-es": "4.18.1",
     "prettier": "3.9.8",
-    "sass": "1.104.1",
     "tslib": "2.8.1",
     "tsx": "4.23.13",
     "typescript": "6.0.3",

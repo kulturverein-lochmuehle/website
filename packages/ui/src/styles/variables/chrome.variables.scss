@@ -1,7 +1,0 @@
-@use '../functions/rem.function.scss' as *;
-
-// The navigation defines the height of the page header. The sections need
-// it as well: their gradient spans the whole viewport and has to continue
-// the one of the navigation without a seam.
-$navigation-height-mobile: rem(12.6);
-$navigation-height-desktop: rem(16);

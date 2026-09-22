@@ -1,8 +1,6 @@
-@use '../../../../styles/utils' as utils;
-
 :host {
-  ---kvlm-timeline-gap: #{utils.size(4)};
-  ---kvlm-timeline-item-date-font-size: #{utils.rem(3)};
+  ---kvlm-timeline-gap: calc(4 * var(--kvlm-base-size-layout));
+  ---kvlm-timeline-item-date-font-size: calc(3 * var(--kvlm-base-size-typo));
   ---kvlm-timeline-item-date-size: calc(var(---kvlm-timeline-item-date-font-size) * 1.25);
 
   position: relative;
@@ -11,9 +9,9 @@
   container-type: inline-size;
   gap: var(---kvlm-timeline-gap);
 
-  @include utils.container(sm) {
-    ---kvlm-timeline-item-date-font-size: #{utils.rem(7.5)};
-    ---kvlm-timeline-gap: #{utils.size(13)};
+  @container (--from-sm) {
+    ---kvlm-timeline-item-date-font-size: calc(7.5 * var(--kvlm-base-size-typo));
+    ---kvlm-timeline-gap: calc(13 * var(--kvlm-base-size-layout));
   }
 }
 
@@ -21,7 +19,7 @@
 :host([direction='backward'])::before {
   position: absolute;
   left: calc((26px - 8px) / 2);
-  height: utils.size(12.5);
+  height: calc(12.5 * var(--kvlm-base-size-layout));
 
   content: '';
   display: block;

@@ -1,0 +1,35 @@
+/* The sass loop that wrote these three blocks is gone; two families, three
+   weights, and a loop is not worth a preprocessor. */
+
+@font-face {
+  font-family: 'Fundamental Brigade';
+  src:
+    url('./assets/fonts/fundamental-brigade-400.woff2') format('woff2'),
+    url('./assets/fonts/fundamental-brigade-400.woff') format('woff'),
+    url('./assets/fonts/fundamental-brigade-400.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fundamental Brigade';
+  src:
+    url('./assets/fonts/fundamental-brigade-600.woff2') format('woff2'),
+    url('./assets/fonts/fundamental-brigade-600.woff') format('woff'),
+    url('./assets/fonts/fundamental-brigade-600.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Super Grotesk';
+  src:
+    url('./assets/fonts/super-grotesk-700.woff2') format('woff2'),
+    url('./assets/fonts/super-grotesk-700.woff') format('woff'),
+    url('./assets/fonts/super-grotesk-700.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

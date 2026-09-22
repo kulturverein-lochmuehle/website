@@ -14,5 +14,5 @@
     "types": ["node", "mocha"],
     "useDefineForClassFields": false
   },
-  "include": ["**/*.ts", ".configs/**/*.ts", "prettier.config.js"]
+  "include": ["**/*.ts", ".configs/**/*.ts", "prettier.config.js", "scripts/**/*.js"]
 }

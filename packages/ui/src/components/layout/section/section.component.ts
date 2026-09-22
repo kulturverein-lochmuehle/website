@@ -1,7 +1,7 @@
-import { html, LitElement, unsafeCSS } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './section.component.scss?inline';
+import styles from './section.component.css?inline&lit';
 
 /**
  * A layout component to wrap sections of the page.
@@ -14,7 +14,7 @@ import styles from './section.component.scss?inline';
  */
 @customElement('kvlm-section')
 export class Section extends LitElement {
-  static override readonly styles = unsafeCSS(styles);
+  static override readonly styles = styles;
 
   override render() {
     return html`

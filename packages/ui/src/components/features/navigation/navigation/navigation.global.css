@@ -1,0 +1,5 @@
+@media (--until-lg) {
+  html.no-scroll {
+    overflow: hidden;
+  }
+}

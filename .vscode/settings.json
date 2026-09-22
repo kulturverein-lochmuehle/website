@@ -1,0 +1,8 @@
+{
+  // the markdoc extension claims `.mdoc` as its own language, which prettier
+  // only formats when told to look at it - the parser comes from the config
+  "prettier.documentSelectors": ["**/*.mdoc"],
+  "[markdoc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

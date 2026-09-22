@@ -22,4 +22,11 @@ export default defineConfig([
       'html/no-extra-spacing-attrs': ['error', { enforceBeforeSelfClose: true }],
     },
   },
+  {
+    // the scripts are run by hand and report what they did
+    files: ['scripts/**/*.ts'],
+    rules: {
+      'no-console': ['off'],
+    },
+  },
 ]);

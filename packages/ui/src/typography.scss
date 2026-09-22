@@ -1,5 +1,0 @@
-// The components render into their shadow roots at build time, so a page
-// paints without them - except for the typography, which is written for the
-// light DOM and injected by `kvlm-typo` once its module arrives. Shipping it
-// with the document is what keeps the text styled until then.
-@use './components/ui/typo/typo.component.scss';

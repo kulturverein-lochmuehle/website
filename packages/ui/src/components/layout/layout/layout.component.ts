@@ -1,4 +1,4 @@
-import { html, isServer, LitElement, unsafeCSS } from 'lit';
+import { html, isServer, LitElement } from 'lit';
 import {
   customElement,
   eventOptions,
@@ -7,13 +7,9 @@ import {
   queryAssignedElements,
 } from 'lit/decorators.js';
 
-import type { InlineLocationChangedEvent } from '../../../utils/event.utils.js';
-import { changeLocationInline, RoutingEvent } from '../../../utils/event.utils.js';
-
-import styles from './layout.component.scss?inline';
-
-/** The deployed pages are served with a trailing slash, the section ids are not. */
-const stripTrailingSlash = (path: string) => path.replace(/(.)\/$/, '$1');
+import type { LocationChangedEvent } from '../../../utils/router.utils.js';
+import { RoutingEvent, stripTrailingSlash, syncLocation } from '../../../utils/router.utils.js';
+import styles from './layout.component.css?inline&lit';
 
 /**
  * A component to introduce the application layout.
@@ -30,7 +26,7 @@ const stripTrailingSlash = (path: string) => path.replace(/(.)\/$/, '$1');
  */
 @customElement('kvlm-layout')
 export class Layout extends LitElement {
-  static override readonly styles = unsafeCSS(styles);
+  static override readonly styles = styles;
 
   // sections can be taller than the viewport and would never reach a
   // ratio threshold, so the one crossing the middle of the screen wins
@@ -49,7 +45,7 @@ export class Layout extends LitElement {
   @property({ reflect: true, attribute: 'scroll-observe-selector', type: String })
   readonly scrollObserveSelector?: string;
 
-  readonly #handleInlineLocationChanged = this.handleInlineLocationChanged.bind(this);
+  readonly #handleLocationChanged = this.handleLocationChanged.bind(this);
 
   /**
    * @private
@@ -121,12 +117,8 @@ export class Layout extends LitElement {
   override connectedCallback() {
     super.connectedCallback();
 
-    // watch for inline location changes
-    window.addEventListener(
-      RoutingEvent.InlineLocationChanged,
-      this.#handleInlineLocationChanged,
-      false
-    );
+    // the router decides where the location points, this only follows it
+    window.addEventListener(RoutingEvent.LocationChanged, this.#handleLocationChanged, false);
   }
 
   override firstUpdated() {
@@ -148,11 +140,7 @@ export class Layout extends LitElement {
     // do not check for intersections any more
     this.intersectionObserver?.disconnect();
 
-    window.removeEventListener(
-      RoutingEvent.InlineLocationChanged,
-      this.#handleInlineLocationChanged,
-      false
-    );
+    window.removeEventListener(RoutingEvent.LocationChanged, this.#handleLocationChanged, false);
     super.disconnectedCallback();
   }
 
@@ -161,18 +149,27 @@ export class Layout extends LitElement {
     const entry = entries.find(entry => entry.isIntersecting);
     if (entry) {
       const active = entry.target as HTMLElement;
-      changeLocationInline(active.id, false);
+      // the address bar follows the scroll, it does not drive it
+      syncLocation(active.id);
     }
   }
 
   @eventOptions({ passive: true })
-  handleInlineLocationChanged({ detail }: InlineLocationChangedEvent) {
-    if (!detail.scroll) {
+  handleLocationChanged({ detail }: LocationChangedEvent) {
+    // a scroll reporting its own section must not scroll again
+    if (detail.reason === 'sync') {
       return;
     }
 
-    // scroll to target section
-    this.scrollToContent(detail.href, true);
+    const animate = detail.reason === 'anchor';
+    if (!animate) {
+      // the content is new: the scroll container still holds the offset of the
+      // page just left, and the sections to watch are different ones
+      this.main.scrollTo({ top: 0, behavior: 'instant' });
+      this.#observeContents();
+    }
+
+    this.scrollToContent(detail.href, animate);
   }
 
   scrollToContent(id: string, animate: boolean) {
@@ -202,6 +199,7 @@ export class Layout extends LitElement {
       <footer>
         <slot name="footer"></slot>
       </footer>
+      </div>
     `;
   }
 }

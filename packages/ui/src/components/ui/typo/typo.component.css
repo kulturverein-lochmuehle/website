@@ -1,0 +1,71 @@
+kvlm-typo {
+  * {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
+    @container (--from-sm) {
+      overflow-wrap: normal;
+      word-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+
+  /* prettier-ignore */
+  h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: 0;
+  }
+
+  /* prettier-ignore */
+  h1, h2, h3, h4, h5, h6 {
+    ~ p, ~ ul, ~ ol {
+      margin-top: 1em;
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .right-aligned {
+    text-align: right;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  /* the three type sets used to be sass placeholders, each extended once */
+  .title {
+    font-family: var(--kvlm-font-family-title);
+    font-size: clamp(
+      calc(3.2 * var(--kvlm-base-size-typo)),
+      calc(150 / 1920 * 100vw),
+      calc(12.5 * var(--kvlm-base-size-typo))
+    );
+    font-weight: 700;
+    line-height: calc(16 / 15);
+    text-transform: uppercase;
+  }
+
+  .lead {
+    font-family: var(--kvlm-font-family-body);
+    font-size: clamp(
+      calc(2.2 * var(--kvlm-base-size-typo)),
+      calc(40 / 1920 * 100vw),
+      calc(3.5 * var(--kvlm-base-size-typo))
+    );
+    line-height: 1.25;
+  }
+
+  .body {
+    font-family: var(--kvlm-font-family-body);
+    font-size: max(calc(20 / 1920 * 100vw), calc(1.6 * var(--kvlm-base-size-typo)));
+    line-height: 1.5;
+  }
+}

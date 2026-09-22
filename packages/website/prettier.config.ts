@@ -8,6 +8,9 @@ const config: Config = {
   singleQuote: true,
   tabWidth: 2,
   trailingComma: 'all',
+  // prettier knows no `.mdoc` - the bodies are markdown with tags on top,
+  // which the markdown parser leaves untouched
+  overrides: [{ files: '*.mdoc', options: { parser: 'markdown' } }],
 };
 
 export default config;

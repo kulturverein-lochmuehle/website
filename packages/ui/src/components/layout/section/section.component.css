@@ -1,6 +1,4 @@
-@use '../../../styles/utils' as utils;
-
-// prettier-ignore
+/* prettier-ignore */
 :host {
   ---kvlm-section-background-from: var(--kvlm-section-background-from, var(--kvlm-section-background, var(--kvlm-color-turquoise, #fff)));
   ---kvlm-section-background-to: var(--kvlm-section-background-to, var(--kvlm-section-background, var(--kvlm-color-spray, #fff)));
@@ -9,13 +7,13 @@
 
 :host {
   position: relative;
-  // fills the scroll container of the layout, whatever is left of it
+  /* fills the scroll container of the layout, whatever is left of it */
   display: flex;
   flex-direction: column;
   min-height: 100%;
 
-  // the stream below is pinned to the screen, a section only shows the
-  // piece of it that it covers, like a fixed background image does
+  /* the stream below is pinned to the screen, a section only shows the
+     piece of it that it covers, like a fixed background image does */
   clip-path: inset(0);
 
   box-sizing: border-box;
@@ -28,8 +26,8 @@
   top: 0;
   z-index: 0;
 
-  // `cq` units measure the scroll container of the layout, so the
-  // backdrop covers exactly what is on screen
+  /* `cq` units measure the scroll container of the layout, so the
+     backdrop covers exactly what is on screen */
   &::before {
     content: '';
     position: absolute;
@@ -37,9 +35,9 @@
     height: 100cqh;
     width: 100cqw;
 
-    // the same viewport sized gradient the navigation paints, moved up
-    // by the header, so the two are one continuous ramp while nothing
-    // is scrolled
+    /* the same viewport sized gradient the navigation paints, moved up
+       by the header, so the two are one continuous ramp while nothing
+       is scrolled */
     background-image: linear-gradient(
       150deg,
       var(---kvlm-section-background-from) 0,
@@ -47,10 +45,10 @@
     );
     background-repeat: no-repeat;
     background-size: 100svw 100svh;
-    background-position: center calc(#{utils.$navigation-height-mobile} * -1);
+    background-position: center calc(var(--kvlm-navigation-height-mobile) * -1);
 
-    @include utils.container(lg) {
-      background-position: center calc(#{utils.$navigation-height-desktop} * -1);
+    @container (--from-lg) {
+      background-position: center calc(var(--kvlm-navigation-height-desktop) * -1);
     }
   }
 }
@@ -68,15 +66,19 @@ kvlm-brook {
 
 section {
   position: relative;
-  // the figure above is sticky and takes no space, so the content
-  // stretches over the whole section
+  /* the figure above is sticky and takes no space, so the content
+     stretches over the whole section */
   flex: 1;
+
+  /* the wrapper: centred, capped, padded */
   box-sizing: border-box;
+  width: 100%;
+  max-width: calc(120 * var(--kvlm-base-size-layout));
+  margin: 0 auto;
+  padding: calc(4 * var(--kvlm-base-size-layout));
 
-  @include utils.wrapper($padding: utils.size(4));
-
-  @include utils.container(sm) {
-    @include utils.wrapper($padding: utils.size(5));
+  @container (--from-sm) {
+    padding: calc(5 * var(--kvlm-base-size-layout));
 
     display: flex;
     flex-direction: column;
