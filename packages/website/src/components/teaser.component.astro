@@ -1,11 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 
+import { withBase } from '@/utils/base.utils.js';
 import { prepareText } from '@/utils/text.utils.js';
 
 export type Props = {
   title: string;
   scope:
+    | 'agenda:next'
+    | 'agenda:upcoming'
     | 'chronicle:all'
     | 'chronicle:next'
     | 'chronicle:past'
@@ -14,7 +17,18 @@ export type Props = {
     | 'events:upcoming';
 };
 
+type Item = {
+  date: Date;
+  title: string;
+  teaser: string;
+  /** chronicle entries have a page of their own, calendar events do not */
+  href?: string;
+};
+
 const { title, scope } = Astro.props;
+
+// the site speaks of german days, wherever it is built
+const day = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' });
 
 // drafts are skeletons for entries still to be written
 const published = await getCollection('chronicle', ({ data }) => !data.draft);
@@ -22,47 +36,74 @@ const sorted = published.sort((a, b) => +a.data.date - +b.data.date);
 const past = sorted.filter(({ data }) => +data.date < Date.now());
 const upcoming = sorted.filter(({ data }) => +data.date >= Date.now());
 
-// the loader keeps only upcoming events, the store does not promise an
-// order though - and it stays unread unless a teaser asks for it
-const events = (scope.startsWith('events:') ? await getCollection('events') : []).sort(
+// the loader keeps only upcoming events, the store does not promise an order
+// though - and it stays unread unless a teaser asks for it and a feed is
+// configured at all, an empty collection would be warned about on every page
+const withEvents = !scope.startsWith('chronicle:') && process.env['KVLM_CALENDAR_URL'] !== undefined;
+const events = (withEvents ? await getCollection('events') : []).sort(
   (a, b) => +a.data.start - +b.data.start,
 );
 
+// both collections boil down to a date, a title and a bit of text
+const fromChronicle = (entry: (typeof sorted)[number]): Item => ({
+  date: entry.data.date,
+  title: entry.data.title,
+  teaser: entry.data.teaser,
+  href: withBase(`/chronik/${entry.id}`),
+});
+const fromEvent = ({ data }: (typeof events)[number]): Item => ({
+  date: data.start,
+  title: data.summary,
+  teaser: '',
+});
+
+/**
+ * Calendar and chronicle tell of the same day from two sides: the entry brings
+ * the prose and its page, the event the actual time. The entry wins wherever
+ * both have something to say. Days only one of them knows about are kept as
+ * they are.
+ */
+const merged = (): Item[] =>
+  [
+    ...events
+      .reduce((byDay, event) => {
+        const key = day.format(event.data.start);
+        const entry = byDay.get(key);
+        return byDay.set(
+          key,
+          entry === undefined ? fromEvent(event) : { ...entry, date: event.data.start },
+        );
+      }, new Map(upcoming.map(entry => [day.format(entry.data.date), fromChronicle(entry)])))
+      .values(),
+  ].sort((a, b) => +a.date - +b.date);
+
 const scopes = {
-  'chronicle:all': () => [...sorted].reverse(),
-  'chronicle:past': () => [...past].reverse(),
-  'chronicle:upcoming': () => upcoming,
-  'chronicle:next': () => upcoming.slice(0, 1),
-  'events:upcoming': () => events,
-  'events:next': () => events.slice(0, 1),
+  'agenda:upcoming': () => merged(),
+  'agenda:next': () => merged().slice(0, 1),
+  'chronicle:all': () => [...sorted].reverse().map(fromChronicle),
+  'chronicle:past': () => [...past].reverse().map(fromChronicle),
+  'chronicle:upcoming': () => upcoming.map(fromChronicle),
+  'chronicle:next': () => upcoming.slice(0, 1).map(fromChronicle),
+  'events:upcoming': () => events.map(fromEvent),
+  'events:next': () => events.slice(0, 1).map(fromEvent),
 };
 
-const entries = scopes[scope]?.() ?? [];
-// both collections boil down to a date, a title and a bit of text
 const items = await Promise.all(
-  entries.map(async entry =>
-    'teaser' in entry.data
-      ? {
-          date: entry.data.date,
-          title: entry.data.title,
-          teaser: await prepareText(entry.data.teaser),
-        }
-      : {
-          date: entry.data.start,
-          title: entry.data.summary,
-          teaser: await prepareText(entry.data.location ?? ''),
-        },
-  ),
+  (scopes[scope]?.() ?? []).map(async item => ({
+    ...item,
+    teaser: await prepareText(item.teaser),
+  })),
 );
 ---
 
 <h2 class="title right-aligned">{title}</h2>
 <kvlm-timeline direction={scope.endsWith(':past') || scope === 'chronicle:all' ? 'backward' : 'forward'}>
   {
-    items.map(({ date, title, teaser }, index) => (
+    items.map(({ date, title, teaser, href }, index) => (
       <kvlm-timeline-item
         date={date.toISOString()}
         aria-label={title}
+        href={href}
         leading={index === 0 ? true : undefined}
         trailing={index === items.length - 1 ? true : undefined}
       >

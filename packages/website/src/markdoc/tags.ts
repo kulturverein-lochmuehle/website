@@ -30,6 +30,8 @@ export const tags: AstroMarkdocConfig['tags'] = {
         type: String,
         required: true,
         matches: [
+          'agenda:next',
+          'agenda:upcoming',
           'chronicle:all',
           'chronicle:next',
           'chronicle:past',

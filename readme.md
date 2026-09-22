@@ -33,8 +33,8 @@ rebuild, the chronicle entries do not.
 
 The `agenda:*` scopes join both: every upcoming event and every upcoming
 chronicle entry, collapsed into one item per day (german time). Where both know
-a day, the entry's title and teaser are shown with the event's start and its
-location appended. Without a feed the agenda is the upcoming chronicle.
+a day, the entry's title, teaser and page win, the event only contributes its
+start. Without a feed the agenda is the upcoming chronicle.
 
 ## Updating dependencies
 
