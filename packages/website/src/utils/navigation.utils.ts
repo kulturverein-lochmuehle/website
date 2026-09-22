@@ -5,7 +5,6 @@ import { getSections } from './section.utils.js';
 
 export type NavigationItem = {
   active: boolean;
-  inline: boolean;
   href: string;
   label: string;
 };
@@ -18,18 +17,14 @@ export function prepareLink(
   path: string,
   current?: string,
   marked?: string,
-): { href: string; active: boolean; inline: boolean } {
+): { href: string; active: boolean } {
   path = path.replace(/^\//, '');
   current = current?.replace(/^\//, '');
   marked = marked?.replace(/^\//, '');
   const href = withBase(path);
-  // a page elsewhere may mark an item without being one of its sections,
-  // scrolling inline would leave the url behind on a page without them
+  // a page elsewhere may mark an item without being one of its sections
   const active = current === path || marked === path;
-  const isSectionLink = path.indexOf('/') !== -1;
-  const isCurrentPage = current?.split('/')[0] === path.split('/')[0];
-  const inline = isSectionLink && isCurrentPage;
-  return { href, active, inline };
+  return { href, active };
 }
 
 export type NavigationGroup = 'main' | 'footer';
@@ -45,9 +40,9 @@ export async function prepareNavigation(
   const pages = await getCollection('pages');
   return navigation.data.reduce((items, item) => {
     // an entry pointing elsewhere is a plain link, nothing of this site
-    // is ever active or scrolled inline by it
+    // is ever active by it
     if ('href' in item) {
-      return [...items, { active: false, inline: false, href: item.href, label: item.label }];
+      return [...items, { active: false, href: item.href, label: item.label }];
     }
 
     const page = pages.find(({ id }) => id === item.page);

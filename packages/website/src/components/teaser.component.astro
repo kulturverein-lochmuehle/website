@@ -92,16 +92,11 @@ const scopes = {
 const direction = scope.endsWith(':past') || scope === 'chronicle:all' ? 'backward' : 'forward';
 
 const items = await Promise.all(
-  (scopes[scope]?.() ?? []).map(async ({ entry, ...item }) => {
-    // the entry's page lives below the section listing it, which is the
-    // one this teaser stands in
-    const path = entry === undefined ? undefined : await getChroniclePath(entry);
-    return {
-      ...item,
-      teaser: await prepareText(item.teaser),
-      href: path === undefined ? undefined : withBase(path),
-    };
-  }),
+  (scopes[scope]?.() ?? []).map(async ({ entry, ...item }) => ({
+    ...item,
+    teaser: await prepareText(item.teaser),
+    href: entry === undefined ? undefined : withBase(getChroniclePath(entry)),
+  })),
 );
 ---
 

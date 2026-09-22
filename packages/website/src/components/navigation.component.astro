@@ -1,5 +1,5 @@
 ---
-import { prepareLink, type NavigationItem } from '@/utils/navigation.utils.js';
+import type { NavigationItem } from '@/utils/navigation.utils.js';
 
 export type Props = {
   items: NavigationItem[];
@@ -10,33 +10,22 @@ export type Props = {
   slot?: string;
 };
 
-const { href = '/', current, items, secondary = [], slot } = Astro.props;
-const { inline } = prepareLink(href, current);
+const { href = '/', items, secondary = [], slot } = Astro.props;
 ---
 
-<kvlm-navigation
-  slot={slot}
-  href={href}
-  href-inline={inline ? true : undefined}
->
+<kvlm-navigation slot={slot} href={href}>
   {
-    items?.map(({ active, inline, ...item }, index) => (
-      <kvlm-navigation-item
-        {...(item as any)}
-        key={index}
-        active={active ? true : undefined}
-        inline={inline ? true : undefined}
-      />
+    items?.map(({ active, ...item }, index) => (
+      <kvlm-navigation-item {...(item as any)} key={index} active={active ? true : undefined} />
     ))
   }
   {
-    secondary.map(({ active, inline, ...item }, index) => (
+    secondary.map(({ active, ...item }, index) => (
       <kvlm-navigation-item
         {...(item as any)}
         slot="secondary"
         key={`secondary-${index}`}
         active={active ? true : undefined}
-        inline={inline ? true : undefined}
       />
     ))
   }

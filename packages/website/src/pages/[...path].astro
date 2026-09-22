@@ -1,44 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
 
-import ChronicleLayout from '@/layouts/chronicle.layout.astro';
 import PageLayout from '@/layouts/page.layout.astro';
-import { getChroniclePath } from '@/utils/chronicle.utils.js';
 import { getSections } from '@/utils/section.utils.js';
 
-// every page and one route per section so the deep links resolve statically,
-// plus the chronicle entries below the section listing them - drafts are
-// skeletons and get no page at all
+// every page, plus one route per section so the deep links resolve statically
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
-  const entries = await getCollection('chronicle', ({ data }) => !data.draft);
-
-  const paths = await Promise.all(
-    entries.map(async entry => {
-      const path = await getChroniclePath(entry);
-      return path === undefined ? [] : [{ params: { path }, props: { entry } }];
-    }),
-  );
-
-  return [
-    ...pages.flatMap(page => [
-      { params: { path: page.id }, props: { slug: page.id } },
-      ...getSections(page).map(section => ({
-        params: { path: `${page.id}/${section.id}` },
-        props: { slug: page.id },
-      })),
-    ]),
-    ...paths.flat(),
-  ];
+  return pages.flatMap(page => [
+    { params: { path: page.id }, props: { slug: page.id } },
+    ...getSections(page).map(section => ({
+      params: { path: `${page.id}/${section.id}` },
+      props: { slug: page.id },
+    })),
+  ]);
 }
 
-const { entry, slug } = Astro.props;
+const { slug } = Astro.props;
 ---
 
-{
-  entry === undefined ? (
-    <PageLayout slug={slug} current={Astro.params.path} />
-  ) : (
-    <ChronicleLayout entry={entry} />
-  )
-}
+<PageLayout slug={slug} current={Astro.params.path} />

@@ -51,10 +51,9 @@ export async function getChronicleOrigin(
   );
 }
 
-/** The entry's page, nested below the section listing it. */
-export async function getChroniclePath(
-  entry: CollectionEntry<'chronicle'>,
-): Promise<string | undefined> {
-  const origin = await getChronicleOrigin(entry);
-  return origin === undefined ? undefined : `${origin.path}/${entry.id}`;
-}
+/** The single place the entries live, whether they are ahead or behind. */
+export const CHRONICLE_BASE = 'veranstaltung';
+
+/** The entry's own page. */
+export const getChroniclePath = (entry: CollectionEntry<'chronicle'>): string =>
+  `${CHRONICLE_BASE}/${entry.id}`;

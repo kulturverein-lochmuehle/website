@@ -1,6 +1,8 @@
 import markdoc from '@astrojs/markdoc';
 import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
+import litCss from '../ui/scripts/vite-plugin-lit-css.js';
+import { routeSizes } from './integrations/route-sizes.integration.js';
 
 // the content loaders and the teaser read `process.env`, which knows nothing
 // about `.env` files - so they are merged in before anything runs. The file
@@ -22,7 +24,7 @@ export default defineConfig({
   // their own would be a white screen long - they stay in the document
   build: { inlineStylesheets: 'always' },
   // the title of the start page is set in three lines by design
-  integrations: [markdoc({ allowHTML: true })],
+  integrations: [markdoc({ allowHTML: true }), routeSizes()],
   devToolbar: { enabled: false },
   server: { port: 4321 },
   vite: {
@@ -31,5 +33,7 @@ export default defineConfig({
     build: { cssMinify: 'esbuild' },
     // resolve aliases
     resolve: { alias: { '@': new URL('./src', import.meta.url).pathname } },
+    // the component sheets are lit `css` templates, not page styles
+    plugins: [litCss()],
   },
 });

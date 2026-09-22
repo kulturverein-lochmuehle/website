@@ -11,7 +11,7 @@ export * from './components/ui/logo/logo.component.js';
 export * from './components/ui/typo/typo.component.js';
 export * from './utils/crypto.utils.js';
 export * from './utils/custom-property.utils.js';
-export * from './utils/event.utils.js';
 export * from './utils/format.utils.js';
 export * from './utils/locale.utils.js';
+export * from './utils/router.utils.js';
 export * from './utils/style.utils.js';

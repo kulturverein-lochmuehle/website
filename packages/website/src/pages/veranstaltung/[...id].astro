@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+
+import ChronicleLayout from '@/layouts/chronicle.layout.astro';
+
+// drafts are skeletons, they get no page
+export async function getStaticPaths() {
+  const entries = await getCollection('chronicle', ({ data }) => !data.draft);
+  return entries.map(entry => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+---
+
+<ChronicleLayout entry={entry} />

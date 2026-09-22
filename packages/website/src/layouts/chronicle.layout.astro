@@ -7,7 +7,7 @@ import Navigation from '@/components/navigation.component.astro';
 import Section from '@/components/section.component.astro';
 import DefaultLayout from '@/layouts/default.layout.astro';
 import { withBase } from '@/utils/base.utils.js';
-import { getChronicleOrigin } from '@/utils/chronicle.utils.js';
+import { CHRONICLE_BASE, getChronicleOrigin } from '@/utils/chronicle.utils.js';
 import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
 
 export type Props = {
@@ -31,7 +31,7 @@ const date = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(entr
 <DefaultLayout pageTitle={entry.data.title}>
   <Navigation slot="header" href={home} items={items} secondary={legal} />
   <Footer slot="footer" items={legal} />
-  <Section page={origin?.path} id={entry.id} title={entry.data.title} theme="dark">
+  <Section page={CHRONICLE_BASE} id={entry.id} title={entry.data.title} theme="dark">
     {
       origin && (
         <p class="body">

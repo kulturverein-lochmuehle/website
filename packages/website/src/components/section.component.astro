@@ -1,5 +1,6 @@
 ---
 import { withBase } from '@/utils/base.utils.js';
+import { documentTitle } from '@/utils/title.utils.js';
 
 export type Props = {
   /** id of the page the section lives on, injected by the markdoc tag */
@@ -10,7 +11,7 @@ export type Props = {
   theme: 'light' | 'dark';
 };
 
-const { page, id, theme } = Astro.props;
+const { page, id, theme, title } = Astro.props;
 
 // the layout matches section ids against `location.pathname`, so the
 // anchor has to carry the base path as well
@@ -36,7 +37,7 @@ const style = Object.entries(themes[theme] ?? themes.dark)
   .join(';');
 ---
 
-<kvlm-section id={anchor} style={style}>
+<kvlm-section id={anchor} style={style} data-router-title={documentTitle(title)}>
   <kvlm-typo>
     <slot />
   </kvlm-typo>

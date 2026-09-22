@@ -1,9 +1,10 @@
 ---
-import '@kvlm/ui/globals.scss';
-import '@kvlm/ui/fonts.scss';
-import '@kvlm/ui/typography.scss';
+import '@kvlm/ui/globals.css';
+import '@kvlm/ui/fonts.css';
+import '@kvlm/ui/typography.css';
 
 import { withBase } from '@/utils/base.utils.js';
+import { documentTitle, SITE_TITLE } from '@/utils/title.utils.js';
 
 export interface Props {
   lang?: string;
@@ -11,7 +12,7 @@ export interface Props {
   pageTitle?: string;
 }
 
-const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = Astro.props;
+const { lang = 'de', siteTitle = SITE_TITLE, pageTitle } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +24,7 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta content="IE=Edge" http-equiv="x-ua-compatible" />
 
-    <title>{pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
+    <title>{documentTitle(pageTitle, siteTitle)}</title>
 
     <style is:global>
       html,
@@ -48,19 +49,6 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
         background-attachment: fixed;
       }
 
-      /* the browser holds the old page until the next one has painted, so
-         nothing flashes in between - browsers without it just navigate */
-      @view-transition {
-        navigation: auto;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        ::view-transition-group(*),
-        ::view-transition-old(*),
-        ::view-transition-new(*) {
-          animation: none;
-        }
-      }
     </style>
 
     <slot name="head" />
@@ -68,11 +56,39 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
   <body>
     <slot />
     <script>
-      // the components arrive rendered from the build, this lets them adopt
-      // that markup instead of rendering a second copy next to it - it has to
-      // come before anything else touching lit
+      // The components arrive rendered from the build; this lets them adopt
+      // that markup instead of rendering a second copy next to it.
       import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
-      import '@kvlm/ui';
+
+      // `lit-element` picks the support up while it evaluates, and whether it
+      // gets there first is not ours to decide: the build puts `lit-element` in
+      // a chunk this module imports, so it runs before this body ever does. The
+      // patch is applied by hand rather than relying on that order.
+      // The support redefines `observedAttributes` on `LitElement` itself,
+      // which inherits it from `ReactiveElement` until then, so an own property
+      // is the marker - reading the value would throw on the base class.
+      const { LitElement } = await import('lit');
+      if (!Object.hasOwn(LitElement, 'observedAttributes')) {
+        globalThis.litElementHydrateSupport({ LitElement });
+      }
+
+      // only now, so every element is defined against a patched base class
+      const { startRouter } = await import('@kvlm/ui');
+
+      // the page was rendered by one `render()` at the top, so no client side
+      // part owns these nodes and clears the flag the server put on them -
+      // document order hydrates each one after its host
+      for (const element of document.querySelectorAll('[defer-hydration]')) {
+        element.removeAttribute('defer-hydration');
+      }
+
+      // links are handled here from now on: a section of the page it is already
+      // on scrolls, anything else swaps the content of the layout
+      // the build writes what each route weighs, so a navigation can say how
+      // far it has come. `BASE_URL` is `/website` on the project page and `/`
+      // locally, so it is joined the way `withBase()` does it
+      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+      startRouter({ sizes: `${base}/routes.json` });
     </script>
   </body>
 </html>
