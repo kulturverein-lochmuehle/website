@@ -1,7 +1,13 @@
-import { html, LitElement, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import type { PropertyValues } from 'lit';
+import { html, LitElement } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
-import styles from './logo.component.scss?inline';
+import styles from './logo.component.css?inline&lit';
+
+/** As long as the fill takes to fade once it is no longer reporting anything. */
+const FADE = 400;
 
 /**
  * @cssprop --kvlm-logo-brook-color - Color of the brook
@@ -9,19 +15,85 @@ import styles from './logo.component.scss?inline';
  */
 @customElement('kvlm-logo')
 export class Logo extends LitElement {
-  static override readonly styles = unsafeCSS(styles);
+  static override readonly styles = styles;
+
+  /**
+   * How far something has come, in percent. The brook fills with the colour of
+   * the typography along its course to say so, and says nothing while unset.
+   */
+  @property({ reflect: true, type: Number })
+  loaded?: number | null;
+
+  /**
+   * Where the fill stood when it stopped reporting. It stays there and fades,
+   * rather than draining back the way it came.
+   */
+  #held: number | undefined;
+  #fadeTimeout?: ReturnType<typeof setTimeout>;
+
+  /** What is on screen, and whether the next mark is behind it. */
+  #shown = 0;
+  #backwards = false;
+
+  override willUpdate(changed: PropertyValues<this>) {
+    if (changed.has('loaded')) {
+      clearTimeout(this.#fadeTimeout);
+
+      // removing the attribute leaves the property at `null`, not `undefined`
+      if (this.loaded != null) {
+        this.#held = undefined;
+      } else {
+        // nothing is reported any more: hold the last mark until it has faded,
+        // then let it fall back while it cannot be seen doing so
+        this.#held = changed.get('loaded') ?? undefined;
+        this.#fadeTimeout = setTimeout(() => {
+          this.#held = undefined;
+          this.requestUpdate();
+        }, FADE);
+      }
+    }
+
+    // the brook never runs backwards. A mark behind the one on screen - a
+    // second navigation starting while the first is still filling, or the reset
+    // after a fade - is put there in one frame instead of draining to it
+    const percent = this.loaded ?? this.#held ?? 0;
+    this.#backwards = percent < this.#shown;
+    this.#shown = percent;
+  }
+
+  override disconnectedCallback() {
+    clearTimeout(this.#fadeTimeout);
+    super.disconnectedCallback();
+  }
 
   override render() {
+    // a percentage on the outside, a factor to scale the clip by on the inside
+    const percent = this.loaded ?? this.#held;
+    const loaded = percent == null ? undefined : Math.min(1, Math.max(0, percent / 100));
+    const filling = this.loaded != null;
+    const fading = !filling && this.#held !== undefined;
+    const backwards = this.#backwards;
+
     return html`
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 246.2 46.1"
         preserveAspectRatio="xMidYMid meet"
+        class="${classMap({ filling, fading, backwards })}"
+        style="${styleMap({ '---kvlm-logo-loaded': loaded?.toString() })}"
       >
-        <path
-          class="brook"
-          d="M52.2 46c-9.8 0-20.3-2.8-27.8-8.2-1.7-1.3-3.9-.7-7.3.4-4.9 1.5-11.6 3.5-17.1-4.9l4.3-2.8c3.2 5 6.1 4.3 11.3 2.7 3.7-1.1 7.9-2.4 11.8.4A43.5 43.5 0 0 0 66 38.3c6-2.7 9.5-7.1 10.2-13.2a6.2 6.2 0 0 1 3.2-4.8c4.1-2.3 10.7-.4 13.1.8 5.7 2.9 10.1 3.8 13.1 2.7 3.4-1.2 5-5.1 6.6-8.8 1.6-3.7 3.2-7.4 6.6-8.8a8.8 8.8 0 0 1 6.9.6 9.6 9.6 0 0 1 3.5 3.1l.8.9c15.5-5 25.7-.5 36.4 4.4a74.3 74.3 0 0 0 37 8.5c3 0 3.8-1 5.1-2.8 1.6-2.3 4-5.3 10.6-5.5a106.3 106.3 0 0 1 16.6.6c3.5.5 4.5.6 8.6-1l1.9 4.7c-5 2-7 2-11.1 1.5a101.2 101.2 0 0 0-15.8-.6c-4.2 0-5.3 1.4-6.6 3.3-1.5 2-3.6 4.8-9 5-18 .7-29.4-4.4-39.4-9-10.8-4.8-19.3-8.7-33-4.1-3.2 1-5.1-1.4-6.1-2.7a5.7 5.7 0 0 0-1.6-1.6 4 4 0 0 0-3-.4c-1.3.5-2.5 3.2-3.7 5.9-1.8 4.3-4 9.6-9.5 11.6-4.4 1.7-10 .7-17.2-2.9-2-1-6.6-1.9-8.4-.9a1 1 0 0 0-.5 1A21 21 0 0 1 68 43a39.5 39.5 0 0 1-15.9 3Z"
-        />
+        <defs>
+          <path
+            id="brook"
+            d="M52.2 46c-9.8 0-20.3-2.8-27.8-8.2-1.7-1.3-3.9-.7-7.3.4-4.9 1.5-11.6 3.5-17.1-4.9l4.3-2.8c3.2 5 6.1 4.3 11.3 2.7 3.7-1.1 7.9-2.4 11.8.4A43.5 43.5 0 0 0 66 38.3c6-2.7 9.5-7.1 10.2-13.2a6.2 6.2 0 0 1 3.2-4.8c4.1-2.3 10.7-.4 13.1.8 5.7 2.9 10.1 3.8 13.1 2.7 3.4-1.2 5-5.1 6.6-8.8 1.6-3.7 3.2-7.4 6.6-8.8a8.8 8.8 0 0 1 6.9.6 9.6 9.6 0 0 1 3.5 3.1l.8.9c15.5-5 25.7-.5 36.4 4.4a74.3 74.3 0 0 0 37 8.5c3 0 3.8-1 5.1-2.8 1.6-2.3 4-5.3 10.6-5.5a106.3 106.3 0 0 1 16.6.6c3.5.5 4.5.6 8.6-1l1.9 4.7c-5 2-7 2-11.1 1.5a101.2 101.2 0 0 0-15.8-.6c-4.2 0-5.3 1.4-6.6 3.3-1.5 2-3.6 4.8-9 5-18 .7-29.4-4.4-39.4-9-10.8-4.8-19.3-8.7-33-4.1-3.2 1-5.1-1.4-6.1-2.7a5.7 5.7 0 0 0-1.6-1.6 4 4 0 0 0-3-.4c-1.3.5-2.5 3.2-3.7 5.9-1.8 4.3-4 9.6-9.5 11.6-4.4 1.7-10 .7-17.2-2.9-2-1-6.6-1.9-8.4-.9a1 1 0 0 0-.5 1A21 21 0 0 1 68 43a39.5 39.5 0 0 1-15.9 3Z"
+          />
+          <clipPath id="loaded">
+            <rect class="loaded" x="0" y="0" width="246.2" height="46.1" />
+          </clipPath>
+        </defs>
+
+        <use href="#brook" class="brook" />
+        <use href="#brook" class="brook brook--loaded" clip-path="url(#loaded)" />
         <path d="M7.8 0h5.1v7l4.2-7h6l-5.5 8.5 6 10.1h-6l-4.6-8v8H7.7Z" />
         <path
           d="M36.7 19.1a9.3 9.3 0 0 1-3.2-.5 7.4 7.4 0 0 1-2.5-1.5 6.7 6.7 0 0 1-1.6-2.3 7.9 7.9 0 0 1-.6-3.2V0h5.1v11.9a2.8 2.8 0 0 0 .2 1.2 2.2 2.2 0 0 0 .6.8 2.6 2.6 0 0 0 1 .4 3.5 3.5 0 0 0 2 0 2.5 2.5 0 0 0 .8-.4 2.2 2.2 0 0 0 .6-.8 2.8 2.8 0 0 0 .3-1.2V0h5.1v11.6a8 8 0 0 1-.6 3.2 6.8 6.8 0 0 1-1.6 2.3 7.4 7.4 0 0 1-2.5 1.5 9.3 9.3 0 0 1-3.1.5Z"

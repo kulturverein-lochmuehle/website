@@ -1,7 +1,7 @@
-import { html, LitElement, unsafeCSS } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
-import styles from './brook.component.scss?inline';
+import styles from './brook.component.css?inline&lit';
 
 /**
  * Graphic of a brook used as visual signature.
@@ -12,7 +12,7 @@ import styles from './brook.component.scss?inline';
  */
 @customElement('kvlm-brook')
 export class Brook extends LitElement {
-  static override readonly styles = unsafeCSS(styles);
+  static override readonly styles = styles;
 
   override render() {
     return html`

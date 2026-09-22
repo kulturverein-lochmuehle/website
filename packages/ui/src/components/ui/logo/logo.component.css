@@ -1,0 +1,71 @@
+:host {
+  ---kvlm-logo-brook-color: var(--kvlm-logo-brook-color, var(--kvlm-color-spray));
+  ---kvlm-logo-typo-color: var(--kvlm-logo-typo-color, currentColor);
+}
+
+svg {
+  height: 100%;
+  width: auto;
+}
+
+path,
+use {
+  fill: var(---kvlm-logo-typo-color);
+  transition: fill 0.3s ease-in-out;
+}
+
+.brook {
+  fill: var(---kvlm-logo-brook-color);
+}
+
+/* the same brook once more, in the colour of the typography, revealed from its
+   source to its mouth by a clip that grows.
+
+   Three states, and the transitions belong to them rather than to the element:
+   at rest it is invisible and nothing animates, so the clip can be put back to
+   nothing without that ever being seen. */
+.brook--loaded {
+  fill: var(---kvlm-logo-typo-color);
+  opacity: 0;
+  transition: none;
+}
+
+.loaded {
+  transform: scaleX(var(---kvlm-logo-loaded, 0));
+  transform-origin: 0 0;
+  transition: none;
+}
+
+/* filling: there at once, and the clip follows what is reported */
+.filling .brook--loaded {
+  opacity: 1;
+}
+
+.filling .loaded {
+  transition: transform 0.15s ease-out;
+}
+
+/* done: it runs out its last stretch and fades, it does not run backwards.
+   Leaving this state drops the transition again, so putting the clip back to
+   nothing is a single frame nobody sees */
+.fading .brook--loaded {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+.fading .loaded {
+  transition: transform 0.15s ease-out;
+}
+
+/* whatever the state, a mark behind the one on screen is taken in one frame */
+.backwards .loaded {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filling .loaded,
+  .fading .loaded,
+  .fading .brook--loaded {
+    transition: none;
+  }
+}
