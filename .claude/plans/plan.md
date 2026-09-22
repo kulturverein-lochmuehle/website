@@ -253,15 +253,20 @@ hosting untouched.
 
 - **Events calendar function** — the logic of the old netlify function is
   ported to `src/loaders/calendar.loader.ts`: it reads the public ical feed at
-  build time, no credentials involved. Opt in with `KVLM_CALENDAR_URL` (see
-  `.env.example`), the teaser merges the events with the chronicle by day. The
-  daily cron rebuild is still open: a scheduled run checks out the default
-  branch, which still holds the old site.
+  build time, no credentials involved. `KVLM_CALENDAR_URL` is required (see
+  `.env.example`), the deploy takes it from the repository variable of the same
+  name, and a build without a reachable feed fails. The teaser merges the events
+  with the chronicle by day. The daily cron rebuild is still open: a scheduled
+  run checks out the default branch, which still holds the old site.
 - **Newsletter endpoint** — no functions on static hosting. Interim: link a
   Mailjet-hosted form. Still open, which is why the two newsletter pages are
-  not ported.
+  not ported. The privacy policy lost its newsletter section along with them -
+  it has to come back with the signup, together with the tracking pixel part if
+  that is kept.
 - **Protocols / Google Drive pipeline** — phase 2, and by construction never
-  part of the static build.
+  part of the static build. The live site links a `/protokolle` page behind a
+  login, which currently lists nothing at all - dropping the link is no loss
+  until the pipeline exists.
 - **Component preview app** — dropped. The `EXAMPLES.md` files are kept as the
   seed for its successor, a `/styleguide` page inside the site; nothing reads
   them today.
