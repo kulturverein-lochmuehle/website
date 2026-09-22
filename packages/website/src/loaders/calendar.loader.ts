@@ -3,8 +3,7 @@ import { z } from 'astro/zod';
 import ical, { type CalendarComponent, type ParameterValue, type VEvent } from 'node-ical';
 
 // the feed carries timezones and todos as well
-const isEvent = (entry: CalendarComponent | undefined): entry is VEvent =>
-  entry?.type === 'VEVENT';
+const isEvent = (entry: CalendarComponent | undefined): entry is VEvent => entry?.type === 'VEVENT';
 
 // an event without an explicit end lasts as long as its start
 const ends = (event: VEvent): Date => event.end ?? event.start;

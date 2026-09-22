@@ -121,7 +121,7 @@ a:first-child {
       z-index: 1;
 
       padding-block: utils.size(2);
-      margin-block: utils.size(-2) utils.size(3);
+      margin-block: utils.size(-2) 0;
       background: var(---kvlm-navigation-background-from);
     }
   }
