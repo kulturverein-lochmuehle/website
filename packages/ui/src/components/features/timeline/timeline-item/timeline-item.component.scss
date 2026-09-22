@@ -20,9 +20,12 @@ a {
   color: inherit;
   text-decoration: none;
 
-  &:hover h2,
-  &:focus-visible h2 {
+  // date, title and teaser underline as one, in the distance the inline links
+  // keep - the title font would place its own underline lower
+  &:hover,
+  &:focus-visible {
     text-decoration: underline;
+    text-underline-offset: 0.07em;
   }
 }
 
