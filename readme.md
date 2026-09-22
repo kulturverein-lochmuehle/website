@@ -23,6 +23,21 @@ The site is served from a project page, so it lives under `/website/`. Both
 Bun installs and orchestrates, the tools themselves (Astro, web-test-runner,
 ESLint) still run on node — see `.node-version`.
 
+## Deployment
+
+Both branches deploy themselves, to two different places:
+
+- `next` builds and publishes to GitHub Pages, where it is served from
+  `/website`.
+- `main` builds with `BASE=/` and is published to the netlify project `kvlm`
+  from the workflow. It needs `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` as
+  repository secrets, `KVLM_CALENDAR_URL` as a repository variable and,
+  optionally, `NETLIFY_SITE_URL` as one - the public url the site is built
+  for, `https://www.kulturverein-lochmuehle.de` by default.
+
+Netlify must not build the repository itself, the workflow ships a finished
+`dist` to it.
+
 ## Google calendar
 
 The public ical feed of the association fills an `events` collection, read at

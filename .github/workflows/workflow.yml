@@ -61,6 +61,8 @@ jobs:
   build:
     name: Build
     needs: test
+    # `main` is served by netlify and builds itself, below
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -90,7 +92,7 @@ jobs:
           path: packages/website/dist
 
   deploy:
-    name: Deploy
+    name: Deploy to GitHub Pages
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/next'
     environment:
@@ -102,3 +104,43 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
       - run: echo "Deployed ${{ steps.deployment.outputs.page_url }} :tada:" >> $GITHUB_STEP_SUMMARY
+
+  netlify:
+    name: Deploy to Netlify
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: netlify
+      url: ${{ steps.deployment.outputs.url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+      - name: Setup Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .node-version
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Build
+        # netlify serves the site from the root of its own domain
+        env:
+          SITE: ${{ vars.NETLIFY_SITE_URL || 'https://www.kulturverein-lochmuehle.de' }}
+          BASE: /
+          KVLM_CALENDAR_URL: ${{ vars.KVLM_CALENDAR_URL }}
+        run: bun run --filter @kvlm/website build
+      - name: Deploy
+        id: deployment
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          bunx netlify-cli@27 deploy \
+            --prod \
+            --dir packages/website/dist \
+            --message "${{ github.sha }}" \
+            --json > deploy.json
+          echo "url=$(jq -r '.url' deploy.json)" >> "$GITHUB_OUTPUT"
+      - run: echo "Deployed ${{ steps.deployment.outputs.url }} :tada:" >> $GITHUB_STEP_SUMMARY
