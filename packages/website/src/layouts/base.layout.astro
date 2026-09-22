@@ -1,0 +1,78 @@
+---
+import '@kvlm/ui/globals.scss';
+import '@kvlm/ui/fonts.scss';
+import '@kvlm/ui/typography.scss';
+
+import { withBase } from '@/utils/base.utils.js';
+
+export interface Props {
+  lang?: string;
+  siteTitle?: string;
+  pageTitle?: string;
+}
+
+const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta content="IE=Edge" http-equiv="x-ua-compatible" />
+
+    <title>{pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle}</title>
+
+    <style is:global>
+      html,
+      body {
+        margin: 0;
+      }
+
+      html {
+        font-family: var(--kvlm-font-family-body);
+
+        /* every colour of a page is painted by an element, so the canvas
+           behind them is white - which is what shows while the next document
+           is on its way and wherever a scroll bounces past the content */
+        background-color: var(--kvlm-color-grey-dark);
+        background-image: linear-gradient(
+          150deg,
+          var(--kvlm-color-turquoise) 0,
+          var(--kvlm-color-spray) 100svh
+        );
+        background-repeat: no-repeat;
+        background-size: 100svw 100svh;
+        background-attachment: fixed;
+      }
+
+      /* the browser holds the old page until the next one has painted, so
+         nothing flashes in between - browsers without it just navigate */
+      @view-transition {
+        navigation: auto;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        ::view-transition-group(*),
+        ::view-transition-old(*),
+        ::view-transition-new(*) {
+          animation: none;
+        }
+      }
+    </style>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      // the components arrive rendered from the build, this lets them adopt
+      // that markup instead of rendering a second copy next to it - it has to
+      // come before anything else touching lit
+      import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
+      import '@kvlm/ui';
+    </script>
+  </body>
+</html>

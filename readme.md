@@ -1,42 +1,61 @@
-# Stencil App Starter
+# KVLM
 
-Stencil is a compiler for building fast web apps using Web Components.
+Monorepo of the Kulturverein Lochmühle e.V. website.
 
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
+## Development
 
-Stencil components are just Web Components, so they work in any major framework or with no framework at all. In many cases, Stencil can be used as a drop in replacement for traditional frontend frameworks given the capabilities now available in the browser, though using it as such is certainly not required.
+- Install dependencies using `bun install`.
+- Build all packages using `bun run build`.
+- Start the development servers using `bun run dev`.
+- Start the website development server using `bun run --filter @kvlm/website dev`.
+- Preview a build exactly as deployed using `bun run --filter @kvlm/website preview`,
+  which builds first - the preview server only ever serves `dist/`.
 
-Stencil also enables a number of key capabilities on top of Web Components, in particular Server Side Rendering (SSR) without the need to run a headless browser, pre-rendering, and objects-as-properties (instead of just strings).
+The components are consumed as source, so the dev server picks up changes in
+`packages/ui` right away. Content loaders are different: they run once when
+the dev server starts, so restart it after changing one (`astro dev stop`,
+then start again, `--force` clears the content cache as well).
 
-## Getting Started
+The site is served from a project page, so it lives under `/website/`. Both
+`site` and `base` come from the deploy workflow (`SITE`/`BASE`), a build with
+`BASE=/` is equally valid — no host knowledge is baked into the repo.
 
-To start a new project using Stencil, clone this repo to a new directory:
+Bun installs and orchestrates, the tools themselves (Astro, web-test-runner,
+ESLint) still run on node — see `.node-version`.
+
+## Deployment
+
+Both branches deploy themselves, to two different places:
+
+- `next` builds and publishes to GitHub Pages, where it is served from
+  `/website`.
+- `main` builds with `BASE=/` and is published to the netlify project `kvlm`
+  from the workflow. It needs `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` as
+  repository secrets, `KVLM_CALENDAR_URL` as a repository variable and,
+  optionally, `NETLIFY_SITE_URL` as one - the public url the site is built
+  for, `https://www.kulturverein-lochmuehle.de` by default.
+
+Netlify must not build the repository itself, the workflow ships a finished
+`dist` to it. `public/_headers` travels with that build and tells netlify to
+keep the hashed assets forever, everything else stays revalidated.
+
+## Google calendar
+
+The public ical feed of the association fills an `events` collection, read at
+build time. It is required: copy `packages/website/.env.example` to `.env` (or
+set `KVLM_CALENDAR_URL` in the environment), the build refuses without it and
+fails on a feed it cannot read. The deploy workflow takes it from the
+repository variable of the same name. Teasers reach the events through the
+`events:upcoming`, `events:next` or `agenda:*` scopes, and keeping them current
+needs a scheduled rebuild - the chronicle entries do not.
+
+The `agenda:*` scopes join both: every upcoming event and every upcoming
+chronicle entry, collapsed into one item per day (german time). Where both know
+a day, the entry's title, teaser and page win, the event only contributes its
+start. Without a feed the agenda is the upcoming chronicle.
+
+## Updating dependencies
 
 ```bash
-npm init stencil app
+bmpr -a -f -c
 ```
-
-and run:
-
-```bash
-npm start
-```
-
-To build the app for production, run:
-
-```bash
-npm run build
-```
-
-To run the unit tests once, run:
-
-```
-npm test
-```
-
-To run the unit tests and watch for file changes during development, run:
-
-```
-npm run test.watch
-```
-

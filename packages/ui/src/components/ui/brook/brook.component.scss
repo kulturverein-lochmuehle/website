@@ -1,0 +1,22 @@
+:host {
+  ---kvlm-brook-color: var(--kvlm-brook-color, #52bcdd);
+  ---kvlm-brook-opacity: var(--kvlm-brook-opacity, 0.3);
+  ---kvlm-brook-stroke-width: var(--kvlm-brook-stroke-width, 8px);
+}
+
+svg {
+  height: auto;
+  width: 100%;
+  overflow: visible;
+}
+
+path {
+  fill: none;
+  opacity: var(---kvlm-brook-opacity);
+  stroke: var(---kvlm-brook-color);
+  stroke-linejoin: round;
+  stroke-width: var(---kvlm-brook-stroke-width);
+  transform-origin: center center;
+  transform: scale(1.015);
+  vector-effect: non-scaling-stroke;
+}

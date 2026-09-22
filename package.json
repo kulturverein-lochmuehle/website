@@ -1,50 +1,31 @@
 {
-  "name": "@kvlm/website",
-  "version": "0.0.2",
-  "type": "module",
-  "private": true,
-  "description": "Kulturverein Lochmühle e.V.",
+  "name": "@kvlm/source",
+  "description": "Monorepo of the Kulturverein Lochmühle e.V.",
+  "version": "0.0.1",
   "license": "MIT",
-  "scripts": {
-    "build:protocols": "node --env-file-if-exists=.env --import tsx scripts/fetch-protocols.ts",
-    "build:functions": "tsc --project tsconfig.functions.json",
-    "build:www": "cross-env NODE_ENV=production stencil build",
-    "build": "run-s build:*",
-    "start:functions": "netlify functions:serve",
-    "start:www": "stencil build --dev --watch --serve",
-    "start": "run-p start:*",
-    "test": "stencil test --spec --e2e",
-    "test:watch": "stencil test --spec --e2e --watchAll"
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kulturverein-lochmuehle/website.git"
   },
-  "dependencies": {
-    "css-reset-and-normalize": "2.3.6",
-    "handlebars": "4.7.8",
-    "ical": "0.8.0",
-    "marked": "17.0.0",
-    "typeface-muli": "1.1.13"
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "check": "bun run --filter '*' check",
+    "lint": "bun run --filter '*' lint",
+    "test": "bun run --filter '*' test",
+    "dev": "logbox bun run --filter '*' dev",
+    "build": "bun run --filter '*' build"
   },
   "devDependencies": {
-    "@netlify/functions": "5.1.0",
-    "@stencil-community/postcss": "2.2.0",
-    "@stencil/core": "4.38.3",
-    "@stencil/router": "2.0.0-2",
-    "@stencil/sass": "3.2.3",
-    "@types/ical": "0.8.3",
-    "@types/jest": "30.0.0",
-    "@types/node": "24.10.1",
-    "@types/node-fetch": "2.6.13",
-    "autoprefixer": "10.4.22",
-    "cross-env": "10.1.0",
-    "fast-glob": "3.3.3",
-    "googleapis": "166.0.0",
-    "jest": "30.2.0",
-    "jest-cli": "30.2.0",
-    "netlify-cli": "23.11.0",
-    "npm-run-all": "4.1.5",
-    "prettier": "3.6.2",
-    "puppeteer": "24.30.0",
-    "rollup-plugin-node-polyfills": "0.2.1",
-    "tsx": "4.20.6",
-    "typescript": "5.9.3"
+    "@enke.dev/logbox": "0.0.3",
+    "eslint": "10.8.1",
+    "prettier": "3.9.6",
+    "typescript": "6.0.3"
+  },
+  "author": {
+    "name": "David Enke",
+    "email": "david@kvlm.de"
   }
 }

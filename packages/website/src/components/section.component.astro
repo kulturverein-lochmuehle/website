@@ -1,0 +1,43 @@
+---
+import { withBase } from '@/utils/base.utils.js';
+
+export type Props = {
+  /** id of the page the section lives on, injected by the markdoc tag */
+  page?: string;
+  /** omitted by the implicit section of a page without any */
+  id?: string;
+  title: string;
+  theme: 'light' | 'dark';
+};
+
+const { page, id, theme } = Astro.props;
+
+// the layout matches section ids against `location.pathname`, so the
+// anchor has to carry the base path as well
+const anchor = withBase([page, id].filter(Boolean).join('/'));
+
+const themes = {
+  light: {
+    '--kvlm-section-background-from': '#75f0de',
+    '--kvlm-section-background-to': '#6fbad9',
+    '--kvlm-section-color': 'var(--kvlm-color-grey-dark)',
+    '--kvlm-brook-color': '#fff',
+  },
+  dark: {
+    '--kvlm-section-background-from': '#525252',
+    '--kvlm-section-background-to': '#101010',
+    '--kvlm-section-color': 'var(--kvlm-color-grey-light)',
+    '--kvlm-brook-color': '#52bcdd',
+  },
+};
+
+const style = Object.entries(themes[theme] ?? themes.dark)
+  .map(([property, value]) => `${property}:${value}`)
+  .join(';');
+---
+
+<kvlm-section id={anchor} style={style}>
+  <kvlm-typo>
+    <slot />
+  </kvlm-typo>
+</kvlm-section>

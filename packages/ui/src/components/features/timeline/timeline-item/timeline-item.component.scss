@@ -1,0 +1,84 @@
+@use '../../../../styles/utils' as utils;
+
+:host {
+  position: relative;
+  display: block;
+  padding-left: 55px;
+
+  font-family: var(--kvlm-font-family-body);
+  font-size: utils.rem(1.6);
+  line-height: 1.25;
+
+  @include utils.container(sm) {
+    padding-left: 70px;
+    font-size: utils.rem(4);
+  }
+}
+
+a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+
+  // date, title and teaser underline as one, in the distance the inline links
+  // keep - the title font would place its own underline lower
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.07em;
+  }
+}
+
+h2 {
+  margin: 0 0 0.75em;
+  font-family: var(--kvlm-font-family-title);
+  font-size: utils.rem(1.8);
+  text-transform: uppercase;
+
+  @include utils.container(sm) {
+    font-size: utils.rem(4.5);
+  }
+}
+
+time {
+  font-size: var(---kvlm-timeline-item-date-font-size);
+  text-transform: uppercase;
+}
+
+:host::before {
+  position: absolute;
+  top: max(calc(var(---kvlm-timeline-item-date-size) / 2), 8px);
+  left: 0;
+  transform: translateY(-50%);
+
+  content: '';
+  display: block;
+  height: 26px;
+  width: 26px;
+
+  background-color: currentcolor;
+  border-radius: 50%;
+}
+
+:host(:not([trailing]))::after,
+:host([trailing][data-forward])::after {
+  position: absolute;
+  top: calc(max(calc(var(---kvlm-timeline-item-date-size) / 2), 8px) + 26px / 2 + 8px);
+  left: calc((26px - 8px) / 2);
+
+  content: '';
+  display: block;
+  width: 8px;
+
+  background-color: currentcolor;
+}
+
+:host(:not([trailing]))::after {
+  bottom: calc(
+    var(---kvlm-timeline-gap) * -1 - (var(---kvlm-timeline-item-date-size) - 26px) / 2 + 8px
+  );
+}
+
+:host([trailing][data-forward])::after {
+  bottom: 8px;
+}

@@ -1,0 +1,68 @@
+@use 'sass:string' as string;
+@use '../functions/prepare-query.function.scss' as *;
+
+/// Mixin for @container queries with a fallback to @media queries for elderly browsers.
+/// For the container queries to work, a container name must be provided. In our case,
+/// the root element defines the container name, which will be used by default.
+///
+/// @example Usage with a map key as parameter:
+/// ```scss
+/// .wrapper {
+///     @include container(xs) {
+///         font-size: rem(1.5);
+///     }
+/// }
+/// ```
+///
+/// @example Usage with a custom breakpoint value as parameter:
+/// ```scss
+/// .wrapper {
+///     @include container(960px) {
+///         font-size: rem(1.5);
+///     }
+/// }
+///
+/// @example Usage with container name:
+/// ```scss
+/// .wrapper {
+///     @include container(sm, layout) {
+///         font-size: rem(1.5);
+///     }
+/// }
+@mixin container($from: null, $until: null, $container-name: null) {
+  $condition: prepare-query($from, $until);
+
+  // use container queries if available
+  @supports (container-type: inline-size) {
+    // as @container is not recognized by dart-sass, we need to use the
+    // escape syntax to access the variable, which will lead to vscode
+    // scss validation errors (despite it being build and linted properly):
+    // to turn this off, set `"scss.validate": false` in your settings.json
+
+    @if $container-name == null {
+      // container queries are not recognized by stylelint yet, as it is a bit outdated
+      // TODO: update stylelint and remove the following line
+      // stylelint-disable-next-line scss/at-rule-no-unknown
+      @container #{$condition} {
+        // pass the given mixin contents into the query
+        @content;
+      }
+    } @else {
+      // container queries are not recognized by stylelint yet, as it is a bit outdated
+      // TODO: update stylelint and remove the following line
+      // stylelint-disable-next-line scss/at-rule-no-unknown
+      @container #{string.unquote($container-name)} #{$condition} {
+        // pass the given mixin contents into the query
+        @content;
+      }
+    }
+  }
+
+  // use media query as fallback
+  @supports not (container-type: inline-size) {
+    @media #{$condition} {
+      // pass the given mixin contents into the query
+      @content;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "@kvlm/website",
+  "description": "kvlm.de website",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "David Enke",
+    "email": "david@kvlm.de"
+  },
+  "type": "module",
+  "scripts": {
+    "check": "astro check",
+    "dev": "astro dev --host",
+    "build": "astro build",
+    "preview": "astro build && astro preview"
+  },
+  "dependencies": {
+    "@kvlm/ui": "workspace:*",
+    "lit": "3.3.3",
+    "marked": "18.0.9",
+    "node-ical": "0.27.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@astrojs/markdoc": "2.0.9",
+    "@lit-labs/ssr": "4.1.0",
+    "@lit-labs/ssr-client": "1.1.8",
+    "@types/node": "24.13.3",
+    "astro": "7.2.2",
+    "prettier": "3.9.6",
+    "sass": "1.102.0",
+    "typescript": "6.0.3",
+    "vite": "8.2.1"
+  }
+}

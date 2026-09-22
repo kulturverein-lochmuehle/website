@@ -1,0 +1,43 @@
+---
+import { prepareLink, type NavigationItem } from '@/utils/navigation.utils.js';
+
+export type Props = {
+  items: NavigationItem[];
+  /** shown at the end of the mobile menu, where there is no footer */
+  secondary?: NavigationItem[];
+  current?: string;
+  href?: string;
+  slot?: string;
+};
+
+const { href = '/', current, items, secondary = [], slot } = Astro.props;
+const { inline } = prepareLink(href, current);
+---
+
+<kvlm-navigation
+  slot={slot}
+  href={href}
+  href-inline={inline ? true : undefined}
+>
+  {
+    items?.map(({ active, inline, ...item }, index) => (
+      <kvlm-navigation-item
+        {...(item as any)}
+        key={index}
+        active={active ? true : undefined}
+        inline={inline ? true : undefined}
+      />
+    ))
+  }
+  {
+    secondary.map(({ active, inline, ...item }, index) => (
+      <kvlm-navigation-item
+        {...(item as any)}
+        slot="secondary"
+        key={`secondary-${index}`}
+        active={active ? true : undefined}
+        inline={inline ? true : undefined}
+      />
+    ))
+  }
+</kvlm-navigation>

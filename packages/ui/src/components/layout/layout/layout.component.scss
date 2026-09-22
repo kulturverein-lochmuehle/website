@@ -1,0 +1,80 @@
+@use '../../../styles/utils' as utils;
+
+:host {
+  // an app shell: the header and the footer are rows of their own, the
+  // content in between is the only thing that scrolls - no component has
+  // to know the height of another one
+  display: grid;
+  // the column is pinned, otherwise wide content would stretch the rows
+  // beyond the viewport
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  height: 100svh;
+
+  // lets the header animate along the scroll progress of the content
+  timeline-scope: --content;
+
+  color: var(--kvlm-layout-color-typo, var(--kvlm-color-grey-dark, #000));
+  font-family: var(--kvlm-font-family-body);
+
+  container-type: inline-size;
+  isolation: isolate;
+}
+
+// the shadow grows with the first scrolled pixels of the content
+@keyframes shadow {
+  from {
+    box-shadow: 0 0 0 rgb(0 0 0 / 0%);
+  }
+
+  to {
+    box-shadow: 0 0 #{utils.size(5)} rgb(0 0 0 / 30%);
+  }
+}
+
+header {
+  position: relative;
+  z-index: 1;
+
+  @supports (animation-timeline: scroll()) {
+    animation: shadow linear both;
+    animation-timeline: --content;
+    animation-range: 0 #{utils.rem(10)};
+  }
+}
+
+main {
+  // rubber band scrolling reveals the background of the scroll
+  // container beyond the content, so each end continues the chrome
+  // next to it instead of flashing the white page behind it
+  background-color: var(--kvlm-color-grey-dark, #161615);
+  background-image: linear-gradient(
+    150deg,
+    var(--kvlm-color-turquoise, #75f0de) 0,
+    var(--kvlm-color-spray, #6fbad9) 100svh
+  );
+  background-repeat: no-repeat;
+  background-size: 100svw 100svh;
+  background-position: center calc(#{utils.$navigation-height-mobile} * -1);
+
+  @include utils.container(lg) {
+    background-position: center calc(#{utils.$navigation-height-desktop} * -1);
+  }
+
+  // the scroll container of the page, its size is what the sections
+  // measure themselves against - in container query units
+  // the decorations of a section may reach past its edges
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-timeline: --content block;
+
+  container-type: size;
+}
+
+footer {
+  background: var(--kvlm-color-grey-dark, #161615);
+  color: var(--kvlm-color-grey-light, #eaeaea);
+
+  container-type: inline-size;
+}

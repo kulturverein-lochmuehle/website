@@ -1,0 +1,30 @@
+---
+import { withBase } from '@/utils/base.utils.js';
+
+export type Props = {
+  href: string;
+  title?: string;
+};
+
+const { href, ...rest } = Astro.props;
+
+// only root-relative links belong to this site, everything else stays untouched
+const target = href.startsWith('/') ? withBase(href) : href;
+// pages elsewhere open in their own tab, handoffs like `webcal:` do not
+const external = /^https?:\/\//.test(href);
+---
+
+{
+  href === '' ? (
+    <slot />
+  ) : (
+    <a
+      href={target}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+      {...rest}
+    >
+      <slot />
+    </a>
+  )
+}

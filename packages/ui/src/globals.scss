@@ -1,0 +1,26 @@
+:root {
+  // colors
+  --kvlm-color-grey-dark: #161615;
+  --kvlm-color-grey-medium: #525252;
+  --kvlm-color-grey-light: #eaeaea;
+
+  --kvlm-color-spray: #6fbad9;
+  --kvlm-color-turquoise: #75f0de;
+
+  // fonts
+  --kvlm-font-family-body: 'Fundamental Brigade', sans-serif;
+  --kvlm-font-family-title: 'Super Grotesk', sans-serif;
+
+  // sizes
+  --kvlm-base-size-layout: 10px;
+  --kvlm-base-size-typo: 10px;
+
+  // animations
+  --kvlm-fx-transition: 0.3s ease-in-out;
+}
+
+html {
+  // no grey box flashing up when tapping around on touch devices,
+  // the property inherits into the components as well
+  -webkit-tap-highlight-color: transparent;
+}

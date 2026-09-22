@@ -1,0 +1,57 @@
+@use 'sass:math';
+@use '../../../styles/utils' as utils;
+
+kvlm-typo {
+  * {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
+    @include utils.container(sm) {
+      overflow-wrap: normal;
+      word-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+
+  // prettier-ignore
+  h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: 0;
+  }
+
+  // prettier-ignore
+  h1, h2, h3, h4, h5, h6 {
+    ~ p, ~ ul, ~ ol {
+      margin-top: 1em;
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .right-aligned {
+    text-align: right;
+  }
+
+  .sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .title {
+    @extend %title;
+  }
+
+  .lead {
+    @extend %lead;
+  }
+
+  .body {
+    @extend %body;
+  }
+}

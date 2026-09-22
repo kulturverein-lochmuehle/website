@@ -1,0 +1,18 @@
+---
+import { classNames, type MarkdocClass } from '@/utils/class.utils.js';
+
+export type Props = {
+  level: number;
+  id?: string;
+  class?: MarkdocClass;
+};
+
+const { level, id, class: className } = Astro.props;
+const Tag = `h${Math.min(Math.max(level, 1), 6)}` as 'h1';
+
+// only the page title gets the display style, deeper headings keep the
+// browser defaults unless the author annotates them, e.g. `{% .lead %}`
+const classes = classNames(level === 1 ? 'title' : undefined, className) || undefined;
+---
+
+<Tag id={id} class={classes}><slot /></Tag>

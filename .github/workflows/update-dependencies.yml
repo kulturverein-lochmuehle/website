@@ -5,8 +5,8 @@ on:
     - cron: '0 6 * * 1' # every Monday at 06:00 UTC
   workflow_dispatch: # also allow manual runs
 
-# NOTE: this repo has no CI to validate the bumped branch, so the PR is opened
-# without an automated check. Review the changes before merging.
+# The pull request runs through the workflow of this repository like any
+# other, so lint, tests and both builds have to pass before it is merged.
 jobs:
   update-dependencies:
     runs-on: ubuntu-latest
