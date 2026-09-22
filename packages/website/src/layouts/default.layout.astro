@@ -1,16 +1,33 @@
 ---
+import '@kvlm/ui';
+
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+
 import { type Props as BaseLayoutProps, default as BaseLayout } from './base.layout.astro';
+import { renderShadow } from '@/utils/ssr.utils.js';
 
 export type Props = BaseLayoutProps & { observeScroll?: boolean };
 
 const { lang, observeScroll, pageTitle, siteTitle } = Astro.props;
+
+// the shell of the page is rendered here as well, so a document arrives with
+// the header, the scroll container and the footer in place
+const [header, content, footer] = await Promise.all([
+  Astro.slots.render('header'),
+  Astro.slots.render('default'),
+  Astro.slots.render('footer'),
+]);
+
+const markup = await renderShadow(html`
+  <kvlm-layout scroll-observe-selector="${ifDefined(observeScroll ? 'kvlm-section' : undefined)}">
+    ${unsafeHTML(header)} ${unsafeHTML(content)} ${unsafeHTML(footer)}
+  </kvlm-layout>
+`);
 ---
 
 <BaseLayout lang={lang} siteTitle={siteTitle} pageTitle={pageTitle}>
   <slot name="head" slot="head" />
-  <kvlm-layout scroll-observe-selector={observeScroll ? 'kvlm-section' : undefined}>
-    <slot name="header" />
-    <slot />
-    <slot name="footer" slot="footer" />
-  </kvlm-layout>
+  <Fragment set:html={markup} />
 </BaseLayout>

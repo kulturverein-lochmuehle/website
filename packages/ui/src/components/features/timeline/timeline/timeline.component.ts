@@ -21,6 +21,17 @@ export class Timeline extends LitElement {
 
   @eventOptions({ passive: true })
   private handleSlotChange() {
+    this.markItems();
+  }
+
+  // items rendered on the server are assigned before the element upgrades, so
+  // no slot change follows to mark them - they carry the marker from the start
+  // and this only catches up with whatever was added later
+  override firstUpdated() {
+    this.markItems();
+  }
+
+  private markItems() {
     this.items.forEach(item => {
       item.dataset[this.direction] = '';
     });

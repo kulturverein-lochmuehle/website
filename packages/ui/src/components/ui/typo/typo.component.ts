@@ -1,4 +1,4 @@
-import { html, LitElement, unsafeCSS } from 'lit';
+import { html, isServer, LitElement, nothing, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 import styles from './typo.component.scss?inline';
@@ -16,6 +16,13 @@ export class Typo extends LitElement {
   }
 
   override render() {
+    // a binding inside a style element is nothing a server can render, and
+    // styles for the light DOM belong in the document anyway - the page
+    // ships them itself and this only catches up in the browser
+    if (isServer) {
+      return nothing;
+    }
+
     return html`
       <style>
         ${Typo.styles}

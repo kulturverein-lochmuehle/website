@@ -30,8 +30,6 @@ const { title, scope } = Astro.props;
 
 // the site speaks of german days, wherever it is built
 const day = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin' });
-// the same reading the timeline component renders once it is upgraded
-const readable = new Intl.DateTimeFormat('de', { year: 'numeric', month: 'long', day: 'numeric' });
 
 // drafts are skeletons for entries still to be written
 const published = await getCollection('chronicle', ({ data }) => !data.draft);
@@ -91,6 +89,8 @@ const scopes = {
   'events:next': () => events.slice(0, 1).map(fromEvent),
 };
 
+const direction = scope.endsWith(':past') || scope === 'chronicle:all' ? 'backward' : 'forward';
+
 const items = await Promise.all(
   (scopes[scope]?.() ?? []).map(async ({ entry, ...item }) => {
     // the entry's page lives below the section listing it, which is the
@@ -107,25 +107,19 @@ const items = await Promise.all(
 
 <h2 class="title right-aligned">{title}</h2>
 <slot />
-<kvlm-timeline direction={scope.endsWith(':past') || scope === 'chronicle:all' ? 'backward' : 'forward'}>
+<kvlm-timeline direction={direction}>
   {
-    items.map(({ date, title, teaser, href }, index) => (
+    items.map(({ date, title: label, teaser, href }, index) => (
       <kvlm-timeline-item
+        data-forward={direction === 'forward' ? '' : undefined}
+        data-backward={direction === 'backward' ? '' : undefined}
         date={date.toISOString()}
-        aria-label={title}
+        aria-label={label}
         href={href}
         leading={index === 0 ? true : undefined}
         trailing={index === items.length - 1 ? true : undefined}
-      >
-        {/* the component renders date and title itself, from its attributes -
-            these are what the page shows until it is upgraded, the unknown
-            slot drops them out of the rendering the moment it is */}
-        <time slot="pre-upgrade" datetime={date.toISOString()}>
-          {readable.format(date)}
-        </time>
-        <h2 slot="pre-upgrade">{title}</h2>
-        <Fragment set:html={teaser} />
-      </kvlm-timeline-item>
+        set:html={teaser}
+      />
     ))
   }
 </kvlm-timeline>

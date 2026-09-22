@@ -30,9 +30,13 @@ const themes = {
     '--kvlm-brook-color': '#52bcdd',
   },
 };
+
+const style = Object.entries(themes[theme] ?? themes.dark)
+  .map(([property, value]) => `${property}:${value}`)
+  .join(';');
 ---
 
-<kvlm-section id={anchor} style={themes[theme] ?? themes.dark}>
+<kvlm-section id={anchor} style={style}>
   <kvlm-typo>
     <slot />
   </kvlm-typo>

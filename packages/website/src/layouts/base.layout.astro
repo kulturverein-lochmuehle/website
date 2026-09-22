@@ -1,7 +1,7 @@
 ---
 import '@kvlm/ui/globals.scss';
 import '@kvlm/ui/fonts.scss';
-import '@kvlm/ui/fallback.scss';
+import '@kvlm/ui/typography.scss';
 
 import { withBase } from '@/utils/base.utils.js';
 
@@ -68,6 +68,10 @@ const { lang = 'de', siteTitle = 'Kulturverein Lochmühle e.V.', pageTitle } = A
   <body>
     <slot />
     <script>
+      // the components arrive rendered from the build, this lets them adopt
+      // that markup instead of rendering a second copy next to it - it has to
+      // come before anything else touching lit
+      import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
       import '@kvlm/ui';
     </script>
   </body>

@@ -12,6 +12,17 @@ const scopesOf = (upcoming: boolean): string[] =>
     ? ['agenda:upcoming', 'agenda:next', 'chronicle:upcoming', 'chronicle:next', 'chronicle:all']
     : ['chronicle:past', 'chronicle:all'];
 
+type Section = { page: string; id: string; title: string; scopes: string[] };
+
+// the sections come from the markdoc bodies, parsing them once is plenty -
+// a build asks for them per entry and per teaser item
+let sections: Promise<Section[]> | undefined;
+
+const getSectionIndex = (): Promise<Section[]> =>
+  (sections ??= getCollection('pages').then(pages =>
+    pages.flatMap(page => getSections(page).map(section => ({ ...section, page: page.id }))),
+  ));
+
 export type ChronicleOrigin = {
   /** page and section the entry is listed in, e.g. `startseite/bisher` */
   path: string;
@@ -26,10 +37,7 @@ export type ChronicleOrigin = {
 export async function getChronicleOrigin(
   entry: CollectionEntry<'chronicle'>,
 ): Promise<ChronicleOrigin | undefined> {
-  const pages = await getCollection('pages');
-  const sections = pages.flatMap(page =>
-    getSections(page).map(section => ({ ...section, page: page.id })),
-  );
+  const sections = await getSectionIndex();
 
   return scopesOf(+entry.data.date >= Date.now()).reduce<ChronicleOrigin | undefined>(
     (found, scope) => {
