@@ -139,6 +139,7 @@ jobs:
         run: |
           bunx netlify-cli@27 deploy \
             --prod \
+            --filter @kvlm/website \
             --dir packages/website/dist \
             --message "${{ github.sha }}" \
             --json > deploy.json
