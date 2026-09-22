@@ -25,11 +25,13 @@ ESLint) still run on node — see `.node-version`.
 
 ## Google calendar
 
-The public ical feed of the association can feed an `events` collection, read
-at build time. It is opt in: copy `packages/website/.env.example` to `.env`
-(or set `KVLM_CALENDAR_URL` in the environment) and use a teaser with the
-`events:upcoming` or `events:next` scope. Keeping it current needs a scheduled
-rebuild, the chronicle entries do not.
+The public ical feed of the association fills an `events` collection, read at
+build time. It is required: copy `packages/website/.env.example` to `.env` (or
+set `KVLM_CALENDAR_URL` in the environment), the build refuses without it and
+fails on a feed it cannot read. The deploy workflow takes it from the
+repository variable of the same name. Teasers reach the events through the
+`events:upcoming`, `events:next` or `agenda:*` scopes, and keeping them current
+needs a scheduled rebuild - the chronicle entries do not.
 
 The `agenda:*` scopes join both: every upcoming event and every upcoming
 chronicle entry, collapsed into one item per day (german time). Where both know

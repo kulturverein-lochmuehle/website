@@ -30,8 +30,8 @@ export const calendarEvent = z.object({
  *
  * The public feed of the association is
  * `https://calendar.google.com/calendar/ical/bt9jo8d4eih6jnd962kblscces%40group.calendar.google.com/public/basic.ics`,
- * no credentials involved. Without a url the collection stays empty, so a
- * build never depends on the network.
+ * no credentials involved. It is required: a site without its events is not
+ * one to ship, so a build without a reachable feed fails.
  */
 export function calendar({ url }: { url?: string }): Loader {
   return {
@@ -39,9 +39,10 @@ export function calendar({ url }: { url?: string }): Loader {
     load: async ({ store, logger, parseData }) => {
       store.clear();
 
-      if (url === undefined) {
-        logger.info('No calendar url given, skipping the upcoming events');
-        return;
+      if (url === undefined || url === '') {
+        throw new Error(
+          'KVLM_CALENDAR_URL is not set, refusing to build a site without its events',
+        );
       }
 
       // a feed that is configured but unreachable is a broken build, not a
