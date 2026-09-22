@@ -97,6 +97,7 @@ const items = await Promise.all(
 ---
 
 <h2 class="title right-aligned">{title}</h2>
+<slot />
 <kvlm-timeline direction={scope.endsWith(':past') || scope === 'chronicle:all' ? 'backward' : 'forward'}>
   {
     items.map(({ date, title, teaser, href }, index) => (

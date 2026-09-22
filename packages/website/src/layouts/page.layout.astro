@@ -5,6 +5,7 @@ import Footer from '@/components/footer.component.astro';
 import Navigation from '@/components/navigation.component.astro';
 import Section from '@/components/section.component.astro';
 import DefaultLayout from '@/layouts/default.layout.astro';
+import { getCalendarLinks } from '@/utils/calendar.utils.js';
 import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
 import { getSections } from '@/utils/section.utils.js';
 
@@ -29,6 +30,8 @@ const sectioned = sections.length > 0;
 const [, anchor] = current?.split('/') ?? [];
 const section = sections.find(({ id }) => id === anchor);
 const home = await getDefaultRoute();
+// content links to the calendar feed the events are read from
+const calendar = getCalendarLinks();
 const items = await prepareNavigation('main', current);
 const legal = await prepareNavigation('footer', current);
 ---
@@ -38,10 +41,10 @@ const legal = await prepareNavigation('footer', current);
   <Footer slot="footer" items={legal} />
   {
     sectioned ? (
-      <Content page={page.id} />
+      <Content page={page.id} calendar={calendar} />
     ) : (
       <Section page={page.id} title={page.data.title} theme={page.data.theme}>
-        <Content page={page.id} />
+        <Content page={page.id} calendar={calendar} />
       </Section>
     )
   }

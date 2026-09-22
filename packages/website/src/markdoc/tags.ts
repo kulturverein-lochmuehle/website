@@ -1,6 +1,15 @@
 import { component, Markdoc, type AstroMarkdocConfig } from '@astrojs/markdoc/config';
 
 export const tags: AstroMarkdocConfig['tags'] = {
+  // markdown links take a literal url only, this one takes a variable as well,
+  // e.g. the calendar subscriptions derived from the feed
+  link: {
+    render: component('./src/components/link.component.astro'),
+    attributes: {
+      href: { type: String, required: true },
+      title: { type: String },
+    },
+  },
   section: {
     render: component('./src/components/section.component.astro'),
     attributes: {
@@ -23,7 +32,6 @@ export const tags: AstroMarkdocConfig['tags'] = {
   },
   teaser: {
     render: component('./src/components/teaser.component.astro'),
-    selfClosing: true,
     attributes: {
       title: { type: String, required: true },
       scope: {
