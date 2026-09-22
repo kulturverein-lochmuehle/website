@@ -1,0 +1,44 @@
+## Vorbereitungen Adventskalender
+### Einmalig
+- Werbung, Flyern, Öffentlichkeitsarbeit
+  - 💰 Design Flyer, Druck und Distribution
+  - Ortsblatt
+  - Presse-Meldung
+- 💰 Beschilderung
+  - VA-Schild
+  - Covid-Schilder
+  - Leitsystem
+  - Straßen-Hinweise
+- 💰 Schmücken, Aufbau
+  - Zahlen Fenster
+  - Hexenhaus
+- 💰 Beleuchtung
+  - Projektoren
+  - Lichterkette
+  - Strahler und Spots für Pavillon und Hexenhaus
+- VA-Technik, Beschallung
+  - 💰 Ton, Mikro, Mischpult, Verkabelung
+  - Playlist vorbereiten
+- 💰 Feuerholz
+- Organisation Helfer
+  - Anfragen, Verfügbarkeit abfragen und koordinieren
+- Hygiene
+  - 💰 Temporäre Sanitäranlage
+  - 💰 Desinfektionsspender
+- Einkauf
+   - 💰 Desinfektionsmittel, Hygieneartikel
+   - 💰 Befestigung Untergrund Rampe (Stroh?, Kunstrasen?)
+
+### Wiederkehrend
+- Essen, Trinken, Ausschank bestücken
+- Aufräumen
+- Beschilderung erneuern
+- Einkaufen
+  - Lebensmittel, Getränke
+  - Verbrauchsmaterial
+- Feuerstellen vorbereiten und bestücken
+- Stromversorgung
+- VA-Technik aufbauen
+- Liedtexte, Mitgliedsanträge, Spendenbox
+- ggf. Einlass (Covid)
+- ggf. Desinfektion bereitstellen (Covid)

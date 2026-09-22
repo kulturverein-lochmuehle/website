@@ -8,6 +8,7 @@
     "type": "git",
     "url": "https://github.com/kulturverein-lochmuehle/website.git"
   },
+  "packageManager": "bun@1.4.2",
   "workspaces": [
     "packages/*"
   ],
@@ -19,9 +20,9 @@
     "build": "bun run --filter '*' build"
   },
   "devDependencies": {
-    "@enke.dev/logbox": "0.0.3",
-    "eslint": "10.8.1",
-    "prettier": "3.9.6",
+    "@enke.dev/logbox": "0.0.7",
+    "eslint": "10.10.0",
+    "prettier": "3.9.8",
     "typescript": "6.0.3"
   },
   "author": {

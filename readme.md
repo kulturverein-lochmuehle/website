@@ -42,8 +42,8 @@ keep the hashed assets forever, everything else stays revalidated.
 ## Google calendar
 
 The public ical feed of the association fills an `events` collection, read at
-build time. It is required: copy `packages/website/.env.example` to `.env` (or
-set `KVLM_CALENDAR_URL` in the environment), the build refuses without it and
+build time. It is required: copy `.env.example` to `.env` in the
+repository root (or set `KVLM_CALENDAR_URL` in the environment), the build refuses without it and
 fails on a feed it cannot read. The deploy workflow takes it from the
 repository variable of the same name. Teasers reach the events through the
 `events:upcoming`, `events:next` or `agenda:*` scopes, and keeping them current

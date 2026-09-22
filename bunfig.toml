@@ -12,4 +12,7 @@ minimumReleaseAgeExcludes = [
   "@html-eslint/template-parser",
   "@html-eslint/template-syntax-parser",
   "@html-eslint/types",
+  # pulled in fresh by `@enke.dev/lint`, whose own exclude does not cover them
+  "eslint-plugin-package-json",
+  "prettier",
 ]

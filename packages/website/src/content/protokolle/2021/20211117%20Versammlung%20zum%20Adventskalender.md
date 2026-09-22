@@ -1,0 +1,42 @@
+- [x] Recap letztes Treffen:
+	- [ ] Gläser im Vereinsraum sammeln -> @alle
+	- [ ] Miettoiletten Angebot für 2 wahrnehmen -> @Eva
+	- [ ] Anfrage Lichtprojektion für 400 Euro Budget -> @Ullrich
+	- [ ] GEMA-Gebühr? -> @Falk
+
+---
+
+- [x] Suppen!
+	- [ ] Suppen beim ersten Mal selber kochen -> @Maria, @David, @Falk
+	- [ ] 3-4x Tafeln bestellen -> @David
+	- [ ] 3x Glühweinbereiter bei Ulle klarmachen -> @David
+	- [ ] Pumpkanne für Kaffee kaufen -> @Eva
+- [x] Ton-Technik
+	- [ ] zweite Box und kabellose Mikros zur Lesung am 2. Advent -> @David
+	- [ ] zweite Box für 4. Advent
+- [x] Besteck und Geschirr
+	- [ ] Abholung im HdB -> @Eva
+- [x] Flyerverteilung
+		  (Oberwartha, Rennersdorf, Brabschütz, Cossebaude, Mobschatz, Leuteritz)
+	- [ ] beim Spazierengehen -> @alle
+	- [ ] Schaukästen Ortschaft -> @Anne
+- [x] Fotograf
+	- [ ] Budget für _eine(n)_ Profi -> @Anne
+	- [ ] Dokumentation (Hobby)fotografen für alle VAs -> @Nick, @Robert, @Emilia
+	- [ ] Fotoerlaubnis -> @Eva, @Anne
+- [x] Mitglieder mobilisieren
+	- [ ] E-Mail zum Erfragen von Unterstützung -> @Anne
+- [x] Weihnachtsbasteleien
+	- [ ] E-Mail-Postfach für Léonie -> @David
+	- [ ] E-Mails weiterleiten an Léonie -> @David, @Anne
+	- [ ] Bearbeitung E-Mail-Anfragen -> @Léonie
+- [x] Website
+	- [ ] Flyer abbilden, "Stand: <:Datum:>" -> @David
+- [x] Covid
+	- [ ] Absperren, Einlass
+	- [ ] Beschilderung
+	- [ ] Tests anbieten
+	- [ ] Kontaktnachverfolgung -> @David
+	- [ ] Kontrolle Impf- und Teststatus -> @David
+- [x] Aufbau, Zeitplan, Termine
+	- [ ] Schmuck für Baum -> @Eva

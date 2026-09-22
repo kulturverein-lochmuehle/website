@@ -1,0 +1,31 @@
+- [ ] Helferliste
+	- [x] Aufgaben festlegen
+	- [x] anlegen
+	- [x] befüllen
+	- [x] delegieren
+	- [x] Tabelle anlegen
+	- [x] [Tabellen-Link teilen](https://docs.google.com/spreadsheets/d/1QaFAxUsFOAHSZ9stX1wPdQJVxAhcvdJ7A4jNxkXTAaI/edit)
+- [ ] Status Programm
+	- [ ] 3. Advent
+	- [ ] @Anne fragt an
+	- [ ] @alle gehen in sich
+- [ ] Checklisten
+	- [ ] definieren
+	- [ ] befüllen
+	- [ ] delegieren
+- [x] Status Anträge
+
+- Weihnachtsbaum?
+	- [x] nein, wenn dann nur klein
+- Termine
+	- [x] Pimp My Pfefferkuchenhouse
+		- Sa., 06.11., Sichtung
+		- Sa., 20.11., Vormittag: Weißen
+		- So., 21.11., Mittag, Hängen
+	- [x] Schilderei
+		- @Anne malt
+		- So., 07.11., Hängen
+	- [x] Mittwochs, 20:30, wiederkehrend
+
+---
+

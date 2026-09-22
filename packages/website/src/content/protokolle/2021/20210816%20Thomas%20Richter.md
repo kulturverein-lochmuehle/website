@@ -1,0 +1,3 @@
+- Steuernummer kommt automatisch
+- Gemeinnützigkeit wird vor Gründung von VA geprüft
+- FA meldet automatisch Befreiung von Körperschaftssteuer

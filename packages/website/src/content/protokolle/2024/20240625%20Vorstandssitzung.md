@@ -1,0 +1,24 @@
+1. SOMMERFESTival 2024
+	- Bands:
+		- Drugmillers Big Band -> Zusage
+		- VagabunT -> Zusage
+		- Balkan Eros -> Gage zu hoch, bisher keine Rückmeldung, fliegen leider raus am 02.07.2024
+		- ~~Monsieur Gabriel -> kann nicht~~
+		- MLF-Schnitte -> Zusage
+	- Technik
+		- bisher kein Bedarf
+		- Mikro und Boxenmikro KJVO ([[Bommel|@Bommel]] fragen) -> [[David|@David]]
+		- kleines schwarzes Pavillon vom Pauli (Dirk fragen) -> [[David|@David]]
+	- Ausschankgenehmigung einmalig beantragen
+			- per Email an Ordnungsamt -> [[David|@David]] beantragt
+	- Gestaltung bis _10.06._, Motiv und Drucksachen -> [[David|@David]]
+		- Flyer ohne Rückseite
+		- Plakate A4 ohne Rückseite
+		- Banner auf Bauzaungröße
+			- Musik, Grill, Lagerfeuer
+			- ab 15:00 Uhr plus Datum
+			- bunt (Wimpelkette)
+1. Außerordentliche Mitgliederversammlung
+	- [[Ines Fehrmann|@Ines]] moderiert
+	- Vorbereitung am 21.08. 
+	- Außerordentliche Mitgliederversammlung am _01.09.2024, 10:30 Uhr_

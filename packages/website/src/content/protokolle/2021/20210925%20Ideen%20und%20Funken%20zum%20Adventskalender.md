@@ -1,0 +1,21 @@
+- [ ] WS: Einnahme Gastro: Kasse des Vertrauens oder Preisliste?
+- [ ] WS: Schankgenehmigung?
+---
+- [ ] AK I: Theater?
+- [ ] AK II: Lesung?
+- [ ] AK III: Musik?
+- [ ] AK IV: Kurzfilm
+---
+- [ ] St. Pauli Bus, @David?
+- [ ] GEMA, @Falk?
+- [ ] Projektoren, Licht, @David @Ulrich?
+---
+- [ ] Kaffee, Punsch (Apfelsaft mit Zimt), Glühwein
+- [ ] Lebkuchen, Spekulatius, Wiener, Fettbemme
+---
+- [ ] Musiker, Gitarre, Budget ≤100€, @Léonie?
+- [ ] Theater, Elli @Eva?
+- [ ] ~~Talente,~~ Alte Feuerwehr, @Anne?
+- [ ] Kirchenchor, @Falk?
+- [ ] Unterstützung Heimatverein (Technik, etc.), @Falk?
+---

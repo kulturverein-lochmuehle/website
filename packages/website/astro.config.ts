@@ -2,9 +2,12 @@ import markdoc from '@astrojs/markdoc';
 import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
 
-// the content loaders and the teaser read `process.env`, which knows
-// nothing about `.env` files - so they are merged in before anything runs
-Object.assign(process.env, loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), 'KVLM_'));
+// the content loaders and the teaser read `process.env`, which knows nothing
+// about `.env` files - so they are merged in before anything runs. The file
+// belongs to the workspace, not to this package, and bun only loads it when a
+// command starts at the root
+const root = new URL('../..', import.meta.url).pathname;
+Object.assign(process.env, loadEnv(process.env.NODE_ENV ?? 'development', root, 'KVLM_'));
 
 // The deploy workflow passes both, locally the project page defaults apply.
 const site = process.env.SITE ?? 'https://kulturverein-lochmuehle.github.io';
