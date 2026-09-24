@@ -2,7 +2,9 @@
 title: Startseite
 ---
 
-{% section id="willkommen" title="Willkommen" theme="light" %}
+{% section id="willkommen" title="Willkommen" theme="light" scene="mill" listed=false /%}
+
+{% section id="demnaechst" title="Demnächst" theme="light" %}
 {% teaser title="Demnächst" scope="agenda:upcoming" %}
 Alle Termine im {% link href=$calendar.google %}Google Kalender{% /link %} oder {% link href=$calendar.apple %}Apple Kalender{% /link %} abonnieren. {% .lead .right-aligned %}
 {% /teaser %}

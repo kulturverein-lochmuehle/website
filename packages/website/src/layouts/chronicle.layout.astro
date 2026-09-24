@@ -9,6 +9,7 @@ import DefaultLayout from '@/layouts/default.layout.astro';
 import { withBase } from '@/utils/base.utils.js';
 import { CHRONICLE_BASE, getChronicleOrigin } from '@/utils/chronicle.utils.js';
 import { getDefaultRoute, prepareNavigation } from '@/utils/navigation.utils.js';
+import { getChronicleScene } from '@/utils/scene.utils.js';
 
 export type Props = {
   entry: CollectionEntry<'chronicle'>;
@@ -25,6 +26,8 @@ const origin = await getChronicleOrigin(entry);
 const items = await prepareNavigation('main', undefined, origin?.path);
 const legal = await prepareNavigation('footer');
 
+const scene = getChronicleScene(entry);
+
 const date = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(entry.data.date);
 ---
 
@@ -32,22 +35,37 @@ const date = new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(entr
   <Navigation slot="header" href={home} items={items} secondary={legal} />
   <Footer slot="footer" items={legal} />
   <Section page={CHRONICLE_BASE} id={entry.id} title={entry.data.title} theme="dark">
-    {
-      origin && (
-        <p class="body">
-          <Link href={`/${origin.path}`}>&laquo; Zurück</Link>
-        </p>
-      )
-    }
-    <h1 class="title">{entry.data.title}</h1>
-    <p class="lead"><time datetime={entry.data.date.toISOString()}>{date}</time></p>
-    {
-      entry.data.image && (
-        <img src={withBase(entry.data.image)} alt={entry.data.title} loading="lazy" />
-      )
-    }
-    <Content />
+    <div class="text">
+      {
+        origin && (
+          <p class="body">
+            <Link href={`/${origin.path}`}>&laquo; Zurück</Link>
+          </p>
+        )
+      }
+      <h1 class="title">{entry.data.title}</h1>
+      <p class="lead"><time datetime={entry.data.date.toISOString()}>{date}</time></p>
+      {
+        entry.data.image && (
+          <img src={withBase(entry.data.image)} alt={entry.data.title} loading="lazy" />
+        )
+      }
+      <Content />
+    </div>
   </Section>
+  {
+    // the event's scene last, a section of its own and nothing over it, as
+    // the welcome's is
+    scene && (
+      <Section
+        page={CHRONICLE_BASE}
+        id={`${entry.id}-szene`}
+        title={entry.data.title}
+        theme="dark"
+        scene={scene}
+      />
+    )
+  }
 </DefaultLayout>
 
 <style>

@@ -11,6 +11,34 @@
      missing - the turquoise stays free for marking things out */
   --kvlm-color-brick: #cf6a52;
 
+  /* the woods of the valley in autumn and under snow, for the 3D scene: the
+     beeches go gold and orange, the oaks a rusty brown */
+  --kvlm-color-autumn-gold: #d6a032;
+  --kvlm-color-autumn-orange: #c96a26;
+  --kvlm-color-autumn-rust: #7e4424;
+  --kvlm-color-snow: #f4f7f9;
+  /* and the meadows' flowers in spring: dandelions, violets, the daisies white */
+  --kvlm-color-flower-yellow: #e9c43b;
+  --kvlm-color-flower-violet: #8d6cc0;
+  /* a window with the light on behind it, after dark */
+  --kvlm-color-window-lit: #f3c66e;
+  /* and a street lamp's or a wall lantern's, more orange */
+  --kvlm-color-lantern: #f29a45;
+  /* the brook: its water where it runs deep, and over the stones at its edges */
+  --kvlm-color-water: #2f4a4d;
+  --kvlm-color-water-shallow: #5f7874;
+  /* spring: the leaves as they come out, fresh, and the meadows' new grass */
+  --kvlm-color-spring-leaf: #8fc25a;
+  --kvlm-color-spring-grass: #6d9a4c;
+  /* what stands by the road: its white paint, hewn granite */
+  --kvlm-color-marking: #e9e8e2;
+  --kvlm-color-granite: #8f8d86;
+  /* the Saab parked by the mill: its aubergine paint, its tail lamps */
+  --kvlm-color-saab: #5a4044;
+  --kvlm-color-tail-light: #b8322c;
+  /* a delivery van's white paint */
+  --kvlm-color-van: #e9ebea;
+
   /* fonts */
   --kvlm-font-family-body: 'Fundamental Brigade', sans-serif;
   --kvlm-font-family-title: 'Super Grotesk', sans-serif;

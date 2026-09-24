@@ -1,0 +1,101 @@
+/* the editor's own chrome: dark, so it stands back from the model */
+:host {
+  --chrome: #1f2124;
+  --chrome-raised: #2a2d31;
+  --chrome-line: #3a3e44;
+  --chrome-text: #e6e7e9;
+  --chrome-quiet: #9aa0a6;
+  --chrome-accent: var(--kvlm-color-spray, #5aa9c8);
+  --chrome-warn: #f0a050;
+
+  color: var(--chrome-text);
+  color-scheme: dark;
+  display: block;
+  /* the system's own face, as editors use: the brand's is a display face,
+     and reads poorly small and dense */
+  font:
+    0.8125rem/1.35 system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    sans-serif;
+}
+
+/* laid out as an editor is: tools, the view, the panels' edge, the panels, and a bar under all */
+#layout {
+  block-size: 100svh;
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr) 5px var(--dock, 300px);
+  grid-template-rows: minmax(0, 1fr) 1.75rem;
+}
+
+#stage {
+  grid-column: 2;
+  grid-row: 1;
+  min-inline-size: 0;
+  position: relative;
+}
+
+kvlm-editor-viewport {
+  /* the room the layout gives it, not the square it keeps on its own */
+  aspect-ratio: auto;
+  block-size: 100%;
+  inline-size: 100%;
+  /* a drag is a camera move, never a page scroll or a pinch */
+  touch-action: none;
+}
+
+#failed {
+  inset: 0;
+  margin: auto;
+  max-inline-size: 30rem;
+  padding: 2rem;
+  position: absolute;
+}
+
+/* the panels' edge, dragged to make them wider */
+#resize {
+  background: var(--chrome-line);
+  cursor: col-resize;
+  grid-column: 3;
+  grid-row: 1;
+  touch-action: none;
+}
+
+#resize:hover {
+  background: var(--chrome-accent);
+}
+
+#dock {
+  background: var(--chrome);
+  grid-column: 4;
+  grid-row: 1;
+  overflow: auto;
+}
+
+/* the baked preview over the whole editor, as the site would show it */
+#baked {
+  background-color: var(--kvlm-color-grey-light);
+  inset: 0;
+  position: fixed;
+  z-index: 10;
+}
+
+#baked kvlm-scene {
+  aspect-ratio: auto;
+  height: 100%;
+  width: 100%;
+}
+
+#baked button {
+  inset-block-start: 1rem;
+  inset-inline-end: 1rem;
+  position: absolute;
+}
+
+#baked p {
+  color: #1a1a1a;
+  padding: 2rem;
+}

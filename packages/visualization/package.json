@@ -1,0 +1,65 @@
+{
+  "name": "@kvlm/visualization",
+  "description": "The 3D model of the Lochmühle and the scene that renders it",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "author": {
+    "name": "David Enke",
+    "email": "david@kvlm.de"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./views/*": "./dist/views/*"
+  },
+  "scripts": {
+    "data:fetch": "bun run scripts/fetch-data.ts",
+    "data:trees": "bun run scripts/fetch-trees.ts",
+    "data:terrain": "node --import tsx/esm scripts/bake-terrain.ts",
+    "data:views": "node --import tsx/esm scripts/bake-views.ts",
+    "lint": "eslint",
+    "test": "cross-env NODE_OPTIONS='--import tsx/esm' NODE_NO_WARNINGS=1 wtr --config .configs/web-test-runner.config.ts",
+    "test:watch": "npm test -- --watch",
+    "test:views": "npm test -- --files src/bake/views.baked.spec.ts",
+    "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput",
+    "build": "bun run --sequential build:clean build:compile build:views",
+    "build:clean": "rm -rf dist",
+    "build:compile": "tsc -p tsconfig.build.json",
+    "build:views": "cp -R views dist/views"
+  },
+  "dependencies": {
+    "cdt2d": "1.0.0",
+    "three": "0.186.0"
+  },
+  "devDependencies": {
+    "@awmottaz/prettier-plugin-void-html": "2.3.0",
+    "@enke.dev/lint": "0.13.13",
+    "@esm-bundle/chai": "4.3.4-fix.0",
+    "@open-wc/testing": "5.0.0",
+    "@remcovaes/web-test-runner-vite-plugin": "1.4.1",
+    "@tsconfig/strictest": "2.0.8",
+    "@types/mocha": "10.0.10",
+    "@types/node": "24.13.4",
+    "@types/three": "0.186.0",
+    "@web/test-runner": "1.0.0",
+    "@web/test-runner-commands": "1.0.1",
+    "@web/test-runner-playwright": "1.0.0",
+    "cross-env": "10.1.0",
+    "eslint": "10.10.0",
+    "eslint-formatter-junit": "9.0.1",
+    "fflate": "0.8.3",
+    "geotiff": "3.0.5",
+    "jiti": "2.7.0",
+    "prettier": "3.9.8",
+    "tsx": "4.23.13",
+    "typescript": "6.0.3",
+    "vite": "8.3.0"
+  }
+}

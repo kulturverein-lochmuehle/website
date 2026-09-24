@@ -105,7 +105,9 @@ slot[name='secondary'] {
   }
 }
 
-a:first-child {
+/* the logo, going to the start page, and beside it on a small screen the
+   arrow that opens the menu - two controls, not one */
+.brand {
   color: inherit;
 
   @container (--until-lg) {
@@ -113,9 +115,6 @@ a:first-child {
     flex-direction: row;
     align-items: center;
     margin-bottom: calc(5 * var(--kvlm-base-size-layout));
-
-    /* it toggles the menu here, so no link callout on long press */
-    -webkit-touch-callout: none;
 
     /* stays reachable while a long menu scrolls underneath */
     :host([opened]) & {
@@ -131,6 +130,31 @@ a:first-child {
 
   @container (--from-lg) {
     margin-right: auto;
+  }
+
+  .logo {
+    color: inherit;
+
+    @container (--until-lg) {
+      margin-right: auto;
+    }
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    /* a hand's breadth round the arrow to hit it by */
+    padding: calc(1.5 * var(--kvlm-base-size-layout));
+    margin: calc(-1.5 * var(--kvlm-base-size-layout));
+    border: 0;
+
+    color: inherit;
+    background: none;
+    cursor: pointer;
+
+    @container (--from-lg) {
+      display: none;
+    }
   }
 
   kvlm-logo {

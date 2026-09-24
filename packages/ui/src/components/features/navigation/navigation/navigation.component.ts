@@ -104,23 +104,23 @@ export class Navigation extends LitElement {
     super.disconnectedCallback();
   }
 
+  /**
+   * A link followed in the open menu closes it - the router has taken it
+   * over by then. The logo only ever closes it: it goes to the start page,
+   * and opening the menu is the arrow's job.
+   */
   @eventOptions({ passive: true })
   handleClick(event: Event) {
-    if (!this.#isMobile) {
+    if (!this.#isMobile || !event.defaultPrevented) {
       return;
     }
-    if (!event.defaultPrevented) {
+    const logo = event
+      .composedPath()
+      .some(target => (target as Element).classList?.contains('logo'));
+    if (logo && !this.opened) {
       return;
     }
     this.toggle();
-  }
-
-  @eventOptions({ capture: true })
-  handleLogoClick(event: Event) {
-    if (this.#isMobile) {
-      event.preventDefault();
-      return;
-    }
   }
 
   toggle() {
@@ -131,15 +131,24 @@ export class Navigation extends LitElement {
   override render() {
     return html`
       <nav @click="${this.handleClick}" @keydown="${this.handleClick}">
-        <a @click="${this.handleLogoClick}" href="${this.href}">
-          <kvlm-logo loaded="${ifDefined(this.loaded)}"></kvlm-logo>
-
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.4 37.4">
-            <path d="M1.4 1.4 18.7 18.7 36 1.4" />
-            <path d="M18.7 18.7 36 36" />
-            <path d="M18.7 18.7 1.4 36" />
-          </svg>
-        </a>
+        <div class="brand">
+          <a class="logo" href="${this.href}">
+            <kvlm-logo loaded="${ifDefined(this.loaded)}"></kvlm-logo>
+          </a>
+          <button
+            class="toggle"
+            type="button"
+            aria-label="Menü"
+            aria-expanded="${this.opened ? 'true' : 'false'}"
+            @click="${this.toggle}"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.4 37.4">
+              <path d="M1.4 1.4 18.7 18.7 36 1.4" />
+              <path d="M18.7 18.7 36 36" />
+              <path d="M18.7 18.7 1.4 36" />
+            </svg>
+          </button>
+        </div>
         <slot></slot>
         <slot name="secondary"></slot>
       </nav>

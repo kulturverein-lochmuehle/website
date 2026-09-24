@@ -102,6 +102,76 @@ const cleanse = (element: Element) => {
   return element;
 };
 
+/**
+ * What a fetched page brings with it that the document shown lacks: its
+ * stylesheets - a component's scoped styles live in the page that uses it -
+ * and its module scripts, a custom element only that page defines. Swapping
+ * the content alone, an image went unstyled and an element undefined until
+ * the page was loaded again.
+ */
+const missingAssets = (incoming: Document) => {
+  const hrefs = new Set(
+    [...document.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]')].map(
+      ({ href }) => href
+    )
+  );
+  const styles = new Set(
+    [...document.querySelectorAll('style')].map(({ textContent }) => textContent)
+  );
+  const scripts = new Set(
+    [...document.querySelectorAll<HTMLScriptElement>('script[type="module"]')].map(
+      ({ src, textContent }) => src || textContent
+    )
+  );
+  return {
+    sheets: [
+      ...incoming.querySelectorAll<HTMLLinkElement>('head link[rel="stylesheet"]'),
+      ...incoming.querySelectorAll('head style'),
+    ].filter(sheet =>
+      sheet instanceof HTMLLinkElement
+        ? !hrefs.has(new URL(sheet.getAttribute('href') ?? '', window.location.href).href)
+        : !styles.has(sheet.textContent)
+    ),
+    scripts: [...incoming.querySelectorAll<HTMLScriptElement>('script[type="module"]')].filter(
+      script => {
+        const src = script.getAttribute('src');
+        return !scripts.has(src ? new URL(src, window.location.href).href : script.textContent);
+      }
+    ),
+  };
+};
+
+/** Puts a fetched page's stylesheets in the head, done once they have loaded. */
+const adoptSheets = (sheets: Element[]) =>
+  Promise.all(
+    sheets.map(sheet => {
+      const adopted = document.importNode(sheet, true);
+      const loaded =
+        adopted instanceof HTMLLinkElement
+          ? new Promise<void>(resolve => {
+              adopted.addEventListener('load', () => resolve(), { once: true });
+              adopted.addEventListener('error', () => resolve(), { once: true });
+            })
+          : Promise.resolve();
+      document.head.append(adopted);
+      return loaded;
+    })
+  );
+
+/** Runs a fetched page's module scripts: imported, a script element does not run. */
+const adoptScripts = (scripts: HTMLScriptElement[]) =>
+  scripts.forEach(script => {
+    const running = document.createElement('script');
+    running.type = 'module';
+    const src = script.getAttribute('src');
+    if (src) {
+      running.src = new URL(src, window.location.href).href;
+    } else {
+      running.textContent = script.textContent;
+    }
+    document.head.append(running);
+  });
+
 /** Anything we cannot or should not take over stays with the browser. */
 const isRoutable = (anchor: HTMLAnchorElement, event: MouseEvent) =>
   !event.defaultPrevented &&
@@ -203,6 +273,7 @@ export function startRouter({ transition, sizes }: RouterOptions = {}): () => vo
 
     let incoming: Element[];
     let title: string;
+    let assets: ReturnType<typeof missingAssets>;
     try {
       const response = await fetch(url.href, { headers: { accept: 'text/html' } });
       if (!response.ok) {
@@ -215,6 +286,7 @@ export function startRouter({ transition, sizes }: RouterOptions = {}): () => vo
       if (!next) {
         throw new Error('no layout in the response');
       }
+      assets = missingAssets(document_);
       incoming = contentOf(next).map(child => cleanse(child));
       title = document_.title;
     } catch {
@@ -226,6 +298,12 @@ export function startRouter({ transition, sizes }: RouterOptions = {}): () => vo
 
     // a newer navigation started while this one was in flight; it owns the
     // indicator from here and will end it itself
+    if (token !== pending) {
+      return;
+    }
+
+    // styled before it is shown, so nothing is drawn without its styles first
+    await adoptSheets(assets.sheets);
     if (token !== pending) {
       return;
     }
@@ -243,6 +321,9 @@ export function startRouter({ transition, sizes }: RouterOptions = {}): () => vo
     } else {
       swap();
     }
+
+    // and its elements defined, now that they are in the document
+    adoptScripts(assets.scripts);
 
     announce(url.pathname, reason);
   }

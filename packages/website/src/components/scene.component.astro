@@ -1,0 +1,15 @@
+---
+import type { Scene } from '@/utils/scene.utils.js';
+
+export type Props = {
+  scene: Scene;
+};
+
+const { scene } = Astro.props;
+
+// a view flown along a path does so by itself, a loop once round in a minute,
+// the others there and back in forty seconds - about a walk's pace
+const autoplay = scene.kind === 'path' ? (scene.loop ? 60 : 40) : undefined;
+---
+
+<kvlm-scene src={scene.src} size={scene.size} loader loading="lazy" autoplay={autoplay}></kvlm-scene>

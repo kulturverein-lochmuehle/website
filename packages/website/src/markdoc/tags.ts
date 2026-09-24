@@ -16,6 +16,9 @@ export const tags: AstroMarkdocConfig['tags'] = {
       id: { type: String, required: true },
       title: { type: String, required: true },
       theme: { type: String, default: 'dark', matches: ['light', 'dark'] },
+      scene: { type: String, matches: ['mill'] },
+      // a section the menu leaves out, still on the page and in its address
+      listed: { type: Boolean, default: true },
     },
     // the page is no attribute of the tag, it arrives as a markdoc variable
     // from the route and completes the section's anchor

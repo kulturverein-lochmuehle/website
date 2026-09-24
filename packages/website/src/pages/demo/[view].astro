@@ -1,0 +1,70 @@
+---
+import views from '@kvlm/visualization/views/manifest.json';
+
+import BaseLayout from '@/layouts/base.layout.astro';
+
+// one page a baked view, at the view's own name - the file it is drawn from
+// carries the same one
+export function getStaticPaths() {
+  const files = import.meta.glob<string>('@views/*.view.bin', {
+    query: '?url',
+    import: 'default',
+    eager: true,
+  });
+  return views.map(view => ({
+    params: { view: view.name },
+    props: {
+      view,
+      src: Object.entries(files).find(([path]) => path.endsWith(`/${view.file}`))?.[1],
+    },
+  }));
+}
+
+const { view, src } = Astro.props;
+---
+
+<BaseLayout pageTitle={`Lochmühle in 3D: ${view.title}`}>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
+  {
+    // a path view flies its path there and back by itself, once round in
+    // forty seconds - about a walk's pace; a loop round and round, once in
+    // a minute
+    view.kind === 'path' ? (
+      <kvlm-scene src={src} autoplay={view.loop ? '60' : '40'} />
+    ) : (
+      <kvlm-scene src={src} />
+    )
+  }
+  <output id="timing"></output>
+
+  <style is:global>
+    body {
+      background-color: var(--kvlm-color-grey-light);
+    }
+
+    kvlm-scene {
+      aspect-ratio: auto;
+      height: 100svh;
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    import '@kvlm/ui/components/ui/scene/scene.component.js';
+
+    // how long the view took from the element's start to its first frame
+    document.querySelector('kvlm-scene')?.addEventListener('kvlm-scene-rendered', event => {
+      const { milliseconds, triangles, groups } = (
+        event as CustomEvent<{ milliseconds: number; triangles: number; groups: number }>
+      ).detail;
+      const output = document.querySelector('output#timing');
+      if (output !== null) {
+        // its own time, and the page's since it was asked for
+        output.textContent =
+          `${Math.round(milliseconds)} ms (${Math.round(performance.now())} ms since navigation)` +
+          ` · ${triangles} triangles · ${groups} draw calls`;
+      }
+    });
+  </script>
+</BaseLayout>

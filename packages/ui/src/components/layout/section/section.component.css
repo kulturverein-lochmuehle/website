@@ -53,6 +53,22 @@
   }
 }
 
+/* whatever is given as the scene is a layer the size of the screen and as
+   pinned as the backdrop: it is the page's to lay out, and never in the way */
+slot[name='scene']::slotted(*) {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100cqh;
+  width: 100cqw;
+
+  pointer-events: none;
+}
+
+/* a section that is its scene has nothing drawn over it */
+:host([scenic]) kvlm-brook {
+  display: none;
+}
+
 kvlm-brook {
   position: fixed;
   inset: 50% 0 auto;

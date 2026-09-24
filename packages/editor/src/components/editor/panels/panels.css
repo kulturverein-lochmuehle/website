@@ -1,0 +1,475 @@
+/* what the panels, the tools, the flyout and the bar along the foot share */
+button,
+select,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  background: var(--chrome-raised);
+  border: 1px solid var(--chrome-line);
+  border-radius: 0.25rem;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.15rem 0.5rem;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--chrome-quiet);
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+button[aria-pressed='true'] {
+  background: var(--chrome-accent);
+  border-color: var(--chrome-accent);
+  color: #10181c;
+}
+
+/* what a tool or a mode held for the moment goes back to */
+button.returns {
+  outline: 1px dashed var(--chrome-accent);
+  outline-offset: -3px;
+}
+
+select,
+input:not([type='checkbox'], [type='range']),
+textarea {
+  background: var(--chrome-raised);
+  border: 1px solid var(--chrome-line);
+  border-radius: 0.25rem;
+  color: inherit;
+  min-inline-size: 0;
+  padding: 0.15rem 0.35rem;
+}
+
+input[type='checkbox'],
+input[type='range'] {
+  accent-color: var(--chrome-accent);
+  margin: 0;
+}
+
+pre,
+code {
+  font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+output,
+.readout,
+.count {
+  color: var(--chrome-quiet);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  gap: 0.35rem;
+}
+
+header strong {
+  flex: 1;
+}
+
+h3 {
+  color: var(--chrome-quiet);
+  font-size: 0.6875rem;
+  font-weight: normal;
+  letter-spacing: 0.06em;
+  margin: 0.25rem 0 0;
+  text-transform: uppercase;
+}
+
+.hint,
+.count {
+  color: var(--chrome-quiet);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* a row of buttons of which one is pressed */
+.segments {
+  display: flex;
+}
+
+.segments button {
+  border-radius: 0;
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.segments button:first-child {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.segments button:last-child {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.segments button + button {
+  border-inline-start: 0;
+}
+
+/*
+ * a label, its control and its number, row by row - the same in every panel
+ * and every flyout: what has no number of its own takes the room of one
+ */
+.rows {
+  align-items: center;
+  display: grid;
+  gap: 0.4rem 0.6rem;
+  grid-template-columns: 4.75rem minmax(0, 1fr) 4ch;
+}
+
+.rows > .span,
+.rows > select,
+.rows > textarea,
+.rows > .slider,
+.rows > .segments,
+.rows > input:not([type='range']) {
+  grid-column: span 2;
+}
+
+.rows > .full {
+  grid-column: 1 / -1;
+}
+
+.rows > output {
+  text-align: end;
+}
+
+.label,
+.rows > label {
+  color: var(--chrome-quiet);
+}
+
+.slider {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.slider input {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.slider output {
+  inline-size: 5ch;
+  text-align: end;
+}
+
+/* boxes to tick, as many to a row as fit */
+.checks {
+  display: grid;
+  gap: 0.3rem 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+}
+
+/* what is named at length, a row each */
+.checks.single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.checks label {
+  align-items: center;
+  display: flex;
+  gap: 0.4rem;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wide {
+  inline-size: 100%;
+}
+
+progress {
+  accent-color: var(--chrome-accent);
+  inline-size: 100%;
+}
+
+/* a list, a row an item with what it is, where and a button to take it away */
+.list {
+  display: grid;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  gap: 0.2rem;
+  list-style: none;
+  margin: 0;
+  max-block-size: 30svh;
+  overflow: auto;
+  padding: 0;
+}
+
+.list li {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 3ch minmax(0, 1fr) auto auto;
+}
+
+.list li span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list input {
+  inline-size: 7ch;
+}
+
+.list button {
+  padding: 0 0.4rem;
+}
+
+.warnings {
+  color: var(--chrome-warn);
+  font-size: 0.75rem;
+  margin: 0;
+  padding-inline-start: 1.1rem;
+}
+
+/* the tools down the left */
+#tools {
+  background: var(--chrome);
+  border-inline-end: 1px solid var(--chrome-line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0.35rem;
+}
+
+#tools button {
+  aspect-ratio: 1;
+  background: transparent;
+  border-color: transparent;
+  display: grid;
+  padding: 0.3rem;
+  place-items: center;
+}
+
+#tools button[aria-pressed='true'] {
+  background: var(--chrome-accent);
+  color: #10181c;
+}
+
+#tools svg {
+  fill: none;
+  inline-size: 100%;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+#tools .grow {
+  flex: 1;
+}
+
+/* the options of the tool in hand, over the view beside the strip: a panel, as those on the right are */
+#flyout {
+  background: var(--chrome);
+  border-block-end: 1px solid var(--chrome-line);
+  border-inline-end: 1px solid var(--chrome-line);
+  box-sizing: border-box;
+  inline-size: 18rem;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  max-block-size: 100%;
+  overflow: auto;
+  position: absolute;
+}
+
+#flyout .title {
+  font-size: inherit;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+}
+
+#flyout pre {
+  font-size: 0.6875rem;
+  margin: 0;
+  max-block-size: 50svh;
+  overflow: auto;
+}
+
+#flyout textarea {
+  resize: vertical;
+}
+
+/* what can be done with all a tool has made, along its foot */
+.actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+/* the panels down the right, each folded open or shut */
+.panel {
+  border-block-end: 1px solid var(--chrome-line);
+}
+
+.panel summary {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.5rem 0.75rem;
+  user-select: none;
+}
+
+/* a panel's and a flyout's body alike */
+.body {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0 0.75rem 0.75rem;
+}
+
+.view {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+}
+
+/* which way the view looks, north on it wherever north is on the screen */
+#compass {
+  background: transparent;
+  border: 0;
+  display: grid;
+  gap: 0.1rem;
+  justify-items: center;
+  padding: 0;
+}
+
+#compass svg {
+  inline-size: 4rem;
+}
+
+#compass circle {
+  fill: none;
+  stroke: currentcolor;
+  stroke-opacity: 0.3;
+}
+
+#compass .north {
+  fill: var(--kvlm-color-brick, #cf6a52);
+}
+
+#compass .south {
+  fill: currentcolor;
+  opacity: 0.4;
+}
+
+#compass text {
+  dominant-baseline: central;
+  fill: currentcolor;
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+/* the bar along the foot */
+#status {
+  align-items: center;
+  background: var(--chrome);
+  border-block-start: 1px solid var(--chrome-line);
+  display: flex;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  gap: 1.5rem;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  overflow: hidden;
+  padding: 0 0.75rem;
+  white-space: nowrap;
+}
+
+#status > span {
+  display: flex;
+  gap: 0.75rem;
+}
+
+#status .cursor {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+#status .quiet {
+  color: var(--chrome-quiet);
+}
+
+#status .working span {
+  align-items: center;
+  display: flex;
+  gap: 0.4rem;
+  max-inline-size: 22rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#status .working progress {
+  flex: none;
+  inline-size: 5rem;
+}
+
+/* the keys, over everything until closed */
+#shortcuts {
+  background: rgb(0 0 0 / 50%);
+  block-size: 100%;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  display: grid;
+  inline-size: 100%;
+  inset: 0;
+  margin: 0;
+  max-block-size: none;
+  max-inline-size: none;
+  padding: 1rem;
+  place-items: center;
+  position: fixed;
+  z-index: 20;
+}
+
+#shortcuts article {
+  background: var(--chrome);
+  border: 1px solid var(--chrome-line);
+  border-radius: 0.5rem;
+  display: grid;
+  gap: 0.75rem;
+  max-block-size: 80svh;
+  max-inline-size: 34rem;
+  overflow: auto;
+  padding: 1rem;
+}
+
+#shortcuts dl {
+  display: grid;
+  gap: 0.35rem 1rem;
+  grid-template-columns: auto 1fr;
+  margin: 0;
+}
+
+#shortcuts dd {
+  margin: 0;
+}
+
+kbd {
+  background: var(--chrome-raised);
+  border: 1px solid var(--chrome-line);
+  border-radius: 0.2rem;
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0 0.3rem;
+  white-space: nowrap;
+}

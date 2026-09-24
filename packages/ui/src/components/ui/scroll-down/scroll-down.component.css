@@ -1,0 +1,55 @@
+/* prettier-ignore */
+:host {
+  ---kvlm-scroll-down-background-from: var(--kvlm-scroll-down-background-from, var(--kvlm-color-turquoise, #fff));
+  ---kvlm-scroll-down-background-to: var(--kvlm-scroll-down-background-to, var(--kvlm-color-spray, #fff));
+  ---kvlm-scroll-down-color: var(--kvlm-scroll-down-color, var(--kvlm-color-grey-dark, #000));
+  ---kvlm-scroll-down-size: calc(6.4 * var(--kvlm-base-size-layout));
+}
+
+:host {
+  display: inline-block;
+}
+
+button {
+  display: grid;
+  place-items: center;
+
+  box-sizing: border-box;
+  width: var(---kvlm-scroll-down-size);
+  height: var(---kvlm-scroll-down-size);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+
+  color: var(---kvlm-scroll-down-color);
+  /* the header's own gradient, so it reads as the same bar's */
+  background-image: linear-gradient(
+    150deg,
+    var(---kvlm-scroll-down-background-from),
+    var(---kvlm-scroll-down-background-to)
+  );
+  box-shadow: 0 0.2em 1em rgb(0 0 0 / 25%);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: calc(0.3 * var(--kvlm-base-size-layout)) solid var(---kvlm-scroll-down-color);
+    outline-offset: calc(0.3 * var(--kvlm-base-size-layout));
+  }
+}
+
+/* the menu's arrow exactly as it is drawn closed: its box, its height and
+   its stroke - the chevron fills the box's upper half, so it is moved down
+   by a quarter of it to sit in the middle */
+svg {
+  height: calc(1.64 * var(--kvlm-base-size-layout));
+  transform: translateY(25%);
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: calc(0.4 * var(--kvlm-base-size-layout));
+  overflow: visible;
+
+  path {
+    vector-effect: non-scaling-stroke;
+  }
+}

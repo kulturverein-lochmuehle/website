@@ -1,0 +1,19 @@
+.env
+.envjenkins
+/.tmp
+/node_modules
+
+# IDEs
+.idea/
+.vscode/
+
+# os
+.DS_Store
+
+# generated files
+/dist
+/reports
+
+# ignore compressed dist files
+/*.tgz
+/*.tar.gz

@@ -1,0 +1,100 @@
+---
+import views from '@kvlm/visualization/views/manifest.json';
+
+import BaseLayout from '@/layouts/base.layout.astro';
+import { withBase } from '@/utils/base.utils.js';
+
+// The baked 3D views to try out, not part of the site yet: nothing links
+// here, and the robots meta keeps it out of search engines. Each view is
+// listed by the bake, and shown at its own name - and the editor they are
+// worked on in, above them. The events' views and the welcome's overviews,
+// one a season and time of day, are columns of their own.
+const welcome = views.filter(({ name }) => name.includes('-overview-'));
+const events = views.filter(({ name }) => name.includes('-event-'));
+const others = views.filter(view => !welcome.includes(view) && !events.includes(view));
+const columns = [
+  { heading: 'Views', listed: others },
+  { heading: 'Events', listed: events },
+  { heading: 'Welcome', listed: welcome },
+];
+---
+
+<BaseLayout pageTitle="Lochmühle in 3D">
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
+  <main>
+    <h1>Lochmühle in 3D</h1>
+    <p>
+      <a href={withBase('demo/editor')}>Editor</a>
+      <small>the model itself, with the bench it is worked on - slow to come up</small>
+    </p>
+    <div class="columns">
+      {
+        columns.map(({ heading, listed }) => (
+          <section>
+            <h2>{heading}</h2>
+            <ul>
+              {listed.map(({ name, title, kind, season, triangles, groups, bytes }) => (
+                <li>
+                  <a href={withBase(`demo/${name}`)}>{title}</a>
+                  <small>
+                    {kind} · {season} · {triangles.toLocaleString('en')} triangles · {groups} draw
+                    calls · {Math.round(bytes / 1024)} KiB
+                  </small>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </main>
+
+  <style>
+    main {
+      margin: 0 auto;
+      max-width: 40rem;
+      padding: 2rem 1rem;
+    }
+
+    /* side by side where there is room for both */
+    .columns {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 60rem) {
+      main {
+        max-width: 110rem;
+      }
+
+      .columns {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    ul {
+      display: grid;
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    li,
+    p {
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    small {
+      font-variant-numeric: tabular-nums;
+      opacity: 0.7;
+    }
+  </style>
+</BaseLayout>

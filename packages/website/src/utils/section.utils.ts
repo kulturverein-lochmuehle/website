@@ -6,6 +6,8 @@ export type PageSection = {
   title: string;
   /** scopes of the teasers the section shows, e.g. `chronicle:past` */
   scopes: string[];
+  /** whether the menu lists it - the welcome is come back to by the logo */
+  listed: boolean;
 };
 
 /**
@@ -16,7 +18,7 @@ export function getSections(entry: CollectionEntry<'pages'>): PageSection[] {
   const ast = Markdoc.parse(entry.body ?? '');
   return [...ast.walk()].reduce((sections, node) => {
     if (node.type !== 'tag' || node.tag !== 'section') return sections;
-    const { id, title } = node.attributes as Partial<PageSection>;
+    const { id, title, listed = true } = node.attributes as Partial<PageSection>;
     if (id === undefined || title === undefined) return sections;
 
     // the teasers are nested in the section, their scope tells what it lists
@@ -26,6 +28,6 @@ export function getSections(entry: CollectionEntry<'pages'>): PageSection[] {
       return scope === undefined ? scopes : [...scopes, scope];
     }, [] as string[]);
 
-    return [...sections, { id, title, scopes }];
+    return [...sections, { id, title, scopes, listed }];
   }, [] as PageSection[]);
 }

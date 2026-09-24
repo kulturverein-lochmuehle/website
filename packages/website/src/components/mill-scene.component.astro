@@ -1,0 +1,90 @@
+---
+import { getMillScenes } from '@/utils/scene.utils.js';
+
+// every overview goes out with the page, and the visitor's own day and hour
+// pick one - until then, and without a script, the loader's empty brook
+const mill = getMillScenes();
+const data = JSON.stringify({
+  daylight: mill.daylight,
+  scenes: Object.fromEntries(
+    Object.entries(mill.scenes).map(([key, { src, size }]) => [key, { src, size }]),
+  ),
+});
+---
+
+<kvlm-mill-scene data-mill={data}>
+  <kvlm-scene loader loading="lazy" autoplay="60"></kvlm-scene>
+</kvlm-mill-scene>
+
+<script>
+  import { christmasTime } from '@/utils/advent.utils.js';
+
+  type Pick = { src: string; size: number };
+  type Mill = { daylight: Record<string, [number, number]>; scenes: Record<string, Pick> };
+
+  // the mill's clock, whatever the visitor's is
+  const clock = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Berlin',
+    year: 'numeric',
+    day: 'numeric',
+    month: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hourCycle: 'h23',
+  });
+
+  /**
+   * The overview for now: the season by the months - or Christmas, from the
+   * day after Totensonntag to Epiphany - and the day while it is light.
+   */
+  function pick({ daylight, scenes }: Mill, now = new Date()): Pick | undefined {
+    const parts = Object.fromEntries(clock.formatToParts(now).map(({ type, value }) => [type, value]));
+    const month = Number(parts['month']);
+    const hour = Number(parts['hour']) + Number(parts['minute']) / 60;
+    const season = ['winter', 'spring', 'summer', 'autumn'][Math.floor((month % 12) / 3)] ?? 'summer';
+    const [from, until] = daylight[season] ?? [7, 19];
+    const time = hour >= from && hour < until ? 'day' : 'night';
+    const christmas = christmasTime(Number(parts['year']), month, Number(parts['day']));
+    return (christmas ? scenes[`christmas-${time}`] : undefined) ?? scenes[`${season}-${time}`];
+  }
+
+  /**
+   * Hands the scene inside the overview for now, once it is hydrated - set
+   * before, the markup it adopts from the build would not be its own. Each
+   * time it is put on a page: the router brings the page back without
+   * loading it again.
+   */
+  class MillScene extends HTMLElement {
+    async connectedCallback(): Promise<void> {
+      const scene = this.querySelector('kvlm-scene');
+      const chosen = pick(JSON.parse(this.dataset['mill'] ?? '{}') as Mill);
+      if (scene === null || chosen === undefined) {
+        return;
+      }
+      await customElements.whenDefined('kvlm-scene');
+      if (scene.hasAttribute('defer-hydration')) {
+        await new Promise<void>(resolve => {
+          const watch = new MutationObserver(() => {
+            if (!scene.hasAttribute('defer-hydration')) {
+              watch.disconnect();
+              resolve();
+            }
+          });
+          watch.observe(scene, { attributes: true, attributeFilter: ['defer-hydration'] });
+        });
+      }
+      // the size first: the file is asked for once the source is set
+      Object.assign(scene, { size: chosen.size, src: chosen.src });
+    }
+  }
+
+  if (customElements.get('kvlm-mill-scene') === undefined) {
+    customElements.define('kvlm-mill-scene', MillScene);
+  }
+</script>
+
+<style>
+  kvlm-mill-scene {
+    display: contents;
+  }
+</style>

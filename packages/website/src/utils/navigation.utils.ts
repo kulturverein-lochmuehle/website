@@ -52,10 +52,12 @@ export async function prepareNavigation(
     if (item.useSections) {
       return [
         ...items,
-        ...getSections(page).map(section => ({
-          ...prepareLink(`${page.id}/${section.id}`, current, marked),
-          label: section.title,
-        })),
+        ...getSections(page)
+          .filter(({ listed }) => listed)
+          .map(section => ({
+            ...prepareLink(`${page.id}/${section.id}`, current, marked),
+            label: section.title,
+          })),
       ];
     }
 

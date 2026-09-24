@@ -1,5 +1,8 @@
 ---
+import MillScene from '@/components/mill-scene.component.astro';
+import Scene from '@/components/scene.component.astro';
 import { withBase } from '@/utils/base.utils.js';
+import type { Scene as Baked } from '@/utils/scene.utils.js';
 import { documentTitle } from '@/utils/title.utils.js';
 
 export type Props = {
@@ -9,9 +12,16 @@ export type Props = {
   id?: string;
   title: string;
   theme: 'light' | 'dark';
+  /**
+   * the scene the section is: the mill coming up the road, as it looks now,
+   * or a view of its own - an event's
+   */
+  scene?: 'mill' | Baked | undefined;
+  /** whether the menu lists the section, read off the page by the navigation */
+  listed?: boolean;
 };
 
-const { page, id, theme, title } = Astro.props;
+const { page, id, scene, theme, title } = Astro.props;
 
 // the layout matches section ids against `location.pathname`, so the
 // anchor has to carry the base path as well
@@ -37,8 +47,52 @@ const style = Object.entries(themes[theme] ?? themes.dark)
   .join(';');
 ---
 
-<kvlm-section id={anchor} style={style} data-router-title={documentTitle(title)}>
+<kvlm-section
+  id={anchor}
+  style={style}
+  data-router-title={documentTitle(title)}
+  scenic={scene === undefined ? undefined : ''}
+>
+  {
+    scene !== undefined && (
+      <div slot="scene" class="scene">
+        {scene === 'mill' ? <MillScene /> : <Scene scene={scene} />}
+      </div>
+    )
+  }
   <kvlm-typo>
     <slot />
   </kvlm-typo>
+  {
+    // the welcome is the scene alone: something has to say there is more below
+    scene === 'mill' && <kvlm-scroll-down class="more" label="Weiter nach unten" />
+  }
 </kvlm-section>
+
+<style>
+  /* at the bottom of the section, right under the menu's arrow while there is
+     one so the two line up, and at the content's right edge where the menu
+     ends once it is a bar */
+  .more {
+    position: absolute;
+    /* its middle under the middle of the menu's arrow while that shows,
+       which stands 4 from the edge and is 1.64 wide - the button is 6.4 */
+    ---kvlm-more-inset: calc((4 + 1.64 / 2 - 6.4 / 2) * var(--kvlm-base-size-layout));
+
+    /* as far off the bottom as off the right */
+    right: var(---kvlm-more-inset);
+    bottom: var(---kvlm-more-inset);
+
+    @container (--from-lg) {
+      ---kvlm-more-inset: calc(5 * var(--kvlm-base-size-layout));
+    }
+  }
+
+  /* the scene is the whole of the section, as it is drawn: nothing over it */
+  .scene :global(kvlm-scene) {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>

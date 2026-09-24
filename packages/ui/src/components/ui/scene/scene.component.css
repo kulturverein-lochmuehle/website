@@ -1,0 +1,95 @@
+:host {
+  display: block;
+  /* the blurred backdrop reaches past the edges */
+  overflow: hidden;
+  /* without a height from the page it takes the shape the view was composed in */
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+canvas {
+  display: block;
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+/* the poster is the view's first frame as an image, in the same place: the
+   canvas is drawn over it and fades in once there is something on it. The
+   view keeps its width across whatever shape it is given and shows more or
+   less above and below, so the frame lies as wide as the element and
+   centred in its height - covered, it was cut at the sides and enlarged,
+   and the view did not take up from it */
+.poster {
+  display: block;
+  height: auto;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+/* or the loader: the logo's brook on the header's gradient, filling as the
+   view comes in, and faded out under it once it is drawn */
+.loader {
+  display: grid;
+  inset: 0;
+  place-items: center;
+  position: absolute;
+
+  background-image: linear-gradient(
+    150deg,
+    var(--kvlm-color-turquoise, #75f0de),
+    var(--kvlm-color-spray, #6fbad9)
+  );
+
+  kvlm-logo {
+    /* as the header's logo fills while a page loads: white, filling dark */
+    --kvlm-logo-brook-color: #fff;
+    --kvlm-logo-typo-color: var(--kvlm-color-grey-dark, #000);
+
+    display: block;
+    height: calc(4.2 * var(--kvlm-base-size-layout, 10px));
+  }
+}
+
+.loader ~ canvas {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+
+  &[data-drawn] {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* and a taller element than the frame is filled above and below by the
+   same image, blurred, until the view comes to show what is there */
+.backdrop {
+  display: block;
+  filter: blur(calc(2 * var(--kvlm-base-size-layout, 10px)));
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  transform: scale(1.1);
+  width: 100%;
+}
+
+.poster ~ canvas {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+
+  &[data-drawn] {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

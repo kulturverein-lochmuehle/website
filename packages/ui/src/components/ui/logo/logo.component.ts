@@ -1,10 +1,20 @@
 import type { PropertyValues } from 'lit';
-import { html, LitElement } from 'lit';
+import { html, LitElement, nothing, svg } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import styles from './logo.component.css?inline&lit';
+
+/**
+ * The brook's course: a line down its middle, from its source to its mouth,
+ * worked out off the two banks of its outline - which keeps an even width of
+ * 5.15 along it. The brook is drawn as a stroke along this, kept to the
+ * banks, and the fill as the same stroke over it - one shape in two colours,
+ * the fill run down it rather than swept across.
+ */
+const COURSE =
+  'M0.1 33.4 0.3 33.2 0.9 32.8 2.0 32.6 3.4 33.5 5.4 35.2 8.2 36.4 11.2 36.7 13.8 36.4 16.1 35.8 18.2 35.2 20.1 34.7 21.9 34.6 23.6 34.7 25.1 35.3 26.9 36.3 28.9 37.5 31.0 38.7 33.2 39.6 35.4 40.5 37.7 41.3 40.0 41.9 42.3 42.4 44.6 42.8 46.9 43.1 49.3 43.3 51.6 43.4 54.0 43.3 56.4 43.2 58.8 42.8 61.2 42.4 63.5 41.8 65.8 41.0 68.1 40.1 70.3 38.8 72.4 37.3 74.3 35.4 75.8 33.4 77.1 31.1 78.0 28.7 78.6 26.4 79.0 24.6 79.7 23.4 80.8 22.6 82.2 22.1 83.9 21.9 85.8 21.9 87.7 22.2 89.6 22.8 91.5 23.5 93.6 24.4 95.8 25.3 98.1 26.0 100.6 26.5 103.3 26.6 106.2 26.1 108.8 24.7 110.8 22.7 112.4 20.6 113.5 18.4 114.4 16.3 115.3 14.3 116.2 12.5 117.2 10.9 118.3 9.7 119.5 8.9 121.0 8.5 122.5 8.5 124.0 9.0 125.4 9.8 127.4 11.1 130.3 12.5 132.9 12.6 135.0 12.1 137.0 11.7 139.1 11.4 141.2 11.3 143.3 11.2 145.4 11.3 147.5 11.5 149.6 11.9 151.7 12.3 153.7 12.9 155.7 13.5 157.7 14.3 159.8 15.1 161.8 16.0 163.9 16.9 165.8 17.8 167.9 18.7 170.0 19.7 172.1 20.6 174.2 21.4 176.4 22.2 178.6 23.0 180.8 23.6 183.1 24.2 185.4 24.7 187.7 25.2 190.0 25.6 192.3 25.9 194.6 26.1 196.9 26.2 199.3 26.3 201.7 26.3 204.2 26.1 207.0 25.3 209.4 23.6 211.1 21.8 212.4 20.4 213.7 19.4 215.3 18.7 217.0 18.2 219.0 18.0 221.2 17.9 223.4 17.9 225.6 17.9 227.8 18.0 230.0 18.1 232.1 18.3 234.3 18.5 236.6 18.7 239.2 18.8 242.0 18.3 244.2 17.8 245.4 18.1 245.9 18.8 246.2 19.6';
 
 /** As long as the fill takes to fade once it is no longer reporting anything. */
 const FADE = 400;
@@ -23,6 +33,13 @@ export class Logo extends LitElement {
    */
   @property({ reflect: true, type: Number })
   loaded?: number | null;
+
+  /**
+   * The loader alone: the brook without the typography, to fill by `loaded`
+   * on its own.
+   */
+  @property({ reflect: true, type: Boolean, attribute: 'loaded-only' })
+  loadedOnly = false;
 
   /**
    * Where the fill stood when it stopped reporting. It stays there and fades,
@@ -77,7 +94,7 @@ export class Logo extends LitElement {
     return html`
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 246.2 46.1"
+        viewBox="${this.loadedOnly ? '0 4 246.2 42.1' : '0 0 246.2 46.1'}"
         preserveAspectRatio="xMidYMid meet"
         class="${classMap({ filling, fading, backwards })}"
         style="${styleMap({ '---kvlm-logo-loaded': loaded?.toString() })}"
@@ -87,13 +104,17 @@ export class Logo extends LitElement {
             id="brook"
             d="M52.2 46c-9.8 0-20.3-2.8-27.8-8.2-1.7-1.3-3.9-.7-7.3.4-4.9 1.5-11.6 3.5-17.1-4.9l4.3-2.8c3.2 5 6.1 4.3 11.3 2.7 3.7-1.1 7.9-2.4 11.8.4A43.5 43.5 0 0 0 66 38.3c6-2.7 9.5-7.1 10.2-13.2a6.2 6.2 0 0 1 3.2-4.8c4.1-2.3 10.7-.4 13.1.8 5.7 2.9 10.1 3.8 13.1 2.7 3.4-1.2 5-5.1 6.6-8.8 1.6-3.7 3.2-7.4 6.6-8.8a8.8 8.8 0 0 1 6.9.6 9.6 9.6 0 0 1 3.5 3.1l.8.9c15.5-5 25.7-.5 36.4 4.4a74.3 74.3 0 0 0 37 8.5c3 0 3.8-1 5.1-2.8 1.6-2.3 4-5.3 10.6-5.5a106.3 106.3 0 0 1 16.6.6c3.5.5 4.5.6 8.6-1l1.9 4.7c-5 2-7 2-11.1 1.5a101.2 101.2 0 0 0-15.8-.6c-4.2 0-5.3 1.4-6.6 3.3-1.5 2-3.6 4.8-9 5-18 .7-29.4-4.4-39.4-9-10.8-4.8-19.3-8.7-33-4.1-3.2 1-5.1-1.4-6.1-2.7a5.7 5.7 0 0 0-1.6-1.6 4 4 0 0 0-3-.4c-1.3.5-2.5 3.2-3.7 5.9-1.8 4.3-4 9.6-9.5 11.6-4.4 1.7-10 .7-17.2-2.9-2-1-6.6-1.9-8.4-.9a1 1 0 0 0-.5 1A21 21 0 0 1 68 43a39.5 39.5 0 0 1-15.9 3Z"
           />
-          <clipPath id="loaded">
-            <rect class="loaded" x="0" y="0" width="246.2" height="46.1" />
+          <clipPath id="banks">
+            <use href="#brook" />
           </clipPath>
         </defs>
 
-        <use href="#brook" class="brook" />
-        <use href="#brook" class="brook brook--loaded" clip-path="url(#loaded)" />
+        <path class="brook" d=${COURSE} clip-path="url(#banks)" />
+        <path class="brook--loaded" d=${COURSE} pathLength="100" clip-path="url(#banks)" />
+        ${
+          this.loadedOnly
+            ? nothing
+            : svg`
         <path d="M7.8 0h5.1v7l4.2-7h6l-5.5 8.5 6 10.1h-6l-4.6-8v8H7.7Z" />
         <path
           d="M36.7 19.1a9.3 9.3 0 0 1-3.2-.5 7.4 7.4 0 0 1-2.5-1.5 6.7 6.7 0 0 1-1.6-2.3 7.9 7.9 0 0 1-.6-3.2V0h5.1v11.9a2.8 2.8 0 0 0 .2 1.2 2.2 2.2 0 0 0 .6.8 2.6 2.6 0 0 0 1 .4 3.5 3.5 0 0 0 2 0 2.5 2.5 0 0 0 .8-.4 2.2 2.2 0 0 0 .6-.8 2.8 2.8 0 0 0 .3-1.2V0h5.1v11.6a8 8 0 0 1-.6 3.2 6.8 6.8 0 0 1-1.6 2.3 7.4 7.4 0 0 1-2.5 1.5 9.3 9.3 0 0 1-3.1.5Z"
@@ -129,6 +150,8 @@ export class Logo extends LitElement {
         <path
           d="M169.9 0h7.2a7.4 7.4 0 0 1 2.6.4 6.1 6.1 0 0 1 2 1.2 5.7 5.7 0 0 1 1.4 1.9 6.3 6.3 0 0 1 .2 4.3 4.5 4.5 0 0 1-.7 1.4 4.7 4.7 0 0 1-1 1 7.8 7.8 0 0 1-1.3.7l4.9 7.7h-6l-4-7h-.1v7h-5.2Zm6.2 7.8a3 3 0 0 0 1.7-.5 1.5 1.5 0 0 0 .6-1.4 1.5 1.5 0 0 0-.6-1.4 3 3 0 0 0-1.7-.4h-1v3.7Z"
         />
+        `
+        }
       </svg>
     `;
   }

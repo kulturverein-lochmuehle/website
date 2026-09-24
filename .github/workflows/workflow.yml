@@ -46,6 +46,9 @@ jobs:
           PW_VERSION: ${{ steps.playwright.outputs.version }}
         run: bunx playwright@$PW_VERSION install chromium --only-shell
 
+      # the editor is linted and tested against the model as it is built
+      - name: Build the 3D model
+        run: bun run --filter @kvlm/visualization build
       - name: Lint
         run: bun run lint --format junit --output-file ${ESLINT_JUNIT_OUTPUT_FILE}
       - name: Test
