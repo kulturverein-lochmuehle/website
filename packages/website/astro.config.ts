@@ -32,7 +32,13 @@ export default defineConfig({
     // shorthand, which no browser accepts - esbuild leaves it alone
     build: { cssMinify: 'esbuild' },
     // resolve aliases
-    resolve: { alias: { '@': new URL('./src', import.meta.url).pathname } },
+    // and the baked 3D views, as the model's package builds them
+    resolve: {
+      alias: {
+        '@': new URL('./src', import.meta.url).pathname,
+        '@views': new URL('../visualization/dist/views', import.meta.url).pathname,
+      },
+    },
     // the component sheets are lit `css` templates, not page styles
     plugins: [litCss()],
   },

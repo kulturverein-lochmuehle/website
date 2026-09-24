@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/base.layout.astro';
+
+// The model's editor, as its own app runs it on the bench: the seam, the
+// brushes, the reference points, the layers and the seasons. Drawn on the
+// visitor's machine from the model itself rather than from a bake, so it
+// takes a while to come up.
+---
+
+<BaseLayout pageTitle="Lochmühle in 3D: Editor">
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
+  <kvlm-editor></kvlm-editor>
+
+  <style is:global>
+    body {
+      /* the scene is the page, the site's gradient would only shine through
+         the corners the terrain leaves empty */
+      background-color: var(--kvlm-color-grey-light);
+    }
+  </style>
+
+  <script>
+    import '@kvlm/editor';
+  </script>
+</BaseLayout>

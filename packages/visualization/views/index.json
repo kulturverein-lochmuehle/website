@@ -1,0 +1,95 @@
+[
+  {
+    "name": "20260926-street-still",
+    "title": "From the street, still",
+    "kind": "still",
+    "file": "20260926-street-still.view.bin",
+    "triangles": 32992,
+    "groups": 6,
+    "bytes": 406318,
+    "seasons": {
+      "summer": {
+        "file": "20260926-street-still.view.bin",
+        "triangles": 32992,
+        "bytes": 406318
+      },
+      "spring": {
+        "file": "20260926-street-still.spring.view.bin",
+        "triangles": 32992,
+        "bytes": 407572
+      },
+      "autumn": {
+        "file": "20260926-street-still.autumn.view.bin",
+        "triangles": 32992,
+        "bytes": 409937
+      },
+      "winter": {
+        "file": "20260926-street-still.winter.view.bin",
+        "triangles": 41147,
+        "bytes": 621467
+      }
+    }
+  },
+  {
+    "name": "20260926-road-path",
+    "title": "Along the road, moving",
+    "kind": "path",
+    "file": "20260926-road-path.view.bin",
+    "triangles": 92831,
+    "groups": 5,
+    "bytes": 1129281,
+    "seasons": {
+      "summer": {
+        "file": "20260926-road-path.view.bin",
+        "triangles": 92831,
+        "bytes": 1129281
+      },
+      "spring": {
+        "file": "20260926-road-path.spring.view.bin",
+        "triangles": 92831,
+        "bytes": 1131986
+      },
+      "autumn": {
+        "file": "20260926-road-path.autumn.view.bin",
+        "triangles": 92831,
+        "bytes": 1147173
+      },
+      "winter": {
+        "file": "20260926-road-path.winter.view.bin",
+        "triangles": 110966,
+        "bytes": 1714021
+      }
+    }
+  },
+  {
+    "name": "20260926-whole-free",
+    "title": "The whole model, free",
+    "kind": "free",
+    "file": "20260926-whole-free.view.bin",
+    "triangles": 213108,
+    "groups": 5,
+    "bytes": 1991189,
+    "seasons": {
+      "summer": {
+        "file": "20260926-whole-free.view.bin",
+        "triangles": 213108,
+        "bytes": 1991189
+      },
+      "spring": {
+        "file": "20260926-whole-free.spring.view.bin",
+        "triangles": 213108,
+        "bytes": 2001815
+      },
+      "autumn": {
+        "file": "20260926-whole-free.autumn.view.bin",
+        "triangles": 213108,
+        "bytes": 2036587
+      },
+      "winter": {
+        "file": "20260926-whole-free.winter.view.bin",
+        "triangles": 243980,
+        "bytes": 2717075
+      }
+    }
+  }
+]

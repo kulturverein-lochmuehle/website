@@ -1,0 +1,112 @@
+---
+import views from '@kvlm/visualization/views/index.json';
+
+import BaseLayout from '@/layouts/base.layout.astro';
+
+// one page a baked view, at the view's own name - the file it is drawn from
+// carries the same one
+export function getStaticPaths() {
+  const files = import.meta.glob<string>('@views/*.view.bin', {
+    query: '?url',
+    import: 'default',
+    eager: true,
+  });
+  const urlOf = (file: string) =>
+    Object.entries(files).find(([path]) => path.endsWith(`/${file}`))?.[1];
+  return views.map(view => ({
+    params: { view: view.name },
+    props: {
+      view,
+      src: urlOf(view.file),
+      // the same view in each season it was baked in, by where its file went
+      seasons: Object.entries(view.seasons).flatMap(([season, { file }]) => {
+        const url = urlOf(file);
+        return url === undefined ? [] : [{ season, url }];
+      }),
+    },
+  }));
+}
+
+const { view, src, seasons } = Astro.props;
+const LABELS: Record<string, string> = {
+  spring: 'Frühling',
+  summer: 'Sommer',
+  autumn: 'Herbst',
+  winter: 'Winter',
+};
+// in the order of the year
+const ORDER = ['spring', 'summer', 'autumn', 'winter'];
+const offered = [...seasons].sort((a, b) => ORDER.indexOf(a.season) - ORDER.indexOf(b.season));
+---
+
+<BaseLayout pageTitle={`Lochmühle in 3D: ${view.title}`}>
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
+  {
+    // a path view flies its path there and back by itself, once round in
+    // forty seconds - about a walk's pace
+    view.kind === 'path' ? <kvlm-scene src={src} autoplay="40" /> : <kvlm-scene src={src} />
+  }
+  <output id="timing"></output>
+  {
+    offered.length > 1 && (
+      <label id="season">
+        Jahreszeit
+        <select>
+          {offered.map(({ season, url }) => (
+            <option value={url} selected={season === 'summer'}>
+              {LABELS[season] ?? season}
+            </option>
+          ))}
+        </select>
+      </label>
+    )
+  }
+
+  <style is:global>
+    body {
+      background-color: var(--kvlm-color-grey-light);
+    }
+
+    #season {
+      display: flex;
+      gap: 0.5rem;
+      inset-block-start: 1rem;
+      inset-inline-end: 1rem;
+      position: fixed;
+    }
+
+    kvlm-scene {
+      aspect-ratio: auto;
+      height: 100svh;
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    import '@kvlm/ui/components/ui/scene/scene.component.js';
+
+    // the same view in another season is another file, drawn in its place
+    document.querySelector('#season select')?.addEventListener('change', event => {
+      const scene = document.querySelector('kvlm-scene');
+      const { value } = event.target as HTMLSelectElement;
+      if (scene !== null && value !== '') {
+        scene.setAttribute('src', value);
+      }
+    });
+
+    // how long the view took from the element's start to its first frame
+    document.querySelector('kvlm-scene')?.addEventListener('kvlm-scene-rendered', event => {
+      const { milliseconds, triangles, groups } = (
+        event as CustomEvent<{ milliseconds: number; triangles: number; groups: number }>
+      ).detail;
+      const output = document.querySelector('output#timing');
+      if (output !== null) {
+        // its own time, and the page's since it was asked for
+        output.textContent =
+          `${Math.round(milliseconds)} ms (${Math.round(performance.now())} ms since navigation)` +
+          ` · ${triangles} triangles · ${groups} draw calls`;
+      }
+    });
+  </script>
+</BaseLayout>

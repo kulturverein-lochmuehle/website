@@ -1,0 +1,12 @@
+:host {
+  /* the scene fills whatever room it is given. Without a height from the page
+     it stays square, which is the shape the map was composed in */
+  aspect-ratio: 1;
+  display: block;
+}
+
+canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+}

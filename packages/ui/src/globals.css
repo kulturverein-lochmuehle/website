@@ -11,6 +11,13 @@
      missing - the turquoise stays free for marking things out */
   --kvlm-color-brick: #cf6a52;
 
+  /* the woods of the valley in autumn and under snow, for the 3D scene: the
+     beeches go gold and orange, the oaks a rusty brown */
+  --kvlm-color-autumn-gold: #d6a032;
+  --kvlm-color-autumn-orange: #c96a26;
+  --kvlm-color-autumn-rust: #7e4424;
+  --kvlm-color-snow: #f4f7f9;
+
   /* fonts */
   --kvlm-font-family-body: 'Fundamental Brigade', sans-serif;
   --kvlm-font-family-title: 'Super Grotesk', sans-serif;

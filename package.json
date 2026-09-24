@@ -17,8 +17,12 @@
     "check": "bun run --filter '*' check",
     "lint": "bun run --filter '*' lint",
     "test": "bun run --filter '*' test",
-    "dev": "logbox bun run --filter '*' dev",
-    "build": "bun run --filter '*' build"
+    "dev": "bun run --sequential dev:model dev:all",
+    "build": "bun run --sequential build:website build:editor",
+    "dev:model": "bun run --filter @kvlm/visualization build",
+    "dev:all": "logbox bun run --parallel --filter '*' dev",
+    "build:website": "bun run --filter @kvlm/website build",
+    "build:editor": "bun run --filter @kvlm/editor build"
   },
   "devDependencies": {
     "@enke.dev/logbox": "0.0.7",
