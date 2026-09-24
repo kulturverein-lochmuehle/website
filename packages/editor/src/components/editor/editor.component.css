@@ -1,0 +1,138 @@
+:host {
+  display: block;
+}
+
+kvlm-editor-viewport {
+  display: block;
+  height: 100svh;
+  /* a drag is a camera move, never a page scroll or a pinch */
+  touch-action: none;
+  width: 100%;
+}
+
+/* the panels float over the scene, which is the page */
+#camera,
+#path,
+#brush {
+  backdrop-filter: blur(0.5rem);
+  background-color: rgb(255 255 255 / 0.75);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  position: fixed;
+}
+
+#camera {
+  bottom: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  inset-inline: 1rem;
+  margin: 0 auto;
+  max-width: 34rem;
+}
+
+/* the camera's three numbers on the left, what can be hidden beside them */
+#sliders {
+  display: grid;
+  flex: 1;
+  gap: 0.5rem 1rem;
+  grid-template-columns: auto 1fr 4ch;
+}
+
+#layers {
+  align-content: start;
+  display: grid;
+  gap: 0.5rem 0.5rem;
+  grid-template-columns: auto auto;
+}
+
+#layers input {
+  margin: 0;
+}
+
+#camera output {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+header strong {
+  flex: 1;
+}
+
+/* what was clicked together on the model, ready to be pasted back */
+#path {
+  display: grid;
+  gap: 0.5rem;
+  inset-block-start: 1rem;
+  inset-inline-end: 1rem;
+  max-block-size: 60svh;
+  width: 18rem;
+}
+
+#path pre {
+  font-size: 0.75rem;
+  margin: 0;
+  overflow: auto;
+}
+
+/* the landfill brush and the points, across from the seam */
+#brush {
+  display: grid;
+  gap: 0.5rem;
+  inset-block-start: 1rem;
+  inset-inline-start: 1rem;
+  width: 16rem;
+}
+
+#brushes {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem 0.75rem;
+  grid-template-columns: auto 1fr 4ch;
+}
+
+#tools {
+  display: grid;
+  gap: 0.25rem;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#tools button[aria-pressed='true'] {
+  background-color: var(--kvlm-color-spray);
+  color: white;
+}
+
+#point-list {
+  display: grid;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  gap: 0.25rem;
+  margin: 0;
+  max-block-size: 30svh;
+  overflow: auto;
+  padding: 0;
+}
+
+#point-list li {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 3ch 1fr 7ch auto;
+}
+
+#point-list input {
+  font: inherit;
+  min-width: 0;
+}
+
+#brushes output,
+#brushed {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}

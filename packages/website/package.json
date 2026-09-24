@@ -11,12 +11,13 @@
   "type": "module",
   "scripts": {
     "check": "astro check",
-    "dev": "astro dev --host",
-    "build": "astro build",
+    "dev": "bun run --cwd ../visualization build && astro dev --host",
+    "build": "bun run --cwd ../visualization build && astro build",
     "preview": "astro build && astro preview"
   },
   "dependencies": {
     "@kvlm/ui": "workspace:*",
+    "@kvlm/visualization": "workspace:*",
     "lit": "3.3.3",
     "marked": "18.0.13",
     "node-ical": "0.27.2"

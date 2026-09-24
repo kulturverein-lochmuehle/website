@@ -1,0 +1,20 @@
+[
+  {
+    "name": "20260926-street-still",
+    "title": "From the street, still",
+    "kind": "still",
+    "file": "20260926-street-still.view.bin",
+    "triangles": 12708,
+    "groups": 6,
+    "bytes": 148921
+  },
+  {
+    "name": "20260926-whole-free",
+    "title": "The whole model, free",
+    "kind": "free",
+    "file": "20260926-whole-free.view.bin",
+    "triangles": 104706,
+    "groups": 5,
+    "bytes": 831220
+  }
+]

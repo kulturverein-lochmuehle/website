@@ -1,6 +1,6 @@
 {
-  "name": "@kvlm/ui",
-  "description": "UI components for kvlm.de",
+  "name": "@kvlm/editor",
+  "description": "The editor of the Lochmühle's 3D model",
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
@@ -9,57 +9,38 @@
     "email": "david@kvlm.de"
   },
   "type": "module",
-  "files": [
-    "src"
-  ],
-  "exports": {
-    ".": "./src/index.ts",
-    "./*": "./src/*"
-  },
   "scripts": {
+    "dev": "bun run --cwd ../visualization build && vite --host",
+    "build": "bun run --cwd ../visualization build && tsc --noEmit && vite build",
+    "preview": "vite build && vite preview",
     "lint": "eslint",
     "test": "cross-env NODE_OPTIONS='--import tsx/esm' NODE_NO_WARNINGS=1 wtr --config .configs/web-test-runner.config.ts",
     "test:watch": "npm test -- --watch"
   },
   "dependencies": {
-    "@enke.dev/lit-utils": "0.6.1"
-  },
-  "peerDependencies": {
-    "element-internals-polyfill": "^3",
-    "lit": "^3",
-    "lodash-es": "^4.17",
-    "urlpattern-polyfill": "^10"
+    "@kvlm/ui": "workspace:*",
+    "@kvlm/visualization": "workspace:*",
+    "lit": "3.3.3",
+    "three": "0.186.0"
   },
   "devDependencies": {
     "@awmottaz/prettier-plugin-void-html": "2.3.0",
     "@enke.dev/lint": "0.13.13",
     "@esm-bundle/chai": "4.3.4-fix.0",
-    "@lit-labs/testing": "0.2.8",
-    "@lit/reactive-element": "2.1.2",
-    "@open-wc/semantic-dom-diff": "0.21.0",
     "@open-wc/testing": "5.0.0",
-    "@open-wc/testing-helpers": "3.0.1",
     "@remcovaes/web-test-runner-vite-plugin": "1.4.1",
     "@tsconfig/strictest": "2.0.8",
-    "@types/lodash-es": "4.17.12",
     "@types/mocha": "10.0.10",
     "@types/node": "24.13.4",
+    "@types/three": "0.186.0",
     "@web/test-runner": "1.0.0",
     "@web/test-runner-commands": "1.0.1",
     "@web/test-runner-playwright": "1.0.0",
-    "axe-core": "4.13.0",
-    "chai-a11y-axe": "1.5.0",
     "cross-env": "10.1.0",
-    "element-internals-polyfill": "3.0.2",
     "eslint": "10.10.0",
     "eslint-formatter-junit": "9.0.1",
     "jiti": "2.7.0",
-    "lit": "3.3.3",
-    "lit-element": "4.2.2",
-    "lit-html": "3.3.3",
-    "lodash-es": "4.18.1",
     "prettier": "3.9.8",
-    "tslib": "2.8.1",
     "tsx": "4.23.13",
     "typescript": "6.0.3",
     "vite": "8.3.0"

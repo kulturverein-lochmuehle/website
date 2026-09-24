@@ -6,8 +6,8 @@ export * from './components/features/timeline/timeline-item/timeline-item.compon
 export * from './components/layout/layout/layout.component.js';
 export * from './components/layout/section/section.component.js';
 export * from './components/ui/brook/brook.component.js';
-export * from './components/ui/houses/houses.component.js';
 export * from './components/ui/logo/logo.component.js';
+export * from './components/ui/scene/scene.component.js';
 export * from './components/ui/typo/typo.component.js';
 export * from './utils/crypto.utils.js';
 export * from './utils/custom-property.utils.js';

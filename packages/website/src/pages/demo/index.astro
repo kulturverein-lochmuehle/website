@@ -1,0 +1,56 @@
+---
+import views from '@kvlm/visualization/views/index.json';
+
+import BaseLayout from '@/layouts/base.layout.astro';
+import { withBase } from '@/utils/base.utils.js';
+
+// The baked 3D views to try out, not part of the site yet: nothing links
+// here, and the robots meta keeps it out of search engines. Each view is
+// listed by the bake, and shown at its own name.
+---
+
+<BaseLayout pageTitle="Lochmühle in 3D">
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+
+  <main>
+    <h1>Lochmühle in 3D</h1>
+    <ul>
+      {
+        views.map(({ name, title, kind, triangles, groups, bytes }) => (
+          <li>
+            <a href={withBase(`demo/${name}`)}>{title}</a>
+            <small>
+              {kind} · {triangles.toLocaleString('en')} triangles · {groups} draw calls ·{' '}
+              {Math.round(bytes / 1024)} KiB
+            </small>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+
+  <style>
+    main {
+      margin: 0 auto;
+      max-width: 40rem;
+      padding: 2rem 1rem;
+    }
+
+    ul {
+      display: grid;
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    small {
+      font-variant-numeric: tabular-nums;
+      opacity: 0.7;
+    }
+  </style>
+</BaseLayout>

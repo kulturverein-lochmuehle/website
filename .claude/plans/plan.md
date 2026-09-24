@@ -30,7 +30,7 @@ component package); it is kept for reference only. The production site
 | Package manager | bun workspaces (`bun.lock`); node still runs astro, eslint and the test runner |
 | Layout | app shell: `kvlm-layout` is a grid of header, content and footer, the content is the only scroll container and sections fill it with `min-height: 100%` |
 | Components | Lit, stay in `packages/ui`, consumed as **workspace source**, tree-shaken by the site build |
-| Lit SSR | no — `@astrojs/lit` is stale (4.3.0, Sep 2025, no Astro 7 peer). Content is light DOM, handle upgrade flash with `:not(:defined)` |
+| Lit SSR | **yes, `@lit-labs/ssr` directly** — `@astrojs/lit` is stale (4.3.0, Sep 2025, no Astro 7 peer), so `renderShadow()` in `src/utils/ssr.utils.ts` renders the tree into declarative shadow roots itself. Reversed 2026-09-22, see below |
 | Content format | flat frontmatter + **Markdoc** body (`@astrojs/markdoc` 2.0.9), files are `.mdoc` — the integration claims no other extension |
 | Tag surface | `{% section %}`, `{% teaser %}` — only `startseite.mdoc` uses them, a page without sections gets an implicit one themed by its frontmatter |
 | CMS | phase 1, Keystatic local mode preferred, format keeps Sveltia / Pages CMS open |
@@ -100,8 +100,9 @@ exact-version and minimum-release-age policies.
 Done when `bun run build` and `bun run --filter @kvlm/website preview` render
 the pages.
 
-**Done.** Components import their styles with `?inline`, which any vite
-consumer understands — no lit-css plugin needed to read the package as source.
+**Done**, then superseded on 2026-09-22: the styles are plain CSS and
+`vite-plugin-lit-css` turns the component sheets into lit `css` templates, so
+the `?inline` query and `unsafeCSS()` are gone. See `native-css.md`.
 
 ### 4. Content model
 
@@ -276,6 +277,41 @@ hosting untouched.
   the next DNS request.
 
 ## Notes worth not re-deriving
+
+- **Lit SSR is load-bearing, and the decision above was reversed.** Measured
+  2026-09-22 on the start page, with JavaScript switched off: rendered into
+  declarative shadow roots the page is complete — header, navigation, gradient,
+  timeline, footer. Without it there is no layout at all: `kvlm-layout`'s grid,
+  the header and the footer rows all live in a shadow root, so the document
+  collapses into every section's content stacked in one column with no
+  navigation. That is also what every first visit looks like until the module
+  arrives. The `:not(:defined)` mitigation the old row named was never written,
+  and could only have hidden content, never produced the layout.
+
+  It costs 5.7 KB gzipped per page (9.2 against 3.5 on the start page, 163 KB
+  against 24 KB across all 27) plus ~7.5 KB of hydration client. The lever on
+  page weight is elsewhere.
+
+- **The hydration handshake in `base.layout.astro` is three separate
+  requirements, and dropping any one of them makes every component render
+  twice** — which is exactly what happened until it was fixed:
+  1. `@lit-labs/ssr-client/lit-element-hydrate-support.js` only patches
+     `LitElement` if it is in place when `lit-element` evaluates. It never was:
+     in the build that module sits in the chunk the script imports, and the dev
+     server serves the component sheets — lit modules since the CSS migration —
+     as script tags ahead of it. So the patch is applied by hand, guarded by
+     `Object.hasOwn(LitElement, 'observedAttributes')`; reading the value would
+     throw on the un-finalized base class.
+  2. `@kvlm/ui` is imported **dynamically**, so every element is defined against
+     the patched base class.
+  3. Nothing on the client owns the SSR'd nodes — the page comes from a single
+     `render()` at the top — so the script clears `defer-hydration` itself, in
+     document order.
+
+- Chronicle entries live under `/veranstaltung/<id>`, not below the section
+  listing them: a section is decided by the date and changes when an entry
+  moves from upcoming to past, a url should not. The section is still read
+  from the teaser scopes, for the navigation mark and the back link.
 
 - Netlify free plan is credit-based: 300 credits/month, 15 per production
   deploy (~20 publishes), bandwidth 20 credits/GB, site pauses when exhausted.

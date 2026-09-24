@@ -8,8 +8,24 @@ Monorepo of the Kulturverein Lochmühle e.V. website.
 - Build all packages using `bun run build`.
 - Start the development servers using `bun run dev`.
 - Start the website development server using `bun run --filter @kvlm/website dev`.
+- Start the 3D editor using `bun run --filter @kvlm/editor dev`, then open
+  <http://localhost:5173/>.
 - Preview a build exactly as deployed using `bun run --filter @kvlm/website preview`,
   which builds first - the preview server only ever serves `dist/`.
+
+The packages:
+
+- `packages/ui` - the site's Lit components and styles.
+- `packages/website` - the Astro site.
+- `packages/visualization` - the Lochmühle's 3D model: its data, the terrain,
+  what stands on it, the bakes, a plain scene that renders it, and the views
+  baked for the site (`npm run data:views`), which `kvlm-scene` in
+  `packages/ui` draws - every view listed at `/demo`, each at `/demo/<name>`. It is built into `dist/` and used
+  from there only (`bun run --filter @kvlm/visualization build`); the editor's
+  and the website's `dev` and `build` build it first, and its own `dev`
+  rebuilds it on every change.
+- `packages/editor` - the editor of that model, a Vite app: the camera, the
+  seam's handles, the landfill brush and the reference points.
 
 The components are consumed as source, so the dev server picks up changes in
 `packages/ui` right away. Content loaders are different: they run once when

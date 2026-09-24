@@ -1,0 +1,11 @@
+html,
+body {
+  margin: 0;
+}
+
+body {
+  /* the scene is the page, the site's gradient would only shine through the
+     corners the terrain leaves empty */
+  background-color: var(--kvlm-color-grey-light);
+  font-family: var(--kvlm-font-family-body);
+}
