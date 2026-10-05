@@ -26,10 +26,10 @@
   },
   "devDependencies": {
     "@enke.dev/logbox": "0.0.7",
-    "eslint": "10.10.0",
+    "eslint": "10.11.0",
     "postcss": "8.5.28",
     "postcss-import": "17.0.0",
-    "prettier": "3.9.8",
+    "prettier": "3.9.9",
     "typescript": "6.0.3"
   },
   "author": {

@@ -26,28 +26,28 @@
     "@kvlm/ui": "workspace:*",
     "@kvlm/visualization": "workspace:*",
     "lit": "3.3.3",
-    "three": "0.186.0"
+    "three": "0.186.1"
   },
   "devDependencies": {
     "@awmottaz/prettier-plugin-void-html": "2.3.0",
-    "@enke.dev/lint": "0.13.13",
+    "@enke.dev/lint": "0.13.16",
     "@esm-bundle/chai": "4.3.4-fix.0",
     "@open-wc/testing": "5.0.0",
     "@remcovaes/web-test-runner-vite-plugin": "1.4.1",
     "@tsconfig/strictest": "2.0.8",
     "@types/mocha": "10.0.10",
-    "@types/node": "24.13.4",
+    "@types/node": "24.19.0",
     "@types/three": "0.186.0",
     "@web/test-runner": "1.0.0",
     "@web/test-runner-commands": "1.0.1",
     "@web/test-runner-playwright": "1.0.0",
     "cross-env": "10.1.0",
-    "eslint": "10.10.0",
+    "eslint": "10.11.0",
     "eslint-formatter-junit": "9.0.1",
     "jiti": "2.7.0",
-    "prettier": "3.9.8",
-    "tsx": "4.23.13",
+    "prettier": "3.9.9",
+    "tsx": "4.23.15",
     "typescript": "6.0.3",
-    "vite": "8.3.0"
+    "vite": "8.3.1"
   }
 }
