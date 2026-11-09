@@ -25,9 +25,9 @@
     "build:editor": "bun run --filter @kvlm/editor build"
   },
   "devDependencies": {
-    "@enke.dev/logbox": "0.0.7",
-    "eslint": "10.13.0",
-    "postcss": "8.5.31",
+    "@enke.dev/logbox": "0.0.8",
+    "eslint": "10.14.0",
+    "postcss": "8.5.32",
     "postcss-import": "17.0.1",
     "prettier": "3.9.10",
     "typescript": "6.0.3"
