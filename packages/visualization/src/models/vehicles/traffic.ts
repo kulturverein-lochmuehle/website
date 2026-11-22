@@ -65,6 +65,9 @@ export class Traffic {
   /** Where the rear axle was, and how far the car had got: it is drawn on from there. */
   #rear: { s: number; rear: Point } | undefined;
   #lit = false;
+  /** The drivers still to come this round, dealt from the end: each drives once before any drives again. */
+  #deck: Driver[] = [];
+  #dealt: Driver | undefined;
   /** Whether a car's shadow in the sun's map needs drawing again: it left or arrived. */
   dirty = false;
 
@@ -126,7 +129,7 @@ export class Traffic {
     }
     const dir = Math.random() < 0.5 ? 1 : -1;
     this.#route = driveRoute(dir);
-    this.#driving = this.#drivers[Math.floor(Math.random() * this.#drivers.length)];
+    this.#driving = this.#deal();
     this.#progress = 0;
     this.#rear = undefined;
     this.dirty = true;
@@ -137,6 +140,30 @@ export class Traffic {
     }
     this.#wake();
     this.tick(0);
+  }
+
+  /**
+   * The next driver, off a shuffled deck of them all: picked afresh every
+   * time, a car could stay away for many trips. Never the same car twice in
+   * a row across a shuffle either.
+   */
+  #deal(): Driver | undefined {
+    const deck = this.#deck;
+    if (deck.length === 0) {
+      // shuffled by a random key each, turned round if the one dealt last
+      // would come first again
+      deck.push(
+        ...this.#drivers
+          .map(driver => ({ driver, key: Math.random() }))
+          .sort((a, b) => a.key - b.key)
+          .map(({ driver }) => driver)
+      );
+      if (deck.length > 1 && deck.at(-1) === this.#dealt) {
+        deck.reverse();
+      }
+    }
+    this.#dealt = deck.pop();
+    return this.#dealt;
   }
 
   /** Drives on by a time, in seconds. */

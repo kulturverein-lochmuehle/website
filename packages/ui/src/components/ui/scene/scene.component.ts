@@ -1065,6 +1065,28 @@ export class Scene extends LitElement {
       // asked for less motion
       const traffic = still ? undefined : header.vehicles;
       const cars = [...new Set(batches.flatMap(({ vehicle }) => vehicle?.id ?? []))];
+      // the cars come round as a dealt deck, shuffled again once each has
+      // driven: picked afresh every time, a car could stay away for many
+      // trips. The same car never twice in a row across a shuffle either
+      const deck: string[] = [];
+      let dealt: string | undefined;
+      const deal = (): string | undefined => {
+        if (deck.length === 0) {
+          // shuffled by a random key each, turned round if the one dealt
+          // last would come first again
+          deck.push(
+            ...cars
+              .map(id => ({ id, key: Math.random() }))
+              .sort((a, b) => a.key - b.key)
+              .map(({ id }) => id)
+          );
+          if (deck.length > 1 && deck.at(-1) === dealt) {
+            deck.reverse();
+          }
+        }
+        dealt = deck.pop();
+        return dealt;
+      };
       const clock = () => (performance.now() - since) / 1000;
       // the tracks in the snow, laid as the cars drive: a stretch of one
       // wheel's an instance - its ends, when it was laid and how fresh - the
@@ -1212,7 +1234,7 @@ export class Scene extends LitElement {
       };
       // a car came by a while ago: its tracks half snowed over already
       const routes = header.vehicles?.routes ?? [];
-      const seed = cars[Math.floor(Math.random() * cars.length)];
+      const seed = deal();
       if (marks !== undefined && routes.length > 0 && seed !== undefined) {
         lay(driver(Math.floor(Math.random() * routes.length), seed), Infinity, -marks.life);
       }
@@ -1240,7 +1262,7 @@ export class Scene extends LitElement {
         }
         if (trips.trip === undefined && now >= trips.next) {
           const index = Math.floor(Math.random() * traffic.routes.length);
-          const id = cars[Math.floor(Math.random() * cars.length)];
+          const id = deal();
           if (traffic.routes[index] !== undefined && id !== undefined) {
             trips.trip = { id, started: now, car: driver(index, id) };
           }

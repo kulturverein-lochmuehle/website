@@ -53,10 +53,14 @@ function wheel(palette: Palette, x: number, side: 1 | -1, steers: boolean): Grou
   return group;
 }
 
-/** The E30, nose to +x, its middle at the origin, its wheels on y = 0. */
-/** The other paints an E30 drives in, besides the red it was baked with. */
-export const E30_PAINTS = ['#e4e2da', '#233a63', '#1f1f22'] as const;
+/**
+ * The other paints an E30 drives in, besides the red it was baked with: white,
+ * a mid blue and a light grey - nothing near black, which with its black
+ * bumpers and sills read as a dark lump on the road.
+ */
+export const E30_PAINTS = ['#e4e2da', '#4a6f9c', '#9a9fa3'] as const;
 
+/** The E30, nose to +x, its middle at the origin, its wheels on y = 0. */
 export function createE30(
   palette: Palette,
   paint: string = E30_SPEC.paint,
