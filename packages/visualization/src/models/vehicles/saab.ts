@@ -8,34 +8,20 @@ import {
   Vector3,
 } from 'three';
 
-import { SAAB_BAKED } from '../../data/saab.baked.js';
+import { SAAB_BAKED, SAAB_SPEC } from '../../data/saab.baked.js';
 import type { Palette } from '../../scene/palette.js';
 import { unpacked } from '../terrain/terrain.drawn.js';
 
 /**
- * The classic Saab 900 combi coupé, modelled to its blueprint and photos in
- * CAD (`scripts/saab.py`), its faces sorted into materials and thinned
- * (`scripts/saab_materials.py`, `scripts/saab_reduce.py`) and baked into
- * `data/saab.baked.ts` by `scripts/saab_bake.py`. Run that again after
- * changing the model; the palette lays the colours on.
+ * The classic Saab 900 combi coupé, remodelled by hand in Blender
+ * (`models/saab-900.blend`) and baked into `data/saab.baked.ts` by
+ * `scripts/cars/saab_blend_bake.py`, run by Blender itself. Run that again
+ * after changing the model; the faces take their material from their slot's
+ * name, the palette lays the colours on.
  */
 
-/** The car's measures in meters, as the model has them. */
-export const SAAB_900 = {
-  length: 4.68,
-  width: 1.69,
-  height: 1.425,
-  /** The axles' middles, from the tail. */
-  axles: [1.1245, 3.6415] as [number, number],
-  tyre: 0.2967,
-  tread: 0.195,
-  arch: 0.4046,
-  /** The track, wheel middle to wheel middle. */
-  track: 1.5084,
-} as const;
-
-/** What the model's tyres sink below its ground, lifted back out. */
-const LIFT = 0.0078;
+/** The car's measures in meters, as the model has them; the axles' middles from the tail, the track wheel middle to wheel middle. */
+export const SAAB_900 = SAAB_SPEC;
 
 /** Which palette colour each of the baked materials takes. */
 const COLORS: Record<keyof typeof SAAB_BAKED, keyof Palette> = {
@@ -43,8 +29,10 @@ const COLORS: Record<keyof typeof SAAB_BAKED, keyof Palette> = {
   glass: 'window',
   trim: 'trunk',
   tail_light: 'tailLight',
+  tail_light_dim: 'tailLight',
   head_light: 'snow',
-  plate: 'trunk',
+  head_light_dim: 'snow',
+  reverse: 'snow',
   tyre: 'ground',
   hub: 'granite',
   indicator: 'lantern',
@@ -77,9 +65,6 @@ function pick(
   return made;
 }
 
-/** The lower pieces of the tail lamps, the ones that light up: the upper ones are the indicators'. */
-const TAIL_LIT = 0.635;
-
 /** The other paints a Saab drives in, besides the palette's own aubergine. */
 export const SAAB_PAINTS = ['#2d4a3e', '#b8b8ae', '#26406b'] as const;
 
@@ -96,7 +81,7 @@ export function createSaab(palette: Palette, paint?: string, name = 'saab-900'):
       flatShading: true,
     });
   const add = (name: string, geometry: BufferGeometry, where: Group = car) => {
-    const mesh = new Mesh(geometry, material(name.replace(/_(dim)$/, '')));
+    const mesh = new Mesh(geometry, material(name));
     mesh.name = name;
     where.add(mesh);
   };
@@ -107,18 +92,6 @@ export function createSaab(palette: Palette, paint?: string, name = 'saab-900'):
       new BufferAttribute(new Float32Array(unpacked(data.positions)), 3)
     );
     geometry.setIndex(new BufferAttribute(new Uint16Array(unpacked(data.indices)), 1));
-    if (name === 'tail_light') {
-      // only the lower two of each side's pieces shine
-      add(
-        name,
-        pick(geometry, (_, corners) => corners.every(({ y }) => y < TAIL_LIT))
-      );
-      add(
-        'tail_light_dim',
-        pick(geometry, (_, corners) => corners.some(({ y }) => y >= TAIL_LIT))
-      );
-      return;
-    }
     if (name === 'tyre' || name === 'hub') {
       // the rear wheels stay as they are; each front wheel turns about its own middle
       add(
@@ -134,20 +107,16 @@ export function createSaab(palette: Palette, paint?: string, name = 'saab-900'):
         const group = turning ?? Object.assign(new Group(), { name: `front-wheel-${side}` });
         if (turning === undefined) {
           group.userData['steer'] = side;
-          group.position.set(middle.x, middle.y + LIFT, middle.z);
+          group.position.set(middle.x, middle.y, middle.z);
           car.add(group);
         }
-        add(name, wheel.translate(-middle.x, -middle.y, -middle.z), group);
+        // offset by the group's place (the tyre's middle), so a hub off it keeps its own
+        const { x, y, z } = group.position;
+        add(name, wheel.translate(-x, -y, -z), group);
       });
       return;
     }
     add(name, geometry);
-  });
-  // the body's parts sit a little high out of the ground, the tyres' sink lifted back
-  car.children.forEach(child => {
-    if (child.userData['steer'] === undefined) {
-      child.position.y = LIFT;
-    }
   });
   return car;
 }

@@ -17,3 +17,6 @@
 # ignore compressed dist files
 /*.tgz
 /*.tar.gz
+
+# Blender's backups of the models
+*.blend1
