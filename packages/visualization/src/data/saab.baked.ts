@@ -19,8 +19,7 @@ export const SAAB_BAKED = {
   tail_light_dim: {
     positions:
       'hiEQwKXlRD+OI8a+hiEQwKXlRD+UI8Y+OHIPwEcMJj8pfL6+OHIPwEcMJj8vfL4++QwPwKblRD/VFg2/+QwPwKXlRD/ZFg0/MnQOwEsMJj+4dQu/MnQOwEoMJj+8dQs/jgoNwKXlRD+tg8O+jgoNwKXlRD+zg8M+HsMMwCgzJj9i3Lu+HsMMwCgzJj9o3Ls+',
-    indices:
-      'BAAGAAIABAACAAAACAAAAAIACAACAAoABQABAAMABQADAAcACQALAAMACQADAAEA',
+    indices: 'BAAGAAIABAACAAAACAAAAAIACAACAAoABQABAAMABQADAAcACQALAAMACQADAAEA',
   },
   tail_light: {
     positions:
@@ -31,8 +30,7 @@ export const SAAB_BAKED = {
   reverse: {
     positions:
       '3IsOwH+vLz8qXA6/3IsOwH6vLz8uXA4/VFwOwEsMJj+C2A2/VFwOwEoMJj+G2A0/Mg8NwPqsLz8OiSu/Mg8NwPmsLz8SiSs/DNEMwEcMJj8cuyu/DNEMwEYMJj8guys/',
-    indices:
-      'BgACAAAABgAAAAQABwAFAAEABwABAAMA',
+    indices: 'BgACAAAABgAAAAQABwAFAAEABwABAAMA',
   },
   trim: {
     positions:
@@ -49,8 +47,7 @@ export const SAAB_BAKED = {
   head_light: {
     positions:
       '14wHQOW/OD9P7xq/14wHQOW/OD9N7xo/jAMKQLdnJT9CURu/jAMKQLZnJT8+URs/PGIKQOW/OD9cVae+PGIKQOW/OD9WVac+DmwLQLYdEj/i5Bq/DmwLQLUdEj/e5Bo//0gNQLdnJT9SxJ2+/0gNQLdnJT9MxJ0+YbIOQLUdEj/9A5W+YbIOQLUdEj/3A5U+',
-    indices:
-      'CAACAAAACAAAAAQACAAKAAYACAAGAAIACQAFAAEACQABAAMACQADAAcACQAHAAsA',
+    indices: 'CAACAAAACAAAAAQACAAKAAYACAAGAAIACQAFAAEACQABAAMACQADAAcACQAHAAsA',
   },
   head_light_dim: {
     positions:
@@ -78,4 +75,11 @@ export const SAAB_BAKED = {
   },
 } as const;
 
-export const SAAB_SPEC = {"length": 4.6753, "width": 1.7069, "height": 1.4685, "axles": [1.138, 3.6433], "tyre": 0.297, "track": 1.4478} as const;
+export const SAAB_SPEC = {
+  length: 4.6753,
+  width: 1.7069,
+  height: 1.4685,
+  axles: [1.138, 3.6433],
+  tyre: 0.297,
+  track: 1.4478,
+} as const;
