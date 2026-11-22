@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+
 import markdoc from '@astrojs/markdoc';
 import { defineConfig } from 'astro/config';
 import { loadEnv } from 'vite';
@@ -8,7 +10,7 @@ import { routeSizes } from './integrations/route-sizes.integration.js';
 // about `.env` files - so they are merged in before anything runs. The file
 // belongs to the workspace, not to this package, and bun only loads it when a
 // command starts at the root
-const root = new URL('../..', import.meta.url).pathname;
+const root = fileURLToPath(new URL('../..', import.meta.url));
 Object.assign(process.env, loadEnv(process.env.NODE_ENV ?? 'development', root, 'KVLM_'));
 
 // The deploy workflow passes both, locally the project page defaults apply.
@@ -35,8 +37,8 @@ export default defineConfig({
     // and the baked 3D views, as the model's package builds them
     resolve: {
       alias: {
-        '@': new URL('./src', import.meta.url).pathname,
-        '@views': new URL('../visualization/dist/views', import.meta.url).pathname,
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@views': fileURLToPath(new URL('../visualization/dist/views', import.meta.url)),
       },
     },
     // the component sheets are lit `css` templates, not page styles
