@@ -14,7 +14,7 @@ jobs:
       contents: write # push the update branch
       pull-requests: write # open the PR
     steps:
-      - uses: enke-dev/bumper@08e8feda41ae6e78341d787ac23b41441871a689 # 0.20.0
+      - uses: enke-dev/bumper@e2f786da90d2250fbe76dc89c709819e44433b81 # 0.21.2
         with:
           skip: github-actions # GITHUB_TOKEN can't push .github/workflows/ changes
           pr-labels: dependencies

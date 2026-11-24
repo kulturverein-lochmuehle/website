@@ -44,7 +44,7 @@
     "@tsconfig/strictest": "2.0.9",
     "@types/lodash-es": "4.17.12",
     "@types/mocha": "10.0.10",
-    "@types/node": "26.6.6",
+    "@types/node": "26.6.7",
     "@web/test-runner": "1.0.1",
     "@web/test-runner-commands": "1.1.0",
     "@web/test-runner-playwright": "1.0.2",
